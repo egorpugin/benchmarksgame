@@ -1,2 +1,6 @@
 .idea
 a.out
+sw.cpp
+*.lnk
+.sw*
+runner/sw
