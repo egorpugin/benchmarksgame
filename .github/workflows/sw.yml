@@ -15,6 +15,15 @@ jobs:
       shell: cmd
       run: mklink /D runner\sw sw\src
     - uses: ilammy/msvc-dev-cmd@v1
+    - name: dir
+      shell: cmd
+      run: DIR .
+    - name: dir
+      shell: cmd
+      run: DIR runner
+    - name: dir
+      shell: cmd
+      run: DIR runner\sw
     - run: cl -nologo -std:c++latest -EHsc -Irunner runner/runner.cpp advapi32.lib ole32.lib OleAut32.lib -link -OUT:runner.exe
     - run: runner.exe
     
