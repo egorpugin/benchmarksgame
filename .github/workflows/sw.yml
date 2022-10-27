@@ -10,7 +10,9 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: SoftwareNetwork/sw4
-        path: sw
-    - run: mklink /D runner/sw sw
+        path: sw        
+    - name: dir SYMLINK
+      shell: cmd
+      run: mklink /D runner/sw sw
     - uses: ilammy/msvc-dev-cmd@v1
     - run: cl -nologo -std:c++latest -EHsc -Irunner/sw/src runner/runner.cpp advapi32.lib ole32.lib OleAut32.lib -link -OUT:sw.exe
