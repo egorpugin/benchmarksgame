@@ -13,7 +13,7 @@ jobs:
         path: sw        
     - name: sw symlink
       shell: cmd
-      run: mklink /D runner\sw\src sw
+      run: mklink /D runner\sw sw\src
     - uses: ilammy/msvc-dev-cmd@v1
     - run: cl -nologo -std:c++latest -EHsc -Irunner runner/runner.cpp advapi32.lib ole32.lib OleAut32.lib -link -OUT:runner.exe
     - run: runner.exe
