@@ -13,7 +13,7 @@ jobs:
         path: sw        
     - name: sw symlink
       shell: cmd
-      run: mklink /D runner\sw sw\src
+      run: mklink /D %cd%\runner\sw %cd%\sw\src
     - uses: ilammy/msvc-dev-cmd@v1
     - name: dir
       shell: cmd
