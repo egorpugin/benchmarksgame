@@ -13,9 +13,8 @@ jobs:
         path: sw        
     - name: sw symlink
       shell: cmd
-      run: dir
-    - name: sw symlink
-      shell: cmd
       run: mklink /D runner\sw sw
     - uses: ilammy/msvc-dev-cmd@v1
-    - run: cl -nologo -std:c++latest -EHsc runner/runner.cpp advapi32.lib ole32.lib OleAut32.lib -link -OUT:sw.exe
+    - run: cl -nologo -std:c++latest -EHsc -Irunner runner/runner.cpp advapi32.lib ole32.lib OleAut32.lib -link -OUT:runner.exe
+    - run: runner.exe
+    
