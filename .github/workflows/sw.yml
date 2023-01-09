@@ -10,7 +10,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: SoftwareNetwork/sw2
-        path: sw        
+        path: sw
     - uses: ilammy/msvc-dev-cmd@v1
     - run: cl -nologo -std:c++latest -EHsc sw\src\main.cpp -link -OUT:sw.exe
     - run: .\sw.exe build
@@ -25,13 +25,13 @@ jobs:
     - uses: actions/checkout@v3
       with:
         repository: SoftwareNetwork/sw2
-        path: sw        
+        path: sw2
     - name: prepare
       run: |
         sudo dnf -y install gcc g++ fmt-devel
     - name: make_builder
       run: |
-        g++ -std=c++2b sw/src/*.cpp -o sw
+        g++ -std=c++2b sw2/src/*.cpp -o sw
     - name: run
       run: |
         ./sw test
