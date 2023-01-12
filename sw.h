@@ -12,8 +12,9 @@ void build(solution &s) {
 
 
     path p;
-    auto n = 10000000;
-    {
+    //auto n = 10000000;
+    auto n = 100000;
+    /*{
         auto c = fasta.add_test("test");
         c += n;
         p = c > "out.txt";
@@ -22,18 +23,22 @@ void build(solution &s) {
         auto c = revcomp.add_test("abc");
         c < p;
         c > "out.txt";
-    }
+    }*/
 
     {
         auto c = fasta.add_test();
         c += n;
-        //auto c2 = revcomp.add_test();
-        //c | c2;
+        auto c2 = revcomp.add_test();
+        c | c2;
+        auto c3 = revcomp.add_test();
+        c2 | c3;
+        auto c4 = revcomp.add_test();
+        c3 | c4;
     }
 
     {
-        auto c = fasta.add_test();
-        c += n;
+        //auto c = fasta.add_test();
+        //c += n;
         /*auto c2 = revcomp.add_test();
         c | c2;
         auto c3 = revcomp.add_test();
