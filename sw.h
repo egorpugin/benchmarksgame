@@ -10,10 +10,10 @@ void build(solution &s) {
             auto c = t.add_test();
             c.set_resource_pool(pool);
 
-            // data for revcomp
             if (dir == "fasta"s) {
                 c += 100000;
                 if (fn.filename() == "solution2.cpp") {
+                    // data for revcomp etc.
                     fasta_output = std::get<path>(c.out);
                 }
             } else if (dir == "reverse-complement"s) {
