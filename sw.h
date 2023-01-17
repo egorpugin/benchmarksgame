@@ -10,38 +10,19 @@ void build(solution &s) {
     //auto &t = s.add<test>();
     //t += fasta, 100000;
 
+    static resource_pool pool = 1;
 
     path p;
-    //auto n = 10000000;
-    auto n = 100000;
-    /*{
-        auto c = fasta.add_test("test");
-        c += n;
-        p = c > "out.txt";
+    auto n = 10000000;
+    // auto n = 100000;
+    auto f = fasta.add_test("test");
+    {
+        f += n;
+        f.set_resource_pool(pool);
     }
     {
-        auto c = revcomp.add_test("abc");
-        c < p;
-        c > "out.txt";
-    }*/
-
-    {
-        auto c = fasta.add_test();
-        c += n;
-        auto c2 = revcomp.add_test();
-        c | c2;
-        auto c3 = revcomp.add_test();
-        c2 | c3;
-        auto c4 = revcomp.add_test();
-        c3 | c4;
-    }
-
-    {
-        //auto c = fasta.add_test();
-        //c += n;
-        /*auto c2 = revcomp.add_test();
-        c | c2;
-        auto c3 = revcomp.add_test();
-        c | c3;*/
+        auto c = revcomp.add_test("test");
+        c < std::get<path>(f.out);
+        c.set_resource_pool(pool);
     }
 }
