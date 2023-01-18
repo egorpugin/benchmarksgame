@@ -23,7 +23,7 @@ void build(solution &s) {
                 c += 100000;
                 if (fn.filename() == "solution2.cpp") {
                     // data for revcomp etc.
-                    fasta_output = std::get<path>(c.out);
+                    fasta_output = c.out;
                 }
             } else if (dir == "reverse-complement"s) {
                 c < fasta_output;
