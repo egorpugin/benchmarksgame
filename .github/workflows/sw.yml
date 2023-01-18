@@ -12,7 +12,7 @@ jobs:
         repository: SoftwareNetwork/sw2
         path: sw
     - uses: ilammy/msvc-dev-cmd@v1
-    - run: cl -nologo -std:c++latest -EHsc sw\src\main.cpp -link -OUT:sw.exe
+    - run: cl -nologo -std:c++latest -EHsc -bigobj sw\src\main.cpp -link -OUT:sw.exe
     - run: .\sw.exe test
     
     - name: Publish Test Report
