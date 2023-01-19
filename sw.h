@@ -8,6 +8,9 @@ void build(solution &s) {
     for (auto &&dir : {"fasta"s, "reverse-complement"s}) {
         auto fulldir = s.source_dir / "problem" / dir / "solution";
         for (path fn : fs::recursive_directory_iterator{fulldir}) {
+            if (!fs::is_regular_file(fn) || fn.filename().string().starts_with(".")) {
+                continue;
+            }
             auto namep = fn.lexically_relative(fulldir);
             namep = namep.parent_path() / namep.stem();
             auto name = namep.string();
