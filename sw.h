@@ -19,7 +19,7 @@ void build(solution &s) {
             auto &t = s.add<executable>(dir + "."s + name);
             t += fn;
 
-            auto c = t.add_test();
+            auto c = t.add_test(dir + "."s + name);
             c.set_resource_pool(pool);
 
             if (dir == "fasta"s) {
