@@ -15,7 +15,8 @@ jobs:
     - run: cl -nologo -std:c++latest -EHsc -bigobj sw\src\main.cpp -link -OUT:sw.exe
     - run: .\sw.exe test
     
-    - uses: mikepenz/action-junit-report@v3
+    - name: ${{github.job}}-test-results
+      uses: mikepenz/action-junit-report@v3
       with:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -42,7 +43,8 @@ jobs:
       run: |
         ./sw test
             
-    - uses: mikepenz/action-junit-report@v3
+    - name: ${{github.job}}-test-results
+      uses: mikepenz/action-junit-report@v3
       with:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +70,8 @@ jobs:
       run: |
         ./sw test
         
-    - uses: mikepenz/action-junit-report@v3
+    - name: ${{github.job}}-test-results
+      uses: mikepenz/action-junit-report@v3
       with:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
