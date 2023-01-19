@@ -15,7 +15,7 @@ jobs:
     - run: cl -nologo -std:c++latest -EHsc -bigobj sw\src\main.cpp -link -OUT:sw.exe
     - run: .\sw.exe test
     
-    - name: ${{ github.job }}-test-results
+    - name: ${{ job.id }}-test-results
       uses: mikepenz/action-junit-report@v3
       with:
         check_name: ${{ github.job }}-test-results
@@ -72,7 +72,7 @@ jobs:
       run: |
         ./sw test
         
-    - name: ${{ github.job }}-test-results
+    - name: ${{ job.id }}-test-results
       uses: mikepenz/action-junit-report@v3
       with:
         check_name: ${{ github.job }}-test-results
