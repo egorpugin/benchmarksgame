@@ -15,7 +15,7 @@ jobs:
     - run: cl -nologo -std:c++latest -EHsc -bigobj sw\src\main.cpp -link -OUT:sw.exe
     - run: .\sw.exe test
     
-    - name: ${{job.name}}-test-results
+    - name: ${{ matrix.os }}-test-results
       uses: mikepenz/action-junit-report@v3
       with:
         check_name: ${{job.name}}-test-results
