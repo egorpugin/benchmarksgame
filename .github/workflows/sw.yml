@@ -15,7 +15,7 @@ jobs:
     - run: cl -nologo -std:c++latest -EHsc -bigobj sw\src\main.cpp -link -OUT:sw.exe
     - run: .\sw.exe test
     
-    - uses: mikepenz/action-junit-report@v3
+    - uses: egorpugin/benchmarksgame-action-junit-report@main
       with:
         check_name: ${{ github.job }}-test-results
         report_paths: .sw/test/results.xml
