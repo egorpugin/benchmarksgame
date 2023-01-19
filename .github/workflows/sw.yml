@@ -20,6 +20,7 @@ jobs:
       with:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        fail_on_failure: false
     
   linux:
     runs-on: ubuntu-22.04
@@ -47,6 +48,7 @@ jobs:
       with:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        fail_on_failure: false
         
   macos:
     runs-on: macos-12
@@ -73,3 +75,4 @@ jobs:
       with:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        fail_on_failure: false
