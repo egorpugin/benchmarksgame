@@ -49,6 +49,7 @@ jobs:
         report_paths: .sw/test/results.xml
         github_token: ${{ secrets.GITHUB_TOKEN }}
         fail_on_failure: false
+        detailed_summary: true
         
   macos:
     runs-on: macos-12
