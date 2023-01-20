@@ -1,14 +1,8 @@
-///bin/true;exec sw2 exec $0 -- "$@"
+#!/bin/sw
 
-#include <bits/stdc++.h>
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-using namespace std;
-using namespace std::literals;
-namespace fs = std::filesystem;
-using namespace fs;
 
 string open(auto &&fn) {
     auto fd = ::open(fn.string().c_str(), O_RDONLY);
