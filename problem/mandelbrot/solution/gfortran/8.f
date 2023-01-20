@@ -109,20 +109,20 @@ program mandelbrot
      ! Convert binary data to one big string
      allocate(character(len=i*width) :: char_output)
      char_output = transfer(buffer(1:i, :), char_output)
-     write(*, ʼ(a)ʼ, advance=ʼnoʼ) trim(header)
-     write(*, ʼ(a)ʼ, advance=ʼnoʼ) char_output
+     write(*, '(a)', advance='no') trim(header)
+     write(*, '(a)', advance='no') char_output
   case ("multiple_strings")
      ! This avoids problems with ifort for larger output sizes
      allocate(character(len=i) :: char_output)
-     write(*, ʼ(a)ʼ, advance=ʼnoʼ) trim(header)
+     write(*, '(a)', advance='no') trim(header)
      do j = 1, width
         char_output = transfer(buffer(1:i, j), char_output)
-        write(*, ʼ(a)ʼ, advance=ʼnoʼ) char_output
+        write(*, '(a)', advance='no') char_output
      end do
   case default
      ! Write unformatted data to stdout, by opening it as a file
-     open(newunit=my_unit, file="/dev/stdout", access=ʼstreamʼ, &
-          form=ʼunformattedʼ, action=ʼwriteʼ)
+     open(newunit=my_unit, file="/dev/stdout", access='stream', &
+          form='unformatted', action='write')
      write(my_unit) trim(header)
      write(my_unit) buffer(1:i, :)
      flush(my_unit)

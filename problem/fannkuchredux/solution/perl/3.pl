@@ -5,7 +5,7 @@
 # #   modified by Kuang-che Wu
 # #   modified by David Golden
 # # updated for fannkuch-redux by Jonathan DePeri
-# #   permutations generated using Mike Pallʼs approach
+# #   permutations generated using Mike Pall's approach
 # # modified by Haisi Yi
 
 use integer;

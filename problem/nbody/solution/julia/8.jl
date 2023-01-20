@@ -9,14 +9,14 @@
 # loop iterations available as a compile-time constant, so llvm can
 # unroll them. To convince llvm to do so, this script should be run
 # with the evironment variable:
-# JULIA_LLVM_ARGS=ʼ-unroll-threshold=500ʼ.
+# JULIA_LLVM_ARGS='-unroll-threshold=500'.
 
 using Base.Cartesian
 
 const SOLAR_MASS = 4 * pi * pi
 const DAYS_PER_YEAR = 365.24
 # Precalculate the pairs of bodies that must be compared so that it
-# doesnʼt have to be done each loop.
+# doesn't have to be done each loop.
 const PAIRS = Tuple((i, j) for i=1:4 for j=i+1:5)
 
 # Use a struct instead of mutable struct since a struct can be stored
@@ -65,7 +65,7 @@ end
     @inbounds for i=1:4
         bi = bodies[i]
         # For body i, since velocity is the only part of the object
-        # changing on each iteration, itʼs more efficient to update
+        # changing on each iteration, it's more efficient to update
         # outside the vector.
         iv = bi.v
         for j=i+1:5

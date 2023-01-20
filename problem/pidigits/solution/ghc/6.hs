@@ -1,6 +1,6 @@
 -- The Computer Language Benchmarks Game
 -- https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
--- contributed by Bryan OʼSullivan
+-- contributed by Bryan O'Sullivan
 -- modified by Eugene Kirpichov: pidgits only generates
 -- the result string instead of printing it. For some
 -- reason, this gives a speedup.
@@ -12,10 +12,10 @@
 import System.Environment
 
 pidgits n = (1,9) % (0 # (1,0,1)) where
- (i,k)%(d:dsʼ)
+ (i,k)%(d:ds')
   | i <= n = putStr (show d ++
-               (if k<=0 then "\t:" ++ show i ++ "\n" else "")) >> (j,m)%dsʼ
-  | True = if k<9 then putStrLn (replicate k ʼ ʼ ++ "\t:" ++ show n)
+               (if k<=0 then "\t:" ++ show i ++ "\n" else "")) >> (j,m)%ds'
+  | True = if k<9 then putStrLn (replicate k ' ' ++ "\t:" ++ show n)
            else putStr ""
   where j = i + 1; m = if k<=0 then 9 else k - 1
  j # s | n>a || q/=r = k # t

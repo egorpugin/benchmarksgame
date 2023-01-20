@@ -6,7 +6,7 @@
          (inline compl))
 
 (defconstant +lut+
-  (let ((lut (make-array 256 :element-type ʼbase-char)))
+  (let ((lut (make-array 256 :element-type 'base-char)))
     (loop
       for a across "ACGTMRWSYKVHDBNUacgtmrwsykvhdbnu"
       for b across "TGCAKYWSRMBDHVNATGCAKYWSRMBDHVNA"
@@ -42,7 +42,7 @@
                          :direction :output
                          :if-exists :supersede)
       (loop
-        with fasta = (make-string-output-stream :element-type ʼbase-char)
+        with fasta = (make-string-output-stream :element-type 'base-char)
         for line simple-string = (read-line in nil)
         while line
         do (if (char= (char line 0) #\>)

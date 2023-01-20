@@ -20,11 +20,11 @@
 
 
 ;; This is our most expensive function.  Optimized with the knowledge
-;; that ʼnʼ will never be "huge".  This will break if ʼnʼ exceeds
+;; that 'n' will never be "huge".  This will break if 'n' exceeds
 ;; approximately half of the square root of the largest fixnum
 ;; supported by the implementation.  On 32-bit sbcl,
-;; ʼmost-positive-fixnumʼ is 536870911, and we can support values of
-;; ʼnʼ above 11000.
+;; 'most-positive-fixnum' is 536870911, and we can support values of
+;; 'n' above 11000.
 
 (declaim (optimize (speed 3) (safety 0) (space 0)))
 
@@ -63,7 +63,7 @@
                        (sb-thread:make-thread
                         (lambda () (funcall function start end))))
           into threads
-          finally (mapcar #ʼsb-thread:join-thread threads))))
+          finally (mapcar #'sb-thread:join-thread threads))))
 
 #-sb-thread
 (defun execute-parallel (start end function )
@@ -86,11 +86,11 @@ ngs*
                                              #+gcl  si::*command-args*))
                                   "2000")))))
     (declare (type fixnum n))
-    (or (typep (* (- (* 2 n) 1) (- (* 2 n) 2)) ʼfixnum)
-        (error "The supplied value of ʼnʼ breaks the optimizations in EVAL-A"))
-    (let ((u (make-array n :element-type ʼdouble-float :initial-element 1.0d0))
-          (v (make-array n :element-type ʼdouble-float))
-          (tmp (make-array n :element-type ʼdouble-float)))
+    (or (typep (* (- (* 2 n) 1) (- (* 2 n) 2)) 'fixnum)
+        (error "The supplied value of 'n' breaks the optimizations in EVAL-A"))
+    (let ((u (make-array n :element-type 'double-float :initial-element 1.0d0))
+          (v (make-array n :element-type 'double-float))
+          (tmp (make-array n :element-type 'double-float)))
       (declare (type (simple-array double-float) U V))
       (dotimes (i 10)
         (eval-AtA-times-u u v tmp n 0 n)

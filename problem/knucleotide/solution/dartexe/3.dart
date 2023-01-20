@@ -8,12 +8,12 @@
    + null safety
 */
 
-import ʼdart:asyncʼ;
-import ʼdart:collectionʼ;
-import ʼdart:convertʼ;
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:async';
+import 'dart:collection';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:typed_data';
 
 class CodeList {
   Uint64List buffer;
@@ -131,21 +131,21 @@ void sort(CodeList codes, int length) {
 
   for (final key in keys) {
     String count = ((freq[key] ?? 0) * 100 / n).toStringAsFixed(3);
-    print(ʼ$key $countʼ);
+    print('$key $count');
   }
-  print(ʼʼ);
+  print('');
 }
 
 String find(CodeList codes, String string) {
   Map<String, int> freq = frequency(codes, string.length);
-  return ʼ${(freq[string])}\t$stringʼ;
+  return '${(freq[string])}\t$string';
 }
 
 void main(args) async {
   final sequence = await readCodes();
-  final a = par(sequence, [ʼGGTʼ, ʼGGTAʼ, ʼGGTATTʼ]);
-  final b = par(sequence, [ʼGGTATTTTAATTʼ]);
-  final c = par(sequence, [ʼGGTATTTTAATTTATAGTʼ]);
+  final a = par(sequence, ['GGT', 'GGTA', 'GGTATT']);
+  final b = par(sequence, ['GGTATTTTAATT']);
+  final c = par(sequence, ['GGTATTTTAATTTATAGT']);
   sort(sequence, 1);
   sort(sequence, 2);
   (await a).forEach(print);

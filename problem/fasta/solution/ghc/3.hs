@@ -20,27 +20,27 @@ type DistF = Double -> Char
 -- give ~10% speedup in execution time comparing to a list of pairs.
 iubF, homoF :: DistF
 iubF f
-  | f < 0.27 = ʼaʼ
-  | f < 0.39 = ʼcʼ
-  | f < 0.51 = ʼgʼ
-  | f < 0.78 = ʼtʼ
-  | f < 0.80 = ʼBʼ
-  | f < 0.82 = ʼDʼ
-  | f < 0.84 = ʼHʼ
-  | f < 0.86 = ʼKʼ
-  | f < 0.88 = ʼMʼ
-  | f < 0.90 = ʼNʼ
-  | f < 0.92 = ʼRʼ
-  | f < 0.94 = ʼSʼ
-  | f < 0.96 = ʼVʼ
-  | f < 0.98 = ʼWʼ
-  | otherwise = ʼYʼ
+  | f < 0.27 = 'a'
+  | f < 0.39 = 'c'
+  | f < 0.51 = 'g'
+  | f < 0.78 = 't'
+  | f < 0.80 = 'B'
+  | f < 0.82 = 'D'
+  | f < 0.84 = 'H'
+  | f < 0.86 = 'K'
+  | f < 0.88 = 'M'
+  | f < 0.90 = 'N'
+  | f < 0.92 = 'R'
+  | f < 0.94 = 'S'
+  | f < 0.96 = 'V'
+  | f < 0.98 = 'W'
+  | otherwise = 'Y'
 
 homoF f
-  | f < 0.302954942668  = ʼaʼ
-  | f < 0.5009432431601 = ʼcʼ
-  | f < 0.6984905497992 = ʼgʼ
-  | otherwise = ʼtʼ
+  | f < 0.302954942668  = 'a'
+  | f < 0.5009432431601 = 'c'
+  | f < 0.6984905497992 = 'g'
+  | otherwise = 't'
 
 lineWidth, modulo :: Int
 lineWidth = 60
@@ -54,7 +54,7 @@ printRepeatedFasta :: BS.ByteString -> Int -> Builder
 printRepeatedFasta s x = go lineWidth n x mempty
   where
     !n = BS.length s
-    nl = char8 ʼ\nʼ
+    nl = char8 '\n'
 
     go 0 sn left before = go lineWidth sn left (before <> nl)
     go w 0  left before = go w n left before
@@ -67,16 +67,16 @@ printRepeatedFasta s x = go lineWidth n x mempty
 printRandomFasta :: DistF -> Int -> Int -> (Builder, Int)
 printRandomFasta dist seed n = go n seed mempty
   where
-    nl = char8 ʼ\nʼ
-    genChar seed = Just (dist f, seedʼ)
-      where !seedʼ = nextSeed seed
-            !f = fromIntegral seedʼ / (fromIntegral modulo)
+    nl = char8 '\n'
+    genChar seed = Just (dist f, seed')
+      where !seed' = nextSeed seed
+            !f = fromIntegral seed' / (fromIntegral modulo)
 
     go 0     !seed before = (before, seed)
-    go total !seed before = go (total - toTake) seedʼ (before <> (byteString b)
+    go total !seed before = go (total - toTake) seed' (before <> (byteString b)
 <> nl) where
       toTake = total `min` lineWidth
-      (!b, Just seedʼ) = BS.unfoldrN toTake genChar seed
+      (!b, Just seed') = BS.unfoldrN toTake genChar seed
 
 main :: IO ()
 main = do
@@ -86,10 +86,10 @@ main = do
       res = printRepeatedFasta alu (2 * n)
 
       b = ">TWO IUB ambiguity codes\n"
-      (resʼ, seedʼ) = printRandomFasta iubF 42 (3 * n)
+      (res', seed') = printRandomFasta iubF 42 (3 * n)
 
       c = ">THREE Homo sapiens frequency\n"
-      (resʼʼ, _) = printRandomFasta homoF seedʼ (5 * n)
+      (res'', _) = printRandomFasta homoF seed' (5 * n)
 
-  hPutBuilder stdout $ a <> res <> b <> resʼ <> c <> resʼʼ
+  hPutBuilder stdout $ a <> res <> b <> res' <> c <> res''
 

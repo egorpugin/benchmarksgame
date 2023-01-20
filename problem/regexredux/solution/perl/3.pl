@@ -46,11 +46,11 @@ sub run {
     my @variants_re = map qr/$_/iaa, @variants;
 
     my @iub = map { my $x = $_; sub { $_[0] =~ s/$x->[0]/$x->[1]/g }} (
-        [ qr{ tHa [Nt] }x,                 ʼ<4>ʼ ],
-        [ qr{ aND | caN | Ha[DS] | WaS }x, ʼ<3>ʼ ],
-        [ qr{ a [NSt] | BY }x,             ʼ<2>ʼ ],
-        [ qr{ < [^>]* > }x,                ʼ|ʼ   ],
-        [ qr{ \| [^|] [^|]* \| }x,         ʼ-ʼ   ],
+        [ qr{ tHa [Nt] }x,                 '<4>' ],
+        [ qr{ aND | caN | Ha[DS] | WaS }x, '<3>' ],
+        [ qr{ a [NSt] | BY }x,             '<2>' ],
+        [ qr{ < [^>]* > }x,                '|'   ],
+        [ qr{ \| [^|] [^|]* \| }x,         '-'   ],
     );
 
     my $seq = do { local $/; <STDIN> };
@@ -69,10 +69,10 @@ sub run {
     if (!$pid) {
         # we are in the child
         die "Failed to fork: $!" unless defined $pid;
-        close $reader or die "Failed to close parentʼs reader in child: $!";
+        close $reader or die "Failed to close parent's reader in child: $!";
 
         my @threads = map threads->create(
-            { context => ʼlistʼ },
+            { context => 'list' },
             \&count_matches,
             $seq,
             [    @variants[$_ .. ($_ + (ITEMS_PER_THREAD - 1))] ],
@@ -83,12 +83,12 @@ sub run {
 
         print $writer "$_ $results{$_}\n" for @variants;
 
-        close $writer or die "Failed to close childʼs writer in child: $!";
+        close $writer or die "Failed to close child's writer in child: $!";
         exit( 0 );
     }
     else {
         # we are in the parent
-        close $writer or die "Failed to close childʼs writer in parent: $!";
+        close $writer or die "Failed to close child's writer in parent: $!";
 
         # do our own work
         $_->($seq) for @iub;
@@ -96,11 +96,11 @@ sub run {
         # print match counts from child
         print while <$reader>;
 
-        close $reader or die "Failed to close parentʼs reader in parent: $!";
+        close $reader or die "Failed to close parent's reader in parent: $!";
 
         waitpid($pid, 0);
 
-        print "$_\n" for ʼʼ, $input_length, $cleaned_length, length( $seq );
+        print "$_\n" for '', $input_length, $cleaned_length, length( $seq );
     }
 }
 

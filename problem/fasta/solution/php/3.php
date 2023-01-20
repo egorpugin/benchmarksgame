@@ -33,7 +33,7 @@ function makeCumulative(&$genelist) {
 function makeRandomFasta(&$genelist, $n) {
    $width = 60;
    $lines = (int) ($n / $width);
-   $pick = str_repeat(ʼ?ʼ, $width)."\n";
+   $pick = str_repeat('?', $width)."\n";
    $randoms = array_fill(0, $width, 0.0);
    global $last;
 
@@ -93,43 +93,43 @@ function makeRepeatFasta($s, $n) {
 /* Main -- define alphabets, make 3 fragments */
 
 $iub=array(
-   ʼaʼ => 0.27,
-   ʼcʼ => 0.12,
-   ʼgʼ => 0.12,
-   ʼtʼ => 0.27,
+   'a' => 0.27,
+   'c' => 0.12,
+   'g' => 0.12,
+   't' => 0.27,
 
-   ʼBʼ => 0.02,
-   ʼDʼ => 0.02,
-   ʼHʼ => 0.02,
-   ʼKʼ => 0.02,
-   ʼMʼ => 0.02,
-   ʼNʼ => 0.02,
-   ʼRʼ => 0.02,
-   ʼSʼ => 0.02,
-   ʼVʼ => 0.02,
-   ʼWʼ => 0.02,
-   ʼYʼ => 0.02
+   'B' => 0.02,
+   'D' => 0.02,
+   'H' => 0.02,
+   'K' => 0.02,
+   'M' => 0.02,
+   'N' => 0.02,
+   'R' => 0.02,
+   'S' => 0.02,
+   'V' => 0.02,
+   'W' => 0.02,
+   'Y' => 0.02
 );
 
 $homosapiens = array(
-   ʼaʼ => 0.3029549426680,
-   ʼcʼ => 0.1979883004921,
-   ʼgʼ => 0.1975473066391,
-   ʼtʼ => 0.3015094502008
+   'a' => 0.3029549426680,
+   'c' => 0.1979883004921,
+   'g' => 0.1975473066391,
+   't' => 0.3015094502008
 );
 
 $alu =
-   ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ .
-   ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ .
-   ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ .
-   ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ .
-   ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ .
-   ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ .
-   ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ;
+   'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG' .
+   'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA' .
+   'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT' .
+   'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA' .
+   'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG' .
+   'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC' .
+   'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA';
 
 $n = 1000;
 
-if ($_SERVER[ʼargcʼ] > 1) $n = $_SERVER[ʼargvʼ][1];
+if ($_SERVER['argc'] > 1) $n = $_SERVER['argv'][1];
 
 makeCumulative($iub);
 makeCumulative($homosapiens);

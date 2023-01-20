@@ -5,7 +5,7 @@
 ;;
 ;; Imperative-style implementation based on the SBCL implementation by
 ;; Patrick Frankenberger and Juho Snellman, but using only native Scheme
-;; idioms like ʼnamed letʼ and ʼdoʼ special form.
+;; idioms like 'named let' and 'do' special form.
 ;;
 ;; Contributed by Anthony Borla, then converted for Racket
 ;; by Matthew Flatt and Brent Fulgham

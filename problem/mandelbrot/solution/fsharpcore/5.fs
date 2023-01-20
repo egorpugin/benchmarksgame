@@ -1,7 +1,7 @@
 // The Computer Language Benchmarks Game
 // https://benchmarksgame-team.pages.debian.net/benchmarksgame/
 //
-// Adapted by Antti Lankila from the earlier Isaac Gouyʼs implementation
+// Adapted by Antti Lankila from the earlier Isaac Gouy's implementation
 // Add multithread & tweaks from C++ by The Anh Tran
 // Translate to F# by Jomo Fisher
 // ported from C# version by Anthony Lloyd

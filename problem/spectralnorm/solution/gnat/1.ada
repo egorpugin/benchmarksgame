@@ -27,9 +27,9 @@ package body Spectral_Utils is
 
    procedure Eval_A_Times (U : Matrix; Au : out Matrix) is
    begin
-      for I in Auʼrange loop
+      for I in Au'range loop
          Au(I) := 0.0;
-         for J in Uʼrange loop
+         for J in U'range loop
             Au(I) := Au(I) + Eval_A(I, J) * U(J);
          end loop;
       end loop;
@@ -37,16 +37,16 @@ package body Spectral_Utils is
 
    procedure Eval_At_Times (U : Matrix; Au : out Matrix) is
    begin
-      for I in Auʼrange loop
+      for I in Au'range loop
          Au(I) := 0.0;
-         for J in Uʼrange loop
+         for J in U'range loop
             Au(I) := Au(I) + Eval_A(J, I) * U(J);
          end loop;
       end loop;
    end Eval_At_Times;
 
    procedure Eval_Ata_Times_U (U : Matrix; Atau : out Matrix) is
-      V : Matrix(0..UʼLength - 1);
+      V : Matrix(0..U'Length - 1);
    begin
       Eval_A_Times(U, V);
       Eval_At_Times(V, Atau);
@@ -74,7 +74,7 @@ t);
    Vbv, vv : Long_Float := 0.0;
 begin
    if Argument_Count = 1 then
-      N := NaturalʼValue(Argument(1));
+      N := Natural'Value(Argument(1));
    end if;
 
    declare
@@ -85,7 +85,7 @@ begin
          Eval_Ata_Times_U(U, V);
          Eval_Ata_Times_U(V, U);
       end loop;
-      for I in Vʼrange loop
+      for I in V'range loop
          Vbv := Vbv + U(I) * V(I);
          Vv := Vv + V(I)*V(I);
       end loop;

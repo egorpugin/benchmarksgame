@@ -11,15 +11,15 @@ with Ada.Unchecked_Deallocation;
 procedure Revcomp is
 
    Complement : constant array (Character) of Character :=
-                  (ʼAʼ => ʼTʼ, ʼCʼ => ʼGʼ, ʼGʼ => ʼCʼ, ʼTʼ => ʼAʼ, ʼUʼ => ʼAʼ,
-                   ʼMʼ => ʼKʼ, ʼRʼ => ʼYʼ, ʼWʼ => ʼWʼ, ʼSʼ => ʼSʼ, ʼYʼ => ʼRʼ,
-                   ʼKʼ => ʼMʼ, ʼVʼ => ʼBʼ, ʼHʼ => ʼDʼ, ʼDʼ => ʼHʼ, ʼBʼ => ʼVʼ,
-                   ʼNʼ => ʼNʼ,
-                   ʼaʼ => ʼTʼ, ʼcʼ => ʼGʼ, ʼgʼ => ʼCʼ, ʼtʼ => ʼAʼ, ʼuʼ => ʼAʼ,
-                   ʼmʼ => ʼKʼ, ʼrʼ => ʼYʼ, ʼwʼ => ʼWʼ, ʼsʼ => ʼSʼ, ʼyʼ => ʼRʼ,
-                   ʼkʼ => ʼMʼ, ʼvʼ => ʼBʼ, ʼhʼ => ʼDʼ, ʼdʼ => ʼHʼ, ʼbʼ => ʼVʼ,
-                   ʼnʼ => ʼNʼ,
-                   others => ʼ?ʼ);
+                  ('A' => 'T', 'C' => 'G', 'G' => 'C', 'T' => 'A', 'U' => 'A',
+                   'M' => 'K', 'R' => 'Y', 'W' => 'W', 'S' => 'S', 'Y' => 'R',
+                   'K' => 'M', 'V' => 'B', 'H' => 'D', 'D' => 'H', 'B' => 'V',
+                   'N' => 'N',
+                   'a' => 'T', 'c' => 'G', 'g' => 'C', 't' => 'A', 'u' => 'A',
+                   'm' => 'K', 'r' => 'Y', 'w' => 'W', 's' => 'S', 'y' => 'R',
+                   'k' => 'M', 'v' => 'B', 'h' => 'D', 'd' => 'H', 'b' => 'V',
+                   'n' => 'N',
+                   others => '?');
 
    Max_Length : constant := 60;
 
@@ -37,17 +37,17 @@ procedure Revcomp is
 
       loop
          Look_Ahead (C, EOL);
-         exit when C /= ʼ>ʼ and C /= ʼ;ʼ ;
-         Get_Line (Seq (1 .. SeqʼLength), J);
-         if Seq (1) = ʼ>ʼ then
+         exit when C /= '>' and C /= ';' ;
+         Get_Line (Seq (1 .. Seq'Length), J);
+         if Seq (1) = '>' then
             Put_Line (Seq (1 .. J));
          end if;
       end loop;
 
       loop
-         if Length + Max_Length > SeqʼLength then
+         if Length + Max_Length > Seq'Length then
             Ptr := Seq;
-            Seq := new String (1 .. 2 * SeqʼLength);
+            Seq := new String (1 .. 2 * Seq'Length);
             Seq (1 .. Length) := Ptr (1 .. Length);
             Free (Ptr);
          end if;
@@ -62,7 +62,7 @@ procedure Revcomp is
 
          Look_Ahead (C, EOL);
 
-         if K < Max_Length or else C = ʼ>ʼ or else C = ʼ;ʼ then
+         if K < Max_Length or else C = '>' or else C = ';' then
             return;
          end if;
       end loop;
@@ -75,9 +75,9 @@ procedure Revcomp is
       C    : Character;
       L, R : Natural;
    begin
-      for I in 0 .. FastaʼLength loop
-         L := FastaʼFirst + I;
-         R := FastaʼLast - I;
+      for I in 0 .. Fasta'Length loop
+         L := Fasta'First + I;
+         R := Fasta'Last - I;
          exit when L > R;
          C := Fasta (L);
          Fasta (L) := Complement (Fasta (R));
@@ -86,7 +86,7 @@ procedure Revcomp is
    end Reverse_Fasta;
 
    procedure Put_Reversed_Fasta (Fasta : in out String) is
-      L : Natural := FastaʼLast;
+      L : Natural := Fasta'Last;
    begin
       while L >= Max_Length loop
          Reverse_Fasta (Fasta (L - Max_Length + 1 .. L));

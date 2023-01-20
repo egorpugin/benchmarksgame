@@ -9,7 +9,7 @@
 #  parallelised by Scott Leggett
 #  Thread.exclusive deprecated
 
-require ʼthreadʼ
+require 'thread'
 
 module MiniParallel
     class Worker
@@ -140,7 +140,7 @@ def row y
         bit_num += 1
 
         # Code is very similar for these cases, but using separate blocks
-        # ensures we skip the shifting when itʼs unnecessary, which is most
+        # ensures we skip the shifting when it's unnecessary, which is most
         # cases.
         if (bit_num == 8)
             res << byte_acc.chr

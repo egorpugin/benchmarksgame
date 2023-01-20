@@ -1,13 +1,13 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   transliterated from Andrey Filatkinʼs Node #5 program by Isaac Gouy
+   transliterated from Andrey Filatkin's Node #5 program by Isaac Gouy
 */
 
-import ʼdart:isolateʼ;
-import ʼdart:typed_dataʼ;
-import ʼdart:mathʼ;
-import ʼdart:ioʼ;
+import 'dart:isolate';
+import 'dart:typed_data';
+import 'dart:math';
+import 'dart:io';
 
 Int32List nFactorials(int n) {
   final fact = Int32List(n + 1);

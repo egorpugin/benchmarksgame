@@ -35,12 +35,12 @@ let rand_char last ps line j chars =
   n
 
 let make_random_fasta last id desc table n =
-  print_char ʼ>ʼ; print_string id;
-  print_char ʼ ʼ; print_string desc;
-  print_char ʼ\nʼ;
+  print_char '>'; print_string id;
+  print_char ' '; print_string desc;
+  print_char '\n';
   let len_table = Array.length table in
   let ps = Array.make len_table 0. in
-  let chars = Array.make len_table ʼ\000ʼ in
+  let chars = Array.make len_table '\000' in
   let p = ref 0.0 in
   for i = 0 to len_table -1 do
     let (c, px) = table.(i) in
@@ -60,12 +60,12 @@ let make_random_fasta last id desc table n =
       last_n := rand_char !last_n ps line j chars;
     done;
     pos := final_pos + 2;
-    Bytes.set line (final_pos + 1) ʼ\nʼ;
+    Bytes.set line (final_pos + 1) '\n';
   done;
   for j = !pos to nchars - 2 do
     last_n := rand_char !last_n ps line j chars;
   done;
-  Bytes.set line (nchars - 1) ʼ\nʼ;
+  Bytes.set line (nchars - 1) '\n';
   output_bytes stdout line;
   !last_n
 
@@ -76,15 +76,15 @@ let make_random_fasta last id desc table n =
    @return [i0] needed for subsequent writes.  *)
 let rec write s i0 l w =
   let len = l - i0 in
-  if w <= len then (output stdout s i0 w; print_char ʼ\nʼ; i0 + w)
+  if w <= len then (output stdout s i0 w; print_char '\n'; i0 + w)
   else (output stdout s i0 len; write s 0 l (w - len))
 
 let make_repeat_fasta id desc src n =
-  print_char ʼ>ʼ;
+  print_char '>';
   print_string id;
-  print_char ʼ ʼ;
+  print_char ' ';
   print_string desc;
-  print_char ʼ\nʼ;
+  print_char '\n';
   let l = Bytes.length src
   and i0 = ref 0 in
   for i = 1 to n / width do
@@ -102,13 +102,13 @@ GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG\
 AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC\
 AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA"
 
-let iub = [| (ʼaʼ, 0.27);  (ʼcʼ, 0.12);  (ʼgʼ, 0.12);  (ʼtʼ, 0.27);
-             (ʼBʼ, 0.02);  (ʼDʼ, 0.02);  (ʼHʼ, 0.02);  (ʼKʼ, 0.02);
-             (ʼMʼ, 0.02);  (ʼNʼ, 0.02);  (ʼRʼ, 0.02);  (ʼSʼ, 0.02);
-             (ʼVʼ, 0.02);  (ʼWʼ, 0.02);  (ʼYʼ, 0.02);  |]
+let iub = [| ('a', 0.27);  ('c', 0.12);  ('g', 0.12);  ('t', 0.27);
+             ('B', 0.02);  ('D', 0.02);  ('H', 0.02);  ('K', 0.02);
+             ('M', 0.02);  ('N', 0.02);  ('R', 0.02);  ('S', 0.02);
+             ('V', 0.02);  ('W', 0.02);  ('Y', 0.02);  |]
 
-let homosapiens = [| (ʼaʼ, 0.3029549426680);    (ʼcʼ, 0.1979883004921);
-                     (ʼgʼ, 0.1975473066391);    (ʼtʼ, 0.3015094502008);  |]
+let homosapiens = [| ('a', 0.3029549426680);    ('c', 0.1979883004921);
+                     ('g', 0.1975473066391);    ('t', 0.3015094502008);  |]
 
 let () =
   let n = try int_of_string(Array.get Sys.argv 1) with _ -> 1000 in

@@ -72,11 +72,11 @@ def count_frequencies(sequence, reading_frames, i, j):
                 overlaps.append((v, bits, v[:1]+v))
         for v, bits, pattern in overlaps:
             count = len(worklist)
-            tmp = worklist.replace(pattern+pattern, bʼ12ʼ)
-            tmp = tmp.replace(pattern, bʼ1ʼ)
+            tmp = worklist.replace(pattern+pattern, b'12')
+            tmp = tmp.replace(pattern, b'1')
             count = (count - len(tmp)) // 2
-            count += tmp.count(bʼ1ʼ+v)
-            count += tmp.count(bʼ2ʼ+v[:1])
+            count += tmp.count(b'1'+v)
+            count += tmp.count(b'2'+v[:1])
             freq[bits] += count
         frame_tail -= 1
 
@@ -105,17 +105,17 @@ def count_frequencies(sequence, reading_frames, i, j):
 
 def read_sequence(file, header, translation) :
     for line in file:
-        if line[0] == ord(ʼ>ʼ):
+        if line[0] == ord('>'):
             if line[1:len(header)+1] == header:
                 break
 
     sequence = bytearray()
     for line in file:
-        if line[0] == ord(ʼ>ʼ):
+        if line[0] == ord('>'):
             break
         sequence += line
 
-    return sequence.translate(translation, bʼ\n\r\t ʼ)
+    return sequence.translate(translation, b'\n\r\t ')
 
 def lookup_frequency(results, frame, bits):
     n = 1
@@ -124,7 +124,7 @@ def lookup_frequency(results, frame, bits):
         frequency += frequencies[bits]
     return frequency, n if n > 0 else 1
 
-def display(results, display_list, sort=False, relative=False, end=ʼ\nʼ):
+def display(results, display_list, sort=False, relative=False, end='\n'):
     lines = [
         (k_nucleotide, lookup_frequency(results, frame, bits))
             for k_nucleotide, frame, bits in display_list
@@ -138,10 +138,10 @@ def display(results, display_list, sort=False, relative=False, end=ʼ\nʼ):
     print(end=end)
 
 def main():
-    translation = bytes.maketrans(bʼGTCAgtcaʼ,
-        bʼ\x00\x01\x02\x03\x00\x01\x02\x03ʼ)
+    translation = bytes.maketrans(b'GTCAgtca',
+        b'\x00\x01\x02\x03\x00\x01\x02\x03')
     def str_to_bits(text):
-        buffer = text.encode(ʼlatin1ʼ).translate(translation)
+        buffer = text.encode('latin1').translate(translation)
         bits = 0
         for k in range(len(buffer)):
             bits = bits * 4 + buffer[k]
@@ -149,13 +149,13 @@ def main():
     def display_list(k_nucleotides):
         return [(n, len(n), str_to_bits(n)) for n in k_nucleotides]
 
-    sequence = read_sequence(stdin.buffer, bʼTHREEʼ, translation)
+    sequence = read_sequence(stdin.buffer, b'THREE', translation)
 
-    mono_nucleotides = (ʼGʼ, ʼAʼ, ʼTʼ, ʼCʼ)
+    mono_nucleotides = ('G', 'A', 'T', 'C')
     di_nucleotides = tuple(n + m
         for n in mono_nucleotides for m in mono_nucleotides)
     k_nucleotides = (
-        ʼGGTʼ, ʼGGTAʼ, ʼGGTATTʼ, ʼGGTATTTTAATTʼ, ʼGGTATTTTAATTTATAGTʼ)
+        'GGT', 'GGTA', 'GGTATT', 'GGTATTTTAATT', 'GGTATTTTAATTTATAGT')
 
     reading_frames = [
         (1, tuple(map(str_to_bits, mono_nucleotides))),
@@ -180,8 +180,8 @@ def main():
 
     display(results, display_list(mono_nucleotides), relative=True, sort=True)
     display(results, display_list(di_nucleotides), relative=True, sort=True)
-    display(results, display_list(k_nucleotides), end=ʼʼ)
+    display(results, display_list(k_nucleotides), end='')
 
-if __name__==ʼ__main__ʼ :
+if __name__=='__main__' :
     main()
 

@@ -12,7 +12,7 @@ mpz_t tmp1, tmp2, acc, den, num;
 typedef unsigned int ui;
 
 ui extract_digit(ui nth) {
-   // joggling between tmp1 and tmp2, so GMP wonʼt have to use temp buffers
+   // joggling between tmp1 and tmp2, so GMP won't have to use temp buffers
    mpz_mul_ui(tmp1, num, nth);
    mpz_add(tmp2, tmp1, acc);
    mpz_tdiv_q(tmp1, tmp2, den);
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
       if (d != extract_digit(4))
          continue;
 
-      putchar(ʼ0ʼ + d);
+      putchar('0' + d);
       if (++i % 10 == 0)
          printf("\t:%u\n", i);
       eliminate_digit(d);

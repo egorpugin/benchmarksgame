@@ -25,13 +25,13 @@ program fasta
   integer, parameter :: IA = 3877
   integer, parameter :: IC = 29573
   character(len=*), parameter :: alu = &
-ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ // &
-ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ // &
-ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ // &
-ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ // &
-ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ // &
-ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ // &
-ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ
+'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG' // &
+'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA' // &
+'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT' // &
+'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA' // &
+'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG' // &
+'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC' // &
+'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA'
 
   type pair
      character(len=1) c
@@ -39,38 +39,38 @@ program fasta
   end type pair
   type(pair), dimension(15) :: iub
   type(pair), dimension(4)  :: homosapiens
-  homosapiens = (/ pair(ʼaʼ, 0.3029549426680d0), &
-                   pair(ʼcʼ, 0.1979883004921d0), &
-                   pair(ʼgʼ, 0.1975473066391d0), &
-                   pair(ʼtʼ, 0.3015094502008d0) /)
+  homosapiens = (/ pair('a', 0.3029549426680d0), &
+                   pair('c', 0.1979883004921d0), &
+                   pair('g', 0.1975473066391d0), &
+                   pair('t', 0.3015094502008d0) /)
   call makeCumulative(homosapiens)
 
-  iub = (/ pair(ʼaʼ, 0.27d0), &
-           pair(ʼcʼ, 0.12d0), &
-           pair(ʼgʼ, 0.12d0), &
-           pair(ʼtʼ, 0.27d0), &
-           pair(ʼBʼ, 0.02d0), &
-           pair(ʼDʼ, 0.02d0), &
-           pair(ʼHʼ, 0.02d0), &
-           pair(ʼKʼ, 0.02d0), &
-           pair(ʼMʼ, 0.02d0), &
-           pair(ʼNʼ, 0.02d0), &
-           pair(ʼRʼ, 0.02d0), &
-           pair(ʼSʼ, 0.02d0), &
-           pair(ʼVʼ, 0.02d0), &
-           pair(ʼWʼ, 0.02d0), &
-           pair(ʼYʼ, 0.02d0) /)
+  iub = (/ pair('a', 0.27d0), &
+           pair('c', 0.12d0), &
+           pair('g', 0.12d0), &
+           pair('t', 0.27d0), &
+           pair('B', 0.02d0), &
+           pair('D', 0.02d0), &
+           pair('H', 0.02d0), &
+           pair('K', 0.02d0), &
+           pair('M', 0.02d0), &
+           pair('N', 0.02d0), &
+           pair('R', 0.02d0), &
+           pair('S', 0.02d0), &
+           pair('V', 0.02d0), &
+           pair('W', 0.02d0), &
+           pair('Y', 0.02d0) /)
   call makeCumulative(iub)
 
   call getarg(1,argv)
   read(argv,*) num
 
 
-  call makeRepeatFasta(ʼONEʼ,ʼHomo sapiens aluʼ,alu,num*2)
+  call makeRepeatFasta('ONE','Homo sapiens alu',alu,num*2)
 
-  call makeRandomFasta(ʼTWOʼ,ʼIUB ambiguity codesʼ,iub,num*3)
+  call makeRandomFasta('TWO','IUB ambiguity codes',iub,num*3)
 
-  call makeRandomFasta(ʼTHREEʼ,ʼHomo sapiens frequencyʼ,homosapiens,num*5)
+  call makeRandomFasta('THREE','Homo sapiens frequency',homosapiens,num*5)
 
 
 contains
@@ -102,7 +102,7 @@ contains
      real*8 :: r
 
      r = getRandom(1.0d0)
-     selectRandom = ʼJʼ
+     selectRandom = 'J'
      do i=1,size(a)
         if (r < a(i)%p) then
            selectRandom = a(i)%c
@@ -121,7 +121,7 @@ contains
      integer, parameter :: length = 60
      character(len=length) :: buff
 
-     write(*,ʼ(4a)ʼ) ʼ>ʼ,id,ʼ ʼ,desc
+     write(*,'(4a)') '>',id,' ',desc
      todo = n
      do
         if (todo <= 0) exit
@@ -133,7 +133,7 @@ contains
         do i=1,m
            buff(i:i) = selectRandom(a)
         end do
-        write(*,ʼ(a)ʼ) buff(1:m)
+        write(*,'(a)') buff(1:m)
         todo = todo - length
      end do
   end subroutine makeRandomFasta
@@ -148,7 +148,7 @@ contains
      character(len=length) :: buff
      intrinsic len
 
-     write(*,ʼ(4a)ʼ) ʼ>ʼ,id,ʼ ʼ,desc
+     write(*,'(4a)') '>',id,' ',desc
      todo = n; k = 1; kn = len(s)
      do
         if (todo <= 0) exit
@@ -164,7 +164,7 @@ contains
            buff(j:j) = s(k:k)
            k = k + 1
         end do
-        write(*,ʼ(a)ʼ) buff(1:m)
+        write(*,'(a)') buff(1:m)
         todo = todo - length
      end do
 

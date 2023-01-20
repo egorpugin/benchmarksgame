@@ -18,7 +18,7 @@ Var
 
 Function ExtractDigit(nth: LongWord): LongWord; inline;
   Begin
-    // joggling between tmp1 and tmp2, so GMP donʼt have to use temp buffers
+    // joggling between tmp1 and tmp2, so GMP don't have to use temp buffers
     mpz_mul_ui(tmp1, num, nth);
     mpz_add(tmp2, tmp1, acc);
     mpz_tdiv_q(tmp1, tmp2, den);
@@ -65,9 +65,9 @@ Begin
     d := ExtractDigit(3);
     if d <> ExtractDigit(4) then continue;
 
-    write(chr(ord(ʼ0ʼ) + d));
+    write(chr(ord('0') + d));
     inc(i);
-    if (i mod 10 = 0) or (i = n) then writeln(#9+ʼ:ʼ, i);
+    if (i mod 10 = 0) or (i = n) then writeln(#9+':', i);
     EliminateDigit(d)
   end
 End.

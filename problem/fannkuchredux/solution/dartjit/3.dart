@@ -3,12 +3,12 @@
 
    contributed by Jos Hirth
    (previously used) warmup code suggested by Vyacheslav Egorov
-   transliterated from Isaac Gouyʼs C# program,
-   which was transliterated from Mike Pallʼs Lua program
+   transliterated from Isaac Gouy's C# program,
+   which was transliterated from Mike Pall's Lua program
    + null safety & Int32List by Isaac Gouy
 */
 
-import ʼdart:typed_dataʼ;
+import 'dart:typed_data';
 
 List<int> fannkuch(int n) {
   var p = Int32List(n), q = Int32List(n), s = Int32List(n);

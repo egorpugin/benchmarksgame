@@ -6,7 +6,7 @@
    converted by Isaac Gouy
 */
 
-import { Worker, isMainThread, parentPort, workerData } from ʼworker_threadsʼ;
+import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
 
 if (isMainThread) {
     mainThread();
@@ -40,7 +40,7 @@ function runTasks (tasks: Data[]): Promise<string[]> {
         let tasksRemaining = tasks.length;
         for (let i = 0; i < tasks.length; i++) {
             new Worker(__filename, { workerData: tasks[i] })
-            .on(ʼmessageʼ, message => {
+            .on('message', message => {
                 results[i] = message;
                 tasksRemaining--;
                 if (tasksRemaining === 0) {

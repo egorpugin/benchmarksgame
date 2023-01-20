@@ -10,9 +10,9 @@ extern crate typed_arena;
 use std::thread;
 use typed_arena::Arena;
 
-struct Tree<ʼa> {
-    l: Option<&ʼa Tree<ʼa>>,
-    r: Option<&ʼa Tree<ʼa>>,
+struct Tree<'a> {
+    l: Option<&'a Tree<'a>>,
+    r: Option<&'a Tree<'a>>,
 }
 
 fn item_check(t: &Option<&Tree>) -> i32 {
@@ -22,10 +22,10 @@ fn item_check(t: &Option<&Tree>) -> i32 {
     }
 }
 
-fn bottom_up_tree<ʼr>(arena: &ʼr Arena<Tree<ʼr>>, depth: i32)
-                  -> Option<&ʼr Tree<ʼr>> {
+fn bottom_up_tree<'r>(arena: &'r Arena<Tree<'r>>, depth: i32)
+                  -> Option<&'r Tree<'r>> {
     if depth >= 0 {
-        let t: &Tree<ʼr> = arena.alloc(Tree {
+        let t: &Tree<'r> = arena.alloc(Tree {
             l: bottom_up_tree(arena, depth - 1),
             r: bottom_up_tree(arena, depth - 1)
         });

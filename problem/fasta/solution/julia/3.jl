@@ -41,12 +41,12 @@ function repeat_fasta(io, src, n)
         c, state = iterate(I, state)
         write(io, c % UInt8)
         if col == line_width
-            write(io, ʼ\nʼ)
+            write(io, '\n')
             col = 0
         end
         count += 1
     end
-    write(io, ʼ\nʼ)
+    write(io, '\n')
     return
 end
 
@@ -75,7 +75,7 @@ function random_fasta(io, symb, pr, n)
         @inbounds for i = 1:m
             write(io, symb[choose_char(cs)])
         end
-        write(io, ʼ\nʼ%UInt8)
+        write(io, '\n'%UInt8)
         k -= line_width
     end
     return

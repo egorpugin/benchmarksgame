@@ -7,29 +7,29 @@ Smalltalk.Core defineClass: #BenchmarksGame
     superclass: #{Core.Object}
     indexedType: #none
     private: false
-    instanceVariableNames: ʼn workers first last ʼ
-    classInstanceVariableNames: ʼʼ
-    imports: ʼʼ
-    category: ʼʼ!
+    instanceVariableNames: 'n workers first last '
+    classInstanceVariableNames: ''
+    imports: ''
+    category: ''!
 
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    Stdout print: (self spectralnorm: n) digits: 9; nl.
-   ^ʼʼ! !
+   ^''! !
 
-!Core.BenchmarksGame class methodsFor: ʼinstance creationʼ!
+!Core.BenchmarksGame class methodsFor: 'instance creation'!
 
 spectralnorm: anInteger
    ^super new spectralnorm: anInteger! !
 
-!Core.BenchmarksGame methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame methodsFor: 'initialize-release'!
 
 spectralnorm: anInteger
    | nprocs chunkSize |
    n := anInteger.
-   nprocs := (ExternalProcess shOne: ʼnprocʼ) asNumber.
+   nprocs := (ExternalProcess shOne: 'nproc') asNumber.
    workers := MatriX.VirtualMachines new: nprocs.
    [
       chunkSize := anInteger // nprocs + 1.
@@ -39,7 +39,7 @@ spectralnorm: anInteger
 
    ] ensure: [workers release].! !
 
-!Core.BenchmarksGame methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame methodsFor: 'private'!
 
 map: aBlock with: anArray
    ^workers
@@ -88,13 +88,13 @@ spectralnorm
    ^(vBv / vv) sqrt! !
 
 
-!Core.SmallInteger methodsFor: ʼbenchmarks gameʼ!
+!Core.SmallInteger methodsFor: 'benchmarks game'!
 
 matrixA: anInteger
    ^1.0d0 / ((self + anInteger - 2) * (self + anInteger - 1) /2  + self)! !
 
 
-!Core.Array methodsFor: ʼbenchmarks gameʼ!
+!Core.Array methodsFor: 'benchmarks game'!
 
 multiplyAvFrom: first to: last
    | n av sum |
@@ -118,7 +118,7 @@ multiplyAtvFrom: first to: last
       atv at: i put: sum].
    ^atv! !
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf!

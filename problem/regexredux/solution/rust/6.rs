@@ -11,19 +11,19 @@ use rayon::prelude::*;
 use std::mem;
 
 struct Regex {
-    string: &ʼstatic str,
+    string: &'static str,
     regex: ::regex::bytes::Regex,
 }
 
 impl Regex {
-    fn new(string: &ʼstatic str) -> Regex {
+    fn new(string: &'static str) -> Regex {
         Regex {
             string: string,
             regex: ::regex::bytes::Regex::new(string).unwrap(),
         }
     }
 
-    fn replace_all<ʼt>(&self, text: &ʼt [u8], rep: &[u8], out: &mut Vec<u8>) {
+    fn replace_all<'t>(&self, text: &'t [u8], rep: &[u8], out: &mut Vec<u8>) {
         let mut last_match = 0;
         for m in self.regex.find_iter(text) {
             out.extend_from_slice(&text[last_match..m.start()]);

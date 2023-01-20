@@ -55,7 +55,7 @@ let _ =
   let csum = ref 0 and m = ref 0 in
     iter_perms n (fun num a ->
                     let c = count 0 a in
-                      (* csum update from Otto Bommerʼs Scala ver. *)
+                      (* csum update from Otto Bommer's Scala ver. *)
                       csum := !csum + c * (1 - (num land 1) lsl 1);
                       if c > !m then m := c;);
     Printf.printf "%d\nPfannkuchen(%d) = %d\n" !csum n !m

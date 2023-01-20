@@ -54,20 +54,20 @@ function sync(&$tmp) {
    global $parent,$chunk_data_size,$total_data_size,$pipe,$pipes;
 
    if (!$parent) {
-      array_unshift($tmp, ʼd*ʼ);
-      $data = call_user_func_array(ʼpackʼ, $tmp);
+      array_unshift($tmp, 'd*');
+      $data = call_user_func_array('pack', $tmp);
       safe_write($pipe, $data);
-      $tmp = array_merge(array(), unpack(ʼd*ʼ, safe_read($pipe, $total_data_size
+      $tmp = array_merge(array(), unpack('d*', safe_read($pipe, $total_data_size
 )));
    } else {
-      $tmps = array(array(ʼd*ʼ));
+      $tmps = array(array('d*'));
       foreach($pipes as $pipe) {
-         $tmps[] = unpack(ʼd*ʼ, safe_read($pipe, $chunk_data_size));
+         $tmps[] = unpack('d*', safe_read($pipe, $chunk_data_size));
       }
       $tmps[] = &$tmp;
-      $tmp = call_user_func_array(ʼarray_mergeʼ, $tmps);
+      $tmp = call_user_func_array('array_merge', $tmps);
 
-      $data = call_user_func_array(ʼpackʼ, $tmp);
+      $data = call_user_func_array('pack', $tmp);
       foreach($pipes as $pipe) {
          safe_write($pipe, $data);
       }
@@ -83,7 +83,7 @@ function safe_write($fd, $data) {
    } while($len && ($data = substr($data, $w)) !== FALSE);
 }
 function safe_read($fd, $len) {
-   $data = ʼʼ;
+   $data = '';
    while ($len > 0) {
       $d = fread($fd, $len);
       $len -= strlen($d);
@@ -99,8 +99,8 @@ function pipe() {
 $n = (int) (($argc == 2) ? $argv[1] : 1);
 
 $procs = 1;
-if (file_exists(ʼ/proc/cpuinfoʼ)) {
-   $procs = preg_match_all(ʼ/^processor\s/mʼ, file_get_contents(ʼ/proc/cpuinfoʼ)
+if (file_exists('/proc/cpuinfo')) {
+   $procs = preg_match_all('/^processor\s/m', file_get_contents('/proc/cpuinfo')
 , $discard);
 }
 
@@ -109,7 +109,7 @@ if ($n < $procs) {
 }
 
 $chunk_size = (int) ($n / $procs);
-$double_size = strlen(pack(ʼdʼ, 0.0));
+$double_size = strlen(pack('d', 0.0));
 $chunk_data_size = $double_size * $chunk_size;
 $total_data_size = $double_size * $n;
 
@@ -124,7 +124,7 @@ for($i = 0; $i < $procs; ++$i) {
       $range_end = $range_begin + $chunk_size;
       $pid = pcntl_fork();
       if ($pid === -1) {
-         die(ʼcould not forkʼ);
+         die('could not fork');
       } else if ($pid) {
          continue;
       }

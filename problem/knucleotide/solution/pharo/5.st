@@ -4,12 +4,12 @@
     modified by Isaac Gouy for Pharo *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
-!SequenceableCollection methodsFor: ʼbenchmarks gameʼ!
+!SequenceableCollection methodsFor: 'benchmarks game'!
 
 substringFrequencies: aLength using: aDictionary
    | buffer |
@@ -26,7 +26,7 @@ substringFrequencies: aLength using: aDictionary
       ].
    ^aDictionary! !
 
-!Dictionary methodsFor: ʼbenchmarks gameʼ!
+!Dictionary methodsFor: 'benchmarks game'!
 
 at: key putValueOf: putBlock ifAbsentPutValueOf: absentBlock
    "* Set the value at key to be the value of evaluating putBlock
@@ -48,14 +48,14 @@ at: key putValueOf: putBlock ifAbsentPutValueOf: absentBlock
       ifFalse: [element value: (anObject := putBlock value: element value)].
    ^anObject! !
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 readFasta: sequenceName from: input
    | sc gt lf prefix description buffer byte |
    sc := $; asciiValue.
    gt := $> asciiValue.
    lf := Character lf asciiValue.
-   prefix := ʼ>ʼ,sequenceName.
+   prefix := '>',sequenceName.
 
    "* find start of particular fasta sequence *"
    [(input atEnd) or: [
@@ -81,7 +81,7 @@ knucleotideFrom: input to: output
 
    | sequence writeFrequencies writeCount |
 
-   sequence := (self readFasta: ʼTHREEʼ from: input) value asUppercase.
+   sequence := (self readFasta: 'THREE' from: input) value asUppercase.
 
    writeFrequencies :=
       [:k | | frequencies count |
@@ -108,19 +108,19 @@ knucleotideFrom: input to: output
    writeFrequencies value: 1. output nl.
    writeFrequencies value: 2. output nl.
 
-   writeCount value: ʼGGTʼ.
-   writeCount value: ʼGGTAʼ.
-   writeCount value: ʼGGTATTʼ.
-   writeCount value: ʼGGTATTTTAATTʼ.
-   writeCount value: ʼGGTATTTTAATTTATAGTʼ.! !
+   writeCount value: 'GGT'.
+   writeCount value: 'GGTA'.
+   writeCount value: 'GGTATT'.
+   writeCount value: 'GGTATTTTAATT'.
+   writeCount value: 'GGTATTTTAATTTATAGT'.! !
 
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self knucleotideFrom: Stdio stdin to: Stdio stdout! !
 
-!Stream methodsFor: ʼbenchmarks gameʼ!
+!Stream methodsFor: 'benchmarks game'!
 
 print: number digits: decimalPlaces
    | precision rounded |
@@ -134,7 +134,7 @@ nl
    self nextPut: Character lf! !
 
 
-!StdioStream instance methodsFor: ʼpositioningʼ!
+!StdioStream instance methodsFor: 'positioning'!
 
 skipTo: anObject
    "Set the access position of the receiver to be past the next occurrence of

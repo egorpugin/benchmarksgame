@@ -9,8 +9,8 @@ def process_segment(segment)
   sequence.delete!("\n\r >")
   sequence.reverse!
   sequence.tr!(
-    ʼwsatugcyrkmbdhvnATUGCYRKMBDHVNʼ,
-    ʼWSTAACGRYMKVHDBNTAACGRYMKVHDBNʼ
+    'wsatugcyrkmbdhvnATUGCYRKMBDHVN',
+    'WSTAACGRYMKVHDBNTAACGRYMKVHDBN'
   )
 
   results = [">#{header}"]
@@ -50,7 +50,7 @@ def forking_worker(segment)
 end
 
 threads = []
-$stdin.each_line(ʼ>ʼ) do |segment|
+$stdin.each_line('>') do |segment|
   next if segment.length < 2
 
   threads << Thread.new do

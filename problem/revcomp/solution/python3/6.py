@@ -7,25 +7,25 @@ from sys import stdin, stdout
 from os import cpu_count
 
 reverse_translation = bytes.maketrans(
-   bʼABCDGHKMNRSTUVWYabcdghkmnrstuvwyʼ,
-   bʼTVGHCDMKNYSAABWRTVGHCDMKNYSAABWRʼ)
+   b'ABCDGHKMNRSTUVWYabcdghkmnrstuvwy',
+   b'TVGHCDMKNYSAABWRTVGHCDMKNYSAABWR')
 
 def reverse_complement(header, sequence):
-   t = sequence.translate(reverse_translation, bʼ\n\r ʼ)
+   t = sequence.translate(reverse_translation, b'\n\r ')
    output = bytearray()
    trailing_length = len(t) % 60
-   if trailing_length: output += bʼ\nʼ + t[:trailing_length]
+   if trailing_length: output += b'\n' + t[:trailing_length]
    for i in range(trailing_length, len(t), 60):
-      output += bʼ\nʼ+ t[i:i+60]
+      output += b'\n'+ t[i:i+60]
    return header, output[::-1]
 
 def read_sequences(file):
    for line in file:
-      if line[0] == ord(ʼ>ʼ):
+      if line[0] == ord('>'):
          header = line
          sequence = bytearray()
          for line in file:
-            if line[0] == ord(ʼ>ʼ):
+            if line[0] == ord('>'):
                yield header, sequence
                header = line
                sequence = bytearray()
@@ -47,7 +47,7 @@ def reverse_and_print_task(q, c, v):
          v.value = i + 1
          c.notify_all()
 
-if __name__==ʼ__main__ʼ :
+if __name__=='__main__' :
    write = stdout.buffer.write
    flush = stdout.buffer.flush
 

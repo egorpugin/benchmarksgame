@@ -95,7 +95,7 @@ outer:
             for (String sequence : SPICIFIC_SEQUENCES) {
                 key.setHash(sequence);
                 System.out.print(MAP.get(key).count);
-                System.out.print(ʼ\tʼ);
+                System.out.print('\t');
                 System.out.println(sequence);
             }
         }
@@ -260,9 +260,9 @@ t * 100f / sum);
             long temp = key;
 
             for (int i = 0; temp > 1; temp >>= 2, i++) {
-                name[i] = (char) (((temp & 3) << 1) | ʼAʼ);
-                if (name[i] == ʼEʼ) {
-                    name[i] = ʼTʼ;
+                name[i] = (char) (((temp & 3) << 1) | 'A');
+                if (name[i] == 'E') {
+                    name[i] = 'T';
                 }
             }
             return new String(name);

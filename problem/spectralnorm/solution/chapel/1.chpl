@@ -22,7 +22,7 @@ proc main() {
 }
 
 //
-// Compute A-transpose * A * v (ʼAtAvʼ).
+// Compute A-transpose * A * v ('AtAv').
 //
 proc multiplyAtAv(v, tmp, AtAv) {
   multiplyAv(v, tmp);
@@ -30,7 +30,7 @@ proc multiplyAtAv(v, tmp, AtAv) {
 }
 
 //
-// Compute A * v (ʼAvʼ).
+// Compute A * v ('Av').
 //
 proc multiplyAv(v: [?Dv], Av: [?DAv]) {
   forall i in DAv do
@@ -38,7 +38,7 @@ proc multiplyAv(v: [?Dv], Av: [?DAv]) {
 }
 
 //
-// Compute A-tranpose * v (ʼAtvʼ).
+// Compute A-tranpose * v ('Atv').
 //
 proc multiplyAtv(v: [?Dv], Atv: [?DAtv]) {
   forall i in DAtv do

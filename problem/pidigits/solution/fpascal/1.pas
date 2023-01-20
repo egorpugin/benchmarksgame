@@ -510,7 +510,7 @@ begin
     write(Digit);
     inc(n);
     if (n mod 10)=0 then
-      writeln(#9ʼ:ʼ, n);
+      writeln(#9':', n);
   end;
   FreeBigIntMatrix(z);
 end;

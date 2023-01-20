@@ -13,32 +13,32 @@ $tok = ftok(__FILE__, chr(time() & 255));
 $queue = msg_get_queue($tok);
 
 $variants = array(
-    ʼagggtaaa|tttaccctʼ,
-    ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-    ʼa[act]ggtaaa|tttacc[agt]tʼ,
-    ʼag[act]gtaaa|tttac[agt]ctʼ,
-    ʼagg[act]taaa|ttta[agt]cctʼ,
-    ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-    ʼagggt[cgt]aa|tt[acg]accctʼ,
-    ʼagggta[cgt]a|t[acg]taccctʼ,
-    ʼagggtaa[cgt]|[acg]ttaccctʼ,
+    'agggtaaa|tttaccct',
+    '[cgt]gggtaaa|tttaccc[acg]',
+    'a[act]ggtaaa|tttacc[agt]t',
+    'ag[act]gtaaa|tttac[agt]ct',
+    'agg[act]taaa|ttta[agt]cct',
+    'aggg[acg]aaa|ttt[cgt]ccct',
+    'agggt[cgt]aa|tt[acg]accct',
+    'agggta[cgt]a|t[acg]taccct',
+    'agggtaa[cgt]|[acg]ttaccct',
 );
 
 // IUB replacement parallel arrays
 $IUB = array();                 $IUBnew = array();
-$IUB[]=ʼ/tHa[Nt]/Sʼ;            $IUBnew[]=ʼ<4>ʼ;
-$IUB[]=ʼ/aND|caN|Ha[DS]|WaS/Sʼ; $IUBnew[]=ʼ<3>ʼ;
-$IUB[]=ʼ/a[NSt]|BY/Sʼ;          $IUBnew[]=ʼ<2>ʼ;
-$IUB[]=ʼ/<[^>]*>/Sʼ;            $IUBnew[]=ʼ|ʼ;
-$IUB[]=ʼ/\\|[^|][^|]*\\|/Sʼ;    $IUBnew[]=ʼ-ʼ;
+$IUB[]='/tHa[Nt]/S';            $IUBnew[]='<4>';
+$IUB[]='/aND|caN|Ha[DS]|WaS/S'; $IUBnew[]='<3>';
+$IUB[]='/a[NSt]|BY/S';          $IUBnew[]='<2>';
+$IUB[]='/<[^>]*>/S';            $IUBnew[]='|';
+$IUB[]='/\\|[^|][^|]*\\|/S';    $IUBnew[]='-';
 
 
 // read in file
-$contents = file_get_contents(ʼphp://stdinʼ);
+$contents = file_get_contents('php://stdin');
 $initialLength = strlen($contents);
 
 // remove things
-$contents = preg_replace(ʼ/^>.*$|\n/mSʼ, ʼʼ, $contents);
+$contents = preg_replace('/^>.*$|\n/mS', '', $contents);
 $codeLength = strlen($contents);
 
 // do regexp counts
@@ -51,13 +51,13 @@ foreach ($variants as $key => $regex){
    }
    if($pid && $key > 7) {
       $messages[$regex] =
-         preg_match_all(ʼ/ʼ . $regex . ʼ/iSʼ, $contents, $discard);
+         preg_match_all('/' . $regex . '/iS', $contents, $discard);
    }
    else if(!$pid) {
-      $results[] = $regex . ʼ,ʼ .
-         preg_match_all(ʼ/ʼ . $regex . ʼ/iSʼ, $contents, $discard);
+      $results[] = $regex . ',' .
+         preg_match_all('/' . $regex . '/iS', $contents, $discard);
       if($key == 1 || $key == 3 || $key == 5 || $key == 7) {
-         msg_send($queue, 2, implode(ʼ;ʼ, $results), false, false, $errno);
+         msg_send($queue, 2, implode(';', $results), false, false, $errno);
          exit;
           }
    }
@@ -67,14 +67,14 @@ foreach ($variants as $key => $regex){
 pcntl_wait($status);
 foreach($workers as $worker) {
    msg_receive($queue, 2, $msgtype, 4096, $message, false);
-   $message = explode(ʼ;ʼ, $message, 3);
+   $message = explode(';', $message, 3);
    foreach($message as $line) {
-      $tmp = explode(ʼ,ʼ, $line, 2);
+      $tmp = explode(',', $line, 2);
       $messages[$tmp[0]] = $tmp[1];
    }
 }
 foreach($messages as $regex => $count) {
-   echo $regex, ʼ ʼ, $count, "\n";
+   echo $regex, ' ', $count, "\n";
 }
 
 // do replacements

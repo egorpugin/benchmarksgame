@@ -29,7 +29,7 @@ public class revcomp {
    {
       for(int off=pos;off<limit;off++)
       {
-         if(buffer[off] == ʼ\nʼ)
+         if(buffer[off] == '\n')
             return off;
       }
       return -1;
@@ -43,10 +43,10 @@ public class revcomp {
          {
             start = pos;
             pos = end+1;
-            if(buffer[end-1]== ʼ\rʼ)
+            if(buffer[end-1]== '\r')
                end --;
-            while(buffer[start]==ʼ ʼ) start++;
-            while(end>start && buffer[end-1] == ʼ ʼ) end--;
+            while(buffer[start]==' ') start++;
+            while(end>start && buffer[end-1] == ' ') end--;
             if(end > start)
                return true;
          }
@@ -104,7 +104,7 @@ public class revcomp {
          {
             write(data[--size]);
          }
-         write(ʼ\nʼ);
+         write('\n');
       }
       resetData();
    }
@@ -136,7 +136,7 @@ public class revcomp {
       resetData();
       while(nextLine())
       {
-         if(buffer[start] == ʼ>ʼ)
+         if(buffer[start] == '>')
          {
             finishData();
             write(buffer,start,pos-start);

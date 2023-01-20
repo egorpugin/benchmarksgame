@@ -8,25 +8,25 @@ Smalltalk.Core defineClass: #BenchmarksGame
     superclass: #{Core.Object}
     indexedType: #none
     private: false
-    instanceVariableNames: ʼʼ
-    classInstanceVariableNames: ʼʼ
-    imports: ʼʼ
-    category: ʼʼ!
+    instanceVariableNames: ''
+    classInstanceVariableNames: ''
+    imports: ''
+    category: ''!
 
-!Core.BenchmarksGame class methodsFor: ʼbenchmarks gameʼ!
+!Core.BenchmarksGame class methodsFor: 'benchmarks game'!
 
 do: n
    Stdout
-      nextPutAll: ʼP4ʼ; nl;
+      nextPutAll: 'P4'; nl;
       print: n; space; print: n; nl;
       binary.
 
    self splitCombinePutMandelbrot: n on: Stdout.
-   ^ʼʼ!
+   ^''!
 
 splitCombinePutMandelbrot: anInteger on: aStream
    | chunks chunkSize extent first last nprocs workers |
-   nprocs := (ExternalProcess shOne: ʼnprocʼ) asNumber + 5.
+   nprocs := (ExternalProcess shOne: 'nproc') asNumber + 5.
 
    workers := MatriX.VirtualMachines new: nprocs.
    [
@@ -89,7 +89,7 @@ putMandelbrotRowsFrom: first to: last for: extent on: aStream
       ]
    ]! !
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

@@ -15,9 +15,9 @@ function work()
             wordwrap(
                 strrev(
                     strtr(
-                        str_ireplace("\n", ʼʼ, $seq),
-                        ʼCGATMKRYVBHDcgatmkryvbhdʼ,
-                        ʼGCTAKMYRBVDHGCTAKMYRBVDHʼ
+                        str_ireplace("\n", '', $seq),
+                        'CGATMKRYVBHDcgatmkryvbhd',
+                        'GCTAKMYRBVDHGCTAKMYRBVDH'
                     )
                 ),
                 60, "\n", true
@@ -31,14 +31,14 @@ function work()
 }
 
 $headers = $workers = [];
-$seq = ʼʼ;
+$seq = '';
 while (true) {
     $line = fgets(STDIN);
-    if ($line && $line[0] === ʼ>ʼ) {
+    if ($line && $line[0] === '>') {
         $headers[] = $line;
         if (!empty($seq)) {
             work();
-            $seq = ʼʼ;
+            $seq = '';
         }
     } else {
         $seq .= $line;

@@ -164,7 +164,7 @@
         private static void
         AdvanceAVX(V256d stepV, Body* bi, Body* last) {
             for (; bi < last; ++bi) {
-                // Itʼs slightly more performant to
+                // It's slightly more performant to
                 // copy values locally instead of
                 // constantly going through the pointer
                 V256d iPos = bi->Position;

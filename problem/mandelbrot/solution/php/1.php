@@ -1,7 +1,7 @@
 <?php
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-   contributed by Thomas GODART (based on Greg Buchholzʼs C program)
+   contributed by Thomas GODART (based on Greg Buchholz's C program)
    modified by anon
 */
 
@@ -22,7 +22,7 @@ $xfac = 2.0 / $w;
 
 for ($y = 0 ; $y < $h ; ++$y)
 {
-   $result = array(ʼc*ʼ);
+   $result = array('c*');
 
    $Ci = $y * $yfac - 1.0;
 
@@ -56,7 +56,7 @@ for ($y = 0 ; $y < $h ; ++$y)
       $bit_num = 128;
       $byte_acc = 0;
    }
-   echo call_user_func_array(ʼpackʼ, $result);
+   echo call_user_func_array('pack', $result);
 }
 
 

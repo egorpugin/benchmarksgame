@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    std::cout << "P4\n" << width << ʼ ʼ << height << ʼ\nʼ;
+    std::cout << "P4\n" << width << ' ' << height << '\n';
     for (size_t y = 0; y < height; ++y)
     {
         Byte* line = reinterpret_cast<Byte*>(&data[y * maxX]);

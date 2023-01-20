@@ -36,9 +36,9 @@ proc main(args: [] string) {
   // process the buffer a sequence at a time, working from the end
   var hi = end;
   while (hi >= 0) {
-    // search for the ʼ>ʼ that marks the start of a sequence
+    // search for the '>' that marks the start of a sequence
     var lo = hi;
-    while buf[lo] != ʼ>ʼ.toByte() do
+    while buf[lo] != '>'.toByte() do
       lo -= 1;
 
     // reverse and complement the sequence once we find it
@@ -53,7 +53,7 @@ proc main(args: [] string) {
 
 
 proc revcomp(buf: [?inds]) {
-  param cols = 61;  // the number of characters per full row (including ʼ\nʼ)
+  param cols = 61;  // the number of characters per full row (including '\n')
   var lo = inds.low,
       hi = inds.high;
 
@@ -82,7 +82,7 @@ proc revcomp(buf: [?inds]) {
 
 
 proc createTable() {
-  // `pairs` compactly represents the table weʼre creating, where the
+  // `pairs` compactly represents the table we're creating, where the
   // first byte of each pair (in either case) maps to the second:
   //   A|a -> T, C|c -> G, G|g -> C, T|t -> A, etc.
   param pairs = b"ATCGGCTAUAMKRYWWSSYRKMVBHDDHBVNN",

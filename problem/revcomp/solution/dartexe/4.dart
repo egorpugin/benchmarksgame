@@ -5,29 +5,29 @@
    + null safety
 */
 
-import ʼdart:asyncʼ;
-import ʼdart:ioʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 const begSequence = 62; //">"
 const endOfLine = 10; //"\n"
 const Map<String, String> rules = {
-  ʼAʼ: ʼTʼ,
-  ʼBʼ: ʼVʼ,
-  ʼCʼ: ʼGʼ,
-  ʼDʼ: ʼHʼ,
-  ʼGʼ: ʼCʼ,
-  ʼHʼ: ʼDʼ,
-  ʼKʼ: ʼMʼ,
-  ʼMʼ: ʼKʼ,
-  ʼNʼ: ʼNʼ,
-  ʼRʼ: ʼYʼ,
-  ʼSʼ: ʼSʼ,
-  ʼTʼ: ʼAʼ,
-  ʼUʼ: ʼAʼ,
-  ʼVʼ: ʼBʼ,
-  ʼYʼ: ʼRʼ,
-  ʼWʼ: ʼWʼ,
+  'A': 'T',
+  'B': 'V',
+  'C': 'G',
+  'D': 'H',
+  'G': 'C',
+  'H': 'D',
+  'K': 'M',
+  'M': 'K',
+  'N': 'N',
+  'R': 'Y',
+  'S': 'S',
+  'T': 'A',
+  'U': 'A',
+  'V': 'B',
+  'Y': 'R',
+  'W': 'W',
 };
 
 final Uint8List complement = initComplement();

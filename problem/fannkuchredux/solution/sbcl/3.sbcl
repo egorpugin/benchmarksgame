@@ -23,7 +23,7 @@ fy t :toplevel (lambda () (main) (quit)))"
 (declaim (optimize (speed 3) (safety 0) (space 1) (debug 0)))
 
 (defmacro sb (a) `(the fixnum ,a))
-(deftype sb () ʼfixnum)
+(deftype sb () 'fixnum)
 
 (defmacro setlambda(n)
   (declare (type fixnum n))
@@ -63,8 +63,8 @@ fy t :toplevel (lambda () (main) (quit)))"
   (let ((csum 0)
         (fmax 0))
     (declare (type sb csum fmax))
-    (let ((perm (make-array n :element-type ʼfixnum))
-          (copy (make-array n :element-type ʼfixnum))
+    (let ((perm (make-array n :element-type 'fixnum))
+          (copy (make-array n :element-type 'fixnum))
           (num 0)
           (cflip (the (function ((simple-array sb (*)))) (eval `(countfliplambda
  ,n))))

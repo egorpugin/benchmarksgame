@@ -58,10 +58,10 @@ impl Code {
         let mut code = self.0;
         for _ in 0..frame {
             let c = match code as u8 & 0b11 {
-                c if c == Code::encode(bʼAʼ) => bʼAʼ,
-                c if c == Code::encode(bʼTʼ) => bʼTʼ,
-                c if c == Code::encode(bʼGʼ) => bʼGʼ,
-                c if c == Code::encode(bʼCʼ) => bʼCʼ,
+                c if c == Code::encode(b'A') => b'A',
+                c if c == Code::encode(b'T') => b'T',
+                c if c == Code::encode(b'G') => b'G',
+                c if c == Code::encode(b'C') => b'C',
                 _ => unreachable!(),
             };
             res.push(c);
@@ -78,12 +78,12 @@ impl Code {
     }
 }
 
-struct Iter<ʼa> {
-    iter: std::slice::Iter<ʼa, u8>,
+struct Iter<'a> {
+    iter: std::slice::Iter<'a, u8>,
     code: Code,
     mask: u64,
 }
-impl<ʼa> Iter<ʼa> {
+impl<'a> Iter<'a> {
     fn new(input: &[u8], frame: usize) -> Iter {
         let mut iter = input.iter();
         let mut code = Code(0);
@@ -98,7 +98,7 @@ impl<ʼa> Iter<ʼa> {
         }
     }
 }
-impl<ʼa> Iterator for Iter<ʼa> {
+impl<'a> Iterator for Iter<'a> {
     type Item = Code;
     fn next(&mut self) -> Option<Self::Item> {
         self.iter.next().map(|&c| {
@@ -119,7 +119,7 @@ fn gen_freq(input: &[u8], frame: usize) -> Map {
 #[derive(Clone, Copy)]
 enum Item {
     Freq(usize),
-    Occ(&ʼstatic str),
+    Occ(&'static str),
 }
 impl Item {
     fn print(&self, freq: &Map) {
@@ -162,7 +162,7 @@ fn get_seq<R: std::io::BufRead>(mut r: R, key: &[u8]) -> Vec<u8> {
     let mut line = Vec::with_capacity(64);
 
     loop {
-        match r.read_until(bʼ\nʼ, &mut line) {
+        match r.read_until(b'\n', &mut line) {
             Ok(b) if b > 0 => if line.starts_with(key) { break },
             _ => break,
         }
@@ -171,7 +171,7 @@ fn get_seq<R: std::io::BufRead>(mut r: R, key: &[u8]) -> Vec<u8> {
 
     loop {
         line.clear();
-        match r.read_until(bʼ\nʼ, &mut line) {
+        match r.read_until(b'\n', &mut line) {
             Ok(b) if b > 0 => res.extend(line[..line.len()-1].iter().cloned().ma
 p(Code::encode)),
             _ => break,

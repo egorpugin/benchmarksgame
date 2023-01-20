@@ -6,7 +6,7 @@
    + null safety
 */
 
-import ʼdart:ioʼ;
+import 'dart:io';
 
 void main() {
   var src = "CGATMKRYVBHD";
@@ -30,7 +30,7 @@ void main() {
   stdin.listen((List<int> dataList) {
     // Loop over all the contents of the buffer so far
     for (int data in dataList) {
-      // Check if this is a comment line (and that we arenʼt already on a commen
+      // Check if this is a comment line (and that we aren't already on a commen
 t line)
       if (data == 62 && !commentLine) {
         int count = 0;

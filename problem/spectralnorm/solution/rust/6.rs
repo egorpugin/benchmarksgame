@@ -83,7 +83,7 @@ mod simd {
         // Parallelize along the output vector, with each pair of slots as a
         // parallelism unit.
         out.par_iter_mut().enumerate().for_each(|(i, slot)| {
-            // Weʼre computing everything in chunks of two so the indces of
+            // We're computing everything in chunks of two so the indces of
             // slot[0] and slot[1] are 2*i and 2*i + 1.
             let i = 2 * i;
             let (i0, i1) = ([i; 2], [i + 1; 2]);
@@ -127,7 +127,7 @@ mod simd {
     }
 }
 
-// now hereʼs the actual program
+// now here's the actual program
 fn main() {
     let n = std::env::args().nth(1)
         .and_then(|n| n.parse().ok())

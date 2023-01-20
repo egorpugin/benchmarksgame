@@ -2,7 +2,7 @@
  * The Computer Language Benchmarks Game
  * https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
  *
- * based on Jarkko Miettinenʼs Java program
+ * based on Jarkko Miettinen's Java program
  * contributed by Tristan Dupont
  * *reset*
  */

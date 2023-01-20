@@ -28,12 +28,12 @@ unsafe class Program
         // create a buffer:
         // 10 digits, 1 tab, 1 colon, length of digits, times the amount of rows
 .
-        // itʼs not exactly the size of the output, but itʼs big enough.
+        // it's not exactly the size of the output, but it's big enough.
         //
         // we also manually handle it because muh nanoseconds.
         char* builder = stackalloc char[(10 + 1 + 1 + args[0].Length) * n];
 
-        // maintain a pointer to the start of the buffer - weʼll be writing and
+        // maintain a pointer to the start of the buffer - we'll be writing and
         // incrementing builder as we append characters
         var builderStart = builder;
 
@@ -71,13 +71,13 @@ unsafe class Program
 
             // digit is a number from 0 to 9, so we can just append a single
             // character here
-            *builder++ = (char)(ʼ0ʼ + digit);
+            *builder++ = (char)('0' + digit);
 
             // comparison from java-3 program
             if (++i % 10 == 0)
             {
-                *builder++ = ʼ\tʼ;
-                *builder++ = ʼ:ʼ;
+                *builder++ = '\t';
+                *builder++ = ':';
 
                 // we pass in int.MaxValue to ignore bounds checking since we
                 // know that the buffer is large enough to handle any writes we
@@ -86,7 +86,7 @@ unsafe class Program
                         out var charsWritten);
                 builder += charsWritten;
 
-                *builder++ = ʼ\nʼ;
+                *builder++ = '\n';
             }
 
             // eliminate digit
@@ -100,7 +100,7 @@ unsafe class Program
         Console.Out.Write(new ReadOnlySpan<char>(
                 builderStart, (int)(builder - builderStart)));
 
-        // a lot of the pidigit implementations have memory leaks, we donʼt ;)
+        // a lot of the pidigit implementations have memory leaks, we don't ;)
         GmpBindings.mpz_clear(&temp1);
         GmpBindings.mpz_clear(&temp2);
         GmpBindings.mpz_clear(&accumulator);
@@ -114,7 +114,7 @@ unsafe class Program
             mpz_t* numerator, mpz_t* accumulator, mpz_t* denominator)
     {
         // comment from gcc-1 source:
-        // joggling between tmp1_Pointer and tmp2_Pointer, so GMP wonʼt have to
+        // joggling between tmp1_Pointer and tmp2_Pointer, so GMP won't have to
         // use temp buffers
         GmpBindings.mpz_mul_ui(temp1, numerator, nth);
         GmpBindings.mpz_add(temp2, temp1, accumulator);

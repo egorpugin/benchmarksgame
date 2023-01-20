@@ -15,7 +15,7 @@ public static class Program
 {
     public delegate int SpanFunc<T>(Span<T> span);
 
-    private const byte GT = (byte)ʼ>ʼ, LF = 10;
+    private const byte GT = (byte)'>', LF = 10;
     private const int LineLength = 61;
     private const int BUFFER_SIZE = 1024 * 1024 * 1;
     private const int writeStart = 64;
@@ -178,13 +178,13 @@ e the first position where the content start at the beginning of the block.
                 var blendMask = Sse2.CompareGreaterThan(
                     complementSelector.AsSByte(),
                     Vector128.Create((byte)0xF).AsSByte());
-                var lookupHigh = Vector128.Create(0, 0, (byte)ʼYʼ, (byte)ʼSʼ,
-                    (byte)ʼAʼ, (byte)ʼAʼ, (byte)ʼBʼ, (byte)ʼWʼ, 0, (byte)ʼRʼ, 0,
+                var lookupHigh = Vector128.Create(0, 0, (byte)'Y', (byte)'S',
+                    (byte)'A', (byte)'A', (byte)'B', (byte)'W', 0, (byte)'R', 0,
                     0, 0, 0, 0, 0);
                 var r2 = Ssse3.Shuffle(lookupHigh, complementSelector);
-                var lookupLow = Vector128.Create(0, (byte)ʼTʼ, (byte)ʼVʼ,
-                    (byte)ʼGʼ, (byte)ʼHʼ, 0, 0, (byte)ʼCʼ, (byte)ʼDʼ, 0, 0,
-                    (byte)ʼMʼ, 0, (byte)ʼKʼ, (byte)ʼNʼ, 0);
+                var lookupLow = Vector128.Create(0, (byte)'T', (byte)'V',
+                    (byte)'G', (byte)'H', 0, 0, (byte)'C', (byte)'D', 0, 0,
+                    (byte)'M', 0, (byte)'K', (byte)'N', 0);
                 var r1 = Ssse3.Shuffle(lookupLow, complementSelector);
                 var result = Sse41.BlendVariable(r1, r2, blendMask.AsByte());
                 Sse2.Store(writePtr, result.AsByte());

@@ -20,7 +20,7 @@
 typedef double v4pd __attribute__((vector_size(32)));
 
 // this could probably be slightly better but uses
-// less then 0.01% of execution time so isnʼt worth worrying about
+// less then 0.01% of execution time so isn't worth worrying about
 double energy(double *m, v4pd *p, v4pd *v) {
     double e = 0.0;
 

@@ -4,20 +4,20 @@
 
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 readFasta: sequenceName from: input
    | sc gt lf prefix description buffer byte |
    sc := $; asciiValue.
    gt := $> asciiValue.
    lf := Character lf asciiValue.
-   prefix := ʼ>ʼ,sequenceName.
+   prefix := '>',sequenceName.
 
    "* find start of particular fasta sequence *"
    [(input atEnd) or: [
@@ -44,8 +44,8 @@ reverseComplement: sequence named: sequenceName to: output
 
    complement := String new: 128 withAll: $*.
 
-   ʼABCDGHKMNRSTVWYʼ with:
-   ʼTVGHCDMKNYSABWRʼ
+   'ABCDGHKMNRSTVWY' with:
+   'TVGHCDMKNYSABWR'
       do: [:a :b|
          complement at: a asInteger put: b.
          complement at: a asLowercase asInteger put: b].
@@ -64,20 +64,20 @@ reverseComplement: sequence named: sequenceName to: output
          n := n - lineLength.
       ]! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | input output |
    input := Stdio stdin.
    output := Stdio stdout.
-   #(ʼONEʼ ʼTWOʼ ʼTHREEʼ) do:
+   #('ONE' 'TWO' 'THREE') do:
       [:sequenceName|   | fasta |
          fasta := self readFasta: sequenceName from: input.
          self reverseComplement: fasta value named: fasta key to: output.
       ].
    output flush! !
 
-!StdioStream instance methodsFor: ʼpositioningʼ!
+!StdioStream instance methodsFor: 'positioning'!
 
 skipTo: anObject
    "Set the access position of the receiver to be past the next occurrence of

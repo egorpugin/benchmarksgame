@@ -53,18 +53,18 @@ function sync($tmp) {
    global $parent,$chunk_data_size,$total_data_size,$pipe,$pipes;
 
    if (!$parent) {
-      $data = pack(ʼd*ʼ, ...$tmp);
+      $data = pack('d*', ...$tmp);
       safe_write($pipe, $data);
-      return array_values(unpack(ʼd*ʼ, safe_read($pipe, $total_data_size)));
+      return array_values(unpack('d*', safe_read($pipe, $total_data_size)));
    } else {
       $tmps = array();
       foreach($pipes as $pipe) {
-         $tmps[] = unpack(ʼd*ʼ, safe_read($pipe, $chunk_data_size));
+         $tmps[] = unpack('d*', safe_read($pipe, $chunk_data_size));
       }
       $tmps[] = $tmp;
       $tmp = array_merge(...$tmps);
 
-      $data = pack(ʼd*ʼ, ...$tmp);
+      $data = pack('d*', ...$tmp);
       foreach($pipes as $pipe) {
          safe_write($pipe, $data);
       }
@@ -80,7 +80,7 @@ function safe_write($fd, $data) {
    } while($len && ($data = substr($data, $w)) !== FALSE);
 }
 function safe_read($fd, $len) {
-   $data = ʼʼ;
+   $data = '';
    while ($len > 0) {
       $d = fread($fd, $len);
       $len -= strlen($d);
@@ -96,8 +96,8 @@ function pipe() {
 $n = (int) (($argc == 2) ? $argv[1] : 1);
 
 $procs = 1;
-if (file_exists(ʼ/proc/cpuinfoʼ)) {
-   $procs = preg_match_all(ʼ/^processor\s/mʼ, file_get_contents(ʼ/proc/cpuinfoʼ)
+if (file_exists('/proc/cpuinfo')) {
+   $procs = preg_match_all('/^processor\s/m', file_get_contents('/proc/cpuinfo')
 , $discard);
 }
 
@@ -106,7 +106,7 @@ if ($n < $procs) {
 }
 
 $chunk_size = (int) ($n / $procs);
-$double_size = strlen(pack(ʼdʼ, 0.0));
+$double_size = strlen(pack('d', 0.0));
 $chunk_data_size = $double_size * $chunk_size;
 $total_data_size = $double_size * $n;
 
@@ -121,7 +121,7 @@ for($i = 0; $i < $procs; ++$i) {
       $range_end = $range_begin + $chunk_size;
       $pid = pcntl_fork();
       if ($pid === -1) {
-         die(ʼcould not forkʼ);
+         die('could not fork');
       } else if ($pid) {
          continue;
       }

@@ -1,7 +1,7 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   line-by-line from Greg Buchholzʼs C program
+   line-by-line from Greg Buchholz's C program
 */
 
 

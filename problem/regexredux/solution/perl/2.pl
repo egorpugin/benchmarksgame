@@ -17,11 +17,11 @@ my @variants = qw/
 my @variants_re = map qr/$_/xiaa, @variants;
 
 my @iub = map { my $x = $_; sub { $_[0] =~ s/$x->[0]/$x->[1]/g }} (
-    [ qr{ tHa [Nt] }x,                 ʼ<4>ʼ ],
-    [ qr{ aND | caN | Ha[DS] | WaS }x, ʼ<3>ʼ ],
-    [ qr{ a [NSt] | BY }x,             ʼ<2>ʼ ],
-    [ qr{ < [^>]* > }x,                ʼ|ʼ   ],
-    [ qr{ \| [^|] [^|]* \| }x,         ʼ-ʼ   ],
+    [ qr{ tHa [Nt] }x,                 '<4>' ],
+    [ qr{ aND | caN | Ha[DS] | WaS }x, '<3>' ],
+    [ qr{ a [NSt] | BY }x,             '<2>' ],
+    [ qr{ < [^>]* > }x,                '|'   ],
+    [ qr{ \| [^|] [^|]* \| }x,         '-'   ],
 );
 
 my $seq = do { local $/; <STDIN> };
@@ -35,7 +35,7 @@ my $cleaned_length = length( $seq );
 my %results;
 
 # perl is not frequently compiled with threads support on *nix machines
-# so I canʼt rely on them. Splitting the work in two should provide some
+# so I can't rely on them. Splitting the work in two should provide some
 # performance boost, especially on those systems where fork tends to be
 # the cheapest (relatively speaking)
 #
@@ -49,9 +49,9 @@ my $pid = fork;
 
 if ( $pid ) {
     close $writer
-        or die "Cannot close childʼs writer in parent: $!";
+        or die "Cannot close child's writer in parent: $!";
 
-    # do our own computations, weʼll give the child more work
+    # do our own computations, we'll give the child more work
     for ((1 + @variants/2) .. $#variants) {
         $results{ $variants[$_] } = () = $seq =~ /$variants_re[$_]/g;
     }
@@ -68,26 +68,26 @@ if ( $pid ) {
         $results{ $v } = $n;
     }
     close $reader
-        or die "Cannot close parentʼs reader in parent: $!";
+        or die "Cannot close parent's reader in parent: $!";
 
     waitpid($pid, 0);
 }
 else {
     defined($pid) or die "Failed to fork: $!";
     close $reader
-        or die "Cannot close parentʼs reader in child: $!";
+        or die "Cannot close parent's reader in child: $!";
     for (0 .. @variants/2) {
         printf $writer "%s\t%d\n", $variants[$_],
             scalar( () = $seq =~ /$variants_re[$_]/g );
     }
     close $writer
-        or die "Cannot close childʼs writer in child: $!";
+        or die "Cannot close child's writer in child: $!";
     exit( 0 );
 }
 
 # report
 
 print "$_ $results{$_}\n" for @variants;
-print "$_\n" for ʼʼ, $input_length, $cleaned_length, length( $seq );
+print "$_\n" for '', $input_length, $cleaned_length, length( $seq );
 
 

@@ -1,10 +1,10 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   transliterated from Andrey Filatkinʼs Node #6 program by Isaac Gouy
+   transliterated from Andrey Filatkin's Node #6 program by Isaac Gouy
 */
 
-import ʼdart:mathʼ as Math;
+import 'dart:math' as Math;
 
 const SOLAR_MASS = 4 * Math.pi * Math.pi;
 const DAYS_PER_YEAR = 365.24;

@@ -7,89 +7,89 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 Smalltalk defineClass: #RandomNumber
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼseed scale ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼbenchmarks gameʼ!
+        instanceVariableNames: 'seed scale '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'benchmarks game'!
 
 Smalltalk defineClass: #RepeatStream
         superclass: #{Core.ReadStream}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼrepeatPtr repeatLimit ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼbenchmarks gameʼ!
+        instanceVariableNames: 'repeatPtr repeatLimit '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'benchmarks game'!
 
 Smalltalk defineClass: #RandomStream
         superclass: #{Smalltalk.RepeatStream}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼrandom percentages ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼbenchmarks gameʼ!
+        instanceVariableNames: 'random percentages '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'benchmarks game'!
 
 Smalltalk.RandomNumber defineSharedVariable: #FModulus
         private: false
         constant: false
-        category: ʼAs yet unclassifiedʼ
+        category: 'As yet unclassified'
         initializer: nil!
 
 
 Smalltalk.RandomNumber defineSharedVariable: #Increment
         private: false
         constant: false
-        category: ʼAs yet unclassifiedʼ
+        category: 'As yet unclassified'
         initializer: nil!
 
 
 Smalltalk.RandomNumber defineSharedVariable: #Modulus
         private: false
         constant: false
-        category: ʼAs yet unclassifiedʼ
+        category: 'As yet unclassified'
         initializer: nil!
 
 
 Smalltalk.RandomNumber defineSharedVariable: #Multiplier
         private: false
         constant: false
-        category: ʼAs yet unclassifiedʼ
+        category: 'As yet unclassified'
         initializer: nil!
 
-!Core.BenchmarksGame class methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame class methodsFor: 'private'!
 
 fasta: n to: out
    | r lineLength |
    lineLength := 60.
    self
-      writeFasta: ʼONE Homo sapiens aluʼ
+      writeFasta: 'ONE Homo sapiens alu'
       from:
          ( RepeatStream
             to: n*2
-            on:ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ,
-               ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ,
-               ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ,
-               ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ,
-               ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ,
-               ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ,
-               ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ )
+            on:'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG',
+               'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA',
+               'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT',
+               'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA',
+               'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG',
+               'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC',
+               'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA' )
       to: out
       lineLength: lineLength.
 
    r := RandomNumber to: 1. "Shared random sequence"
 
    self
-      writeFasta: ʼTWO IUB ambiguity codesʼ
+      writeFasta: 'TWO IUB ambiguity codes'
       from:
          (( RandomStream
             to: n*3
@@ -115,7 +115,7 @@ fasta: n to: out
       lineLength: lineLength.
 
    self
-      writeFasta: ʼTHREE Homo sapiens frequencyʼ
+      writeFasta: 'THREE Homo sapiens frequency'
       from:
          (( RandomStream
             to: n*5
@@ -140,17 +140,17 @@ writeFasta: aString from: inStream to: outStream lineLength: lineLength
       i := i + 1].
    outStream nl! !
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | output |
    output := ExternalWriteStream on:
       (ExternalConnection ioAccessor: (UnixDiskFileAccessor new handle: 1)).
    self fasta: n to: output.
-   ^ʼʼ! !
+   ^''! !
 
 
-!RandomNumber class methodsFor: ʼclass initializationʼ!
+!RandomNumber class methodsFor: 'class initialization'!
 
 initialize
    FModulus := 139968.0d0.
@@ -158,51 +158,51 @@ initialize
    Modulus := 139968.
    Multiplier := 3877.! !
 
-!RandomNumber class methodsFor: ʼinitialize-releaseʼ!
+!RandomNumber class methodsFor: 'initialize-release'!
 
 to: anInteger
    ^self basicNew to: anInteger! !
 
 
-!RandomNumber methodsFor: ʼprivateʼ!
+!RandomNumber methodsFor: 'private'!
 
 to: anInteger
    seed := 42.
    scale := anInteger! !
 
-!RandomNumber methodsFor: ʼaccessingʼ!
+!RandomNumber methodsFor: 'accessing'!
 
 next
    seed := (seed * Multiplier + Increment) \\ Modulus.
    ^(seed * scale) / FModulus! !
 
 
-!RepeatStream class methodsFor: ʼinstance creationʼ!
+!RepeatStream class methodsFor: 'instance creation'!
 
 to: anInteger on: aCollection
    ^(super on: aCollection) to: anInteger! !
 
 
-!RepeatStream methodsFor: ʼaccessingʼ!
+!RepeatStream methodsFor: 'accessing'!
 
 next
    position >= readLimit ifTrue: [ self position: 0 ].
    repeatPtr := repeatPtr + 1.
    ^collection at: (position := position + 1)! !
 
-!RepeatStream methodsFor: ʼtestingʼ!
+!RepeatStream methodsFor: 'testing'!
 
 atEnd
    ^repeatPtr >= repeatLimit! !
 
-!RepeatStream methodsFor: ʼinitialize-releaseʼ!
+!RepeatStream methodsFor: 'initialize-release'!
 
 to: anInteger
    repeatPtr := 0.
    repeatLimit := anInteger! !
 
 
-!RandomStream methodsFor: ʼaccessingʼ!
+!RandomStream methodsFor: 'accessing'!
 
 random: aRandomNumber
 "* Share the random number generator so we can get the expected results. *"
@@ -215,7 +215,7 @@ next
    1 to: percentages size do: [:i|
       (r < (percentages at: i)) ifTrue: [^collection at: i]]! !
 
-!RandomStream methodsFor: ʼinitialize-releaseʼ!
+!RandomStream methodsFor: 'initialize-release'!
 
 on: aCollection
    | size cp |
@@ -231,7 +231,7 @@ on: aCollection
    ]! !
 
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

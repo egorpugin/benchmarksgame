@@ -64,7 +64,7 @@ func renderRow(w, h, bytes int, workChan chan int,iter int, finishChan chan bool
          }
       }
    }
-   /* tell master Iʼm finished */
+   /* tell master I'm finished */
    finishChan <- true
 }
 

@@ -15,7 +15,7 @@ class fasta {
    static final int IC = 29573;
 
    static final int LINE_LENGTH = 60;
-   static final int BUFFER_SIZE = (LINE_LENGTH + 1)*1024; // add 1 for ʼ\nʼ
+   static final int BUFFER_SIZE = (LINE_LENGTH + 1)*1024; // add 1 for '\n'
 
     // Weighted selection from alphabet
     public static String ALU =
@@ -29,10 +29,10 @@ class fasta {
 
     private static final FloatProbFreq IUB = new FloatProbFreq(
           new byte[]{
-                ʼaʼ,  ʼcʼ,  ʼgʼ,  ʼtʼ,
-                ʼBʼ,  ʼDʼ,  ʼHʼ,  ʼKʼ,
-                ʼMʼ,  ʼNʼ,  ʼRʼ,  ʼSʼ,
-                ʼVʼ,  ʼWʼ,  ʼYʼ},
+                'a',  'c',  'g',  't',
+                'B',  'D',  'H',  'K',
+                'M',  'N',  'R',  'S',
+                'V',  'W',  'Y'},
           new double[]{
                 0.27, 0.12, 0.12, 0.27,
                 0.02, 0.02, 0.02, 0.02,
@@ -43,10 +43,10 @@ class fasta {
 
     private static final FloatProbFreq HOMO_SAPIENS = new FloatProbFreq(
           new byte[]{
-                ʼaʼ,
-                ʼcʼ,
-                ʼgʼ,
-                ʼtʼ},
+                'a',
+                'c',
+                'g',
+                't'},
           new double[]{
                 0.3029549426680d,
                 0.1979883004921d,
@@ -68,7 +68,7 @@ class fasta {
             "line length (including line break)");
       }
 
-      String descStr = ">" + id + " " + desc + ʼ\nʼ;
+      String descStr = ">" + id + " " + desc + '\n';
       writer.write(descStr.getBytes());
 
       int bufferIndex = 0;
@@ -87,7 +87,7 @@ class fasta {
 
          bufferIndex = fpf
             .selectRandomIntoBuffer(buffer, bufferIndex, chunkSize);
-         buffer[bufferIndex++] = ʼ\nʼ;
+         buffer[bufferIndex++] = '\n';
 
          nChars -= chunkSize;
       }
@@ -112,7 +112,7 @@ class fasta {
                 "of line length (including line break)");
        }
 
-        String descStr = ">" + id + " " + desc + ʼ\nʼ;
+        String descStr = ">" + id + " " + desc + '\n';
         writer.write(descStr.getBytes());
 
         int bufferIndex = 0;
@@ -136,7 +136,7 @@ class fasta {
 
               buffer[bufferIndex++] = aluBytes[aluIndex++];
            }
-           buffer[bufferIndex++] = ʼ\nʼ;
+           buffer[bufferIndex++] = '\n';
 
            nChars -= chunkSize;
         }

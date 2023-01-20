@@ -9,21 +9,21 @@
 import sys, bisect
 
 alu = (
-   ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ
-   ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ
-   ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ
-   ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ
-   ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ
-   ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ
-   ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ)
+   'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG'
+   'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA'
+   'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT'
+   'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA'
+   'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG'
+   'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC'
+   'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA')
 
-iub = list(zip(ʼacgtBDHKMNRSVWYʼ, [0.27, 0.12, 0.12, 0.27] + [0.02]*11))
+iub = list(zip('acgtBDHKMNRSVWY', [0.27, 0.12, 0.12, 0.27] + [0.02]*11))
 
 homosapiens = [
-    (ʼaʼ, 0.3029549426680),
-    (ʼcʼ, 0.1979883004921),
-    (ʼgʼ, 0.1975473066391),
-    (ʼtʼ, 0.3015094502008),
+    ('a', 0.3029549426680),
+    ('c', 0.1979883004921),
+    ('g', 0.1975473066391),
+    ('t', 0.3015094502008),
 ]
 
 
@@ -61,7 +61,7 @@ def randomFasta(table, n):
     r = range(width)
     gR = Random.__next__
     bb = bisect.bisect
-    jn = ʼʼ.join
+    jn = ''.join
     probs, chars = makeCumulative(table)
     for j in range(n // width):
         x = jn([chars[bb(probs, gR())] for i in r])
@@ -72,13 +72,13 @@ def randomFasta(table, n):
 def main():
     n = int(sys.argv[1])
 
-    print(ʼ>ONE Homo sapiens aluʼ)
+    print('>ONE Homo sapiens alu')
     repeatFasta(alu, n*2)
 
-    print(ʼ>TWO IUB ambiguity codesʼ)
+    print('>TWO IUB ambiguity codes')
     randomFasta(iub, n*3)
 
-    print(ʼ>THREE Homo sapiens frequencyʼ)
+    print('>THREE Homo sapiens frequency')
     randomFasta(homosapiens, n*5)
 
 main()

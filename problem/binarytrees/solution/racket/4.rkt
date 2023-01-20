@@ -56,8 +56,8 @@
 
     ;Select how to split the task
     ;when n=21, we get:
-    ;steps = ʼ(2 2 2 2 1)
-    ;interval = ʼ((4 6) (8 10) (12 14) (16 18) (20))
+    ;steps = '(2 2 2 2 1)
+    ;interval = '((4 6) (8 10) (12 14) (16 18) (20))
     ; the first is calculated in the main program, and the rest in places
     (define total (+ (quotient (- max-depth min-depth) 2) 1))
     (define cpu 4)
@@ -65,7 +65,7 @@
                             (quotient total cpu))
                           (list (remainder total cpu))))
     (define intervals (let-values ([(rev-out total)
-                                    (for/fold ([rev-out ʼ()] [total min-depth])
+                                    (for/fold ([rev-out '()] [total min-depth])
 ([v (in-list steps)])
                                       (define next (+ total (* v 2)))
                                       (values (cons (for/list ([ i (in-range tot

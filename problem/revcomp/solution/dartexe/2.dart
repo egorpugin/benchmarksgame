@@ -5,7 +5,7 @@
    + null safety
 */
 
-import ʼdart:ioʼ;
+import 'dart:io';
 
 void main() {
   var src = "CGATMKRYVBHD";
@@ -29,7 +29,7 @@ void main() {
   stdin.listen((List<int> dataList) {
     // Loop over all the contents of the buffer so far
     for (int data in dataList) {
-      // Check if this is a comment line (and that we arenʼt already on a commen
+      // Check if this is a comment line (and that we aren't already on a commen
 t line)
       if (data == 62 && !commentLine) {
         int count = 0;
@@ -38,7 +38,7 @@ t line)
         for (int g in list.reversed) {
           if (count == 60) {
             sbuf.write(new String.fromCharCodes(buffer.getRange(0, count)));
-            sbuf.write(ʼ\nʼ);
+            sbuf.write('\n');
             count = 0;
           }
           buffer[count++] = g;
@@ -46,7 +46,7 @@ t line)
         // Print any stragling data
         if (count > 0) {
           sbuf.write(new String.fromCharCodes(buffer.getRange(0, count)));
-          sbuf.write(ʼ\nʼ);
+          sbuf.write('\n');
         }
         // Reset the data for the begining of a block of data
         list.clear();
@@ -77,7 +77,7 @@ t line)
       for (int data in list.reversed) {
         if (count == 60) {
           sbuf.write(new String.fromCharCodes(buffer.getRange(0, count)));
-          sbuf.write(ʼ\nʼ);
+          sbuf.write('\n');
           count = 0;
         }
         buffer[count++] = data;

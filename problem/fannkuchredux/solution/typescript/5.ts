@@ -6,8 +6,8 @@
    converted by Isaac Gouy
 */
 
-import { Worker, isMainThread, parentPort, workerData } from ʼworker_threadsʼ;
-const os = require(ʼosʼ);
+import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
+const os = require('os');
 
 const fact: number[] = [];
 
@@ -175,23 +175,23 @@ function threadReduce(tasks: Indexes[], workerData: number,
         for (let i = 0; i < size; i++) {
             const worker = new Worker(__filename, {workerData});
 
-            worker.on(ʼmessageʼ, message => {
+            worker.on('message', message => {
                 const name = message.name;
 
-                if (name === ʼresultʼ) {
+                if (name === 'result') {
                     reducer(message.data);
                 }
-                if (name === ʼreadyʼ || name === ʼresultʼ) {
+                if (name === 'ready' || name === 'result') {
                     if (ind < tasks.length) {
                         const data = tasks[ind];
                         ind++;
-                        worker.postMessage({name: ʼworkʼ, data});
+                        worker.postMessage({name: 'work', data});
                     } else {
-                        worker.postMessage({name: ʼexitʼ});
+                        worker.postMessage({name: 'exit'});
                     }
                 }
             });
-            worker.on(ʼexitʼ, () => {
+            worker.on('exit', () => {
                 workers.delete(worker);
                 if (workers.size === 0) {
                     resolve();
@@ -204,19 +204,19 @@ function threadReduce(tasks: Indexes[], workerData: number,
 }
 
 function runWorker(onWork: (_: Indexes) => Results) {
-    parentPort?.on(ʼmessageʼ, message => {
+    parentPort?.on('message', message => {
         const name = message.name;
 
-        if (name === ʼworkʼ) {
+        if (name === 'work') {
             parentPort?.postMessage({
-                name: ʼresultʼ,
+                name: 'result',
                 data: onWork(message.data),
             });
-        } else if (name === ʼexitʼ) {
+        } else if (name === 'exit') {
             process.exit();
         }
     });
-    parentPort?.postMessage({name: ʼreadyʼ});
+    parentPort?.postMessage({name: 'ready'});
 }
 
 interface Indexes {

@@ -1,6 +1,6 @@
 % The Computer Language Benchmarks Game
 % https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-%% Contributed by Johan Karlsson based on Fredrik Svahnʼs mandelbrot program
+%% Contributed by Johan Karlsson based on Fredrik Svahn's mandelbrot program
 %% Added usage of port_command by Johan Karlsson
 
 -module(mandelbrot).
@@ -36,7 +36,7 @@ do_spawn_proc_chain(PrintProc,_,_,Max,Max) ->
     halt(0);
 do_spawn_proc_chain(PP,Spawn,Row,first,Max) ->
     NextProc = Spawn(PP,Spawn,Row,1,Max),
-    %% Iʼm the first process in the chain. Inform my self that I can finish.
+    %% I'm the first process in the chain. Inform my self that I can finish.
     self() ! done,
     %% Execute the row function
     Row(NextProc,0);

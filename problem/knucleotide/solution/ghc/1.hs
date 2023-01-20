@@ -21,7 +21,7 @@ main = do
                 else skip
     skip
     s <- S.getContents
-    let content = S.map toUpper $ S.filter ((/=) ʼ\nʼ) s;
+    let content = S.map toUpper $ S.filter ((/=) '\n') s;
     mapM_ (execute content) actions
 
 data Actions = I Int | S String
@@ -38,7 +38,7 @@ writeFrequencies input size = do
     mapM_ (\(k,v)-> do
         printf "%s %.3f\n"
             (S.unpack k) ((100 * (fromIntegral v)/sum)::Double)) sorted
-    putChar ʼ\nʼ
+    putChar '\n'
 
 writeCount :: S.ByteString -> String -> IO ()
 writeCount input string = do
@@ -73,16 +73,16 @@ calculate input beg size incr = do
             Nothing -> do
                 ref <- newIORef 1
                 H.insert freqmap word ref
-            Just x -> modifyIORefʼ x (+1)
+            Just x -> modifyIORef' x (+1)
            return freqmap
         word inp pos sz = S.take size $ S.drop pos inp
-        calculateʼ freqmap i
+        calculate' freqmap i
             | i >= ((S.length input)+1 - size) = return ()
             | otherwise = do
                 ht <- updateMap freqmap $ word input i size
-                calculateʼ ht (i+incr)
+                calculate' ht (i+incr)
     freqmap <- H.new :: IO (HashTable S.ByteString (IORef Int))
-    calculateʼ freqmap beg
+    calculate' freqmap beg
     lst <- H.toList freqmap
     mapM (\(x,y)-> do
             v <- readIORef y

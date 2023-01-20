@@ -96,8 +96,8 @@ fn main() {
 
     // line buffer
     let mut line_buf = [0u8; 12];
-    line_buf[10] = bʼ\tʼ;
-    line_buf[11] = bʼ:ʼ;
+    line_buf[10] = b'\t';
+    line_buf[11] = b':';
 
     // output buffer
     let mut output = Vec::with_capacity(n * 2);
@@ -106,11 +106,11 @@ fn main() {
         let count = cmp::min(10, n - d);
 
         for i in 0..count {
-            line_buf[i] = bʼ0ʼ + ctx.next();
+            line_buf[i] = b'0' + ctx.next();
         }
 
         for i in count..10 {
-            line_buf[i] = bʼ ʼ;
+            line_buf[i] = b' ';
         }
 
         output.extend_from_slice(&line_buf);

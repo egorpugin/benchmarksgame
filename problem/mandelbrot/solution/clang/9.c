@@ -22,7 +22,7 @@ int main(int argc, char ** argv){
 
    // The image will be black and white with one bit for each pixel. Bits with
    // a value of zero are white pixels which are the ones that "escape" from
-   // the Mandelbrot set. Weʼll be working on one line at a time and each line
+   // the Mandelbrot set. We'll be working on one line at a time and each line
    // will be made up of pixel groups that are eight pixels in size so each
    // pixel group will be one byte. This allows for some more optimizations to
    // be done.

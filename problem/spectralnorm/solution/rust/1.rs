@@ -111,13 +111,13 @@ fn dot(v: &[f64], u: &[f64]) -> f64 {
 }
 
 struct Racy<T>(T);
-unsafe impl<T: ʼstatic> Send for Racy<T> {}
+unsafe impl<T: 'static> Send for Racy<T> {}
 
 // Executes a closure in parallel over the given mutable slice. The closure `f`
 // is run in parallel and yielded the starting index within `v` as well as a
 // sub-slice of `v`.
-fn parallel<ʼa, T, F>(v: &mut [T], ref f: F)
-    where T: ʼstatic + Send + Sync,
+fn parallel<'a, T, F>(v: &mut [T], ref f: F)
+    where T: 'static + Send + Sync,
           F: Fn(usize, &mut [T]) + Sync {
     let size = v.len() / 4 + 1;
     let jhs = v.chunks_mut(size).enumerate().map(|(i, chunk)| {

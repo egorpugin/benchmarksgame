@@ -13,14 +13,14 @@ and lines_per_worker =
   | _ -> assert false
 
 let rc_table =
-  let complements = [ (ʼaʼ, ʼtʼ); (ʼcʼ, ʼgʼ); (ʼmʼ, ʼkʼ); (ʼrʼ, ʼyʼ); (ʼwʼ, ʼwʼ)
+  let complements = [ ('a', 't'); ('c', 'g'); ('m', 'k'); ('r', 'y'); ('w', 'w')
 ;
-                      (ʼsʼ, ʼsʼ); (ʼvʼ, ʼbʼ); (ʼhʼ, ʼdʼ); (ʼnʼ, ʼnʼ) ] in
-  let buf = Bytes.make 256 ʼ\000ʼ in
+                      ('s', 's'); ('v', 'b'); ('h', 'd'); ('n', 'n') ] in
+  let buf = Bytes.make 256 '\000' in
   let set (i, c) = Bytes.set buf (Char.code i) (Char.uppercase_ascii c) in
   let set_case (i, c) = set (i, c); set (Char.uppercase_ascii i, c) in
   let set_bidirect (i, c) = set_case (i, c); set_case (c, i) in
-  set_case (ʼuʼ, ʼAʼ);
+  set_case ('u', 'A');
   List.iter set_bidirect complements;
   Bytes.unsafe_to_string buf
 
@@ -39,7 +39,7 @@ let _ =
   let rec spawn tag beg first =
     let output_tag () =
       print_string tag;
-      print_char ʼ\nʼ;
+      print_char '\n';
       flush stdout
     and buf = Bytes.create (lines_per_worker * chars_per_line + 2)
     and len = ref (String.length beg) in
@@ -57,19 +57,19 @@ let _ =
       if rem > 0 then begin
         let to_do = min rem (len - !dne) in
         output stdout buf !dne to_do;
-        output_char stdout ʼ\nʼ;
+        output_char stdout '\n';
         dne := !dne + to_do
       end;
       while len - !dne >= chars_per_line do
         output stdout buf !dne chars_per_line;
-        output_char stdout ʼ\nʼ;
+        output_char stdout '\n';
         dne := !dne + chars_per_line
       done;
       let rem = len - !dne in
       if rem > 0 then begin
         output stdout buf !dne rem;
         if eol then
-          output_char stdout ʼ\nʼ
+          output_char stdout '\n'
       end;
       flush stdout;
       if eol then
@@ -80,20 +80,20 @@ let _ =
       for i = 2 to lines_per_worker do
         really_input stdin buf !len aug_chars_per_line;
         let new_len = ref (!len + chars_per_line) in
-        if Bytes.get buf !len = ʼ>ʼ || Bytes.get buf !new_len <> ʼ\nʼ then begin
-          while Bytes.get buf !len <> ʼ>ʼ do
+        if Bytes.get buf !len = '>' || Bytes.get buf !new_len <> '\n' then begin
+          while Bytes.get buf !len <> '>' do
             incr len
           done;
           let ptr = ref !len in
           (* Needed to patch the hideous bug in the output of the C program *)
-          if Bytes.get buf (!len - 1) <> ʼ\nʼ then begin
+          if Bytes.get buf (!len - 1) <> '\n' then begin
             Bytes.blit buf !len buf (!len + 1) aug_chars_per_line;
-            Bytes.set buf !len ʼ\nʼ;
+            Bytes.set buf !len '\n';
             incr new_len;
             incr ptr
           end else
             decr len;
-          while !ptr < !new_len && Bytes.get buf !ptr <> ʼ\nʼ do
+          while !ptr < !new_len && Bytes.get buf !ptr <> '\n' do
             incr ptr
           done;
           match Unix.fork () with
@@ -136,7 +136,7 @@ en))
           exit rem
         | _ -> assert false
     with End_of_file ->
-      while Bytes.get buf !len <> ʼ\nʼ do
+      while Bytes.get buf !len <> '\n' do
         incr len
       done;
       get_ack ();

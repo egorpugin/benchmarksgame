@@ -1,7 +1,7 @@
 # The Computer Language Benchmarks Game
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 #
-# ported by Michael Neumann from the Christoph Bauerʼs C program.
+# ported by Michael Neumann from the Christoph Bauer's C program.
 # modified by Jesse Millikan
 # modified by Yusuke Endoh
 

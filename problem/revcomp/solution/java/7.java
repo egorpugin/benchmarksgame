@@ -41,9 +41,9 @@ public class revcomp extends RecursiveTask<ArrayList<revcomp>> {
     if ( f >= t ) return;
     for(;;) {
       int b = bytes.get(f);
-      if (b == ʼ\nʼ) b = bytes.get(++f);
+      if (b == '\n') b = bytes.get(++f);
       int e = bytes.get(--t);
-      if (e == ʼ\nʼ) e = bytes.get(--t);
+      if (e == '\n') e = bytes.get(--t);
 
       if (f > t) break;
       bytes.put(f++, map[e]);
@@ -73,13 +73,13 @@ public class revcomp extends RecursiveTask<ArrayList<revcomp>> {
       }
 
       int b = bh.get(f);
-      if (b == ʼ\nʼ ) {
+      if (b == '\n' ) {
         f++;
         continue;
       }
 
       int e = bt.get(t);
-      if (e == ʼ\nʼ ) {
+      if (e == '\n' ) {
         t--;
         continue;
       }
@@ -149,7 +149,7 @@ public class revcomp extends RecursiveTask<ArrayList<revcomp>> {
       int next = (buf.position() + buf.limit()) / 2;
          // assuming well-formed input, the buffer must contain
          // at least one CRLF in THRESHOLD bytes
-      while( buf.get(next) != ʼ\nʼ ) next--;
+      while( buf.get(next) != '\n' ) next--;
       ByteBuffer b = buf.slice();
       b.limit(next+1-buf.position());
       buf.position(next+1);
@@ -160,20 +160,20 @@ public class revcomp extends RecursiveTask<ArrayList<revcomp>> {
 
     int f = buf.position();
     int t = f;
-    while(t < buf.limit() && buf.get(t) != ʼ>ʼ) t++;
+    while(t < buf.limit() && buf.get(t) != '>') t++;
     lastf = f;
     firstt = t;
        // this is where the first entry ends;
        // it must go before the last entry of the previous job
     for(;;) {
-         // we donʼt reverse the first entry,
-         // and we donʼt reverse the last entry
-      while(t < buf.limit() && buf.get(t) != ʼ\nʼ) t++;
+         // we don't reverse the first entry,
+         // and we don't reverse the last entry
+      while(t < buf.limit() && buf.get(t) != '\n') t++;
       if ( t == buf.limit() ) break;
       f = t+1;
       lastf = f;
 
-      while(t < buf.limit() && buf.get(t) != ʼ>ʼ) t++;
+      while(t < buf.limit() && buf.get(t) != '>') t++;
       if ( t == buf.limit() ) break;
 
       reverse( buf, f, t );

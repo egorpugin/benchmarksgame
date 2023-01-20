@@ -5,7 +5,7 @@
 # Parallelised by Scott Leggett
 # Thread.exclusive deprecated
 
-require ʼthreadʼ
+require 'thread'
 
 module MiniParallel
     class Worker
@@ -195,7 +195,7 @@ sum, flips =
         end
 
         chunk_results =
-            if (RUBY_PLATFORM == ʼjavaʼ)
+            if (RUBY_PLATFORM == 'java')
                 chunk_collector = []
                 threads = []
                 chunks.each.with_index do |(start,weighted_size),i|

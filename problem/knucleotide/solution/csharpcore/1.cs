@@ -21,7 +21,7 @@ public static class KNucleotide
     public static List<byte[]> threeBlocks = new List<byte[]>();
     public static int threeStart, threeEnd;
     static readonly byte[] tonum = new byte[256];
-    static readonly char[] tochar = new char[] { ʼAʼ, ʼCʼ, ʼGʼ, ʼTʼ };
+    static readonly char[] tochar = new char[] { 'A', 'C', 'G', 'T' };
 
     static int Read(Stream stream, byte[] buffer, int offset, int count)
     {
@@ -61,8 +61,8 @@ public static class KNucleotide
 
         // find three sequence
         int matchIndex = 0;
-        var toFind = new[] { (byte)ʼ>ʼ, (byte)ʼTʼ, (byte)ʼHʼ, (byte)ʼRʼ, (byte)
-ʼEʼ, (byte)ʼEʼ };
+        var toFind = new[] { (byte)'>', (byte)'T', (byte)'H', (byte)'R', (byte)
+'E', (byte)'E' };
         var buffer = new byte[BLOCK_SIZE];
         do
         {
@@ -72,7 +72,7 @@ public static class KNucleotide
 
         // Skip to end of line
         matchIndex = 0;
-        toFind = new[] { (byte)ʼ\nʼ };
+        toFind = new[] { (byte)'\n' };
         threeStart = Find(buffer, toFind, threeStart, ref matchIndex);
         while (threeStart == -1)
         {
@@ -93,7 +93,7 @@ public static class KNucleotide
 
         // find next seq or end of input
         matchIndex = 0;
-        toFind = new[] { (byte)ʼ>ʼ };
+        toFind = new[] { (byte)'>' };
         threeEnd = Find(buffer, toFind, threeStart, ref matchIndex);
         while (threeEnd == -1)
         {
@@ -188,10 +188,10 @@ nt)
 
     public static void Main(string[] args)
     {
-        tonum[ʼcʼ] = 1; tonum[ʼCʼ] = 1;
-        tonum[ʼgʼ] = 2; tonum[ʼGʼ] = 2;
-        tonum[ʼtʼ] = 3; tonum[ʼTʼ] = 3;
-        tonum[ʼ\nʼ] = 255; tonum[ʼ>ʼ] = 255; tonum[255] = 255;
+        tonum['c'] = 1; tonum['C'] = 1;
+        tonum['g'] = 2; tonum['G'] = 2;
+        tonum['t'] = 3; tonum['T'] = 3;
+        tonum['\n'] = 255; tonum['>'] = 255; tonum[255] = 255;
 
         LoadThreeData();
 

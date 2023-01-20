@@ -23,7 +23,7 @@
 
 (define line-length 60)
 (define buf-size (* 64 1024))
-(define out-buf ; so thereʼs always enough room for newlines
+(define out-buf ; so there's always enough room for newlines
   (make-bytes (+ buf-size 1 (quotient buf-size line-length))))
 (define LF (char->integer #\newline))
 
@@ -64,20 +64,20 @@ before dumping it out.
 
 (let ([m (regexp-match #rx"^([^\n]+)\n" I)]) (display (car m)))
 
-(let loop ([buf (read-bytes buf-size I)] [start 0] [chunks ʼ()])
+(let loop ([buf (read-bytes buf-size I)] [start 0] [chunks '()])
   (if (eof-object? buf)
     (begin (output chunks) (void))
     (case-regexp-posns #rx">" buf start
       [p1 (output (cons (vector start (car p1) buf) chunks))
           (case-regexp-posns #rx"\n" buf (cdr p1)
             [p2 (write-bytes buf O (car p1) (cdr p2))
-                (loop buf (cdr p2) ʼ())]
+                (loop buf (cdr p2) '())]
             [else (write-bytes buf O (car p1))
                   (let header-loop ()
                     (let ([buf (read-bytes buf-size I)])
                       (case-regexp-posns #rx"\n" buf 0
                         [p2 (write-bytes buf O 0 (cdr p2))
-                            (loop buf (cdr p2) ʼ())]
+                            (loop buf (cdr p2) '())]
                         [else (write-bytes buf O) (header-loop)])))])]
       [else (loop (read-bytes buf-size I) 0
                   (cons (vector start (bytes-length buf) buf) chunks))])))

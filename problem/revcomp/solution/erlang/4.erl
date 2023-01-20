@@ -36,7 +36,7 @@ run_parallel() ->
   loop(<< >>).
 
 loop(Buf) ->
-  case io:get_line(ʼʼ) of
+  case io:get_line('') of
     eof ->
       receive go -> ok end,
       spawn(fun() -> flush(<< >>, Buf) end),

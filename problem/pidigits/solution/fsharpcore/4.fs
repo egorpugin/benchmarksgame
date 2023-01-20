@@ -88,7 +88,7 @@ let main args =
     let out = System.Console.OpenStandardOutput()
     let n = int args.[0]
     let bytes = Array.zeroCreate 12
-    bytes.[10] <- ʼ\tʼB; bytes.[11] <- ʼ:ʼB
+    bytes.[10] <- '\t'B; bytes.[11] <- ':'B
     let mutable i = 0
     let mutable k = 1
     while true do
@@ -102,7 +102,7 @@ let main args =
             if i=n then
                 if i%10<>0 then
                     for c = i%10 to 9 do
-                        bytes.[c] <- ʼ ʼB
+                        bytes.[c] <- ' 'B
                     out.Write(bytes,0,12)
                     System.Console.WriteLine n
                 exit 0

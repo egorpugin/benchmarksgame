@@ -43,7 +43,7 @@ for (op, symb, pr) in ((:iub, iub1, iub2),
     # successively compares x with all values in pr and returns value from symb
     @eval @inline function $op(x)
         $([:(x <= $(pr[i]) && return $(symb[i])) for i=1:length(symb)]...)
-        ʼaʼ % UInt8
+        'a' % UInt8
     end
 end
 
@@ -65,7 +65,7 @@ function repeat_fasta(io, src, n)
         end
         pos += m
 
-        write(io, ʼ\nʼ)
+        write(io, '\n')
     end
 end
 
@@ -80,7 +80,7 @@ function print_chunks(io, c)
         for i=1:LINESIZE:n
             GC.@preserve v unsafe_write(io, pointer(v, i),
                                         min(LINESIZE, n - i + 1))
-            write(io, ʼ\nʼ)
+            write(io, '\n')
         end
     end
 end
@@ -113,7 +113,7 @@ function random_fasta(io, flookup, n, firstline, iotask, rtask=nothing)
     # complete otherwise the random numbers will be interleaved.
     rtask === nothing || wait(rtask)
     rtask = @spawn generate_chunks(flookup, c, n)
-    # Similarily, we canʼt start writing to io until the previous
+    # Similarily, we can't start writing to io until the previous
     # iotask has completed.
     iotask2 = @spawn begin
         wait(iotask)

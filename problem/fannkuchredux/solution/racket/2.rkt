@@ -20,11 +20,11 @@
 (require racket/cmdline)
 
 (define-sequence-syntax unsafe-in-fxrange
-  (lambda () #ʼin-fxrange/proc)
+  (lambda () #'in-fxrange/proc)
   (lambda (stx)
     (syntax-case stx ()
       [[(d) (_ nat)]
-       #ʼ[(d)
+       #'[(d)
           (:do-in ([(n) nat])
                   #f
                   ([i 0])

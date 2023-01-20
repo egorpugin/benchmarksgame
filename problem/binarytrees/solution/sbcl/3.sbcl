@@ -4,7 +4,7 @@
 ;;; contributed by Roman Kashitsyn
 ;;;
 
-(deftype uint () ʼ(unsigned-byte 62))
+(deftype uint () '(unsigned-byte 62))
 
 (defconstant min-depth 4 "Minimal depth of the binary tree.")
 (defparameter num-workers 4 "Number of concurrent workers.")
@@ -46,7 +46,7 @@ branches are represented by a cons cell."
          (threads
            (loop for i of-type fixnum from 1 to num-workers
                  collect (sb-thread:make-thread
-                          #ʼ(lambda ()
+                          #'(lambda ()
                               (loop as task = (sb-concurrency:dequeue tasks)
                                     while task
                                     do (sb-concurrency:enqueue
@@ -54,9 +54,9 @@ branches are represented by a cons cell."
                                               (check-trees-of-depth task max-dep
 th))
                                         outputs)))))))
-    (mapc #ʼsb-thread:join-thread threads)
+    (mapc #'sb-thread:join-thread threads)
     (let ((results (sort (sb-concurrency:list-queue-contents outputs)
-                         #ʼ< :key #ʼcar)))
+                         #'< :key #'car)))
       (loop for (k . v) in results
             do (format t "~a" v)))))
 

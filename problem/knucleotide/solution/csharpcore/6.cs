@@ -92,7 +92,7 @@ fragmentLength)
         byte cursorByte;
         while (cursor < stop)
         {
-            if ((cursorByte = buffer[cursor++]) < (byte)ʼaʼ)
+            if ((cursorByte = buffer[cursor++]) < (byte)'a')
                 cursorByte = buffer[cursor++];
             rollingKey = ((rollingKey << 2) & mask) | tonum[cursorByte];
             if (dictionary.TryGetValue(rollingKey, out w))
@@ -117,10 +117,10 @@ terThan = threepos = tocopy = 0;
         while (!threeFound && (amountRead = source.Read(buffer, 0, buffersize))
 > 0)
         {
-            indexOfGreaterThan = Array.LastIndexOf(buffer, (byte)ʼ>ʼ);
+            indexOfGreaterThan = Array.LastIndexOf(buffer, (byte)'>');
             threeFound = (indexOfGreaterThan > -1 &&
-                buffer[indexOfGreaterThan + 1] == (byte)ʼTʼ &&
-                buffer[indexOfGreaterThan + 2] == (byte)ʼHʼ);
+                buffer[indexOfGreaterThan + 1] == (byte)'T' &&
+                buffer[indexOfGreaterThan + 2] == (byte)'H');
             if (threeFound)
             {
                 threepos += indexOfGreaterThan;
@@ -147,14 +147,14 @@ uffer, 0, tocopy);
     private static char[] tochar = new char[4];
     private static void PrepareLookups()
     {
-        tonum[ʼaʼ] = 0;
-        tonum[ʼcʼ] = 1;
-        tonum[ʼgʼ] = 2;
-        tonum[ʼtʼ] = 3;
-        tochar[0] = ʼAʼ;
-        tochar[1] = ʼCʼ;
-        tochar[2] = ʼGʼ;
-        tochar[3] = ʼTʼ;
+        tonum['a'] = 0;
+        tonum['c'] = 1;
+        tonum['g'] = 2;
+        tonum['t'] = 3;
+        tochar[0] = 'A';
+        tochar[1] = 'C';
+        tochar[2] = 'G';
+        tochar[3] = 'T';
     }
 }
 

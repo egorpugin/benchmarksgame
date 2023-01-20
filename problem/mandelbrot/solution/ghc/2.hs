@@ -7,7 +7,7 @@ art
 -- Parallelised by Tim Newsham
 --
 -- Must be compiled with the -fexcess-precision flag as a pragma. GHC
--- currently doesnʼt recognise the -fexcess-precision flag on the command
+-- currently doesn't recognise the -fexcess-precision flag on the command
 -- line (!).
 --
 -- The following flags are suggested when compiling:

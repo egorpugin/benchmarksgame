@@ -207,9 +207,9 @@ public class fasta {
             for (int i = lineLength
                     ; i < lastNucleotide
                     ; i += outputLineLength) {
-                nucleotides[i] = ʼ\nʼ;
+                nucleotides[i] = '\n';
             }
-            nucleotides[nucleotides.length - 1] = ʼ\nʼ;
+            nucleotides[nucleotides.length - 1] = '\n';
         }
 
         public abstract void selectNucleotides();
@@ -267,20 +267,20 @@ public class fasta {
     public static class Buffer extends AbstractBuffer {
 
         final byte[] iubChars = new byte[]{
-            ʼaʼ, ʼcʼ, ʼgʼ, ʼtʼ,
-            ʼBʼ, ʼDʼ, ʼHʼ, ʼKʼ,
-            ʼMʼ, ʼNʼ, ʼRʼ, ʼSʼ,
-            ʼVʼ, ʼWʼ, ʼYʼ};
+            'a', 'c', 'g', 't',
+            'B', 'D', 'H', 'K',
+            'M', 'N', 'R', 'S',
+            'V', 'W', 'Y'};
         final double[] iubProbs = new double[]{
             0.27, 0.12, 0.12, 0.27,
             0.02, 0.02, 0.02, 0.02,
             0.02, 0.02, 0.02, 0.02,
             0.02, 0.02, 0.02,};
         final byte[] sapienChars = new byte[]{
-            ʼaʼ,
-            ʼcʼ,
-            ʼgʼ,
-            ʼtʼ};
+            'a',
+            'c',
+            'g',
+            't'};
         final double[] sapienProbs = new double[]{
             0.3029549426680,
             0.1979883004921,

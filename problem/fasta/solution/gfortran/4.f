@@ -34,13 +34,13 @@ program fasta
   integer, parameter :: IM = 139968, IA = 3877, IC = 29573
   integer, parameter :: LW=60
   character(len=*), parameter :: alu = &
-ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ // &
-ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ // &
-ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ // &
-ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ // &
-ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ // &
-ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ // &
-ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ
+'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG' // &
+'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA' // &
+'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT' // &
+'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA' // &
+'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG' // &
+'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC' // &
+'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA'
   character(len=1), parameter :: EOL = achar(10)
 
   type pair
@@ -51,20 +51,20 @@ program fasta
   type(pair) :: homosapiens
   type(pair) :: iub
 
-  iub = mkpair(15, c=ʼacgtBDHKMNRSVWYʼ,&
+  iub = mkpair(15, c='acgtBDHKMNRSVWY',&
        &       p=[.27,.12,.12,.27,(.02,num=1,11)])
-  homosapiens = mkpair(4, c=ʼacgtʼ,&
+  homosapiens = mkpair(4, c='acgt',&
                      & p = [0.3029549426680, 0.1979883004921, &
                             0.1975473066391, 0.3015094502008])
 
   call getarg(1,argv)
   read(argv,*) num
 
-  call makeRepeatFasta(ʼONEʼ,ʼHomo sapiens aluʼ,alu,num*2)
+  call makeRepeatFasta('ONE','Homo sapiens alu',alu,num*2)
 
-  call makeRandomFasta(ʼTWOʼ,ʼIUB ambiguity codesʼ,iub,num*3)
+  call makeRandomFasta('TWO','IUB ambiguity codes',iub,num*3)
 
-  call makeRandomFasta(ʼTHREEʼ,ʼHomo sapiens frequencyʼ,homosapiens,num*5)
+  call makeRandomFasta('THREE','Homo sapiens frequency',homosapiens,num*5)
 
 
 contains
@@ -109,7 +109,7 @@ contains
      probs = a%p * IM
      chars = a%c
 
-     write(title,ʼ(4a)ʼ) ʼ>ʼ,id,ʼ ʼ,desc
+     write(title,'(4a)') '>',id,' ',desc
      line(len(trim(title))+1) = achar(0)
      istat = puts(line)
      j = 0
@@ -143,7 +143,7 @@ contains
      equivalence(title, line)
      intrinsic len
 
-     write(title,ʼ(4a)ʼ) ʼ>ʼ,id,ʼ ʼ,desc
+     write(title,'(4a)') '>',id,' ',desc
      line(len(trim(title))+1) = achar(0)
      istat = puts(line)
 

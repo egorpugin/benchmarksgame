@@ -25,9 +25,9 @@ procedure Binarytrees is
    Iterations : Positive;
 begin
    if Argument_Count > 0 then
-      N := PositiveʼValue(Argument(1));
+      N := Positive'Value(Argument(1));
    end if;
-   Max_Depth := PositiveʼMax(Min_Depth + 2, N);
+   Max_Depth := Positive'Max(Min_Depth + 2, N);
    Stretch_Depth := Max_Depth + 1;
    Stretch_Tree := Bottom_Up_Tree(Stretch_Depth);
    Item_Check(Stretch_Tree, Check);
@@ -98,10 +98,10 @@ package body Treenodes is
       return Treenode is
    begin
       if Depth > 0 then
-         return new Nodeʼ(Bottom_Up_Tree(Depth -1),
+         return new Node'(Bottom_Up_Tree(Depth -1),
             Bottom_Up_Tree(Depth -1));
       else
-         return new Nodeʼ(null, null);
+         return new Node'(null, null);
       end if;
    end Bottom_Up_Tree;
 

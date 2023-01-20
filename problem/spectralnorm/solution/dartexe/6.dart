@@ -2,14 +2,14 @@
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
    contributed by Isaac Gouy
-   (Span.initialize from Andrey Filatkinʼs JavaScript #6 program)
+   (Span.initialize from Andrey Filatkin's JavaScript #6 program)
 */
 
-import ʼdart:mathʼ;
-import ʼdart:typed_dataʼ;
-import ʼdart:isolateʼ;
-import ʼdart:asyncʼ;
-import ʼdart:ioʼ;
+import 'dart:math';
+import 'dart:typed_data';
+import 'dart:isolate';
+import 'dart:async';
+import 'dart:io';
 
 double a(int i, int j) {
   return 1.0 / (((i + j) * (i + j + 1) >> 1) + i + 1);

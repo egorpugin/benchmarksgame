@@ -3,7 +3,7 @@ https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
 contributed by Sylvester Saguban
 inspired from C++ G++ #7 from Rafal Rusin and contributors
-- uses more features of C++17 and TS conceptʼs ʼautoʼ function parameters
+- uses more features of C++17 and TS concept's 'auto' function parameters
 - more efficient multi-threading, which sadly is the reason why this
  this has more code than other implementations.
 - data structure from array of struct to struct of arrays for better
@@ -120,8 +120,8 @@ public:
 
                 this->SyncOutput( tdata.index, [&] {
                     if( tdata.index == limit &&
-                            tdata.cbuff[char_count-1] != ʼ\nʼ )
-                        tdata.cbuff[char_count++] = ʼ\nʼ;
+                            tdata.cbuff[char_count-1] != '\n' )
+                        tdata.cbuff[char_count++] = '\n';
                     output( char_count, tdata );
                 });
             }
@@ -162,17 +162,17 @@ int main(int argc, char *argv[])
         "CGTCTCAAAAA";
 
     static constexpr std::array< std::pair< float, char >, 15> iub = {{
-         { 0.27f, ʼaʼ }, { 0.12f, ʼcʼ }, { 0.12f, ʼgʼ }, { 0.27f, ʼtʼ },
-         { 0.02f, ʼBʼ }, { 0.02f, ʼDʼ }, { 0.02f, ʼHʼ }, { 0.02f, ʼKʼ },
-         { 0.02f, ʼMʼ }, { 0.02f, ʼNʼ }, { 0.02f, ʼRʼ }, { 0.02f, ʼSʼ },
-         { 0.02f, ʼVʼ }, { 0.02f, ʼWʼ }, { 0.02f, ʼYʼ }
+         { 0.27f, 'a' }, { 0.12f, 'c' }, { 0.12f, 'g' }, { 0.27f, 't' },
+         { 0.02f, 'B' }, { 0.02f, 'D' }, { 0.02f, 'H' }, { 0.02f, 'K' },
+         { 0.02f, 'M' }, { 0.02f, 'N' }, { 0.02f, 'R' }, { 0.02f, 'S' },
+         { 0.02f, 'V' }, { 0.02f, 'W' }, { 0.02f, 'Y' }
     }};
 
     static constexpr std::array< std::pair< float, char >, 4> homosapiens = {{
-         { 0.3029549426680f, ʼaʼ },
-         { 0.1979883004921f, ʼcʼ },
-         { 0.1975473066391f, ʼgʼ },
-         { 0.3015094502008f, ʼtʼ }
+         { 0.3029549426680f, 'a' },
+         { 0.1979883004921f, 'c' },
+         { 0.1975473066391f, 'g' },
+         { 0.3015094502008f, 't' }
     }};
 
     static auto make_commulative = []( const auto& p ) {
@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
                                        [f]( auto t ){ return f <= t; });
                 *citr++ = data.ch[ i - data.real.begin() ];
             }
-            *citr++ = ʼ\nʼ;
+            *citr++ = '\n';
         };
 
         unsigned aligner_count = Config::chars_per_line -
@@ -247,7 +247,7 @@ int main(int argc, char *argv[])
                 unsigned ul = std::min(i + Config::chars_per_line, char_count);
                 for(; i < ul; ++i )
                     ret[i] = alu[ (i - j) % (sizeof(alu) - 1)];
-                ret[i] = ʼ\nʼ;
+                ret[i] = '\n';
             }
             return ret;
         }();
@@ -258,7 +258,7 @@ int main(int argc, char *argv[])
             std::fwrite( alu_data.data(), 1, alu_data.size(), Config::output );
         std::fwrite( alu_data.data(), 1, size +
                      (size / Config::chars_per_line), Config::output );
-        std::putc(ʼ\nʼ, Config::output );
+        std::putc('\n', Config::output );
     };
 
     auto iub_convert = []( unsigned size, unsigned start_index,

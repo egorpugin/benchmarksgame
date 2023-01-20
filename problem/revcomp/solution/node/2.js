@@ -98,7 +98,7 @@ function reverseCompPrint(line) {
     }
     metaI = _metaI + count;
     numLines = _numLines;
-    stdout.write(target.slice(0, count).toString(ʼasciiʼ));
+    stdout.write(target.slice(0, count).toString('ascii'));
 }
 
 
@@ -129,7 +129,7 @@ function reverse(la_) {
         line = lines[lnIdx];
     }
     if ((metaI - numLines) % 60 !== 0) {
-        stdout.write(ʼ\nʼ);
+        stdout.write('\n');
     }
 }
 
@@ -141,7 +141,7 @@ let lnIdx = 0;
 let lines = la.data;
 
 let needHeader = true;
-let headerPartial = ʼʼ;
+let headerPartial = '';
 let isFirst = true;
 
 
@@ -163,14 +163,14 @@ function read() {
         while (true) {
             // if have read a partial header line, read the rest of it
             if (needHeader) {
-                const headerEnds = chunk.indexOf(ʼ\nʼ);
-                console.log(headerPartial.toString(ʼasciiʼ) + chunk.slice(0, hea
-derEnds).toString(ʼasciiʼ));
-                headerPartial = ʼʼ;
+                const headerEnds = chunk.indexOf('\n');
+                console.log(headerPartial.toString('ascii') + chunk.slice(0, hea
+derEnds).toString('ascii'));
+                headerPartial = '';
                 chunk = chunk.slice(headerEnds);
                 needHeader = false;
             }
-            const caretIdx = chunk.indexOf(ʼ>ʼ);
+            const caretIdx = chunk.indexOf('>');
             if (caretIdx > -1) {
                 // there is a caret in this chunk -- process the first part of
                 // the chunk and then continue the `while (true)` loop to proces
@@ -187,14 +187,14 @@ s
                 la.pos = 0;
                 lnIdx = 0;
                 // check to see if the entire header line is here
-                const headerEnds = chunk.indexOf(ʼ\nʼ);
+                const headerEnds = chunk.indexOf('\n');
                 if (headerEnds < 0) {
                     needHeader = true;
                     headerPartial = chunk;
                     break;
                 } else {
                     // log the header
-                    console.log(chunk.slice(0, headerEnds).toString(ʼasciiʼ));
+                    console.log(chunk.slice(0, headerEnds).toString('ascii'));
                     // continue processing the rest of the chunk
                     chunk = chunk.slice(headerEnds);
                 }
@@ -221,5 +221,5 @@ s
 }
 
 
-stdin.on(ʼreadableʼ, read);
+stdin.on('readable', read);
 

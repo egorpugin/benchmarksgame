@@ -47,8 +47,8 @@ unset($stretchTree);
 
 $longLivedTree = createTree($maxDepth);
 
-$workersAvailable = file_exists(ʼ/proc/cpuinfoʼ) ?
-    preg_match_all(ʼ/^processor\s/mʼ, file_get_contents(ʼ/proc/cpuinfoʼ), $null)
+$workersAvailable = file_exists('/proc/cpuinfo') ?
+    preg_match_all('/^processor\s/m', file_get_contents('/proc/cpuinfo'), $null)
  - 1 : 1;
 $workersAvailable = $workersAvailable ?: 1;
 
@@ -92,8 +92,8 @@ do {
 } while ($minDepth <= $maxDepth);
 
 $size = 128;
-extension_loaded(ʼshmopʼ) or dl(ʼshmop.soʼ);
-$shmId = shmop_open(ftok(__FILE__, ʼbʼ), ʼcʼ, 0644, $size * (count($depthIterati
+extension_loaded('shmop') or dl('shmop.so');
+$shmId = shmop_open(ftok(__FILE__, 'b'), 'c', 0644, $size * (count($depthIterati
 ons) + 1));
 $workersPIDs = [];
 $n = 0;

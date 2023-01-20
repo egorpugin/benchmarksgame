@@ -17,7 +17,7 @@ char *pairs = "ATCGGCTAUAMKRYWWSSYRKMVBHDDHBVNN\n\n";
 char tbl[128];
 
 void process(char *from, char *to) {
-   while (*from++ != ʼ\nʼ);
+   while (*from++ != '\n');
 
    size_t len = to - from;
    size_t off = 60 - (len % 61);
@@ -26,7 +26,7 @@ void process(char *from, char *to) {
       char *m;
       for (m = from + 60 - off; m < to; m += 61) {
          memmove(m + 1, m, off);
-         *m = ʼ\nʼ;
+         *m = '\n';
       }
    }
 
@@ -56,11 +56,11 @@ int main() {
          buf = realloc(buf, buflen);
       }
    }
-   buf[end] = ʼ>ʼ;
+   buf[end] = '>';
 
    char *from, *to = buf + end - 1;
    while (1) {
-      for (from = to; *from != ʼ>ʼ; from--);
+      for (from = to; *from != '>'; from--);
 
       process(from, to);
 

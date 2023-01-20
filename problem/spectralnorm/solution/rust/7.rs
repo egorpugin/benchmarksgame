@@ -72,7 +72,7 @@ where
     let mut result = F64x4::default();
 
     for k in 0..4 {
-        // Weʼre computing everything in chunks of four so the indces of output
+        // We're computing everything in chunks of four so the indces of output
         // are 4*i, 4*i+1, 4*i+2 and 4*i+3.
         let ix4 = I32x4::splat(4 * i + k);
 

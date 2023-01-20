@@ -14,7 +14,7 @@ to_upper(<<>>, Acc) -> list_to_binary(lists:reverse(Acc)).
 
 %% Read and discard until start of third segment
 seek_three() ->
-    case io:get_line(ʼʼ) of
+    case io:get_line('') of
         <<">TH", _/binary>> -> done;
         eof        -> erlang:error(eof);
         _          -> seek_three()
@@ -22,7 +22,7 @@ seek_three() ->
 
 %% Read third segment
 get_seq_three(Seq) ->
-    case io:get_line(ʼʼ) of
+    case io:get_line('') of
         eof -> iolist_to_binary(lists:reverse(Seq));
         Str -> get_seq_three([to_upper(Str, [])|Seq])
     end.

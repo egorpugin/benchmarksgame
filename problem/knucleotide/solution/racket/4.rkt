@@ -16,7 +16,7 @@
 ;;; we can take advantage of overlapping DNA sub-sequences to get a
 ;;; constant-time hash function (that does not depend on the sequence length).
 ;;;
-;;; The bottleneck in this code seems to be Racketʼs hash table. The time to
+;;; The bottleneck in this code seems to be Racket's hash table. The time to
 ;;; create the last hash table (for the len-18 string) seems to be about half
 ;;; the runtime of the whole program.
 
@@ -24,7 +24,7 @@
 (define dna->num
   (let ([tbl (make-bytes 256 255)])
     (for ([ch (in-list (bytes->list #"ACGTacgt"))]
-          [ii (in-list ʼ(0 1 2 3 0 1 2 3))])
+          [ii (in-list '(0 1 2 3 0 1 2 3))])
       (bytes-set! tbl ch ii))
     (lambda (ch) (bytes-ref tbl ch))))
 
@@ -100,6 +100,6 @@ a->num bb) ) ishift)) -2))
 (newline)
 
 ;; Specific sequences:
-(for ([seq ʼ(#"GGT" #"GGTA" #"GGTATT" #"GGTATTTTAATT" #"GGTATTTTAATTTATAGT")])
+(for ([seq '(#"GGT" #"GGTA" #"GGTATT" #"GGTATTTTAATT" #"GGTATTTTAATTTATAGT")])
   (write-one-freq (all-counts (bytes-length seq) dna) seq))
 

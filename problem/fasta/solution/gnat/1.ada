@@ -46,9 +46,9 @@ package body Fasta_Pck is
    end Gen_Random;
 
    procedure Make_Cumulative (Gene_List : in out Aminoacid_Set) is
-      C : Real := Gene_List (Gene_ListʼFirst).P;
+      C : Real := Gene_List (Gene_List'First).P;
    begin
-      for K in Gene_ListʼFirst + 1 .. Gene_ListʼLast loop
+      for K in Gene_List'First + 1 .. Gene_List'Last loop
          C := C + Gene_List (K).P;
          Gene_List (K).P := C;
       end loop;
@@ -58,12 +58,12 @@ package body Fasta_Pck is
       R         : Real := Gen_Random (1.0);
       I, Lo, Hi : Integer;
    begin
-      if R < Gene_List (Gene_ListʼFirst).P then
-         return Gene_List (Gene_ListʼFirst).C;
+      if R < Gene_List (Gene_List'First).P then
+         return Gene_List (Gene_List'First).C;
       end if;
 
       Lo := 0;
-      Hi := Gene_ListʼLast;
+      Hi := Gene_List'Last;
 
       while Hi > Lo + 1 loop
          I := (Hi + Lo) / 2;
@@ -84,10 +84,10 @@ package body Fasta_Pck is
       M    : Integer;
       Pick : String (1 .. Line_Length);
    begin
-      Put_Line (">" & Id & ʼ ʼ & Desc);
+      Put_Line (">" & Id & ' ' & Desc);
 
       while Todo > 0 loop
-         M := NaturalʼMin (Todo, Line_Length);
+         M := Natural'Min (Todo, Line_Length);
 
          for K in 1 .. M loop
             Pick (K) := Select_Random (Gene_List);
@@ -100,22 +100,22 @@ package body Fasta_Pck is
 
    procedure Make_Repeat_Fasta (Id, Desc, S : in String; N : in Positive) is
       Todo : Integer := N;
-      K    : Positive := SʼFirst;
+      K    : Positive := S'First;
       M    : Natural;
    begin
-      Put_Line (">" & Id & ʼ ʼ & Desc);
+      Put_Line (">" & Id & ' ' & Desc);
 
       while Todo > 0 loop
-         M := NaturalʼMin (Todo, Line_Length);
+         M := Natural'Min (Todo, Line_Length);
 
-         while M >= SʼLength - K + SʼFirst loop
-            Put (S (K .. SʼLast));
-            M := M - (SʼLength - K + SʼFirst);
-            K := SʼFirst;
+         while M >= S'Length - K + S'First loop
+            Put (S (K .. S'Last));
+            M := M - (S'Length - K + S'First);
+            K := S'First;
          end loop;
 
-         Put_Line (S (K .. K + M - SʼFirst));
-         K := K + M - SʼFirst + 1;
+         Put_Line (S (K .. K + M - S'First));
+         K := K + M - S'First + 1;
 
          Todo := Todo - Line_Length;
       end loop;
@@ -128,13 +128,13 @@ with Fasta_Pck;        use Fasta_Pck;
 
 procedure Fasta is
    Homosapiens : Aminoacid_Set :=
-                   ((ʼaʼ, 0.3029549426680), (ʼcʼ, 0.1979883004921),
-                    (ʼgʼ, 0.1975473066391), (ʼtʼ, 0.3015094502008));
+                   (('a', 0.3029549426680), ('c', 0.1979883004921),
+                    ('g', 0.1975473066391), ('t', 0.3015094502008));
    Iub         : Aminoacid_Set :=
-                   ((ʼaʼ, 0.27), (ʼcʼ, 0.12), (ʼgʼ, 0.12), (ʼtʼ, 0.27),
-                    (ʼBʼ, 0.02), (ʼDʼ, 0.02), (ʼHʼ, 0.02), (ʼKʼ, 0.02),
-                    (ʼMʼ, 0.02), (ʼNʼ, 0.02), (ʼRʼ, 0.02), (ʼSʼ, 0.02),
-                    (ʼVʼ, 0.02), (ʼWʼ, 0.02), (ʼYʼ, 0.02));
+                   (('a', 0.27), ('c', 0.12), ('g', 0.12), ('t', 0.27),
+                    ('B', 0.02), ('D', 0.02), ('H', 0.02), ('K', 0.02),
+                    ('M', 0.02), ('N', 0.02), ('R', 0.02), ('S', 0.02),
+                    ('V', 0.02), ('W', 0.02), ('Y', 0.02));
    Alu         : constant String :=
                     "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG" &
                     "GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA" &
@@ -144,7 +144,7 @@ procedure Fasta is
                     "AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC" &
                     "AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA";
 
-   N           : constant Positive := PositiveʼValue (Argument (1));
+   N           : constant Positive := Positive'Value (Argument (1));
 
 begin
    Make_Cumulative (Iub);

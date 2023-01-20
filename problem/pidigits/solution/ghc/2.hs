@@ -3,7 +3,7 @@
 -- contributed by Branimir Maksimovic
 
 {- original Haskell implementation from spigot.pdf document
- - Iʼve just added printPi and main, also replaced floor and / with div
+ - I've just added printPi and main, also replaced floor and / with div
  - because for some reason div is much faster
  -}
 
@@ -12,13 +12,13 @@ import System.Environment
 main = do [n] <- getArgs
           printPi $ take (read n) Main.pi
 
-printPi digits = printPiʼ digits 10 0
-  where printPiʼ [] ndigs sumʼ = do mapM_ (\_ -> putChar ʼ ʼ) [1..ndigs]
-                                    putStr $ "\t:" ++ show sumʼ ++ "\n"
-        printPiʼ xxs 0 sumʼ = do putStr $ "\t:" ++ show sumʼ ++ "\n"
-                                 printPiʼ xxs 10 sumʼ
-        printPiʼ (x:xs) ndigs sumʼ = do putStr $ show x
-                                        printPiʼ xs (ndigs-1) (sumʼ+1)
+printPi digits = printPi' digits 10 0
+  where printPi' [] ndigs sum' = do mapM_ (\_ -> putChar ' ') [1..ndigs]
+                                    putStr $ "\t:" ++ show sum' ++ "\n"
+        printPi' xxs 0 sum' = do putStr $ "\t:" ++ show sum' ++ "\n"
+                                 printPi' xxs 10 sum'
+        printPi' (x:xs) ndigs sum' = do putStr $ show x
+                                        printPi' xs (ndigs-1) (sum'+1)
 
 stream :: (b->c) -> (b->c->Bool) -> (b->c->b) -> (b->a->b) -> b -> [a] -> [c]
 stream next safe prod cons z (x:xs)
@@ -44,6 +44,6 @@ pi = stream next safe prod cons init lfts
         next z = floorExtr z 3
         safe z n = (n == floorExtr z 4)
         prod z n = comp (10, -10*n, 0, 1) z
-        cons z zʼ  = comp z zʼ
+        cons z z'  = comp z z'
 
 

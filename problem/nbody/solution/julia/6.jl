@@ -9,14 +9,14 @@
 # makes the number of loop iterations available as a compile-time
 # constant, so llvm can unroll them. To convince llvm to do so, this
 # script should be run with the evironment variable:
-# JULIA_LLVM_ARGS=ʼ-unroll-threshold=500ʼ.
+# JULIA_LLVM_ARGS='-unroll-threshold=500'.
 
 using Printf
 
 const SOLAR_MASS = 4 * pi * pi
 const DAYS_PER_YEAR = 365.24
 # Precalculate the pairs of bodies that must be compared so that it
-# doesnʼt have to be done each loop.
+# doesn't have to be done each loop.
 const PAIRS = Tuple((i, j) for i=1:4 for j=i+1:5)
 const V = VecElement
 
@@ -49,9 +49,9 @@ end
     end
 
     # This function calculates the magnitude of forces between two
-    # pairs of bodies (determined by k).  It canʼt be written using
+    # pairs of bodies (determined by k).  It can't be written using
     # do-notation on the ntuple call below because it must be inlined
-    # for performance, and Julia doesnʼt seem to have syntax to force
+    # for performance, and Julia doesn't seem to have syntax to force
     # inlining with do-notation functions.
     @inline function magnitude(k)
         dx1 = @inbounds Δx[2k-1]

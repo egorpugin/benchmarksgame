@@ -5,13 +5,13 @@
 
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 mandelbrot: extent to: output
    | limit2 m bits zr zi cr ci i tr stepr stepi |
@@ -49,16 +49,16 @@ mandelbrot: extent to: output
       ]
    ]! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    Stdio stdout
-      nextPutAll: ʼP4ʼ; nl;
+      nextPutAll: 'P4'; nl;
       print: n; space; print: n; nl;
       binary.
    self mandelbrot: n to: Stdio stdout! !
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 space
    self nextPut: Character space!

@@ -31,14 +31,14 @@ program nbody
   call init(x, v, mass)
 
   e = energy(x, v, mass)
-  write (*,ʼ(f12.9)ʼ) e
+  write (*,'(f12.9)') e
 
   do i = 1, nstep
      call advance(x, v, mass)
   end do
 
   e = energy(x, v, mass)
-  write (*,ʼ(f12.9)ʼ) e
+  write (*,'(f12.9)') e
 
 contains
 

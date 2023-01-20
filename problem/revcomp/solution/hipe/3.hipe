@@ -17,7 +17,7 @@ main([_Args]) ->
     halt().
 
 loop( Buffer ) ->
-    case io:get_line(ʼʼ) of
+    case io:get_line('') of
         eof ->
             % block until previous output process is done
             receive flush_queue_empty -> ok end,

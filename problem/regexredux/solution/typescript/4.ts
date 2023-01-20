@@ -11,7 +11,7 @@
    sequential by Isaac Gouy
 */
 
-const fs = require(ʼfsʼ);
+const fs = require('fs');
 
 function mainThread() {
     const regExps = [
@@ -26,10 +26,10 @@ function mainThread() {
         /agggtaa[cgt]|[acg]ttaccct/ig
     ];
 
-    let data = fs.readFileSync(ʼ/dev/stdinʼ, ʼasciiʼ);
+    let data = fs.readFileSync('/dev/stdin', 'ascii');
     const initialLen = data.length;
 
-    data = data.replace(/^>.*\n|\n/mg, ʼʼ);
+    data = data.replace(/^>.*\n|\n/mg, '');
     const cleanedLen = data.length;
 
     for (let j = 0; j < regExps.length; j++) {
@@ -39,11 +39,11 @@ function mainThread() {
     }
 
     const endLen = data
-        .replace(/tHa[Nt]/g, ʼ<4>ʼ)
-        .replace(/aND|caN|Ha[DS]|WaS/g, ʼ<3>ʼ)
-        .replace(/a[NSt]|BY/g, ʼ<2>ʼ)
-        .replace(/<[^>]*>/g, ʼ|ʼ)
-        .replace(/\|[^|][^|]*\|/g, ʼ-ʼ)
+        .replace(/tHa[Nt]/g, '<4>')
+        .replace(/aND|caN|Ha[DS]|WaS/g, '<3>')
+        .replace(/a[NSt]|BY/g, '<2>')
+        .replace(/<[^>]*>/g, '|')
+        .replace(/\|[^|][^|]*\|/g, '-')
         .length;
 
     console.log(`\n${initialLen}\n${cleanedLen}\n${endLen}`);

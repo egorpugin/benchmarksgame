@@ -35,28 +35,28 @@ class fasta {
     public static byte[] ALUB = ALU.getBytes();
 
     public static final frequency[] IUB = new frequency[] {
-            new frequency(ʼaʼ, 0.27),
-            new frequency(ʼcʼ, 0.12),
-            new frequency(ʼgʼ, 0.12),
-            new frequency(ʼtʼ, 0.27),
+            new frequency('a', 0.27),
+            new frequency('c', 0.12),
+            new frequency('g', 0.12),
+            new frequency('t', 0.27),
 
-            new frequency(ʼBʼ, 0.02),
-            new frequency(ʼDʼ, 0.02),
-            new frequency(ʼHʼ, 0.02),
-            new frequency(ʼKʼ, 0.02),
-            new frequency(ʼMʼ, 0.02),
-            new frequency(ʼNʼ, 0.02),
-            new frequency(ʼRʼ, 0.02),
-            new frequency(ʼSʼ, 0.02),
-            new frequency(ʼVʼ, 0.02),
-            new frequency(ʼWʼ, 0.02),
-            new frequency(ʼYʼ, 0.02) };
+            new frequency('B', 0.02),
+            new frequency('D', 0.02),
+            new frequency('H', 0.02),
+            new frequency('K', 0.02),
+            new frequency('M', 0.02),
+            new frequency('N', 0.02),
+            new frequency('R', 0.02),
+            new frequency('S', 0.02),
+            new frequency('V', 0.02),
+            new frequency('W', 0.02),
+            new frequency('Y', 0.02) };
 
     public static final frequency[] HomoSapiens = new frequency[] {
-            new frequency(ʼaʼ, 0.3029549426680d),
-            new frequency(ʼcʼ, 0.1979883004921d),
-            new frequency(ʼgʼ, 0.1975473066391d),
-            new frequency(ʼtʼ, 0.3015094502008d)};
+            new frequency('a', 0.3029549426680d),
+            new frequency('c', 0.1979883004921d),
+            new frequency('g', 0.1975473066391d),
+            new frequency('t', 0.3015094502008d)};
 
     public static void makeCumulative(frequency[] a) {
         double cp = 0.0;
@@ -84,7 +84,7 @@ n, OutputStream writer) throws IOException
     {
         index = 0;
         int m = 0;
-        String descStr = ">" + id + " " + desc + ʼ\nʼ;
+        String descStr = ">" + id + " " + desc + '\n';
         writer.write(descStr.getBytes());
         while (n > 0) {
             if (n < LINE_LENGTH) m = n;  else m = LINE_LENGTH;
@@ -95,7 +95,7 @@ n, OutputStream writer) throws IOException
             for (int i = 0; i < m; i++) {
                 bbuffer[index++] = selectRandom(a);
             }
-            bbuffer[index++] = ʼ\nʼ;
+            bbuffer[index++] = '\n';
             n -= LINE_LENGTH;
         }
         if(index != 0) writer.write(bbuffer, 0, index);
@@ -108,7 +108,7 @@ n, OutputStream writer) throws IOException
         int m = 0;
         int k = 0;
         int kn = ALUB.length;
-        String descStr = ">" + id + " " + desc + ʼ\nʼ;
+        String descStr = ">" + id + " " + desc + '\n';
         writer.write(descStr.getBytes());
         while (n > 0) {
             if (n < LINE_LENGTH) m = n; else m = LINE_LENGTH;
@@ -121,7 +121,7 @@ n, OutputStream writer) throws IOException
                 bbuffer[index++] = ALUB[k];
                 k++;
             }
-            bbuffer[index++] = ʼ\nʼ;
+            bbuffer[index++] = '\n';
             n -= LINE_LENGTH;
         }
         if(index != 0) writer.write(bbuffer, 0, index);

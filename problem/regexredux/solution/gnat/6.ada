@@ -35,7 +35,7 @@ procedure Regexredux is
    Initial_Length, Code_Length, Seq_Length : Natural := 0;
 
    type Count_Nbrs is range 0 .. 2 ** 15 - 1;
-   for Count_NbrsʼSize use 16;
+   for Count_Nbrs'Size use 16;
 
    type Counts_Arrays is array (Variant_Index) of Count_Nbrs;
    Counts : Counts_Arrays;
@@ -59,7 +59,7 @@ procedure Regexredux is
          case Test_Char is
             when ASCII.LF =>
                Next := Next + 1;
-            when ʼ>ʼ =>
+            when '>' =>
                End_Of_Cmt := Index (Source.all (Next .. Next + 100), EOL);
                Next       := End_Of_Cmt + 1;
             when others =>
@@ -89,7 +89,7 @@ procedure Regexredux is
          Match
            (Regexp,
             Regexp_Extra,
-            DNA_Code.all (1)ʼAddress,
+            DNA_Code.all (1)'Address,
             Code_Length,
             Position,
             0,
@@ -135,7 +135,7 @@ procedure Regexredux is
          Match
            (Regexp,
             Regexp_Extra,
-            Source.all (1)ʼAddress,
+            Source.all (1)'Address,
             Last_Src,
             Position,
             0,
@@ -259,14 +259,14 @@ begin
    if Core_Nbr > 1 then
       Parallel_Job (Core_Nbr);
    else
-      for V in Variant_IndexʼRange loop
+      for V in Variant_Index'Range loop
          Count_Variant (V, Counts (V));
       end loop;
       Replace_Variants (DNA_Code, Code_Length, Seq_Length);
    end if;
 
-   for V in Variant_IndexʼRange loop
-      Put_Line (Variant_Labels (V).all & Count_NbrsʼImage (Counts (V)));
+   for V in Variant_Index'Range loop
+      Put_Line (Variant_Labels (V).all & Count_Nbrs'Image (Counts (V)));
    end loop;
 
    New_Line;
@@ -293,34 +293,34 @@ package DNA is
 
    Var_Size : constant := 9;
    type Variant_Index is range 1 .. Var_Size;
-   for Variant_IndexʼSize use 8;
+   for Variant_Index'Size use 8;
 
    Variant_Labels : constant array (Variant_Index) of String_Access :=
-     (new Stringʼ("agggtaaa|tttaccct"),
-      new Stringʼ("[cgt]gggtaaa|tttaccc[acg]"),
-      new Stringʼ("a[act]ggtaaa|tttacc[agt]t"),
-      new Stringʼ("ag[act]gtaaa|tttac[agt]ct"),
-      new Stringʼ("agg[act]taaa|ttta[agt]cct"),
-      new Stringʼ("aggg[acg]aaa|ttt[cgt]ccct"),
-      new Stringʼ("agggt[cgt]aa|tt[acg]accct"),
-      new Stringʼ("agggta[cgt]a|t[acg]taccct"),
-      new Stringʼ("agggtaa[cgt]|[acg]ttaccct"));
+     (new String'("agggtaaa|tttaccct"),
+      new String'("[cgt]gggtaaa|tttaccc[acg]"),
+      new String'("a[act]ggtaaa|tttacc[agt]t"),
+      new String'("ag[act]gtaaa|tttac[agt]ct"),
+      new String'("agg[act]taaa|ttta[agt]cct"),
+      new String'("aggg[acg]aaa|ttt[cgt]ccct"),
+      new String'("agggt[cgt]aa|tt[acg]accct"),
+      new String'("agggta[cgt]a|t[acg]taccct"),
+      new String'("agggtaa[cgt]|[acg]ttaccct"));
 
-   type Mut is (ʼBʼ,ʼDʼ,ʼHʼ,ʼKʼ,ʼMʼ,ʼNʼ,ʼRʼ,ʼSʼ,ʼVʼ,ʼWʼ,ʼYʼ);
-   for MutʼSize use CharacterʼSize;
+   type Mut is ('B','D','H','K','M','N','R','S','V','W','Y');
+   for Mut'Size use Character'Size;
 
    for Mut use -- map to character values
-     (ʼBʼ => 66,
-      ʼDʼ => 68,
-      ʼHʼ => 72,
-      ʼKʼ => 75,
-      ʼMʼ => 77,
-      ʼNʼ => 78,
-      ʼRʼ => 82,
-      ʼSʼ => 83,
-      ʼVʼ => 86,
-      ʼWʼ => 87,
-      ʼYʼ => 89);
+     ('B' => 66,
+      'D' => 68,
+      'H' => 72,
+      'K' => 75,
+      'M' => 77,
+      'N' => 78,
+      'R' => 82,
+      'S' => 83,
+      'V' => 86,
+      'W' => 87,
+      'Y' => 89);
 
    function to_Mut is new Unchecked_Conversion (
       Source => Character,
@@ -332,17 +332,17 @@ package DNA is
    end record;
 
    Iub_Table : constant array (Mut) of Iub_Rec :=
-     ((new Stringʼ("(c|g|t)"), 7),
-      (new Stringʼ("(a|g|t)"), 7),
-      (new Stringʼ("(a|c|t)"), 7),
-      (new Stringʼ("(g|t)"), 5),
-      (new Stringʼ("(a|c)"), 5),
-      (new Stringʼ("(a|c|g|t)"), 9),
-      (new Stringʼ("(a|g)"), 5),
-      (new Stringʼ("(c|g)"), 5),
-      (new Stringʼ("(a|c|g)"), 7),
-      (new Stringʼ("(a|t)"), 5),
-      (new Stringʼ("(c|t)"), 5));
+     ((new String'("(c|g|t)"), 7),
+      (new String'("(a|g|t)"), 7),
+      (new String'("(a|c|t)"), 7),
+      (new String'("(g|t)"), 5),
+      (new String'("(a|c)"), 5),
+      (new String'("(a|c|g|t)"), 9),
+      (new String'("(a|g)"), 5),
+      (new String'("(c|g)"), 5),
+      (new String'("(a|c|g)"), 7),
+      (new String'("(a|t)"), 5),
+      (new String'("(c|t)"), 5));
 end DNA;
 -----------------------------------------------------------------------
 --  interface to library PCRE : regular expression
@@ -448,8 +448,8 @@ package body Pcre is
          Pcre_Compile
            (Pat,
             Options,
-            Error_PtrʼAccess,
-            Error_OffsetʼAccess,
+            Error_Ptr'Access,
+            Error_Offset'Access,
             Null_Ptr);
       Free (Pat);
 
@@ -457,7 +457,7 @@ package body Pcre is
          raise Pcre_Error;
       end if;
       Matcher      := Regexp;
-      Regexp_Extra := Pcre_Study (Regexp, 0, Error_PtrʼAccess);
+      Regexp_Extra := Pcre_Study (Regexp, 0, Error_Ptr'Access);
       if Regexp_Extra = Null_Pcre_Extra then
          raise Pcre_Error;
       end if;
@@ -492,7 +492,7 @@ package body Pcre is
             Length,
             Startoffset,
             Options,
-            m (0)ʼAddress,
+            m (0)'Address,
             C.int (Vecsize));
       Match_0 := Integer (m (0));
       Match_1 := Integer (m (1));
@@ -551,7 +551,7 @@ package body Block_Input is
       One_Block : XBytes;
       Str_Block : XString;
       Final     : Stream_Element_Offset;
-      Start     : Natural := ItemʼFirst;
+      Start     : Natural := Item'First;
       Stop      : Natural;
    begin
       while not Stream_IO.End_Of_File (Stdin) loop

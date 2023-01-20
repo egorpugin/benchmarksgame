@@ -5,7 +5,7 @@
 //
 // ver 2: added a couple of optimizations
 // - Reduced number of times a vector of 8 was checked to see if
-//    they had all escaped, similar to Dominic Letzʼs C #5 entry.
+//    they had all escaped, similar to Dominic Letz's C #5 entry.
 // - Processed 64 pixels at a time if width was a multiple of 64,
 //    thereby reducing writes to the bitmap.
 //

@@ -20,7 +20,7 @@
 //   the compiler. For programming languages without
 //   value generics, the same optimization can done
 //   by making those values as constants.
-// - ʼKeyʼ class uses this template value so ʼsizeʼ
+// - 'Key' class uses this template value so 'size'
 //   member variable is not needed inside the class,
 //   this also reduced the memory usage against the
 //   original implementation.
@@ -43,22 +43,22 @@
 
 struct Cfg {
     static constexpr size_t thread_count = 4;
-    static constexpr unsigned to_char[4] = {ʼAʼ, ʼCʼ, ʼTʼ, ʼGʼ};
+    static constexpr unsigned to_char[4] = {'A', 'C', 'T', 'G'};
     static inline unsigned char to_num[128];
     using Data = std::vector<unsigned char>;
 
     Cfg() {
-        to_num[ʼAʼ] = to_num[ʼaʼ] = 0;
-        to_num[ʼCʼ] = to_num[ʼcʼ] = 1;
-        to_num[ʼTʼ] = to_num[ʼtʼ] = 2;
-        to_num[ʼGʼ] = to_num[ʼgʼ] = 3;
+        to_num['A'] = to_num['a'] = 0;
+        to_num['C'] = to_num['c'] = 1;
+        to_num['T'] = to_num['t'] = 2;
+        to_num['G'] = to_num['g'] = 3;
     }
 } const cfg;
 
 template <size_t size>
 struct Key
 {
-    // select type to use for ʼdataʼ, if hash key can fit on 32-bit integer
+    // select type to use for 'data', if hash key can fit on 32-bit integer
     // then use uint32_t else use uint64_t.
     using Data = typename std::conditional<size<=16, uint32_t, uint64_t>::type;
 
@@ -166,7 +166,7 @@ auto CalculateInThreads(const Cfg::Data& input)
     for(unsigned i = 1 ; i < cfg.thread_count; ++i)
         for(auto& j : hash_tables[i])
             frequencies[j.first] += j.second;
-    // return the ʼfrequencyʼ by move instead of copy.
+    // return the 'frequency' by move instead of copy.
     return std::move(frequencies);
 }
 
@@ -181,16 +181,16 @@ void WriteFrequencies(const Cfg::Data& input)
 
     const unsigned sum = input.size() + 1 - size;
     for(const auto& i : freq)
-        std::cout << i.second << ʼ ʼ << (sum ? double(100 * i.first) / sum : 0.0
-) << ʼ\nʼ;
-    std::cout << ʼ\nʼ;
+        std::cout << i.second << ' ' << (sum ? double(100 * i.first) / sum : 0.0
+) << '\n';
+    std::cout << '\n';
 }
 
 template <unsigned size>
 void WriteCount( const Cfg::Data& input, const std::string& text ) {
     // we "receive" the returned object by move instead of copy.
     auto&& frequencies = CalculateInThreads<size>(input);
-    std::cout << frequencies[Key<size>(text)] << ʼ\tʼ << text << ʼ\nʼ;
+    std::cout << frequencies[Key<size>(text)] << '\t' << text << '\n';
 }
 
 int main()
@@ -200,9 +200,9 @@ int main()
 
     while(fgets(buf.data(), buf.size(), stdin) && memcmp(">THREE", buf.data(), 6
 ));
-    while(fgets(buf.data(), buf.size(), stdin) && buf.front() != ʼ>ʼ) {
-        if(buf.front() != ʼ;ʼ){
-            auto i = std::find(buf.begin(), buf.end(), ʼ\nʼ);
+    while(fgets(buf.data(), buf.size(), stdin) && buf.front() != '>') {
+        if(buf.front() != ';'){
+            auto i = std::find(buf.begin(), buf.end(), '\n');
             data.insert(data.end(), buf.begin(), i);
         }
     }

@@ -59,7 +59,7 @@ sub update_hash_slice {
 }
 
 sub num_cpus {
-  open my $fh, ʼ</proc/cpuinfoʼ or return;
+  open my $fh, '</proc/cpuinfo' or return;
   my $cpus;
   while (<$fh>) {
     $cpus ++ if /^processor\s+:/;

@@ -58,7 +58,7 @@ sub run {
             push @results, $_->join for threads->list( threads::joinable );
         }
         threads->create(
-            { ʼcontextʼ => ʼlistʼ, ʼstack_sizeʼ => 64 },
+            { 'context' => 'list', 'stack_size' => 64 },
             sub { depth_iteration( $depth, $max_depth, $min_depth ) }
         );
     }

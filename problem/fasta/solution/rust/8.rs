@@ -125,7 +125,7 @@ fn make_fasta_single<I: Iterator<Item = u8>>(
             line[i] = it.next().unwrap();
         }
         n -= nb;
-        line[nb] = bʼ\nʼ;
+        line[nb] = b'\n';
         stdout.write_all(&line[..(nb + 1)])?;
     }
     Ok(())
@@ -154,7 +154,7 @@ fn do_fasta(
         let mut line_count = 0;
         for i in 0..count {
             if i % LINE_LENGTH == 0 && i > 0 {
-                out_buf[i + line_count] = bʼ\nʼ;
+                out_buf[i + line_count] = b'\n';
                 line_count += 1;
             }
             let rn = rng_buf[i];
@@ -165,7 +165,7 @@ fn do_fasta(
                 }
             }
         }
-        out_buf[count + line_count] = bʼ\nʼ;
+        out_buf[count + line_count] = b'\n';
 
         while let Err(_) = wr
             .lock()
@@ -218,28 +218,28 @@ fn main() {
                        CAAAAA";
 
     let iub = &[
-        (bʼaʼ, 0.27),
-        (bʼcʼ, 0.12),
-        (bʼgʼ, 0.12),
-        (bʼtʼ, 0.27),
-        (bʼBʼ, 0.02),
-        (bʼDʼ, 0.02),
-        (bʼHʼ, 0.02),
-        (bʼKʼ, 0.02),
-        (bʼMʼ, 0.02),
-        (bʼNʼ, 0.02),
-        (bʼRʼ, 0.02),
-        (bʼSʼ, 0.02),
-        (bʼVʼ, 0.02),
-        (bʼWʼ, 0.02),
-        (bʼYʼ, 0.02),
+        (b'a', 0.27),
+        (b'c', 0.12),
+        (b'g', 0.12),
+        (b't', 0.27),
+        (b'B', 0.02),
+        (b'D', 0.02),
+        (b'H', 0.02),
+        (b'K', 0.02),
+        (b'M', 0.02),
+        (b'N', 0.02),
+        (b'R', 0.02),
+        (b'S', 0.02),
+        (b'V', 0.02),
+        (b'W', 0.02),
+        (b'Y', 0.02),
     ];
 
     let homosapiens = &[
-        (bʼaʼ, 0.3029549426680),
-        (bʼcʼ, 0.1979883004921),
-        (bʼgʼ, 0.1975473066391),
-        (bʼtʼ, 0.3015094502008),
+        (b'a', 0.3029549426680),
+        (b'c', 0.1979883004921),
+        (b'g', 0.1975473066391),
+        (b't', 0.3015094502008),
     ];
 
     make_fasta_single(

@@ -58,7 +58,7 @@ function eliminate_digit!(d, numer, denom, accum)
 end#function
 
 function main(io, n)
-    # Make sure we donʼt create an empty vector
+    # Make sure we don't create an empty vector
     n = max(1, n)
     v = Vector{UInt64}(undef, n)
     gen_digits!(v)
@@ -69,7 +69,7 @@ function main(io, n)
         i += 10
     end#while
     if n % 10 !== 0
-        filler = fill(ʼ ʼ % UInt8, 10 - n % 10)
+        filler = fill(' ' % UInt8, 10 - n % 10)
         @inbounds write(io, v8[i - 9:end], filler, "\t$i\n")
     end#if
     nothing

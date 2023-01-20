@@ -18,7 +18,7 @@
 (setf cl-ppcre:*regex-char-code-limit* 128))
 
 (defconstant  +regex-list+
-  ʼ("agggtaaa|tttaccct"
+  '("agggtaaa|tttaccct"
     "[cgt]gggtaaa|tttaccc[acg]"
     "a[act]ggtaaa|tttacc[agt]t"
     "ag[act]gtaaa|tttac[agt]ct"
@@ -29,7 +29,7 @@
     "agggtaa[cgt]|[acg]ttaccct"))
 
 (defconstant  +alternatives+
-  ʼ(("tHa[Nt]" "<4>")  ("aND|caN|Ha[DS]|WaS" "<3>")
+  '(("tHa[Nt]" "<4>")  ("aND|caN|Ha[DS]|WaS" "<3>")
     ("a[NSt]|BY" "<2>")  ("<[^>]*>" "|")
     ("\\|[^|][^|]*\\|" "-")))
 
@@ -42,7 +42,7 @@
   (defmacro bg  (&body body) `(make-thread (lambda () ,@body)))
   (defmacro join-all (&body body)
         `(mapcar
-          #ʼjoin-thread
+          #'join-thread
           (loop for item in (list ,@body)
                  append (if (consp item) item (list item))))))
 
@@ -51,13 +51,13 @@
      (size 0)
      (buf-list
       (loop
-         for buf = (make-string buf-size :element-type ʼbase-char)
+         for buf = (make-string buf-size :element-type 'base-char)
          for len = (read-sequence buf stream)
          do (incf size len)
          collect (if (< len buf-size) (subseq buf 0 len) buf)
          while (= len buf-size))))
   (declare (type fixnum size))
-  (loop with res-string = (make-string size :element-type ʼbase-char)
+  (loop with res-string = (make-string size :element-type 'base-char)
      with i of-type fixnum = 0
      for str in buf-list
      do (setf (subseq res-string i) (the simple-base-string str))
@@ -75,7 +75,7 @@
      (match-length (length match))
      &aux
      (len (length replacement))
-     (first-match (if (zerop match-begin) ʼ(0 . 0) (nth (1- match-begin) match))
+     (first-match (if (zerop match-begin) '(0 . 0) (nth (1- match-begin) match))
 )
      (target-start (cdr first-match))
      (result-start (+ (the fixnum (* len match-begin))
@@ -113,12 +113,12 @@ r len parts-num))
              ))
   (declare (type fixnum len parts-num)
            (type list ranges))
-  (mapcar #ʼcons ranges (subseq ranges 1)))
+  (mapcar #'cons ranges (subseq ranges 1)))
 
 (defun replace-all
     (regexp replacement target-string
-     &aux (rmatch ʼ()) (match ʼ())
-     (result-string (make-string 0 :element-type ʼbase-char)))
+     &aux (rmatch '()) (match '())
+     (result-string (make-string 0 :element-type 'base-char)))
   (declare (type simple-base-string result-string target-string)
            (type vector replacement))
   (cl-ppcre:do-scans
@@ -132,11 +132,11 @@ r len parts-num))
                                    (length-to-replace match))
                                 (the fixnum (* (length replacement)
                                                (length match)))) :element-type
-ʼbase-char))
+'base-char))
         #-sb-thread
         (replace-aux match replacement target-string result-string)
         #+sb-thread
-        (mapcar #ʼjoin-thread
+        (mapcar #'join-thread
                 (loop with len of-type fixnum = (length match)
                                    with parts-list  = (parts +cpu-count+ len)
                    with current of-type fixnum = 0

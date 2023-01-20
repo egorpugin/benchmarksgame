@@ -44,7 +44,7 @@ public class regexredux {
                                                 "agggtaa[cgt]|[acg]ttaccct");
 
     BiFunction<String, String, Entry<String, Long>> counts = (v, s) -> {
-       //Java 9 Matcher.results isnʼt off by one
+       //Java 9 Matcher.results isn't off by one
       Long count = Pattern.compile(v).splitAsStream(s).count() - 1;
       return new AbstractMap.SimpleEntry<>(v, count);
     };

@@ -27,7 +27,7 @@ static intnative_t next_Sequence_Number_To_Output=1;
 
 static void process_Sequence(char * sequence, const intnative_t sequence_Size
   , const intnative_t sequence_Number){
-   // Free up any memory we didnʼt need.
+   // Free up any memory we didn't need.
    sequence=realloc(sequence, sequence_Size);
 
    // Set up pointers to the front_Pos and bac_Pos, advance front_Pos to the
@@ -36,9 +36,9 @@ static void process_Sequence(char * sequence, const intnative_t sequence_Size
    // characters happen to be line feeds in which case front_Pos will go past
    // back_Pos causing the reversing and complementing loop to do nothing.
    char * front_Pos=sequence, * back_Pos=sequence+sequence_Size-1;
-   while(*front_Pos++!=ʼ\nʼ);
-   while(*front_Pos==ʼ\nʼ && front_Pos<=back_Pos) front_Pos++;
-   while(*back_Pos==ʼ\nʼ && front_Pos<=back_Pos) back_Pos--;
+   while(*front_Pos++!='\n');
+   while(*front_Pos=='\n' && front_Pos<=back_Pos) front_Pos++;
+   while(*back_Pos=='\n' && front_Pos<=back_Pos) back_Pos--;
 
    // Reverse and complement the sequence.
    while(front_Pos<=back_Pos){
@@ -47,8 +47,8 @@ static void process_Sequence(char * sequence, const intnative_t sequence_Size
       *back_Pos=temp;
 
       // Skip over line feeds.
-      while(*++front_Pos==ʼ\nʼ);
-      while(*--back_Pos==ʼ\nʼ);
+      while(*++front_Pos=='\n');
+      while(*--back_Pos=='\n');
    }
 
    // Wait for our turn to output the altered sequence and then output it.
@@ -81,13 +81,13 @@ int main(){
            =fread(&sequence[sequence_Size], 1, READ_SIZE, stdin)); ){
 
 
-            // Search the read in chunk of data for a ʼ>ʼ to see if any
+            // Search the read in chunk of data for a '>' to see if any
             // sequences are being started.
             for(char * sequence_Start; (sequence_Start
-              =memchr(&sequence[sequence_Size], ʼ>ʼ, bytes_Read)); ){
+              =memchr(&sequence[sequence_Size], '>', bytes_Read)); ){
 
                // Update the sequence_Size to reflect any data before the
-               // ʼ>ʼ that was read in.
+               // '>' that was read in.
                const intnative_t number_Of_Preceding_Bytes
                  =sequence_Start-&sequence[sequence_Size];
                sequence_Size+=number_Of_Preceding_Bytes;
@@ -97,7 +97,7 @@ int main(){
                // start processing it.
                if(sequence_Size){
 
-                  // Allocate memory for a new sequence and copy the ʼ>ʼ
+                  // Allocate memory for a new sequence and copy the '>'
                   // & any data following it to the new sequence.
                   char * const new_Sequence=malloc(READ_SIZE);
                   memcpy(new_Sequence, sequence_Start
@@ -122,7 +122,7 @@ int main(){
 
 
                // Update sequence_Size and bytes_Read to reflect the read
-               // in ʼ>ʼ and any data that preceded it.
+               // in '>' and any data that preceded it.
                sequence_Size++;
                bytes_Read-=number_Of_Preceding_Bytes+1;
             }
@@ -131,7 +131,7 @@ int main(){
             // Update sequence_Size to reflect the bytes that were read in.
             sequence_Size+=bytes_Read;
 
-            // If there potentially isnʼt enough free space for all the data
+            // If there potentially isn't enough free space for all the data
             // from the next read, then double the capacity of the sequence.
             if(sequence_Size>sequence_Capacity-READ_SIZE)
                sequence=realloc(sequence, sequence_Capacity*=2);

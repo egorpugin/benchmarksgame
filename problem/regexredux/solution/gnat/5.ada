@@ -110,7 +110,7 @@ begin  -- Regexredux
    Input_Text := Block_Input.Read;
    Block_Input.Close_Stdin;
 
-   Initial_Length := Input_TextʼLength;
+   Initial_Length := Input_Text'Length;
 
    DNA.Seq := new String (1 .. Initial_Length);
    --  remove unwanted elements
@@ -203,14 +203,14 @@ package body Preprocessing is
             Tail := Tail + (Start - Last);
          end if;
          Last := Stop;
-         return Stop >= Input_TextʼLength;
+         return Stop >= Input_Text'Length;
       end Transfer;
 
       Unwanted : constant Pattern :=
-        (Setcur (StartʼAccess)
-           & ((ʼ>ʼ & Break (Separator)) or Separator)
-           & Setcur (StopʼAccess)
-           & (+TransferʼUnrestricted_Access));
+        (Setcur (Start'Access)
+           & (('>' & Break (Separator)) or Separator)
+           & Setcur (Stop'Access)
+           & (+Transfer'Unrestricted_Access));
 
    begin
       accept Run (Clean : U.String_Access) do
@@ -285,7 +285,7 @@ package body DNA.Matching is
       Count := 0;
       Match (Subject => Sequence.all,
              Pat => (Variant_Patterns (Variant)
-                       & (+Inc_CountʼUnrestricted_Access)));
+                       & (+Inc_Count'Unrestricted_Access)));
 
       accept Get (Number : out Natural) do
          Number := Count;
@@ -351,18 +351,18 @@ package body DNA.Replacing is
    function Safe_Split (Near : String) return Natural is
       N          : aliased Natural;
       Looking_At : constant Pattern :=
-        ((Break ("A") & Setcur (NʼAccess))
+        ((Break ("A") & Setcur (N'Access))
            or
-         (Break ("a") & Setcur (NʼAccess) & "aaa"));
+         (Break ("a") & Setcur (N'Access) & "aaa"));
    begin
       if Match (Near, Pat => Looking_At) then
-         return NearʼFirst + N;
+         return Near'First + N;
       end if;
       raise Constraint_Error with "cannot safely split up seq";
    end Safe_Split;
 
    function Find_UB (Est, Ub : Positive) return Positive is
-      Limit : constant Natural  := PositiveʼMin (Est + 1000, Ub);
+      Limit : constant Natural  := Positive'Min (Est + 1000, Ub);
    begin
       if Est < Ub then
          return Safe_Split (Seq (Est .. Limit));
@@ -395,12 +395,12 @@ package body DNA.Replacing is
          Dest : U.String_Access renames Sub (not Source);
          L1   : constant Natural := Hit - Start + 1;
       begin
-         pragma Assert (TailʼValid);
+         pragma Assert (Tail'Valid);
 
          Dest (Tail .. Tail+L1-1)           := Sub (Source) (Start .. Hit);
          Dest (Tail+L1
-                 .. Tail+L1+RplʼLength - 1) := Rpl.all;
-         Tail                               := Tail + L1 + RplʼLength;
+                 .. Tail+L1+Rpl'Length - 1) := Rpl.all;
+         Tail                               := Tail + L1 + Rpl'Length;
          Start                              := Stop + 1;
          return False;
       end Next_Repl;
@@ -410,22 +410,22 @@ package body DNA.Replacing is
          function Ge return Boolean is (Hit >= Stop);
 
          Suffix : constant Pattern :=
-           (Tab (StopʼAccess)
-              & Setcur (HitʼAccess)
+           (Tab (Stop'Access)
+              & Setcur (Hit'Access)
               & Rest
-              & Setcur (StopʼAccess)
-              & (+Last_ReplʼUnrestricted_Access));
+              & Setcur (Stop'Access)
+              & (+Last_Repl'Unrestricted_Access));
 
          Code : constant Pattern :=
-           (Setcur (HitʼAccess)
-              & (+GeʼUnrestricted_Access)
+           (Setcur (Hit'Access)
+              & (+Ge'Unrestricted_Access)
               & Iub_Pattern
-              & Setcur (StopʼAccess)
-              & (+Next_ReplʼUnrestricted_Access));
+              & Setcur (Stop'Access)
+              & (+Next_Repl'Unrestricted_Access));
       begin
          Stop  := 0;
          Tail  := 1;
-         Start := Sub (Source)ʼFirst;
+         Start := Sub (Source)'First;
          Match (Sub (Source) (1 .. Ub), Pat => Code);
          Match (Sub (Source) (1 .. Ub), Pat => Suffix);
       end Run_Matcher;
@@ -438,16 +438,16 @@ package body DNA.Replacing is
       if Bordering then         -- Sequence is the concatenation
          Sub (Source)     := Sequence;
          Sub (not Source) := new String (1 .. To-From+1);
-         Rpl              := new Stringʼ(S (Iub (IubʼLast).Replacement));
-         Run_Matcher (Iub (IubʼLast).Element, Ub);
+         Rpl              := new String'(S (Iub (Iub'Last).Replacement));
+         Run_Matcher (Iub (Iub'Last).Element, Ub);
          Ub               := Tail - 1;
          Source           := not Source;
       else
          Sub (True)  := new String (1 .. Need);
          Sub (False) := new String (1 .. Need);
          Sub (Source) (1 .. (To-From+1)) := Sequence (From .. To);
-         for Job in IubʼFirst .. IubʼLast-1 loop
-            Rpl    := new Stringʼ(S (Iub (Job).Replacement));
+         for Job in Iub'First .. Iub'Last-1 loop
+            Rpl    := new String'(S (Iub (Job).Replacement));
             Run_Matcher (Iub (Job).Element, Ub);
             Ub     := Tail - 1;
             Source := not Source;
@@ -493,7 +493,7 @@ package body Block_Input is
          declare
             View : Stream_Element_Array (1 .. Items_To_Read);
             pragma Import (Ada, View);
-            for ViewʼAddress use Buffer.allʼAddress;
+            for View'Address use Buffer.all'Address;
          begin
             Stream_IO.Read (File => cin,
                             Item => View,

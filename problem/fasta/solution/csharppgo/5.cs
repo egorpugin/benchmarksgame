@@ -110,16 +110,16 @@ class Fasta
         ThreadPool.QueueUserWorkItem(_ =>
         {
             var seed = WriteRandom(3 * n, 0, SEED,
-                new[] { (byte)ʼaʼ, (byte)ʼcʼ, (byte)ʼgʼ, (byte)ʼtʼ,
-                    (byte)ʼBʼ, (byte)ʼDʼ, (byte)ʼHʼ, (byte)ʼKʼ, (byte)ʼMʼ,
-                    (byte)ʼNʼ, (byte)ʼRʼ, (byte)ʼSʼ, (byte)ʼVʼ, (byte)ʼWʼ,
-                    (byte)ʼYʼ, (byte)ʼ\nʼ },
+                new[] { (byte)'a', (byte)'c', (byte)'g', (byte)'t',
+                    (byte)'B', (byte)'D', (byte)'H', (byte)'K', (byte)'M',
+                    (byte)'N', (byte)'R', (byte)'S', (byte)'V', (byte)'W',
+                    (byte)'Y', (byte)'\n' },
                 new[] { 0.27F,0.12F,0.12F,0.27F,0.02F,0.02F,0.02F,0.02F,0.02F,
                     0.02F,0.02F,0.02F,0.02F,0.02F,0.02F,1.00F }, blocks);
 
             WriteRandom(5 * n, (3 * n - 1) / BlockSize + 2, seed,
-                new byte[] { (byte)ʼaʼ, (byte)ʼcʼ, (byte)ʼgʼ, (byte)ʼtʼ,
-                    (byte)ʼ\nʼ },
+                new byte[] { (byte)'a', (byte)'c', (byte)'g', (byte)'t',
+                    (byte)'\n' },
                 new[] { 0.3029549426680F, 0.1979883004921F,
                         0.1975473066391F, 0.3015094502008F,
                         1.0F }, blocks);
@@ -139,7 +139,7 @@ class Fasta
         for (int i = 0; i <= linesPerBlock * Width - 1; i++)
             repeatedBytes[1 + i + i / Width] = table[i % 287];
         for (int i = 0; i <= (Width * linesPerBlock - 1) / Width; i++)
-            repeatedBytes[i * Width1] = (byte)ʼ\nʼ;
+            repeatedBytes[i * Width1] = (byte)'\n';
         for (int i = 1; i <= (2 * n - 1) / (Width * linesPerBlock); i++)
             o.Write(repeatedBytes, 0, Width1 * linesPerBlock);
         var remaining = (2 * n - 1) % (Width * linesPerBlock) + 1;
@@ -154,12 +154,12 @@ class Fasta
         {
             Tuple<byte[], int> t;
             while ((t = blocks[i]) == null) Thread.Sleep(0);
-            t.Item1[0] = (byte)ʼ\nʼ;
+            t.Item1[0] = (byte)'\n';
             o.Write(t.Item1, 0, t.Item2);
             if (t.Item2 == BlockSize1) bytePool.Return(t.Item1);
         }
 
-        o.WriteByte((byte)ʼ\nʼ);
+        o.WriteByte((byte)'\n');
     }
 }
 

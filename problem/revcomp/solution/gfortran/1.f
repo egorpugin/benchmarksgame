@@ -31,9 +31,9 @@ program revcomp
 
   ! Unformatted I/O is faster in ifort under linux.
   close(input_unit)
-  open(unit=input_unit,access=ʼstreamʼ,form=ʼunformattedʼ)
+  open(unit=input_unit,access='stream',form='unformatted')
   close(output_unit)
-  open(unit=output_unit, access=ʼstreamʼ,form=ʼunformattedʼ)
+  open(unit=output_unit, access='stream',form='unformatted')
 
   allocate(data(dsize))
   k = dsize    ! position in the data array, decrementing
@@ -107,7 +107,7 @@ contains
     allocate(data1(d1len))
 
     i1=1; j1=1;
-    ! copy to data1, inserting EOLʼs
+    ! copy to data1, inserting EOL's
     do i1=k+1, dsize-last, LW
        data1(j1:j1+LW-1) = data(i1:i1+LW-1)
        data1(j1+LW) = EOL

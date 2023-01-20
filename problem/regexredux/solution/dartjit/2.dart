@@ -7,8 +7,8 @@
    converted from regex-dna program
 */
 
-import ʼdart:ioʼ;
-import ʼdart:convertʼ;
+import 'dart:io';
+import 'dart:convert';
 
 void main() {
   var text = StringBuffer();
@@ -16,7 +16,7 @@ void main() {
 
   src.listen((line) {
     text.write(line);
-    text.write(ʼ\nʼ);
+    text.write('\n');
   }, onDone: () {
     regexAllTheThings(text.toString());
   });
@@ -27,15 +27,15 @@ void regexAllTheThings(String fullText) {
 
   regexp = (() {
     var pattern = [
-      ʼagggtaaa|tttaccctʼ,
-      ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-      ʼa[act]ggtaaa|tttacc[agt]tʼ,
-      ʼag[act]gtaaa|tttac[agt]ctʼ,
-      ʼagg[act]taaa|ttta[agt]cctʼ,
-      ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-      ʼagggt[cgt]aa|tt[acg]accctʼ,
-      ʼagggta[cgt]a|t[acg]taccctʼ,
-      ʼagggtaa[cgt]|[acg]ttaccctʼ
+      'agggtaaa|tttaccct',
+      '[cgt]gggtaaa|tttaccc[acg]',
+      'a[act]ggtaaa|tttacc[agt]t',
+      'ag[act]gtaaa|tttac[agt]ct',
+      'agg[act]taaa|ttta[agt]cct',
+      'aggg[acg]aaa|ttt[cgt]ccct',
+      'agggt[cgt]aa|tt[acg]accct',
+      'agggta[cgt]a|t[acg]taccct',
+      'agggtaa[cgt]|[acg]ttaccct'
     ];
     var regexp = [];
     for (var p in pattern) {
@@ -45,27 +45,27 @@ void regexAllTheThings(String fullText) {
   }());
 
   replacements = [
-    ʼtHa[Nt]ʼ,
-    ʼ<4>ʼ,
-    ʼaND|caN|Ha[DS]|WaSʼ,
-    ʼ<3>ʼ,
-    ʼa[NSt]|BYʼ,
-    ʼ<2>ʼ,
-    ʼ<[^>]*>ʼ,
-    ʼ|ʼ,
-    ʼ\\|[^|][^|]*\\|ʼ,
-    ʼ-ʼ
+    'tHa[Nt]',
+    '<4>',
+    'aND|caN|Ha[DS]|WaS',
+    '<3>',
+    'a[NSt]|BY',
+    '<2>',
+    '<[^>]*>',
+    '|',
+    '\\|[^|][^|]*\\|',
+    '-'
   ];
 
   lengthA = fullText.length;
 
-  fullText = fullText.replaceAll(RegExp(ʼ^>.*\n|\nʼ, multiLine: true),
-      ʼʼ); // still ridiculously slow with r21658
+  fullText = fullText.replaceAll(RegExp('^>.*\n|\n', multiLine: true),
+      ''); // still ridiculously slow with r21658
 
   lengthB = fullText.length;
 
   for (var i = 0; i < regexp.length; ++i) {
-    print(ʼ${regexp[i].pattern} ${regexp[i].allMatches(fullText).length}ʼ);
+    print('${regexp[i].pattern} ${regexp[i].allMatches(fullText).length}');
   }
 
   for (var i = -1; i < replacements.length - 1;) {
@@ -75,6 +75,6 @@ void regexAllTheThings(String fullText) {
 
   lengthC = fullText.length;
 
-  print(ʼ\n$lengthA\n$lengthB\n$lengthCʼ);
+  print('\n$lengthA\n$lengthB\n$lengthC');
 }
 

@@ -5,9 +5,9 @@
    based on mandelbrot.go-4.go contributed by Martin Koistinen and others
 */
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
-const os = require(ʼosʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
+const os = require('os');
 
 const limit = 4;
 const maxIter = 50;
@@ -49,8 +49,8 @@ async function mainThread(size) {
             for (let i = 0; i < cpus; i++) {
                 const worker = new Worker(__filename, {workerData: {size, bytesP
 erRow}});
-                worker.postMessage({name: ʼsabʼ, data: sab});
-                worker.on(ʼexitʼ, () => {
+                worker.postMessage({name: 'sab', data: sab});
+                worker.on('exit', () => {
                     wait--;
                     if (wait === 0) {
                         resolve();
@@ -72,8 +72,8 @@ function workerThread({size, bytesPerRow}) {
     let initialR;
     let initialI;
 
-    parentPort.on(ʼmessageʼ, message => {
-        if (message.name === ʼsabʼ) {
+    parentPort.on('message', message => {
+        if (message.name === 'sab') {
             sab = message.data;
             nextY = new Int32Array(sab, 0, 1);
             initialR = new Float64Array(sab, nextYSize, size);

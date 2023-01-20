@@ -5,19 +5,19 @@
 *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 Object subclass: #TreeNode
-   instanceVariableNames: ʼleft rightʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'left right'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | minDepth maxDepth stretchDepth check longLivedTree iterations |
@@ -27,8 +27,8 @@ do: n
 
    check := (TreeNode bottomUpTree: stretchDepth) itemCheck.
    Stdio stdout
-      nextPutAll: ʼstretch tree of depth ʼ; print: stretchDepth; tab;
-      nextPutAll: ʼ check: ʼ; print: check; nl.
+      nextPutAll: 'stretch tree of depth '; print: stretchDepth; tab;
+      nextPutAll: ' check: '; print: check; nl.
 
    longLivedTree := TreeNode bottomUpTree: maxDepth.
    minDepth to: maxDepth by: 2 do: [:depth|
@@ -40,15 +40,15 @@ do: n
          ].
       Stdio stdout
          print: iterations; tab;
-         nextPutAll: ʼ trees of depth ʼ; print: depth; tab;
-         nextPutAll: ʼ check: ʼ; print: check; nl
+         nextPutAll: ' trees of depth '; print: depth; tab;
+         nextPutAll: ' check: '; print: check; nl
       ].
 
    Stdio stdout
-      nextPutAll: ʼlong lived tree of depth ʼ; print: maxDepth; tab;
-      nextPutAll: ʼ check: ʼ; print: longLivedTree itemCheck; nl! !
+      nextPutAll: 'long lived tree of depth '; print: maxDepth; tab;
+      nextPutAll: ' check: '; print: longLivedTree itemCheck; nl! !
 
-!TreeNode class methodsFor: ʼinstance creationʼ!
+!TreeNode class methodsFor: 'instance creation'!
 
 bottomUpTree: anInteger
    ^(anInteger > 0)
@@ -63,20 +63,20 @@ left: leftChild right: rightChild
    ^(super new) left: leftChild right: rightChild! !
 
 
-!TreeNode methodsFor: ʼaccessingʼ!
+!TreeNode methodsFor: 'accessing'!
 
 itemCheck
    ^left isNil
       ifTrue: [1] ifFalse: [1 + left itemCheck + right itemCheck]! !
 
-!TreeNode methodsFor: ʼinitialize-releaseʼ!
+!TreeNode methodsFor: 'initialize-release'!
 
 left: leftChild right: rightChild
    left := leftChild.
    right := rightChild! !
 
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 tab
    self nextPut: Character tab!

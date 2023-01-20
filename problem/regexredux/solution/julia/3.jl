@@ -49,7 +49,7 @@ function perf_regex_dna(io, out)
         for _ in eachmatch(v, seq)
             c += 1
         end
-        println(out, v.pattern, ʼ ʼ, c)
+        println(out, v.pattern, ' ', c)
     end
 
     repseq = seq
@@ -59,8 +59,8 @@ function perf_regex_dna(io, out)
 
 
     wait(w)
-    write(out, ʼ\nʼ, string(l1), ʼ\nʼ, string(l2), ʼ\nʼ, string(lastindex(repseq
-)), ʼ\nʼ)
+    write(out, '\n', string(l1), '\n', string(l2), '\n', string(lastindex(repseq
+)), '\n')
 end
 
 isinteractive() || perf_regex_dna(stdin, stdout)

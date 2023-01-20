@@ -7,18 +7,18 @@
 # contributed by Danny Sauer
 #
 
-# Weʼll need some definitions
-define( ʼLINE_LENGTHʼ, 60 );
-define( ʼSRCʼ, ʼCGATMKRYVBHDʼ);
-define( ʼDSTʼ, ʼGCTAKMYRBVDHʼ);
-$str = ʼʼ;
-$seq = ʼʼ;
+# We'll need some definitions
+define( 'LINE_LENGTH', 60 );
+define( 'SRC', 'CGATMKRYVBHD');
+define( 'DST', 'GCTAKMYRBVDH');
+$str = '';
+$seq = '';
 
 # read in the file, a line at a time
 while( !feof(STDIN) ) {
     $str = trim(fgets(STDIN));
-    if( $str && $str[0] == ʼ>ʼ ){
-        # if weʼre on a comment line, print the previous seq and move on
+    if( $str && $str[0] == '>' ){
+        # if we're on a comment line, print the previous seq and move on
         print_seq();
         echo $str, "\n";
     }else{
@@ -33,11 +33,11 @@ exit;
 # print the sequence out, if it exists
 function print_seq(){
     global $seq; # no time-consuming argument passing for us! :)
-    if($seq != ʼʼ){
+    if($seq != ''){
         echo wordwrap( strrev( strtr(strtoupper($seq), SRC, DST) ),
                        LINE_LENGTH, "\n", true ), "\n";
     }
-    $seq = ʼʼ;
+    $seq = '';
 }
 ?>
 

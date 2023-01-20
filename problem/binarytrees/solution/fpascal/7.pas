@@ -99,7 +99,7 @@ begin
 
   // Create and destroy a tree of depth MaxDepth + 1.
   Pool := TMemPool.Create(SizeOf(TNode));
-  WriteLn(IO^, ʼstretch tree of depth ʼ, MaxDepth + 1, #9ʼ check: ʼ,
+  WriteLn(IO^, 'stretch tree of depth ', MaxDepth + 1, #9' check: ',
           TNode.CheckNode(TNode.MakeTree(MaxDepth + 1, Pool)));
   Pool.Clear();
 
@@ -117,13 +117,13 @@ ark so we actually care about
   // about things at the millisecond level.
   P := @Data[0];
   for I := 0 to HighIndex do begin
-    WriteLn(IO^, P^.Iterations, #9ʼ trees of depth ʼ, P^.Depth, #9ʼ check: ʼ, P^
+    WriteLn(IO^, P^.Iterations, #9' trees of depth ', P^.Depth, #9' check: ', P^
 .Check);
     Inc(P);
   end;
 
   // Destroy the long lived tree.
-  WriteLn(IO^, ʼlong lived tree of depth ʼ, MaxDepth, #9ʼ check: ʼ, TNode.CheckN
+  WriteLn(IO^, 'long lived tree of depth ', MaxDepth, #9' check: ', TNode.CheckN
 ode(Tree));
   Pool.Free();
 end.

@@ -30,7 +30,7 @@ def sort_seq(length):
     l = sorted(list(frequences.items()), reverse=True, key=lambda seq_freq: (seq
 _freq[1],seq_freq[0]))
 
-    return ʼ\nʼ.join("%s %.3f" % (st, 100.0*fr/n) for st,fr in l)
+    return '\n'.join("%s %.3f" % (st, 100.0*fr/n) for st,fr in l)
 
 
 def find_seq(s):
@@ -49,7 +49,7 @@ def prepare(f=stdin) :
         if line[0] in ">;":
             break
         app( line )
-    return "".join(seq).upper().replace(ʼ\nʼ,ʼʼ)
+    return "".join(seq).upper().replace('\n','')
 
 def init(arg):
     global sequence
@@ -65,10 +65,10 @@ def main():
 ATTTATAGT".split()))
     res1 = p.map_async(sort_seq,(1,2))
 
-    for s in res1.get() : print (s+ʼ\nʼ)
+    for s in res1.get() : print (s+'\n')
     res2 = reversed([r for r in res2.get()])
     print ("\n".join("{1:d}\t{0}".format(*s) for s in res2))
 
-if __name__==ʼ__main__ʼ :
+if __name__=='__main__' :
     main()
 

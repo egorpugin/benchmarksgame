@@ -36,7 +36,7 @@ int main(int argc, char **argv)
 
         if (mpz_cmp(u, v) == 0)
         {
-            putchar(ʼ0ʼ + mpz_get_si(u));
+            putchar('0' + mpz_get_si(u));
             i++;
             if (i % 10 == 0)
                 printf("\t:%d\n", i);

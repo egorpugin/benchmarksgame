@@ -2,7 +2,7 @@
  * The Computer Language Benchmarks Game
  * https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
  *
- * Loosely based on Jarkko Miettinenʼs implementation. Requires Java 8.
+ * Loosely based on Jarkko Miettinen's implementation. Requires Java 8.
  *
  * contributed by Heikki Salokanto.
  * modified by Chandra Sekar

@@ -28,7 +28,7 @@
   x y z
   vx vy vz
   mass)
-(deftype body () ʼ(vector double-float 7))
+(deftype body () '(vector double-float 7))
 
 (defparameter *jupiter*
   (make-body 4.84143144246472090d0

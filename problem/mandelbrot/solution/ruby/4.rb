@@ -3,7 +3,7 @@
 #
 # Contributed by Aaron Tavistock
 
-require ʼthreadʼ
+require 'thread'
 
 class ThreadPool
 
@@ -39,9 +39,9 @@ class ThreadPool
 
   def cpu_count
     begin
-      if File.readable?(ʼ/proc/cpuinfoʼ) # Linux
+      if File.readable?('/proc/cpuinfo') # Linux
         %x[cat /proc/cpuinfo | grep -c processor].chomp.to_i
-      elsif File.executable?(ʼ/usr/sbin/sysctlʼ)  # OS/X
+      elsif File.executable?('/usr/sbin/sysctl')  # OS/X
         %x[/usr/sbin/sysctl -n hw.ncpu].chomp.to_i
       else
         1

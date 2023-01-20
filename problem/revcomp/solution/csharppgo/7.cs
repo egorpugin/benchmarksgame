@@ -11,7 +11,7 @@ using System.Threading;
 static class ReverseComplement
 {
     const int PAGE_SIZE = 1024 * 1024;
-    const byte LF = (byte)ʼ\nʼ, GT = (byte)ʼ>ʼ;
+    const byte LF = (byte)'\n', GT = (byte)'>';
     static volatile int readCount = 0, lastPageSize = PAGE_SIZE, canWriteCount =
  0;
     static byte[][] pages = new byte[1024][];
@@ -42,18 +42,18 @@ static class ReverseComplement
             {
                 Span<byte> map = stackalloc byte[256];
                 for (int b = 0; b < map.Length; b++) map[b] = (byte)b;
-                map[ʼAʼ] = map[ʼaʼ] = (byte)ʼTʼ;
-                map[ʼBʼ] = map[ʼbʼ] = (byte)ʼVʼ;
-                map[ʼCʼ] = map[ʼcʼ] = (byte)ʼGʼ;
-                map[ʼDʼ] = map[ʼdʼ] = (byte)ʼHʼ;
-                map[ʼGʼ] = map[ʼgʼ] = (byte)ʼCʼ;
-                map[ʼHʼ] = map[ʼhʼ] = (byte)ʼDʼ;
-                map[ʼKʼ] = map[ʼkʼ] = (byte)ʼMʼ;
-                map[ʼMʼ] = map[ʼmʼ] = (byte)ʼKʼ;
-                map[ʼRʼ] = map[ʼrʼ] = (byte)ʼYʼ;
-                map[ʼTʼ] = map[ʼtʼ] = (byte)ʼAʼ;
-                map[ʼVʼ] = map[ʼvʼ] = (byte)ʼBʼ;
-                map[ʼYʼ] = map[ʼyʼ] = (byte)ʼRʼ;
+                map['A'] = map['a'] = (byte)'T';
+                map['B'] = map['b'] = (byte)'V';
+                map['C'] = map['c'] = (byte)'G';
+                map['D'] = map['d'] = (byte)'H';
+                map['G'] = map['g'] = (byte)'C';
+                map['H'] = map['h'] = (byte)'D';
+                map['K'] = map['k'] = (byte)'M';
+                map['M'] = map['m'] = (byte)'K';
+                map['R'] = map['r'] = (byte)'Y';
+                map['T'] = map['t'] = (byte)'A';
+                map['V'] = map['v'] = (byte)'B';
+                map['Y'] = map['y'] = (byte)'R';
                 var (loPageID, lo, lastPageID, hi, previous) =
                     ((int, int, int, int, Thread))o;
                 var hiPageID = lastPageID;

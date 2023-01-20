@@ -38,10 +38,10 @@ sumT :: Int -> Int -> Int
 sumT = go 0
   where
     go s 0 _ = s
-    go s c d = sʼ `seq` t `seq` go sʼ (c - 1) d
+    go s c d = s' `seq` t `seq` go s' (c - 1) d
       where
         t = make d
-        sʼ = s + check t
+        s' = s + check t
 
 check :: Tree -> Int
 check Nil = 0

@@ -20,11 +20,11 @@ my @variants = qw/
 my @variants_re = map qr/$_/xiaa, @variants;
 
 my @iub = map { my $x = $_; sub { $_[0] =~ s/$x->[0]/$x->[1]/g }} (
-    [ qr{ tHa [Nt] }x,                 ʼ<4>ʼ ],
-    [ qr{ aND | caN | Ha[DS] | WaS }x, ʼ<3>ʼ ],
-    [ qr{ a [NSt] | BY }x,             ʼ<2>ʼ ],
-    [ qr{ < [^>]* > }x,                ʼ|ʼ   ],
-    [ qr{ \| [^|] [^|]* \| }x,         ʼ-ʼ   ],
+    [ qr{ tHa [Nt] }x,                 '<4>' ],
+    [ qr{ aND | caN | Ha[DS] | WaS }x, '<3>' ],
+    [ qr{ a [NSt] | BY }x,             '<2>' ],
+    [ qr{ < [^>]* > }x,                '|'   ],
+    [ qr{ \| [^|] [^|]* \| }x,         '-'   ],
 );
 
 my $seq = do { local $/; <STDIN> };
@@ -42,6 +42,6 @@ $_->($seq) for @iub;
 # report
 
 print "$variants[$_] $results[$_]\n" for 0 .. $#variants;
-print "$_\n" for ʼʼ, $input_length, $cleaned_length, length( $seq );
+print "$_\n" for '', $input_length, $cleaned_length, length( $seq );
 
 

@@ -80,7 +80,7 @@ doit numdgs =
   loop i n k n1 n2 d u v w = do
     if i >= numdgs then
         when (n < 9) $ -- clean up printing final if necessary!
-          putStrLn $ replicate n ʼ ʼ ++ "\t:" ++ show numdgs else do
+          putStrLn $ replicate n ' ' ++ "\t:" ++ show numdgs else do
       mpzTdivQ u n1 d; mpzTdivQ v n2 d
       cmp <- mpzCmp u v
       if cmp /= 0 then do

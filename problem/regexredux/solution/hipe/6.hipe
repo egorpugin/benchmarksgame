@@ -107,7 +107,7 @@ read(Port, Size, Seg, R) ->
                [iolist_to_binary(lists:reverse(Seg, [])) | R]);
       {Port, {data, {eol, Line}}} ->
           read(Port, Size + size(Line) + 1, [Line | Seg], R);
-      {ʼEXITʼ, Port, normal} ->
+      {'EXIT', Port, normal} ->
           {Size, [iolist_to_binary(lists:reverse(Seg, [])) | R]};
       Other ->
           io:format(">>>>>>> Wrong! ~p~n", [Other]),

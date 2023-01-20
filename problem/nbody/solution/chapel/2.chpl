@@ -24,7 +24,7 @@ record body {
 }
 
 //
-// the array of bodies that weʼll be simulating
+// the array of bodies that we'll be simulating
 //
 var bodies = [/* sun */
               new body(mass = solarMass),
@@ -70,18 +70,18 @@ const numBodies = bodies.size;    // the number of bodies being simulated
 
 
 proc main() {
-  initSun();                      // initialize the sunʼs velocity
+  initSun();                      // initialize the sun's velocity
 
   writef("%.9r\n", energy());     // print the initial energy
 
-  for 1..n do                     // simulate ʼnʼ timesteps
+  for 1..n do                     // simulate 'n' timesteps
     advance(0.01);
 
   writef("%.9r\n", energy());     // print the final energy
 }
 
 //
-// compute the sunʼs initial velocity
+// compute the sun's initial velocity
 //
 proc initSun() {
   const p = + reduce (for b in bodies do (b.vel * b.mass));
@@ -131,7 +131,7 @@ proc energy() {
 }
 
 //
-// compute the sum of squares of a 3-tupleʼs elements
+// compute the sum of squares of a 3-tuple's elements
 //
 inline proc sumOfSquares((x,y,z)) {
   return x**2 + y**2 + z**2;

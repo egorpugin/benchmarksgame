@@ -58,7 +58,7 @@ end = struct
         iter begin_pos end_pos
       else
         match s.[pos] with
-            ʼ\nʼ | ʼ\rʼ ->
+            '\n' | '\r' ->
               if pos > begin_pos then
                 handler s begin_pos (pos - begin_pos);
               iter2 (pos+1) (pos+1) end_pos
@@ -70,8 +70,8 @@ end = struct
 
 end
 
-let t = String.make 256 ʼ ʼ
-let b = String.make 61 ʼ\nʼ
+let t = String.make 256 ' '
+let b = String.make 61 '\n'
 let bi = ref 1
 let _ =
   String.blit "TVGHEFCDIJMLKNOPQYSAABWXRZ" 0 t 65 26;
@@ -79,7 +79,7 @@ let _ =
 ;;
 
 let t =
-  let s = Array.create 256 ʼ ʼ in
+  let s = Array.create 256 ' ' in
     for i = 0 to 255 do
       s.(i) <- t.[i]
     done;
@@ -104,7 +104,7 @@ end = struct
   let rec print s pos len =
     if len > 60 then begin
       output stdout s pos 60;
-      output_char stdout ʼ\nʼ;
+      output_char stdout '\n';
       print s (pos + 60) (len-60)
     end else
       if len > 0 then
@@ -120,7 +120,7 @@ end = struct
         printed := !printed + len
       end else begin
         output stdout s pos to_print;
-        output_char stdout ʼ\nʼ;
+        output_char stdout '\n';
         printed := 0;
         print s (pos + to_print) (len - to_print);
       end
@@ -141,7 +141,7 @@ module BigRevBuffer : sig
 
 end = struct
 
-(* donʼt allocate any buffers on x64 *)
+(* don't allocate any buffers on x64 *)
   let nbuffers = if arch64 then 0 else 256
 
 
@@ -237,10 +237,10 @@ let main () =
   try
     LineReader.read Unix.stdin 1_000_000
       (fun s pos len ->
-         if s.[pos] = ʼ>ʼ then begin
+         if s.[pos] = '>' then begin
            reverse ();
            output stdout s pos len;
-           output_char stdout ʼ\nʼ;
+           output_char stdout '\n';
          end else
            BigRevBuffer.add s pos len
       )
@@ -300,9 +300,9 @@ and iter2 begin_pos pos end_pos =
     iter1 begin_pos () end_pos
   else
     match inbuf.[pos] with
-        ʼ\nʼ ->
+        '\n' ->
           iter2 (pos+1) (pos+1) end_pos
-      | ʼ>ʼ ->
+      | '>' ->
           iter4 begin_pos (pos+1) end_pos
       | c ->
           let c = t.(Char.code c) in
@@ -327,7 +327,7 @@ and iter4 begin_pos pos end_pos =
     iter3 begin_pos () end_pos
   else
     match inbuf.[pos] with
-        ʼ\nʼ | ʼ\rʼ ->
+        '\n' | '\r' ->
           if pos > begin_pos then begin
             if !buffer_pos < buffer_len then begin
               let (ix, ox) = Unix.pipe () in
@@ -336,7 +336,7 @@ and iter4 begin_pos pos end_pos =
                   | 0 ->
                       reverse ();
                       output stdout inbuf begin_pos (pos - begin_pos);
-                      output_char stdout ʼ\nʼ;
+                      output_char stdout '\n';
                       ignore (Unix.write ox "X" 0 1);
                       Unix.close ox;
                       exit 0;
@@ -345,7 +345,7 @@ and iter4 begin_pos pos end_pos =
                       buffer_pos := buffer_len;
             end else begin
               output stdout inbuf begin_pos (pos - begin_pos);
-              output_char stdout ʼ\nʼ;
+              output_char stdout '\n';
               flush stdout;
             end
           end;

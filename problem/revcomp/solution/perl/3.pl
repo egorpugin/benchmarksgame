@@ -4,7 +4,7 @@
 # Contributed by David Eccles (gringer)
 
 use strict;
-use feature ʼsayʼ;
+use feature 'say';
 
 local $/ = ">";
 while (my $entry = <STDIN>) {

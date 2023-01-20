@@ -1,7 +1,7 @@
 # The Computer Language Benchmarks Game
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 #
-# Translated from Mr Ledrugʼs C program by Jeremy Zerfas.
+# Translated from Mr Ledrug's C program by Jeremy Zerfas.
 # Transliterated from GMP to built-in by Isaac Gouy
 
 

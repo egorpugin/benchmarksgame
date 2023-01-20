@@ -13,11 +13,11 @@
   (loop :for (bind update length) :in sequences
      :collect `(,bind 0) :into binds
      :collect `(type (integer 0 ,(1- (expt 4 length))) ,bind) :into decls
-     :collect `(,update (char) `(setf ,ʼ,bind
-                                      (logior (ash ,ʼ,bind -2)
+     :collect `(,update (char) `(setf ,',bind
+                                      (logior (ash ,',bind -2)
                                               (ash (logand (char-code ,char) #x6
 )
-                                                   ,ʼ,(1- (* (1- length) 2))))))
+                                                   ,',(1- (* (1- length) 2))))))
  :into updates
      :finally (return `(let (,@binds) (declare ,@decls) (macrolet (,@updates) ,@
 body)))))
@@ -40,7 +40,7 @@ body)))))
 
 (defmacro with-packed-caches-fill ((hash-access) &rest updaters)
   `(progn ,@(loop
-               :for tick :from 1 :to (apply #ʼmax (mapcar #ʼthird updaters))
+               :for tick :from 1 :to (apply #'max (mapcar #'third updaters))
                :collect `(with-current-char (char :skip-newline t)
                            ,@(loop :for (bind update length) :in updaters
                                 :collect `(,update char)
@@ -49,7 +49,7 @@ body)))))
 
 (defmacro with-reading-stream ((stream &key (block-size 8192)) &body body)
   `(block outer-tag
-     (let ((advance (let ((buffer (make-array ,block-size :element-type ʼstandar
+     (let ((advance (let ((buffer (make-array ,block-size :element-type 'standar
 d-char :initial-element #\Newline))
                           (index 0)
                           (amount 0))
@@ -87,7 +87,7 @@ equence-lengths)
   (loop :for length :in sequence-lengths
      :collect (gensym) :into binds
      :collect (gensym) :into updaters
-     :finally (let ((desc (mapcar #ʼlist binds updaters sequence-lengths)))
+     :finally (let ((desc (mapcar #'list binds updaters sequence-lengths)))
                 (return `(with-packed-sequences (,@desc)
                            (with-reading-stream (,stream :block-size ,block-size
 )
@@ -120,26 +120,26 @@ equence-lengths)
      :for area = (expt 4 length)
      :for vec-p = (<= area vector-threshold)
      :collect `(,bind ,(if vec-p
-                           `(make-array ,area :element-type ʼfixnum :initial-ele
+                           `(make-array ,area :element-type 'fixnum :initial-ele
 ment 0)
-                           `(make-hash-table :test ʼ,(if (< area most-positive-f
-ixnum) ʼseq= ʼeql)
+                           `(make-hash-table :test ',(if (< area most-positive-f
+ixnum) 'seq= 'eql)
                                              :rehash-size ,(expt 2 (1- length))
                                              :rehash-threshold 0.7))) :into bind
 s
-     :collect `(,length ,(if vec-p ``(elt ,ʼ,bind ,key) ``(the fixnum (gethash ,
-key ,ʼ,bind 0)))) :into accesses
+     :collect `(,length ,(if vec-p ``(elt ,',bind ,key) ``(the fixnum (gethash ,
+key ,',bind 0)))) :into accesses
      :collect `(,length ,(if vec-p
-                             ``(loop :for i :from 0 :below ,ʼ,(expt 4 length)
-                                  :for ,value = (elt ,ʼ,bind i)
-                                  :for ,key = (unpack-sequence ,ʼ,length i)
+                             ``(loop :for i :from 0 :below ,',(expt 4 length)
+                                  :for ,value = (elt ,',bind i)
+                                  :for ,key = (unpack-sequence ,',length i)
                                   :unless (zerop ,value)
                                   ,@loop-keywords)
                              ``(loop :for packed-key :being :the :hash-keys :in
-,ʼ,bind
-                                  :for ,key = (unpack-sequence ,ʼ,length packed-
+,',bind
+                                  :for ,key = (unpack-sequence ,',length packed-
 key)
-                                  :for ,value = (,ʼ,hash-access ,ʼ,length packed
+                                  :for ,value = (,',hash-access ,',length packed
 -key)
                                   ,@loop-keywords))) :into loops
      :finally (return `(let (,@binds)
@@ -158,7 +158,7 @@ op-keywords) (ecase seq-length ,@loops)))
                                       :summing v :into total :of-type fixnum
                                       :and :collect k :into seqs
                                       :and :collect v :into counts
-                                      :finally (return (mapcar #ʼlist
+                                      :finally (return (mapcar #'list
                                                                seqs
                                                                (mapcar (lambda (
 count)
@@ -195,8 +195,8 @@ ount 100.0) total))
                    ((< (second a) (second b)) nil)
                    (t (string< (first a) (first b)))))
            (print-freq (freq)
-             (format t "~{~{~a ~3$~}~%~}~%" (sort freq #ʼcompare))))
-    (mapc #ʼprint-freq seq-freqs)
+             (format t "~{~{~a ~3$~}~%~}~%" (sort freq #'compare))))
+    (mapc #'print-freq seq-freqs)
     (format t "~{~{~a~c~a~}~%~}" seq-counts)))
 
 

@@ -14,7 +14,7 @@ const COUNTSFOR = ("ggt", "ggta", "ggtatt", "ggtattttaatt", "ggtattttaatttatagt"
 function getseq3(io)
     # First read all the file preceding the 3rd sequence.
     for _=1:3
-        readuntil(io, ʼ>ʼ)
+        readuntil(io, '>')
     end
     readline(io)
     # Then read the third sequence in.
@@ -24,7 +24,7 @@ function getseq3(io)
     # using only the last 2 bits in each byte.
     i = 1
     for c in buf
-        if c != 0x0a # ʼ\nʼ
+        if c != 0x0a # '\n'
             # Gives a -> 0x00, c -> 0x01, g -> 0x03, t -> 0x02
             @inbounds buf[i] = c >> 1 & 0x03
             i += 1
@@ -33,7 +33,7 @@ function getseq3(io)
     resize!(buf, i - 1)
 end
 
-# Decoding a single encoded nucleotide results in a byte ʼaʼ, ʼcʼ, ʼgʼ or ʼtʼ
+# Decoding a single encoded nucleotide results in a byte 'a', 'c', 'g' or 't'
 decode(c) = c == 0x00 ? 0x61 : c == 0x01 ? 0x63 : c == 0x03 ? 0x67 : 0x74
 
 # Decoding a UInt32 or UInt64 results in a string. This function
@@ -78,7 +78,7 @@ end
         # Positive index means the key already exists in the dictionary
         @inbounds d.vals[index] += 1
     else
-        # Negative index means the key doesnʼt yet exist
+        # Negative index means the key doesn't yet exist
         @inbounds Base._setindex!(d, 1, k, -index)
     end
 end
@@ -87,7 +87,7 @@ end
 # sequence. Defining a Base function on a Base type is "type-piracy"
 # and should be avoided in production code. Instead, Base.hash could
 # be defined on a wrapper struct. For this workload, this simple
-# xor/bitshift hash speeds things up by over 20% compared to Juliaʼs
+# xor/bitshift hash speeds things up by over 20% compared to Julia's
 # default hash.
 Base.hash(x::Unsigned)::UInt = x ⊻ x >> 7
 
@@ -135,7 +135,7 @@ function main(io, out)
             count_sequence(seq, codeunits(COUNTSFOR[i]))
     end
 
-    # Because of Juliaʼs threading overhead, itʼs faster to just
+    # Because of Julia's threading overhead, it's faster to just
     # calculate both the 1 and 2 nucleotide frequency tables on the
     # main thread while counts_task continues in background.
     for (a, b) in frequency_table(seq, 1)
@@ -150,7 +150,7 @@ function main(io, out)
 
     wait(counts_task)
     @inbounds for i=1:5
-        println(out, counts[i], ʼ\tʼ, uppercase(COUNTSFOR[i]))
+        println(out, counts[i], '\t', uppercase(COUNTSFOR[i]))
     end
 end
 

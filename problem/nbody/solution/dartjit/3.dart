@@ -3,12 +3,12 @@
 
    contributed by Jos Hirth,
    modified by Srdjan Mitrovic (typed-data),
-   transliterated from Isaac Gouy and Robert F. Toblerʼs C# program
+   transliterated from Isaac Gouy and Robert F. Tobler's C# program
    + null safety
 */
 
-import ʼdart:mathʼ as Math;
-import ʼdart:typed_dataʼ;
+import 'dart:math' as Math;
+import 'dart:typed_data';
 
 void main(args) {
   int n = args.length > 0 ? int.parse(args[0]) : 0;

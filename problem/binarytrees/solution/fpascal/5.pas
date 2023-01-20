@@ -95,7 +95,7 @@ begin
 
   //Create and destroy tree of depth MaxDepth + 1.
   Pool := TMemPool.Create(SizeOf(TNode));
-  WriteLn(IO^, ʼstretch tree of depth ʼ, MaxDepth + 1, #9ʼ check: ʼ,
+  WriteLn(IO^, 'stretch tree of depth ', MaxDepth + 1, #9' check: ',
           TNode.CheckNode(TNode.MakeTree(MaxDepth + 1, Pool)));
   Pool.Free();
 
@@ -109,10 +109,10 @@ ata" variable.
   with TPasMP.CreateGlobalInstance() do
     Invoke(ParallelFor(@Data, 0, High(Data), @TNode.DoTrees));
   for I := 0 to High(Data) do with Data[I] do
-    WriteLn(IO^, Iterations, #9ʼ trees of depth ʼ, Depth, #9ʼ check: ʼ, Check);
+    WriteLn(IO^, Iterations, #9' trees of depth ', Depth, #9' check: ', Check);
 
   //Destroy long lived tree.
-  WriteLn(IO^, ʼlong lived tree of depth ʼ, MaxDepth, #9ʼ check: ʼ, TNode.CheckN
+  WriteLn(IO^, 'long lived tree of depth ', MaxDepth, #9' check: ', TNode.CheckN
 ode(Tree));
   Pool.Free();
 end.

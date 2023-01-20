@@ -71,11 +71,11 @@ def tree_make_and_check(n: int, keep_in_memory: bool = False) -> (list, int):
 
 
 def data_iter(d: int, n: int):
-    """ Iterate over tree and check itʼs content """
+    """ Iterate over tree and check it's content """
     niter: int = 1 << (n - d + 4)
 
     # We will have niter results
-    # Then we can store a list of niter length of 0ʼs
+    # Then we can store a list of niter length of 0's
     results: list = [0] * niter
 
     # Then as we create trees we mutate the zeros
@@ -102,12 +102,12 @@ def binary_trees_run(n: int, workers: int):
 
     # Create stretch tree with the pool and verify its check value
     # This first tree we are going to create and discard tree
-    # result[ʼstretchʼ] = executor.submit(tree_make_and_check, n + 1, False)
+    # result['stretch'] = executor.submit(tree_make_and_check, n + 1, False)
     stretch_tree = tree_make_and_check(n + 1, False)
 
     # Create long lived tree with the pool and verify its check value
     # This long lived tree will be kept in memory until the end
-    # result[ʼlonglivedʼ] = executor.submit(tree_make_and_check, n, True)
+    # result['longlived'] = executor.submit(tree_make_and_check, n, True)
     longlived = tree_make_and_check(n, True)
 
     # Loop through tree to make iterations as soon as they arrive
@@ -127,9 +127,9 @@ def binary_trees_run(n: int, workers: int):
 
     # Time to get results from those futures
     # Print stretch tree result as we get it and discard the tree from memory
-    # stretch_check_val: int = result[ʼstretchʼ].result()[1]
+    # stretch_check_val: int = result['stretch'].result()[1]
     # print(f"stretch tree of depth {n+1}\t check: {stretch_check_val}")
-    # del result[ʼstretchʼ]
+    # del result['stretch']
     print(f"stretch tree of depth {n+1}\t check: {stretch_tree[1]}")
 
     # Loop through iterations and get results in order for correct output
@@ -140,9 +140,9 @@ def binary_trees_run(n: int, workers: int):
         del result[value]
 
     # Now we can print long lived tree and discard the tree
-    # longlived_check_val: int = result[ʼlonglivedʼ].result()[1]
+    # longlived_check_val: int = result['longlived'].result()[1]
     # print(f"long lived tree of depth {n}\t check: {longlived_check_val}")
-    # del result[ʼlonglivedʼ]
+    # del result['longlived']
     print(f"long lived tree of depth {n}\t check: {longlived[1]}")
     del longlived
 

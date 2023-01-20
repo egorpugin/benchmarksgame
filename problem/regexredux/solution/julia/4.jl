@@ -6,7 +6,7 @@
 # modified by Jarret Revels, Alex Arslan, Yichao Yu
 # made multi-threaded by Adam Beckmeyer
 
-# Juliaʼs replace function doesnʼt internally use pcre2_substitute
+# Julia's replace function doesn't internally use pcre2_substitute
 # which is more efficient than the string-building Julia currently
 # uses. This gives about a 10% speedup compared to using Base.replace.
 function rereplace!(s, slen, pat::Pair{Regex,String}, dest)
@@ -73,15 +73,15 @@ function main(io, out)
 
     # Then we count the occurrences of each variant within
     # seq. Although this could be done multi-threaded with a counter
-    # per thread, thereʼs no benefit to doing so since replace_task
+    # per thread, there's no benefit to doing so since replace_task
     # takes longer than all variant counts in serial.
     seq = String(seq2)
     for v in variants
-        # Using count(variants[i], seq) isnʼt as fast. Not sure why.
-        println(out, v.pattern, ʼ ʼ, length(collect(eachmatch(v, seq))))
+        # Using count(variants[i], seq) isn't as fast. Not sure why.
+        println(out, v.pattern, ' ', length(collect(eachmatch(v, seq))))
     end
 
-    println(out, ʼ\nʼ, l1)
+    println(out, '\n', l1)
     println(out, l2)
     # Wait for the replacing task to complete before printing sequence lengths.
     wait(replace_task)

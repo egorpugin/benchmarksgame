@@ -89,7 +89,7 @@ begin
   limits := threadData(p^).limits;
   counters := threadData(p^).counters;
   list := threadData(p^).list;
-  /// WriteLn(n, ʼ ʼ, num, ʼ ʼ, list[0]);
+  /// WriteLn(n, ' ', num, ' ', list[0]);
   // Main loop
   f := false;
   maxCount := 0;
@@ -185,9 +185,9 @@ begin
       checksum := checksum - td[i].checksum;
   end;
   /// finish := now;
-  /// WriteLn(ʼTime : ʼ, (MilliSecondsBetween(start, finish) / 1000) : 0 : 4);
+  /// WriteLn('Time : ', (MilliSecondsBetween(start, finish) / 1000) : 0 : 4);
   WriteLn(abs(checksum));
-  WriteLn(ʼPfannkuchen(ʼ, n, ʼ) = ʼ, count);
+  WriteLn('Pfannkuchen(', n, ') = ', count);
 end;
 
 (* Main program *)

@@ -56,44 +56,44 @@ sub qv {
   $s
 }
 
-$energy = ʼ
+$energy = '
 sub energy
 {
   my $e = 0.0;
-  my ($dx, $dy, $dz, $distance);ʼ;
+  my ($dx, $dy, $dz, $distance);';
   for my $i (0 .. $last) {
-    my $env = {ʼ$iʼ=>$i,ʼ$lastʼ=>$last};
-    $energy .= qv(ʼ
+    my $env = {'$i'=>$i,'$last'=>$last};
+    $energy .= qv('
     # outer-loop $i..4
     $e += 0.5 * $mass[$i] *
-          ($vxs[$i] * $vxs[$i] + $vys[$i] * $vys[$i] + $vzs[$i] * $vzs[$i]);ʼ, $
+          ($vxs[$i] * $vxs[$i] + $vys[$i] * $vys[$i] + $vzs[$i] * $vzs[$i]);', $
 env);
     for (my $j = $i + 1; $j < $last + 1; $j++) {
-      $env->{ʼ$jʼ} = $j;
-      $energy .= qv(ʼ
+      $env->{'$j'} = $j;
+      $energy .= qv('
       # inner-loop $j..4
       $dx = $xs[$i] - $xs[$j];
       $dy = $ys[$i] - $ys[$j];
       $dz = $zs[$i] - $zs[$j];
       $distance = sqrt($dx * $dx + $dy * $dy + $dz * $dz);
-      $e -= ($mass[$i] * $mass[$j]) / $distance;ʼ, $env);
+      $e -= ($mass[$i] * $mass[$j]) / $distance;', $env);
     }
   }
-  $energy .= ʼ
+  $energy .= '
   return $e;
-}ʼ;
+}';
 eval $energy; die if $@;
 
-$advance = ʼ
+$advance = '
 sub advance($)
 {
   my $dt = $_[0];
-  my ($mm, $mm2, $j, $dx, $dy, $dz, $distance, $mag);ʼ;
+  my ($mm, $mm2, $j, $dx, $dy, $dz, $distance, $mag);';
   for my $i (0..$last) {
-    my $env = {ʼ$iʼ=>$i};
+    my $env = {'$i'=>$i};
     for (my $j = $i + 1; $j < $last + 1; $j++) {
-      $env->{ʼ$jʼ} = $j;
-      $advance .= qv(ʼ
+      $env->{'$j'} = $j;
+      $advance .= qv('
       # outer-loop $i..4
       # inner-loop $j..4
       $dx = $xs[$i] - $xs[$j];
@@ -108,42 +108,42 @@ sub advance($)
       $vys[$i] -= $dy * $mm2;
       $vys[$j] += $dy * $mm;
       $vzs[$i] -= $dz * $mm2;
-      $vzs[$j] += $dz * $mm;ʼ, $env);
+      $vzs[$j] += $dz * $mm;', $env);
     }
   }
-  # Weʼre done with planet $i at this point
+  # We're done with planet $i at this point
   for my $i (0..$last) {
-    my $env = {ʼ$iʼ=>$i};
-    $advance .= qv(ʼ
+    my $env = {'$i'=>$i};
+    $advance .= qv('
     $xs[$i] += $dt * $vxs[$i];
     $ys[$i] += $dt * $vys[$i];
-    $zs[$i] += $dt * $vzs[$i];ʼ, $env);
+    $zs[$i] += $dt * $vzs[$i];', $env);
   }
-  $advance .= ʼ
-}ʼ;
+  $advance .= '
+}';
 eval $advance; die if $@;
 
-$offset_momentum = ʼ;
+$offset_momentum = ';
 sub offset_momentum
 {
   my $px = 0.0;
   my $py = 0.0;
   my $pz = 0.0;
   my $mass;
-ʼ;
+';
 for my $i (0 .. $last) {
-  my $env = {ʼ$iʼ=>$i};
-  $offset_momentum .= qv(ʼ
+  my $env = {'$i'=>$i};
+  $offset_momentum .= qv('
     $mass = $mass[$i];
     $px += $vxs[$i] * $mass;
     $py += $vys[$i] * $mass;
-    $pz += $vzs[$i] * $mass;ʼ, $env);
+    $pz += $vzs[$i] * $mass;', $env);
 }
-$offset_momentum .= ʼ
+$offset_momentum .= '
   $vxs[0] = - $px / SOLAR_MASS;
   $vys[0] = - $py / SOLAR_MASS;
   $vzs[0] = - $pz / SOLAR_MASS;
-}ʼ;
+}';
 eval $offset_momentum; die if $@;
 
 } #BEGIN

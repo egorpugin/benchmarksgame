@@ -4,19 +4,19 @@
     modified by Andres Valloud *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 Object subclass: #PiDigitSpigot
-   instanceVariableNames: ʼnumer accum denom kʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'numer accum denom k'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 pidigitsTo: v width: width to: output
    | n i pidigits |
@@ -39,19 +39,19 @@ t)].
 
       n := n - width]! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self pidigitsTo: n width: 10 to: Stdio stdout! !
 
 
-!PiDigitSpigot class methodsFor: ʼinstance creationʼ!
+!PiDigitSpigot class methodsFor: 'instance creation'!
 
 new
    ^super basicNew initialize! !
 
 
-!PiDigitSpigot methodsFor: ʼprivateʼ!
+!PiDigitSpigot methodsFor: 'private'!
 
 initialize
     numer := denom := 1.
@@ -77,7 +77,7 @@ step
     numer := numer * k.
     denom := denom * y2.! !
 
-!PiDigitSpigot methodsFor: ʼstreamʼ!
+!PiDigitSpigot methodsFor: 'stream'!
 
 atEnd
     ^false!
@@ -88,7 +88,7 @@ next
     self eliminate: digit.
     ^digit! !
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 tab
    self nextPut: Character tab!

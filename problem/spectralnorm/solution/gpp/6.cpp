@@ -99,7 +99,7 @@ double spectral_game(int N) {
         int threadcount = omp_get_num_threads();
         int chunk = N / threadcount;
 
-        // calculate each threadʼs working range [r1 .. r2) => static schedule
+        // calculate each thread's working range [r1 .. r2) => static schedule
         int begin = threadid * chunk;
         int end = (threadid < (threadcount -1)) ? (begin + chunk) : N;
 

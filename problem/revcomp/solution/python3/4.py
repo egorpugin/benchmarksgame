@@ -8,14 +8,14 @@
 import sys
 
 
-def show(seq, table=bytes.maketrans(bʼACBDGHKMNSRUTWVYacbdghkmnsrutwvyʼ,
-                                    bʼTGVHCDMKNSYAAWBRTGVHCDMKNSYAAWBRʼ),
-         write=sys.stdout.buffer.write, nl=bʼ\nʼ):
+def show(seq, table=bytes.maketrans(b'ACBDGHKMNSRUTWVYacbdghkmnsrutwvy',
+                                    b'TGVHCDMKNSYAAWBRTGVHCDMKNSYAAWBR'),
+         write=sys.stdout.buffer.write, nl=b'\n'):
 
     [header, s] = seq.split(nl, 1)
     s = s.translate(table, nl)[: : -1]
 
-    write(bʼ>ʼ + header + nl)
+    write(b'>' + header + nl)
     for i in range(0, len(s), 60):
         write(s[i : i + 60] + nl)
 
@@ -24,7 +24,7 @@ def show(seq, table=bytes.maketrans(bʼACBDGHKMNSRUTWVYacbdghkmnsrutwvyʼ,
 def main():
 
     sys.stdin = sys.stdin.detach()
-    seqs = bʼʼ.join([line for line in sys.stdin]).split(bʼ>ʼ)[1 : ]
+    seqs = b''.join([line for line in sys.stdin]).split(b'>')[1 : ]
 
     for seq in seqs:
         show(seq)

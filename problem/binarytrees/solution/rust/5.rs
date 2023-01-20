@@ -16,9 +16,9 @@ use bumpalo::Bump;
 use rayon::prelude::*;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-struct Tree<ʼa> {
-    left: Option<&ʼa Tree<ʼa>>,
-    right: Option<&ʼa Tree<ʼa>>,
+struct Tree<'a> {
+    left: Option<&'a Tree<'a>>,
+    right: Option<&'a Tree<'a>>,
 }
 
 fn item_check(tree: &Tree) -> i32 {
@@ -29,7 +29,7 @@ fn item_check(tree: &Tree) -> i32 {
     }
 }
 
-fn bottom_up_tree<ʼr>(arena: &ʼr Bump, depth: i32) -> &ʼr Tree<ʼr> {
+fn bottom_up_tree<'r>(arena: &'r Bump, depth: i32) -> &'r Tree<'r> {
     let tree = arena.alloc(Tree { left: None, right: None });
     if depth > 0 {
         tree.right = Some(bottom_up_tree(arena, depth - 1));

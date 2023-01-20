@@ -224,11 +224,11 @@ int main(int argc, char** argv) {
     std::ios_base::sync_with_stdio(false);
     int n = 0;
     while(*argv[1]) {
-        n = n*10 + (*argv[1]++ - ʼ0ʼ);
+        n = n*10 + (*argv[1]++ - '0');
     }
 
     NBodySystem bodies;
-    std::cout << std::setprecision(9) << bodies.energy() << ʼ\nʼ;
+    std::cout << std::setprecision(9) << bodies.energy() << '\n';
     for (int i=0; i<n; ++i)
         bodies.advance(0.01);
     std::cout << bodies.energy();

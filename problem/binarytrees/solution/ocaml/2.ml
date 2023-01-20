@@ -6,7 +6,7 @@
  * *reset*
  *)
 
-type ʼa tree = Empty | Node of ʼa tree * ʼa tree
+type 'a tree = Empty | Node of 'a tree * 'a tree
 
 let rec make d =
 (* if d = 0 then Empty *)
@@ -42,7 +42,7 @@ let rec loop_depths d =
        workers
 
 (* function originally due to Jon D. Harrop *)
-and invoke (f : ʼa -> ʼb) x : unit -> ʼb =
+and invoke (f : 'a -> 'b) x : unit -> 'b =
   let input, output = Unix.pipe() in
   match Unix.fork() with
   | -1 -> Unix.close input; Unix.close output; (let v = f x in fun () -> v)

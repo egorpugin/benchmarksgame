@@ -157,10 +157,10 @@ begin
   for i := 1 to n do advance(0.01);
   writeln(energy:0:9);
   end_time := now;
-  //writeln(ʼstart time:ʼ, start_time);
-  //writeln(ʼend time  :ʼ, end_time);
-  //writeln(ʼdelay     :ʼ, end_time-start_time);
-  //writeln(ʼdelay (s) :ʼ, (end_time-start_time)*24*3600);
+  //writeln('start time:', start_time);
+  //writeln('end time  :', end_time);
+  //writeln('delay     :', end_time-start_time);
+  //writeln('delay (s) :', (end_time-start_time)*24*3600);
   //readln;
 end.
 

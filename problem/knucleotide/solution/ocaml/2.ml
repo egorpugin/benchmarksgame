@@ -64,18 +64,18 @@ let dna_three =
   (* Skip possible comment *)
   (try while true do
      let line = input_line stdin in
-     if line.[0] <> ʼ;ʼ then
+     if line.[0] <> ';' then
        (Buffer.add_string buf (String.uppercase line); raise Exit)
    done with _ -> ());
   (* Read the DNA sequence *)
   (try while true do
        let line = input_line stdin in
-       if line.[0] = ʼ>ʼ then raise End_of_file;
+       if line.[0] = '>' then raise End_of_file;
        Buffer.add_string buf (String.uppercase line)
    done with End_of_file -> ());
   Buffer.contents buf
 
-let invoke (f : ʼa -> ʼb) x : unit -> ʼb =
+let invoke (f : 'a -> 'b) x : unit -> 'b =
   let input, output = Unix.pipe() in
   match Unix.fork() with
   | -1 -> Unix.close input; Unix.close output; (let v = f x in fun () -> v)

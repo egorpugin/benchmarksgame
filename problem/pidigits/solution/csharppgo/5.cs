@@ -34,7 +34,7 @@ namespace PiDigits
 
             // Pad out any trailing digits for the final line
             if ((n % DigitsPerLine) > 0)
-                Console.Out.WriteLine(new string(ʼ ʼ, (DigitsPerLine - (n % Digi
+                Console.Out.WriteLine(new string(' ', (DigitsPerLine - (n % Digi
 tsPerLine))) + "\t:" + n);
         }
 

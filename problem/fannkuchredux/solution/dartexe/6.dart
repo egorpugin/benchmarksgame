@@ -1,13 +1,13 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   transliterated from Andrey Filatkinʼs Node #5 program by Isaac Gouy
+   transliterated from Andrey Filatkin's Node #5 program by Isaac Gouy
 */
 
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
-import ʼdart:mathʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:math';
+import 'dart:typed_data';
 
 var fact = <int>[];
 

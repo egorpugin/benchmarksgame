@@ -136,7 +136,7 @@ func main() {
     }
 
     // Print the statistics for the LongLivedTree that was processed earlier.
-    // Note that although the LongLivedTree variable isnʼt used here, it still
+    // Note that although the LongLivedTree variable isn't used here, it still
     // is in scope and valid to use until the end of the program.
     fmt.Printf("long lived tree of depth %v\t check: %v\n",
         maxDepth, <-longLivedTreeChecksum)

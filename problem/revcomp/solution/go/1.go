@@ -29,7 +29,7 @@ func build_comptbl() {
       comptbl[l1_lower[i]] = c2
       comptbl[l2_lower[i]] = c1
    }
-   comptbl[ʼ\nʼ] = ʼ\nʼ
+   comptbl['\n'] = '\n'
 }
 
 const CHUNK_SIZE = 1024 * 128
@@ -84,12 +84,12 @@ func reverse(strand []byte) {
    end := len(strand) - 1
    for i < end {
       c := strand[i]
-      if c == ʼ\nʼ {
+      if c == '\n' {
          i += 1
          c = strand[i]
       }
       cend := strand[end]
-      if cend == ʼ\nʼ {
+      if cend == '\n' {
          end -= 1
          cend = strand[end]
       }
@@ -106,7 +106,7 @@ func print_fasta(start, end int) {
 }
 
 func process_chunk_data(i, end int) int {
-   pos := bytes.IndexByte(buf[i:end], ʼ>ʼ)
+   pos := bytes.IndexByte(buf[i:end], '>')
    if -1 == pos {
       i = end
       return IN_DATA
@@ -119,7 +119,7 @@ func process_chunk_data(i, end int) int {
 
 func process_chunk_hdr(i, end int) int {
    for ; i < end; i++ {
-      if buf[i] == ʼ\nʼ {
+      if buf[i] == '\n' {
          add_printer_job(buf[start_fasta_hdr:i+1], false)
          start_fasta_data = i + 1
          return process_chunk_data(i+1, end)
@@ -129,7 +129,7 @@ func process_chunk_hdr(i, end int) int {
 }
 
 func process_chunk_start(i, end int) int {
-   if buf[i] != ʼ>ʼ {
+   if buf[i] != '>' {
       panic("Unexpected")
    }
    start_fasta_hdr = i

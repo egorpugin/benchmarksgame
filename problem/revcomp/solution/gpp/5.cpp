@@ -18,22 +18,22 @@ template <typename Ch> inline Ch complement(Ch c)
     {
         // IDEA: Reorder branches after profiling?
         // IDEA: (gcc probably compiles the switch into a jump table)
-        case ʼtʼ: case ʼTʼ:             //  7707842
-        case ʼuʼ: case ʼUʼ: return ʼAʼ; //
-        case ʼaʼ: case ʼAʼ: return ʼTʼ; //  7592592
-        case ʼgʼ: case ʼGʼ: return ʼCʼ; //  5552804
-        case ʼcʼ: case ʼCʼ: return ʼGʼ; //  5442702
-        case ʼvʼ: case ʼVʼ: return ʼBʼ; //   205714
-        case ʼsʼ: case ʼSʼ: return ʼSʼ; //   200078
-        case ʼhʼ: case ʼHʼ: return ʼDʼ; //   197260
-        case ʼwʼ: case ʼWʼ: return ʼWʼ; //   194442
-        case ʼrʼ: case ʼRʼ: return ʼYʼ; //   194442
-        case ʼmʼ: case ʼMʼ: return ʼKʼ; //   174716
-        case ʼyʼ: case ʼYʼ: return ʼRʼ; //   157808
-        case ʼkʼ: case ʼKʼ: return ʼMʼ; //   154990
-        case ʼbʼ: case ʼBʼ: return ʼVʼ; //   146536
-        case ʼdʼ: case ʼDʼ: return ʼHʼ; //   132446
-        case ʼnʼ: case ʼNʼ: return ʼNʼ; //   129628
+        case 't': case 'T':             //  7707842
+        case 'u': case 'U': return 'A'; //
+        case 'a': case 'A': return 'T'; //  7592592
+        case 'g': case 'G': return 'C'; //  5552804
+        case 'c': case 'C': return 'G'; //  5442702
+        case 'v': case 'V': return 'B'; //   205714
+        case 's': case 'S': return 'S'; //   200078
+        case 'h': case 'H': return 'D'; //   197260
+        case 'w': case 'W': return 'W'; //   194442
+        case 'r': case 'R': return 'Y'; //   194442
+        case 'm': case 'M': return 'K'; //   174716
+        case 'y': case 'Y': return 'R'; //   157808
+        case 'k': case 'K': return 'M'; //   154990
+        case 'b': case 'B': return 'V'; //   146536
+        case 'd': case 'D': return 'H'; //   132446
+        case 'n': case 'N': return 'N'; //   129628
     }
     throw "parse error"; // TODO proper exception
 }
@@ -47,10 +47,10 @@ inline static void print_reverse(std::string const& sequence, Out& out)
     {
         *out++ = *i; // TODO: buffer writes and append line by line?
         if (0 == ++count % 60)
-            *out++ = ʼ\nʼ;
+            *out++ = '\n';
     }
     if (count % 60)
-        *out++ = ʼ\nʼ;
+        *out++ = '\n';
 }
 
 int main()
@@ -65,7 +65,7 @@ int main()
     auto out = std::ostreambuf_iterator<char>(std::cout);
     while (getline(cin, line))
     {
-        const bool is_header = (line[0] == ʼ>ʼ);
+        const bool is_header = (line[0] == '>');
 
         if (is_header)
         {

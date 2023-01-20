@@ -129,7 +129,7 @@ e,
             var len = Math.Min(LineLength, rnd.Length - i);
             for (var j = 0; j < len; ++j)
                 buf[index++] = SelectRandom(a, (int)rnd[i + j]);
-            buf[index++] = (byte)ʼ\nʼ;
+            buf[index++] = (byte)'\n';
         }
         return buf;
     }
@@ -165,7 +165,7 @@ r. */
         if (outputBytes > 0)
         {
             s.Write(sequence, 0, outputBytes);
-            s.WriteByte((byte)ʼ\nʼ);
+            s.WriteByte((byte)'\n');
         }
     }
 
@@ -196,7 +196,7 @@ r. */
                 k++;
             }
 
-            buf[index++] = (byte)ʼ\nʼ;
+            buf[index++] = (byte)'\n';
             n -= LineLength;
         }
 
@@ -247,29 +247,29 @@ r. */
     }
 
     static Frequency[] IUB = {
-    new Frequency (ʼaʼ, 0.27)
-        ,new Frequency (ʼcʼ, 0.12)
-        ,new Frequency (ʼgʼ, 0.12)
-        ,new Frequency (ʼtʼ, 0.27)
+    new Frequency ('a', 0.27)
+        ,new Frequency ('c', 0.12)
+        ,new Frequency ('g', 0.12)
+        ,new Frequency ('t', 0.27)
 
-        ,new Frequency (ʼBʼ, 0.02)
-        ,new Frequency (ʼDʼ, 0.02)
-        ,new Frequency (ʼHʼ, 0.02)
-        ,new Frequency (ʼKʼ, 0.02)
-        ,new Frequency (ʼMʼ, 0.02)
-        ,new Frequency (ʼNʼ, 0.02)
-        ,new Frequency (ʼRʼ, 0.02)
-        ,new Frequency (ʼSʼ, 0.02)
-        ,new Frequency (ʼVʼ, 0.02)
-        ,new Frequency (ʼWʼ, 0.02)
-        ,new Frequency (ʼYʼ, 0.02)
+        ,new Frequency ('B', 0.02)
+        ,new Frequency ('D', 0.02)
+        ,new Frequency ('H', 0.02)
+        ,new Frequency ('K', 0.02)
+        ,new Frequency ('M', 0.02)
+        ,new Frequency ('N', 0.02)
+        ,new Frequency ('R', 0.02)
+        ,new Frequency ('S', 0.02)
+        ,new Frequency ('V', 0.02)
+        ,new Frequency ('W', 0.02)
+        ,new Frequency ('Y', 0.02)
 };
 
     static Frequency[] HomoSapiens = {
-    new Frequency (ʼaʼ, 0.3029549426680)
-        ,new Frequency (ʼcʼ, 0.1979883004921)
-        ,new Frequency (ʼgʼ, 0.1975473066391)
-        ,new Frequency (ʼtʼ, 0.3015094502008)
+    new Frequency ('a', 0.3029549426680)
+        ,new Frequency ('c', 0.1979883004921)
+        ,new Frequency ('g', 0.1975473066391)
+        ,new Frequency ('t', 0.3015094502008)
 };
 
 

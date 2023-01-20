@@ -14,9 +14,9 @@
 
 #include <khash.h>
 
-// Define a custom hash function to use instead of khashʼs default hash
+// Define a custom hash function to use instead of khash's default hash
 // function. This custom hash function uses a simpler bit shift and XOR which
-// results in several percent faster performance compared to when khashʼs
+// results in several percent faster performance compared to when khash's
 // default hash function is used.
 #define CUSTOM_HASH_FUNCTION(key) ((key) ^ (key)>>7)
 
@@ -34,9 +34,9 @@ typedef struct {
 
 // Macro to convert a nucleotide character to a code. Note that upper and lower
 // case ASCII letters only differ in the fifth bit from the right and we only
-// need the three least significant bits to differentiate the letters ʼAʼ, ʼCʼ,
-// ʼGʼ, and ʼTʼ. Spaces in this array/string will never be used as long as
-// characters other than ʼAʼ, ʼCʼ, ʼGʼ, and ʼTʼ arenʼt used.
+// need the three least significant bits to differentiate the letters 'A', 'C',
+// 'G', and 'T'. Spaces in this array/string will never be used as long as
+// characters other than 'A', 'C', 'G', and 'T' aren't used.
 #define code_For_Nucleotide(nucleotide) (" \0 \1\3  \2"[nucleotide & 0x7])
 
 
@@ -126,7 +126,7 @@ herwise
 .key);
                         elements_Array[i].key>>=2;
                 }
-                oligonucleotide[desired_Length_For_Oligonucleotides]=ʼ\0ʼ;
+                oligonucleotide[desired_Length_For_Oligonucleotides]='\0';
 
                 // Output the frequency for oligonucleotide to output.
                 output_Position+=snprintf(output+output_Position
@@ -209,9 +209,9 @@ int main(){
         char * polynucleotide=malloc(polynucleotide_Capacity);
 
         // Start reading and encoding the third polynucleotide.
-        while(fgets(buffer, sizeof(buffer), stdin) && buffer[0]!=ʼ>ʼ){
-                for(intnative_t i=0; buffer[i]!=ʼ\0ʼ; i++)
-                        if(buffer[i]!=ʼ\nʼ)
+        while(fgets(buffer, sizeof(buffer), stdin) && buffer[0]!='>'){
+                for(intnative_t i=0; buffer[i]!='\0'; i++)
+                        if(buffer[i]!='\n')
                                 polynucleotide[polynucleotide_Length++]
                                   =code_For_Nucleotide(buffer[i]);
 

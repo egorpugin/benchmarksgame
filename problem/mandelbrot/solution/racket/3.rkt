@@ -29,7 +29,7 @@
 (define-syntax (let-n stx)
   (syntax-case stx ()
     [(_ N bindings E)
-     (let loop ([N (syntax-e #ʼN)] [E #ʼE])
+     (let loop ([N (syntax-e #'N)] [E #'E])
        (if (zero? N) E (loop (sub1 N) #`(let bindings #,E))))]))
 
 (define-syntax-rule (mandelbrot Cr Ci)

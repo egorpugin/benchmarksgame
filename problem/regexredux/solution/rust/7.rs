@@ -76,14 +76,14 @@ mod pcre2 {
     }
 
     pub struct Regex {
-        pattern: &ʼstatic str,
+        pattern: &'static str,
         ctx: *mut pcre2_compile_context_8,
         code: *mut pcre2_code_8,
         match_data: MatchData,
     }
 
     impl Regex {
-        pub fn new(pattern: &ʼstatic str) -> Regex {
+        pub fn new(pattern: &'static str) -> Regex {
             let ctx =
                 unsafe { pcre2_compile_context_create_8(ptr::null_mut()) };
             assert!(!ctx.is_null(), "could not allocate compile context");
@@ -118,9 +118,9 @@ mod pcre2 {
             self.pattern
         }
 
-        pub fn find_at<ʼs>(
+        pub fn find_at<'s>(
             &self,
-            subject: &ʼs [u8],
+            subject: &'s [u8],
             start: usize,
         ) -> Option<(usize, usize)> {
             assert!(start <= subject.len());
@@ -151,7 +151,7 @@ mod pcre2 {
             }
         }
 
-        pub fn count<ʼs>(&self, subject: &ʼs [u8]) -> usize {
+        pub fn count<'s>(&self, subject: &'s [u8]) -> usize {
             let mut count = 0;
             let mut last_match = 0;
 
@@ -163,11 +163,11 @@ mod pcre2 {
             count
         }
 
-        pub fn replace<ʼs, ʼa, ʼo>(
+        pub fn replace<'s, 'a, 'o>(
             &self,
-            subject: &ʼs [u8],
-            alt: &ʼa [u8],
-            out: &ʼo mut Vec<u8>,
+            subject: &'s [u8],
+            alt: &'a [u8],
+            out: &'o mut Vec<u8>,
         ) {
             let mut last_match = 0;
 
@@ -180,10 +180,10 @@ mod pcre2 {
             out.extend_from_slice(&subject[last_match..]);
         }
 
-        pub fn replace_inplace<ʼs, ʼa>(
+        pub fn replace_inplace<'s, 'a>(
             &self,
-            subject: &ʼs mut Vec<u8>,
-            alt: &ʼa [u8],
+            subject: &'s mut Vec<u8>,
+            alt: &'a [u8],
         ) {
             let mut last_match = 0;
             let mut last_write = 0;
@@ -212,7 +212,7 @@ mod pcre2 {
         }
     }
 
-    // Regex matching causes mutation of match_data, so this Regex doesnʼt
+    // Regex matching causes mutation of match_data, so this Regex doesn't
     // implement Sync.
     unsafe impl Send for Regex {}
 }

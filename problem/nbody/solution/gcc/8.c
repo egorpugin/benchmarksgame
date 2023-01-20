@@ -84,9 +84,9 @@ static body solar_Bodies[]={
 
 
 // Advance all the bodies in the system by one timestep. Calculate the
-// interactions between all the bodies, update each bodyʼs velocity based on
-// those interactions, and update each bodyʼs position by the distance it
-// travels in a timestep at itʼs updated velocity.
+// interactions between all the bodies, update each body's velocity based on
+// those interactions, and update each body's position by the distance it
+// travels in a timestep at it's updated velocity.
 static void advance(body bodies[]){
 
     // Figure out how many total different interactions there are between each
@@ -98,7 +98,7 @@ static void advance(body bodies[]){
     #define INTERACTIONS_COUNT (BODIES_COUNT*(BODIES_COUNT-1)/2)
     #define ROUNDED_INTERACTIONS_COUNT (INTERACTIONS_COUNT+INTERACTIONS_COUNT%2)
 
-    // Itʼs useful to have two arrays to keep track of the position_Deltas
+    // It's useful to have two arrays to keep track of the position_Deltas
     // and magnitudes of force between the bodies for each interaction. For the
     // position_Deltas array, instead of using a one dimensional array of
     // structures that each contain the X, Y, and Z components for a position
@@ -136,9 +136,9 @@ static void advance(body bodies[]){
           position_Delta[2]*position_Delta[2];
 
         // Doing square roots normally using double precision floating point
-        // math can be quite time consuming so SSEʼs much faster single
+        // math can be quite time consuming so SSE's much faster single
         // precision reciprocal square root approximation instruction is used as
-        // a starting point instead. The precision isnʼt quite sufficient to get
+        // a starting point instead. The precision isn't quite sufficient to get
         // acceptable results so two iterations of the Newton–Raphson method are
         // done to improve precision further.
         __m128d distance_Reciprocal=
@@ -186,8 +186,8 @@ static void advance(body bodies[]){
 
 
 // Calculate the momentum of each body and conserve momentum of the system by
-// adding to the Sunʼs velocity the appropriate opposite velocity needed in
-// order to offset that bodyʼs momentum.
+// adding to the Sun's velocity the appropriate opposite velocity needed in
+// order to offset that body's momentum.
 static void offset_Momentum(body bodies[]){
     for(intnative_t i=0; i<BODIES_COUNT; ++i)
         for(intnative_t m=0; m<3; ++m)

@@ -1,6 +1,6 @@
 % The Computer Language Benchmarks Game
 % https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-%% Contributed by Fredrik Svahn based on Per Gustafssonʼs mandelbrot program
+%% Contributed by Fredrik Svahn based on Per Gustafsson's mandelbrot program
 
 -module(mandelbrot).
 -export([main/1]).

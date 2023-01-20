@@ -69,11 +69,11 @@ l_Fragment);
 
    protected body Printer is
 
-      --  Use familiesʼ entry indexes to find that output of preceding
-      --  `Write`s has already been produced thus ordering the tasksʼs results.
+      --  Use families' entry indexes to find that output of preceding
+      --  `Write`s has already been produced thus ordering the tasks's results.
 
       entry Seize (for L in Fragment_Lengths)
-      when Done (1 .. Fragment_LengthsʼPred(L)) = (1 .. Fragment_LengthsʼPred(L)
+      when Done (1 .. Fragment_Lengths'Pred(L)) = (1 .. Fragment_Lengths'Pred(L)
  => True) is
       begin
          null;
@@ -92,7 +92,7 @@ l_Fragment);
       -- procedure Write --
       ---------------------
 
-      --  Procedure KNucleotideʼs tasks call Write in order to calculate and
+      --  Procedure KNucleotide's tasks call Write in order to calculate and
       --  write data - either a percentage for all fragments found or - when
       --  Nucleotide_Fragment is given - the count for that fragment.
       --
@@ -102,7 +102,7 @@ l_Fragment);
       is
          use Fragments;
 
-         --  Package is an interface to GNATʼs simple hash table: GNAT.HTable.
+         --  Package is an interface to GNAT's simple hash table: GNAT.HTable.
          --  The package calculates nucleotide Fragment_Lengths and keeps the
          --  result inside a hash table as requested by the shootout rules.
 
@@ -112,7 +112,7 @@ l_Fragment);
 
             type Element_Type is private;
             type Element_Access is access Element_Type;
-            for Element_AccessʼStorage_Size use 16#60_00_01#;
+            for Element_Access'Storage_Size use 16#60_00_01#;
 
 
 --  Calculate frequency of occurrence of the nucleotides:
@@ -156,7 +156,7 @@ ment;
 
          package body Calculator is
 
-            Log_Table_Size : constant Natural := NaturalʼMin (FragmentʼLast*2+4,
+            Log_Table_Size : constant Natural := Natural'Min (Fragment'Last*2+4,
  17);
             Table_Size     : constant Natural := 2 ** Log_Table_Size;
 
@@ -183,30 +183,30 @@ ment;
 
 
             function Hash (Key : Fragment) return Hash_Type is
-               pragma Assert (Hash_TypeʼFirst = 0);
-               pragma Assert (Hash_TypeʼLast  = 2**Log_Table_Size - 1);
+               pragma Assert (Hash_Type'First = 0);
+               pragma Assert (Hash_Type'Last  = 2**Log_Table_Size - 1);
                type Uns_32 is mod 2**32;
-               H : Uns_32 := CharacterʼPos (Key (KeyʼFirst));
+               H : Uns_32 := Character'Pos (Key (Key'First));
             begin
-               for J in KeyʼFirst + 1 .. KeyʼLast loop
-                  H := CharacterʼPos (Key (J)) + H * 2**3 + H;
+               for J in Key'First + 1 .. Key'Last loop
+                  H := Character'Pos (Key (J)) + H * 2**3 + H;
                end loop;
                H := (H / 2**Log_Table_Size) xor H;
-               return Hash_TypeʼBase (H mod 2**Log_Table_Size);
+               return Hash_Type'Base (H mod 2**Log_Table_Size);
             end Hash;
 
 
             procedure Get_Frequencies (Length : Fragment_Lengths) is
             begin
-               for I in  1 .. BufferʼLast - Length + 1 loop
+               for I in  1 .. Buffer'Last - Length + 1 loop
                   declare
                      Key : String renames Buffer(I .. I + Length - 1);
                      Element : constant Element_Access := Table.Get (Key);
                   begin
                      if Element /= null then
-                        Element.all.Count := NaturalʼSucc (Element.all.Count);
+                        Element.all.Count := Natural'Succ (Element.all.Count);
                      else
-                        Table.Set (new Element_Typeʼ(Count => 1,
+                        Table.Set (new Element_Type'(Count => 1,
                                                      Key => Key,
                                                      Next => null));
                      end if;
@@ -329,15 +329,15 @@ cess;
                   Data (0) := null;
                   Data (1) := Calculator.Get_First;
 
-                  for I in  2 .. DataʼLast loop
+                  for I in  2 .. Data'Last loop
                      Data (I) := Calculator.Get_Next;
                   end loop;
 
-                  Heap_Sort.Sort (DataʼLast);
+                  Heap_Sort.Sort (Data'Last);
 
                   Printer.Seize (Nucleotide_Length);
-                  for I in  1 .. DataʼLast loop
-                     Ada.Text_IO.Put (Calculator.Fragment_Of (Data (I)) & ʼ ʼ);
+                  for I in  1 .. Data'Last loop
+                     Ada.Text_IO.Put (Calculator.Fragment_Of (Data (I)) & ' ');
                      Ada.Float_Text_IO.Put
                        (Item => (100.0
                                    * Float (Calculator.Count_Of (Data (I)))
@@ -424,12 +424,12 @@ TATTTTAATTTATAGT");
 
 begin
    Work_On_1.Writer.Set (1);
-   Work_On_12.Writer.Set (Fragment_12ʼLength, Fragment_12);
-   Work_On_18.Writer.Set (Fragment_18ʼLength, Fragment_18);
-   Work_On_6.Writer.Set (Fragment_6ʼLength, Fragment_6);
+   Work_On_12.Writer.Set (Fragment_12'Length, Fragment_12);
+   Work_On_18.Writer.Set (Fragment_18'Length, Fragment_18);
+   Work_On_6.Writer.Set (Fragment_6'Length, Fragment_6);
    Work_On_2.Writer.Set (2);
-   Work_On_4.Writer.Set (Fragment_4ʼLength, Fragment_4);
-   Work_On_3.Writer.Set (Fragment_3ʼLength, Fragment_3);
+   Work_On_4.Writer.Set (Fragment_4'Length, Fragment_4);
+   Work_On_3.Writer.Set (Fragment_3'Length, Fragment_3);
 end KNucleotide;
 
 
@@ -453,12 +453,12 @@ package body String_Fragments is
 
    Bytes_Per_Word : constant := 4;
    type Uns is mod 2**(8 * Bytes_Per_Word);
-   for UnsʼSize use 8 * Bytes_Per_Word;
+   for Uns'Size use 8 * Bytes_Per_Word;
    subtype Str is String (1 .. Bytes_Per_Word);
 
    function Null_Fragment return Fragment is
    begin
-      return Fragmentʼ(1 .. Max_String_Length => ʼ*ʼ);
+      return Fragment'(1 .. Max_String_Length => '*');
    end Null_Fragment;
 
 
@@ -467,9 +467,9 @@ package body String_Fragments is
    function "=" (Left, Right: Fragment) return Boolean is
       Strt : Integer := 1;
       Fnsh : Integer := Bytes_Per_Word;
-      Last : constant Integer := LeftʼLast;
+      Last : constant Integer := Left'Last;
    begin
-      if Last /= RightʼLast then
+      if Last /= Right'Last then
          return False;
       end if;
 
@@ -494,10 +494,10 @@ package body String_Fragments is
    function To_Fragment (Source : String) return Fragment is
       Result : Fragment;
    begin
-      if SourceʼLength /= Max_String_Length then
+      if Source'Length /= Max_String_Length then
          raise Constraint_Error;
       end if;
-      Result (1 .. SourceʼLength) := Source;
+      Result (1 .. Source'Length) := Source;
       return Result;
    end To_Fragment;
 
@@ -525,12 +525,12 @@ with Ada.Unchecked_Deallocation;
 package body Data_Input is
 
    use Ada.Strings;
-   UnixLF : constant String := Stringʼ(1 => ASCII.LF);
+   UnixLF : constant String := String'(1 => ASCII.LF);
    package LIO is new Line_IO (UnixLF);
 
    Data_Buffer : Unbounded.Unbounded_String := Unbounded.Null_Unbounded_String;
 
-   Section_Marker : constant Character := ʼ>ʼ;
+   Section_Marker : constant Character := '>';
    Section        : constant String    := Section_Marker & "THREE";
 
    --  Read next data section - until EOF oder a line beginning with > is found.
@@ -545,15 +545,15 @@ package body Data_Input is
    begin
       Buffer := new String (1 .. 1024 * 1024 * 16);
       Get_Data : loop
-         Read_First := BufferʼFirst;
-         Read_Last  := BufferʼFirst - 1;
+         Read_First := Buffer'First;
+         Read_Last  := Buffer'First - 1;
          -- fill Buffer and append to Data_Buffer when filled
          loop
             declare
                Line : String renames LIO.Get_Line;
             begin
-               Read_Last := Read_First + LineʼLength - 1;
-               if Read_Last >= BufferʼLast then
+               Read_Last := Read_First + Line'Length - 1;
+               if Read_Last >= Buffer'Last then
                   Unbounded.Append
                     (Data_Buffer, New_Item => Buffer(1 .. Read_First - 1));
                   Unbounded.Append (Data_Buffer, New_Item => Line);
@@ -583,7 +583,7 @@ package body Data_Input is
             Line : constant String := LIO.Get_Line;
          begin
             exit when Line(1) = Section(1)
-              and then Line(SectionʼRange) = Section;
+              and then Line(Section'Range) = Section;
          end;
       end loop;
    end Skip_To_Section;
@@ -631,30 +631,30 @@ package body Line_IO is
    -- Types etc., status variables, and the buffer.
 
    BUFSIZ: constant := 8_192;
-   pragma Assert(CharacterʼSize = Stream_ElementʼSize);
+   pragma Assert(Character'Size = Stream_Element'Size);
 
-   SL : constant Natural := Separator_SequenceʼLength;
+   SL : constant Natural := Separator_Sequence'Length;
 
    subtype Extended_Buffer_Index is Positive range 1 .. BUFSIZ + SL;
    subtype Buffer_Index is Extended_Buffer_Index
-     range Extended_Buffer_IndexʼFirst .. Extended_Buffer_IndexʼLast - SL;
+     range Extended_Buffer_Index'First .. Extended_Buffer_Index'Last - SL;
    subtype Extended_Bytes_Index is Stream_Element_Offset
-     range 1 .. Stream_Element_Offset(Extended_Buffer_IndexʼLast);
+     range 1 .. Stream_Element_Offset(Extended_Buffer_Index'Last);
    subtype Bytes_Index is Extended_Bytes_Index
-     range Extended_Bytes_IndexʼFirst
-     .. (Extended_Bytes_IndexʼLast - Stream_Element_Offset(SL));
+     range Extended_Bytes_Index'First
+     .. (Extended_Bytes_Index'Last - Stream_Element_Offset(SL));
 
    subtype Buffer_Data is String(Extended_Buffer_Index);
    subtype Buffer_Bytes is Stream_Element_Array(Extended_Bytes_Index);
 
    Buffer : Buffer_Data;
    Bytes  : Buffer_Bytes;
-   for BytesʼAddress use BufferʼAddress;
+   for Bytes'Address use Buffer'Address;
    pragma Import (Ada, Bytes);
 
    -- start of next substring and last valid character in buffer
-   Position : Natural range 0 .. Extended_Buffer_IndexʼLast;
-   Last     : Natural range 0 .. Buffer_IndexʼLast;
+   Position : Natural range 0 .. Extended_Buffer_Index'Last;
+   Last     : Natural range 0 .. Buffer_Index'Last;
    End_Of_Input : Boolean;
 
    function Get_Line return String is
@@ -663,7 +663,7 @@ package body Line_IO is
          --  fill Buffer with bytes available
          Last_Filled : Stream_Element_Offset;
       begin
-         if Last < Buffer_IndexʼLast then
+         if Last < Buffer_Index'Last then
             raise Stream_IO.End_Error;
          end if;
          Stream_IO.Read(Stdin,
@@ -687,7 +687,7 @@ package body Line_IO is
       end Separator_Position;
 
 
-      Next_Separator : Natural range 0 .. Extended_Buffer_IndexʼLast;
+      Next_Separator : Natural range 0 .. Extended_Buffer_Index'Last;
    begin  -- Get_Line
 
       if End_Of_Input then
@@ -729,9 +729,9 @@ begin
      Mode => Stream_IO.In_File,
      Name => "/dev/stdin");
 
-   Buffer(Buffer_IndexʼLast + 1 .. BufferʼLast) := Separator_Sequence;
-   Position := Buffer_IndexʼLast + 1;
-   Last := Buffer_IndexʼLast;
+   Buffer(Buffer_Index'Last + 1 .. Buffer'Last) := Separator_Sequence;
+   Position := Buffer_Index'Last + 1;
+   Last := Buffer_Index'Last;
    End_Of_Input := False;
 end Line_IO;
 

@@ -21,7 +21,7 @@ int maxflips = 0;
 int max_n;
 int odd = 0;
 int checksum = 0;
-// naieve method of rotation using basic sisd instructions for sanityʼs sake
+// naieve method of rotation using basic sisd instructions for sanity's sake
 inline void rotate_sisd(int n) {
    elem c;
    register int i;

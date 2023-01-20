@@ -53,7 +53,7 @@ func main() {
    // since this one takes longest, start it first
    finalLen := make(chan int)
    go func() {
-      // copy our bytes so we donʼt trounce the variant routines
+      // copy our bytes so we don't trounce the variant routines
       bb := make([]byte, len(bytes))
       copy(bb, bytes)
 
@@ -79,7 +79,7 @@ func main() {
       fmt.Printf("%s %d\n", v.re.String(), v.result)
    }
 
-   // print finalLen when itʼs available
+   // print finalLen when it's available
    fmt.Printf("\n%d\n%d\n%d\n", originalLen, cleanedLen, <-finalLen)
 
 }
@@ -88,7 +88,7 @@ func loadFile(doneCh chan int) {
    var err error
    bytes, err = ioutil.ReadAll(os.Stdin)
    if err != nil {
-      fmt.Fprintf(os.Stderr, "canʼt read input: %s\n", err)
+      fmt.Fprintf(os.Stderr, "can't read input: %s\n", err)
       os.Exit(2)
    }
    originalLen = len(bytes)

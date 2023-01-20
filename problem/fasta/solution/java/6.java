@@ -197,9 +197,9 @@ public class fasta {
             for (int i = lineLength
                     ; i < lastNucleotide
                     ; i += outputLineLength) {
-                nucleotides[i] = ʼ\nʼ;
+                nucleotides[i] = '\n';
             }
-            nucleotides[nucleotides.length - 1] = ʼ\nʼ;
+            nucleotides[nucleotides.length - 1] = '\n';
         }
 
         abstract void selectNucleotides();
@@ -281,10 +281,10 @@ public class fasta {
 
     private static final class IubBuffer extends StochasticBuffer {
         private static final byte[] chars = new byte[]{
-            ʼaʼ, ʼcʼ, ʼgʼ, ʼtʼ,
-            ʼBʼ, ʼDʼ, ʼHʼ, ʼKʼ,
-            ʼMʼ, ʼNʼ, ʼRʼ, ʼSʼ,
-            ʼVʼ, ʼWʼ, ʼYʼ};
+            'a', 'c', 'g', 't',
+            'B', 'D', 'H', 'K',
+            'M', 'N', 'R', 'S',
+            'V', 'W', 'Y'};
         private static final float[] probs = new float[15];
         static {
             double[] dblProbs = new double[]{
@@ -336,7 +336,7 @@ public class fasta {
              * This code compiles to a sequence of vucomiss/jnbe instructions
              * (on an i7-6500U), which probably executes well speculatively.
              *
-             * Explicitly unrolling the loop doesnʼt improve performance
+             * Explicitly unrolling the loop doesn't improve performance
              * noticeably.
              */
             int m;
@@ -347,7 +347,7 @@ public class fasta {
     }
 
     private static final class SapienBuffer extends StochasticBuffer {
-        private static final byte[] chars = new byte[]{ʼaʼ, ʼcʼ, ʼgʼ, ʼtʼ};
+        private static final byte[] chars = new byte[]{'a', 'c', 'g', 't'};
         private static final float[] probs = new float[4];
         static {
             double[] dblProbs = new double[]{

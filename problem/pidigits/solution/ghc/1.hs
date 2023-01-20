@@ -6,8 +6,8 @@
 import System.Environment
 
 floor_ev (q, r, s, t) x = (q*x + r) `div` (s*x + t)
-comp (q,r,s,t) (qʼ,rʼ,sʼ,tʼ) = (q*qʼ + r*sʼ, q*rʼ + r*tʼ, s*qʼ + t*sʼ, s*rʼ + t*
-tʼ)
+comp (q,r,s,t) (q',r',s',t') = (q*q' + r*s', q*r' + r*t', s*q' + t*s', s*r' + t*
+t')
 next z = floor_ev z 3
 safe z n = n == floor_ev z 4
 prod z n = comp (10,-10 * n, 0, 1) z
@@ -21,9 +21,9 @@ digit k z n row col =
    if safe z y
       then if col == 10
          then do
-            let rowʼ = row + 10
-            putStr ("\t:"++show rowʼ++"\n"++show y)
-            digit k (prod z y) (n-1) rowʼ 1
+            let row' = row + 10
+            putStr ("\t:"++show row'++"\n"++show y)
+            digit k (prod z y) (n-1) row' 1
          else putStr (show y) >> digit k (prod z y) (n-1) row (col+1)
       else digit (k+1) (cons z k) n row col
    where y = next z

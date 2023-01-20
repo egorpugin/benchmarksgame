@@ -26,7 +26,7 @@ struct work_s {
 void *process(void *ww) {
    work_t *w = ww;
    char *from = w->begin, *to = w->end;
-   while (*from++ != ʼ\nʼ);
+   while (*from++ != '\n');
 
    size_t len = to - from;
    size_t off = 60 - (len % 61);
@@ -35,7 +35,7 @@ void *process(void *ww) {
       char *m;
       for (m = from + 60 - off; m < to; m += 61) {
          memmove(m + 1, m, off);
-         *m = ʼ\nʼ;
+         *m = '\n';
       }
    }
 
@@ -63,12 +63,12 @@ int main() {
       if (end < buflen - 256) break;
       buf = realloc(buf, buflen *= 2);
    }
-   buf[end] = ʼ>ʼ;
+   buf[end] = '>';
 
    work_t *work = 0;
    char *from, *to = buf + end - 1;
    while (1) {
-      for (from = to; *from != ʼ>ʼ; from--);
+      for (from = to; *from != '>'; from--);
 
       work_t *w = malloc(sizeof(work_t));
       w->begin = from;

@@ -18,18 +18,18 @@ let advance bodies dt =
   for i = 0 to Array.length bodies - 1 do
     let b = bodies.(i) in
     for j = i+1 to Array.length bodies - 1 do
-      let bʼ = bodies.(j) in
-      let dx = b.x -. bʼ.x  and dy = b.y -. bʼ.y  and dz = b.z -. bʼ.z in
+      let b' = bodies.(j) in
+      let dx = b.x -. b'.x  and dy = b.y -. b'.y  and dz = b.z -. b'.z in
       let dist2 = dx *. dx +. dy *. dy +. dz *. dz in
       let mag = dt /. (dist2 *. sqrt(dist2)) in
 
-      b.vx <- b.vx -. dx *. bʼ.mass *. mag;
-      b.vy <- b.vy -. dy *. bʼ.mass *. mag;
-      b.vz <- b.vz -. dz *. bʼ.mass *. mag;
+      b.vx <- b.vx -. dx *. b'.mass *. mag;
+      b.vy <- b.vy -. dy *. b'.mass *. mag;
+      b.vz <- b.vz -. dz *. b'.mass *. mag;
 
-      bʼ.vx <- bʼ.vx +. dx *. b.mass *. mag;
-      bʼ.vy <- bʼ.vy +. dy *. b.mass *. mag;
-      bʼ.vz <- bʼ.vz +. dz *. b.mass *. mag;
+      b'.vx <- b'.vx +. dx *. b.mass *. mag;
+      b'.vy <- b'.vy +. dy *. b.mass *. mag;
+      b'.vz <- b'.vz +. dz *. b.mass *. mag;
     done
   done;
   for i = 0 to n do
@@ -46,10 +46,10 @@ let energy bodies =
     let b = bodies.(i) in
     e := !e +. 0.5 *. b.mass *. (b.vx *. b.vx +. b.vy *. b.vy +. b.vz *. b.vz);
     for j = i+1 to Array.length bodies - 1 do
-      let bʼ = bodies.(j) in
-      let dx = b.x -. bʼ.x  and dy = b.y -. bʼ.y  and dz = b.z -. bʼ.z in
+      let b' = bodies.(j) in
+      let dx = b.x -. b'.x  and dy = b.y -. b'.y  and dz = b.z -. b'.z in
       let distance = sqrt(dx *. dx +. dy *. dy +. dz *. dz) in
-      e := !e -. (b.mass *. bʼ.mass) /. distance
+      e := !e -. (b.mass *. b'.mass) /. distance
     done
   done;
   !e

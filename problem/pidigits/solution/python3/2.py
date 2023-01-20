@@ -53,6 +53,6 @@ while True:
         k += 1;
 
 if i % 10 != 0:
-    f.write("%s\t:%d\n" % (ʼ ʼ * (10 - (i%10)),N))
+    f.write("%s\t:%d\n" % (' ' * (10 - (i%10)),N))
 print(f.getvalue(),end="")
 

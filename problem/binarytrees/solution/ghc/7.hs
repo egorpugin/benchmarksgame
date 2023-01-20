@@ -83,22 +83,22 @@ trat where
 -- build a tree
 make :: Int -> Tree
 make d =
-  if d < 10 then makeʼ d d else makePar2 d
+  if d < 10 then make' d d else makePar2 d
 
 -- This function has an extra argument to suppress the
 -- Common Sub-expression Elimination optimization
-makeʼ :: Int -> Int -> Tree
-makeʼ _  0 = Node Nil Nil
-makeʼ !n d = Node (makeʼ (n - 1) (d - 1)) (makeʼ (n + 1) (d - 1))
+make' :: Int -> Int -> Tree
+make' _  0 = Node Nil Nil
+make' !n d = Node (make' (n - 1) (d - 1)) (make' (n + 1) (d - 1))
 
 -- build a tree in parallel (4-threaded version)
 makePar4 :: Int -> Tree
 makePar4 d = Node (Node ll lr) (Node rl rr) `using` strat where
-  !dʼ = d - 2
-  ll = makeʼ 0 dʼ
-  lr = makeʼ 1 dʼ
-  rl = makeʼ 2 dʼ
-  rr = makeʼ 3 dʼ
+  !d' = d - 2
+  ll = make' 0 d'
+  lr = make' 1 d'
+  rl = make' 2 d'
+  rr = make' 3 d'
   strat v = do
     rpar ll
     rpar lr
@@ -109,9 +109,9 @@ makePar4 d = Node (Node ll lr) (Node rl rr) `using` strat where
 -- build a tree in parallel (2-threaded version)
 makePar2 :: Int -> Tree
 makePar2 d = Node l r  `using` strat where
-  !dʼ = d - 1
-  l = makeʼ 0 dʼ
-  r = makeʼ 1 dʼ
+  !d' = d - 1
+  l = make' 0 d'
+  r = make' 1 d'
   strat v = do
     rpar l
     rseq r

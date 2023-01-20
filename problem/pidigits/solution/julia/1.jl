@@ -2,7 +2,7 @@
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
 # contributed by Jarret Revels
-# based on Mario Pernici Pythonʼs program
+# based on Mario Pernici Python's program
 
 using Printf
 

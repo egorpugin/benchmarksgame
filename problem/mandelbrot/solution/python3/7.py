@@ -70,6 +70,6 @@ def mandelbrot(n):
         for row in rows:
             write(row[1])
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     mandelbrot(int(argv[1]))
 

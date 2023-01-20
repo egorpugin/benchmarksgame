@@ -24,11 +24,11 @@ inline char complement(char element)
 {
   static const char charMap[] =
     {
-      ʼTʼ, ʼVʼ, ʼGʼ, ʼHʼ, ʼ\0ʼ, ʼ\0ʼ, ʼCʼ, ʼDʼ, ʼ\0ʼ, ʼ\0ʼ, ʼMʼ, ʼ\0ʼ, ʼKʼ,
-      ʼNʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼYʼ, ʼSʼ, ʼAʼ, ʼAʼ, ʼBʼ, ʼWʼ, ʼ\0ʼ, ʼRʼ, ʼ\0ʼ
+      'T', 'V', 'G', 'H', '\0', '\0', 'C', 'D', '\0', '\0', 'M', '\0', 'K',
+      'N', '\0', '\0', '\0', 'Y', 'S', 'A', 'A', 'B', 'W', '\0', 'R', '\0'
     };
 
-  return charMap[toupper(element) - ʼAʼ];
+  return charMap[toupper(element) - 'A'];
 }
 
 void print_revcomp(Header const& header, Segment const& seg, ostream& out = std:
@@ -55,7 +55,7 @@ int main ()
 
   while (getline(cin, line))
   {
-      if (line[0] == ʼ>ʼ)
+      if (line[0] == '>')
       {
           if (! segment.empty())
             print_revcomp(header, segment);

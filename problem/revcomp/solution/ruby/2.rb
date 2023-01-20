@@ -8,14 +8,14 @@
 seq=""
 
 def revcomp(seq)
-  seq.reverse!.tr!(ʼwsatugcyrkmbdhvnATUGCYRKMBDHVNʼ,ʼWSTAACGRYMKVHDBNTAACGRYMKVH
-DBNʼ)
+  seq.reverse!.tr!('wsatugcyrkmbdhvnATUGCYRKMBDHVN','WSTAACGRYMKVHDBNTAACGRYMKVH
+DBN')
   stringlen=seq.length-1
   0.step(stringlen,60) {|x| print seq[x,60] , "\n"}
 end
 
 STDIN.each do |line|
-  if line.include? ʼ>ʼ
+  if line.include? '>'
     if !seq.empty?
       revcomp(seq)
       seq=""

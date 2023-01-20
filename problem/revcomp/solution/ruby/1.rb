@@ -8,14 +8,14 @@ def process_segment(segment)
 
   # This is an ugly way to handle the first row, but returning nil causes the fo
 rk to implode
-  return ʼʼ if !tail
-  body << tail if tail != ʼ>ʼ
+  return '' if !tail
+  body << tail if tail != '>'
 
   sequence = body.join
   sequence.reverse!
   sequence.tr!(
-    ʼwsatugcyrkmbdhvnATUGCYRKMBDHVNʼ,
-    ʼWSTAACGRYMKVHDBNTAACGRYMKVHDBNʼ
+    'wsatugcyrkmbdhvnATUGCYRKMBDHVN',
+    'WSTAACGRYMKVHDBNTAACGRYMKVHDBN'
   )
 
   results = [">#{header}"]
@@ -55,7 +55,7 @@ def forking_worker(segment)
 end
 
 threads = []
-$stdin.each_line(ʼ>ʼ) do |segment|
+$stdin.each_line('>') do |segment|
   threads << Thread.new do
       Thread.current[:output] = forking_worker(segment)
   end

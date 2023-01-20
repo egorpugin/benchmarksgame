@@ -38,13 +38,13 @@ for (op, symb, pr) in ((:iub, iub1, iub2),
     # successively compares x with all values in pr and returns value from symb
     @eval function $op(x)
         $((:(x <= $p && return $s) for (p, s) in zip(pr, symb))...)
-        ʼaʼ % UInt8
+        'a' % UInt8
     end
 end
 
 function repeat_fasta(io, src, n)
     buffer = Vector{UInt8}(undef, LINEWIDTH + 1)
-    buffer[end] = ʼ\nʼ % UInt8
+    buffer[end] = '\n' % UInt8
 
     col = count = 0
     @inbounds for c in Iterators.cycle(src)
@@ -59,7 +59,7 @@ function repeat_fasta(io, src, n)
     end
 
     resize!(buffer, col + 1)
-    buffer[end] = ʼ\nʼ % UInt8
+    buffer[end] = '\n' % UInt8
     write(io, buffer)
 end
 
@@ -75,7 +75,7 @@ function random_fasta(io, flookup, n, seed=42%Int32)
             @inbounds buffer[i] = flookup(seed)
         end
 
-        @inbounds buffer[end] = ʼ\nʼ % UInt8
+        @inbounds buffer[end] = '\n' % UInt8
         write(io, buffer)
     end
     seed

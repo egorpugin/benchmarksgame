@@ -9,21 +9,21 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 Smalltalk defineClass: #TreeNode
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼleft right ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼbenchmarks gameʼ!
+        instanceVariableNames: 'left right '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'benchmarks game'!
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | minDepth maxDepth stretchDepth check longLivedTree iterations |
@@ -33,8 +33,8 @@ do: n
 
    check := (TreeNode bottomUpTree: stretchDepth) itemCheck.
    Stdout
-      nextPutAll: ʼstretch tree of depth ʼ; print: stretchDepth; tab;
-      nextPutAll: ʼ check: ʼ; print: check; nl.
+      nextPutAll: 'stretch tree of depth '; print: stretchDepth; tab;
+      nextPutAll: ' check: '; print: check; nl.
 
    longLivedTree := TreeNode bottomUpTree: maxDepth.
    minDepth to: maxDepth by: 2 do: [:depth|
@@ -46,18 +46,18 @@ do: n
          ].
       Stdout
          print: iterations; tab;
-         nextPutAll: ʼ trees of depth ʼ; print: depth; tab;
-         nextPutAll: ʼ check: ʼ; print: check; nl
+         nextPutAll: ' trees of depth '; print: depth; tab;
+         nextPutAll: ' check: '; print: check; nl
       ].
 
    Stdout
-      nextPutAll: ʼlong lived tree of depth ʼ; print: maxDepth; tab;
-      nextPutAll: ʼ check: ʼ; print: longLivedTree itemCheck; nl.
+      nextPutAll: 'long lived tree of depth '; print: maxDepth; tab;
+      nextPutAll: ' check: '; print: longLivedTree itemCheck; nl.
 
-   ^ʼʼ! !
+   ^''! !
 
 
-!TreeNode class methodsFor: ʼinstance creationʼ!
+!TreeNode class methodsFor: 'instance creation'!
 
 bottomUpTree: anInteger
    ^(anInteger > 0)
@@ -72,20 +72,20 @@ left: leftChild right: rightChild
    ^(super new) left: leftChild right: rightChild! !
 
 
-!TreeNode methodsFor: ʼaccessingʼ!
+!TreeNode methodsFor: 'accessing'!
 
 itemCheck
    ^left isNil
       ifTrue: [1] ifFalse: [1 + left itemCheck + right itemCheck]! !
 
-!TreeNode methodsFor: ʼinitialize-releaseʼ!
+!TreeNode methodsFor: 'initialize-release'!
 
 left: leftChild right: rightChild
    left := leftChild.
    right := rightChild! !
 
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

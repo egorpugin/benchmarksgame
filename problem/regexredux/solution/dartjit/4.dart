@@ -1,45 +1,45 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Isaac Gouy, RegExp from Jos Hirthʼs program
+   contributed by Isaac Gouy, RegExp from Jos Hirth's program
 */
 
-import ʼdart:ioʼ;
+import 'dart:io';
 
 void main() {
-  File(ʼ/dev/stdinʼ).readAsString().then((String s) {
-    final z = s.replaceAll(RegExp(ʼ>.*\n|\nʼ, multiLine: true), ʼʼ);
+  File('/dev/stdin').readAsString().then((String s) {
+    final z = s.replaceAll(RegExp('>.*\n|\n', multiLine: true), '');
     printPatternMatches(z);
-    print(ʼ\n${s.length}\n${z.length}\n${magicLengthOf(z)}ʼ);
+    print('\n${s.length}\n${z.length}\n${magicLengthOf(z)}');
   });
 }
 
 void printPatternMatches(String s) {
   const simple = [
-    ʼagggtaaa|tttaccctʼ,
-    ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-    ʼa[act]ggtaaa|tttacc[agt]tʼ,
-    ʼag[act]gtaaa|tttac[agt]ctʼ,
-    ʼagg[act]taaa|ttta[agt]cctʼ,
-    ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-    ʼagggt[cgt]aa|tt[acg]accctʼ,
-    ʼagggta[cgt]a|t[acg]taccctʼ,
-    ʼagggtaa[cgt]|[acg]ttaccctʼ
+    'agggtaaa|tttaccct',
+    '[cgt]gggtaaa|tttaccc[acg]',
+    'a[act]ggtaaa|tttacc[agt]t',
+    'ag[act]gtaaa|tttac[agt]ct',
+    'agg[act]taaa|ttta[agt]cct',
+    'aggg[acg]aaa|ttt[cgt]ccct',
+    'agggt[cgt]aa|tt[acg]accct',
+    'agggta[cgt]a|t[acg]taccct',
+    'agggtaa[cgt]|[acg]ttaccct'
   ];
 
   for (var each in simple) {
     final regex = RegExp(each, multiLine: true);
-    print(ʼ$each ${regex.allMatches(s).length}ʼ);
+    print('$each ${regex.allMatches(s).length}');
   }
 }
 
 int magicLengthOf(String s) {
   const magic = [
-    [ʼtHa[Nt]ʼ, ʼ<4>ʼ],
-    [ʼaND|caN|Ha[DS]|WaSʼ, ʼ<3>ʼ],
-    [ʼa[NSt]|BYʼ, ʼ<2>ʼ],
-    [ʼ<[^>]*>ʼ, ʼ|ʼ],
-    [ʼ\\|[^|][^|]*\\|ʼ, ʼ-ʼ],
+    ['tHa[Nt]', '<4>'],
+    ['aND|caN|Ha[DS]|WaS', '<3>'],
+    ['a[NSt]|BY', '<2>'],
+    ['<[^>]*>', '|'],
+    ['\\|[^|][^|]*\\|', '-'],
   ];
 
   for (var each in magic) {

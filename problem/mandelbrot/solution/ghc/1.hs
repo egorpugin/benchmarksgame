@@ -26,7 +26,7 @@ main = do   [arg] <- getArgs
             B.hPutBuilder stdout $ makePBM 0 0 (fractal pts)
 
 limit  = 4    -- max magnitude squared
-iter   = 50+1 -- add one to compensate for the ʼiterateʼ function
+iter   = 50+1 -- add one to compensate for the 'iterate' function
 
 points :: Int -> V C
 points w = V.generate (w * w) gen -- generate vector of length width^2

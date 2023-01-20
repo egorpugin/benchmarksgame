@@ -7,7 +7,7 @@
 // Optimized to x86 by Kenta Yoshimura
 //
 // Compile with following g++ flags
-// Use ʼ-O3 -ffp-contract=off -fno-expensive-optimizationsʼ instead of ʼ-Ofastʼ,
+// Use '-O3 -ffp-contract=off -fno-expensive-optimizations' instead of '-Ofast',
 // because FMA is fast, but different precision to original version
 //   -Wall -O3 -ffp-contract=off -fno-expensive-optimizations -march=native -fop
 enmp --std=c++14 mandelbrot.cpp

@@ -92,11 +92,11 @@ impl ShlXorMsk<u64> for u64 {
 
 fn match_key(k: u8) -> char {
     match k {
-        0b00 => ʼAʼ,
-        0b01 => ʼCʼ,
-        0b10 => ʼTʼ,
-        0b11 => ʼGʼ,
-        _ => ʼ_ʼ,
+        0b00 => 'A',
+        0b01 => 'C',
+        0b10 => 'T',
+        0b11 => 'G',
+        _ => '_',
     }
 }
 
@@ -169,7 +169,7 @@ fn get_seq<R: std::io::BufRead>(mut r: R, key: &[u8]) -> Vec<u8> {
     let mut line = Vec::with_capacity(64);
 
     loop {
-        match r.read_until(bʼ\nʼ, &mut line) {
+        match r.read_until(b'\n', &mut line) {
             Ok(b) if b > 0 => if line.starts_with(key) { break },
             _ => break,
         }
@@ -178,7 +178,7 @@ fn get_seq<R: std::io::BufRead>(mut r: R, key: &[u8]) -> Vec<u8> {
 
     loop {
         line.clear();
-        match r.read_until(bʼ\nʼ, &mut line) {
+        match r.read_until(b'\n', &mut line) {
             Ok(b) if b > 0 => res.extend(line[..line.len()-1].iter().map(|&x| 0b
 11 & x >> 1)),
             _ => break,

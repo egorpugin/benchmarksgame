@@ -5,7 +5,7 @@
 
 (defconstant +buffer-size+ (expt 2 15))
 (defconstant +newline+ (char-code #\Newline))
-(defconstant +ub+ ʼ(unsigned-byte 8))
+(defconstant +ub+ '(unsigned-byte 8))
 
 (defconstant +lut+
   (let ((lut (make-array 256 :element-type +ub+)))

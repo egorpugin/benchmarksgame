@@ -62,7 +62,7 @@ func main() {
 
     b, err := ioutil.ReadAll(os.Stdin)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "canʼt read input: %s\n", err)
+        fmt.Fprintf(os.Stderr, "can't read input: %s\n", err)
         os.Exit(2)
     }
 

@@ -123,10 +123,10 @@ ng);
       end loop;
       Produce;
       c:= c + 1;
-      line(c) := CharacterʼVal(CharacterʼPos(ʼ0ʼ)+digit);
+      line(c) := Character'Val(Character'Pos('0')+digit);
       i:= i + 1;
       if c = 10 then
-        Put(line & ASCII.HT & ʼ:ʼ);
+        Put(line & ASCII.HT & ':');
         Put(i,0); New_Line;
         c := 0;
       end if;
@@ -134,9 +134,9 @@ ng);
     if  c/=0 then
       Put(line(1..c));
       for i in c+1..10 loop
-        Put(ʼ ʼ);
+        Put(' ');
       end loop;
-      Put(ASCII.HT & ʼ:ʼ);
+      Put(ASCII.HT & ':');
       Put(i,0);
       New_Line;
     end if;
@@ -150,7 +150,7 @@ ng);
 begin
   n:= 2_500;
   if Argument_Count=1 then
-    n:= IntegerʼValue(Argument(1));
+    n:= Integer'Value(Argument(1));
   end if;
   if timing then
     t0:= Clock;
@@ -158,7 +158,7 @@ begin
   Print_pi_digits(n);
   if timing then
     t1:= Clock;
-    Put("Time in seconds: " & DurationʼImage(t1-t0) & " [press return]");
+    Put("Time in seconds: " & Duration'Image(t1-t0) & " [press return]");
     Skip_Line;
   end if;
 end pidigits;

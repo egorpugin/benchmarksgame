@@ -21,7 +21,7 @@ import (
 
 var toNum = strings.NewReplacer("A", string(0), "C", string(1), "T", string(2),
 "G", string(3), )
-var toChar = []byte{ʼAʼ, ʼCʼ, ʼTʼ, ʼGʼ}
+var toChar = []byte{'A', 'C', 'T', 'G'}
 
 func main() {
 //    start := time.Now()
@@ -55,7 +55,7 @@ func readStdin() []byte {
     var lineCount int
     for {
         // Keep reading until we encounter the start marker >THREE
-        line, err := reader.ReadSlice(ʼ\nʼ)
+        line, err := reader.ReadSlice('\n')
         if err != nil {
             panic(err)
         }
@@ -66,11 +66,11 @@ func readStdin() []byte {
 
         lineCount++
 
-        if line[0] == ʼ>ʼ && strings.HasPrefix(string(line), ">THREE") {
+        if line[0] == '>' && strings.HasPrefix(string(line), ">THREE") {
             data := make([]byte, 0, lineCount*61)
             for {
                 // Read from the three section
-                line, err := reader.ReadSlice(ʼ\nʼ)
+                line, err := reader.ReadSlice('\n')
                 if err != nil && err != io.EOF {
                     panic(err)
                 } else if err == io.EOF || len(line) == 0 {
@@ -216,7 +216,7 @@ aitGroup) {
     }
 
     // Create a map to do the counts in.
-    // We donʼt use the map we are passed but instead return a copy of this
+    // We don't use the map we are passed but instead return a copy of this
 
     p := new(int)
     *p++
@@ -267,7 +267,7 @@ aitGroup) {
         key |= uint64(data[i+begin])
     }
 
-    // Create a map to do the counts in. We donʼt use the map
+    // Create a map to do the counts in. We don't use the map
     // we are passed but instead return a copy of this
 
     p := new(int)

@@ -21,11 +21,11 @@ procedure Mandelbrot is
 
    Iter        : constant := 50;
    Limit       : constant := 4.0;
-   Size        : constant Positive := PositiveʼValue (Argument (1));
+   Size        : constant Positive := Positive'Value (Argument (1));
    Two_on_Size : constant Real := 2.0 / Real (Size);
 
    subtype Output_Index is Stream_Element_Offset range 1 .. Stream_Element_Offse
-tʼLast;
+t'Last;
    subtype Output_Queue is Stream_Element_Array;
    type Output is access Output_Queue;
 
@@ -36,25 +36,25 @@ tʼLast;
 
    procedure Allocate_Output_Queue (Y1, Y2 : PCount; Result : out Output);
    pragma Precondition
-     (Output_IndexʼFirst = 1);
+     (Output_Index'First = 1);
    pragma Postcondition
-     (ResultʼFirst = Output_IndexʼFirst and
-      ResultʼLast = Output_IndexʼMax
-        (0, Stream_Element_Offset (Integer (Y2 - Y1) * (Size / 8 + BooleanʼPos (
+     (Result'First = Output_Index'First and
+      Result'Last = Output_Index'Max
+        (0, Stream_Element_Offset (Integer (Y2 - Y1) * (Size / 8 + Boolean'Pos (
 Size mod 8 > 0)))));
 
    procedure Compute (Y1, Y2 : PCount; Result : Output)
    is
       subtype Instruction_Stream_Index is Integer range 1 .. 2;
-      pragma Assert (Instruction_Stream_IndexʼFirst = 1);
+      pragma Assert (Instruction_Stream_Index'First = 1);
 
       Bit_Num  : M8         := 0;
       Byte_Acc : Unsigned_8 := 0;
       Byte_Acc_Storage : array (Instruction_Stream_Index) of Unsigned_8;
-      Last     : Stream_Element_Offset := ResultʼFirst - 1;
+      Last     : Stream_Element_Offset := Result'First - 1;
    begin
       for Y in Y1 .. Y2 - 1 loop
-         for X in 0 .. Size / Instruction_Stream_IndexʼLast - 1 loop
+         for X in 0 .. Size / Instruction_Stream_Index'Last - 1 loop
             declare
                Cr_1 : constant Real := Two_on_Size * (Real (2*X)) - 1.5;
                Ci_1 : constant Real := Two_on_Size * (Real (Y)) - 1.0;
@@ -123,7 +123,7 @@ Size mod 8 > 0)))));
                Byte_Acc_Storage (2) := Byte_Acc;
             end;
 
-            for j in Byte_Acc_StorageʼRange loop
+            for j in Byte_Acc_Storage'Range loop
 
                Bit_Num := Bit_Num + 1;
 
@@ -170,11 +170,11 @@ Size mod 8 > 0)))));
    end X_Step;
 
    procedure Allocate_Output_Queue (Y1, Y2 : PCount; Result : out Output) is
-      Limit : constant Natural := NaturalʼMax
+      Limit : constant Natural := Natural'Max
         (0,
-         Integer (Y2 - Y1) * (Size / 8 + BooleanʼPos (Size mod 8 > 0)));
+         Integer (Y2 - Y1) * (Size / 8 + Boolean'Pos (Size mod 8 > 0)));
    begin
-      Result := new Output_Queue (1 .. Output_IndexʼBase (Limit));
+      Result := new Output_Queue (1 .. Output_Index'Base (Limit));
    end Allocate_Output_Queue;
 
 begin
@@ -183,15 +183,15 @@ begin
    declare
       subtype Worker_Index is Natural range 0 .. 32;
       Chunk_Size : constant Positive :=
-        (Size + Worker_IndexʼLast) / Worker_IndexʼLast;
+        (Size + Worker_Index'Last) / Worker_Index'Last;
       Worker     : array (Worker_Index) of X_Step;
-      pragma       Assert (WorkerʼLength * Chunk_Size >= Size);
-      pragma       Assert (WorkerʼFirst = 0);
+      pragma       Assert (Worker'Length * Chunk_Size >= Size);
+      pragma       Assert (Worker'First = 0);
    begin
-      for P in WorkerʼRange loop
+      for P in Worker'Range loop
          Worker (P).Compute_Z
            (Y1 => PCount (P * Chunk_Size),
-            Y2 => PCount (PositiveʼMin ((P + 1) * Chunk_Size, Size)));
+            Y2 => PCount (Positive'Min ((P + 1) * Chunk_Size, Size)));
       end loop;
 
       declare
@@ -200,13 +200,13 @@ begin
            Argument (1) & " " & Argument (1) & ASCII.LF;
          Buffer : Output;
 
-         Header_Bytes : Stream_Element_Array (1 .. HeaderʼLength);
+         Header_Bytes : Stream_Element_Array (1 .. Header'Length);
          pragma Import (Ada, Header_Bytes);
-         for Header_BytesʼAddress use HeaderʼAddress;
+         for Header_Bytes'Address use Header'Address;
       begin
          Stream_IO.Open (Stdout, Stream_IO.Out_File, "/dev/stdout");
          Stream_IO.Write (Stdout, Header_Bytes);
-         for P in WorkerʼRange loop
+         for P in Worker'Range loop
             Worker (P).Get_Output (Result => Buffer);
             Stream_IO.Write (Stdout, Buffer.all);
          end loop;

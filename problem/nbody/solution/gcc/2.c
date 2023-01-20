@@ -20,7 +20,7 @@ struct planet {
 };
 
 /*
- * Hereʼs one weird thing: inlining of this function
+ * Here's one weird thing: inlining of this function
  * decreases performance by 25%. (I.e. do not compile this with -O3)
  * Advances with dt == 1.0
  */
@@ -136,7 +136,7 @@ struct planet bodies[NBODIES] = {
 
 /*
  * Rescale certain properties of bodies. That allows doing
- * consequential advance()ʼs as if dt were equal to 1.0.
+ * consequential advance()'s as if dt were equal to 1.0.
  *
  * When all advances done, rescale bodies back to obtain correct energy.
  */

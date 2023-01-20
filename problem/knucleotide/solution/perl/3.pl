@@ -38,7 +38,7 @@ sub count_freq($) {
 sub count_len($) {
   my $len = shift;
   my $sum = $seq_len - $len + 1;
-  my $out = ʼʼ;
+  my $out = '';
 
   count_freq($len);
 
@@ -61,7 +61,7 @@ sub count_sequence($) {
 
 ## MAIN()
 
-$sequence = read_sequence(ʼTHREEʼ);
+$sequence = read_sequence('THREE');
 $seq_len = length($sequence);
 
 foreach my $len (1,2) {

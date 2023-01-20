@@ -23,9 +23,9 @@ SOLAR_MASS = 4 * PI * PI
 DAYS_PER_YEAR = 365.24
 
 BODIES = {
-    ʼsunʼ: ([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], SOLAR_MASS),
+    'sun': ([0.0, 0.0, 0.0], [0.0, 0.0, 0.0], SOLAR_MASS),
 
-    ʼjupiterʼ: ([4.84143144246472090e+00,
+    'jupiter': ([4.84143144246472090e+00,
                  -1.16032004402742839e+00,
                  -1.03622044471123109e-01],
                 [1.66007664274403694e-03 * DAYS_PER_YEAR,
@@ -33,7 +33,7 @@ BODIES = {
                  -6.90460016972063023e-05 * DAYS_PER_YEAR],
                 9.54791938424326609e-04 * SOLAR_MASS),
 
-    ʼsaturnʼ: ([8.34336671824457987e+00,
+    'saturn': ([8.34336671824457987e+00,
                 4.12479856412430479e+00,
                 -4.03523417114321381e-01],
                [-2.76742510726862411e-03 * DAYS_PER_YEAR,
@@ -41,7 +41,7 @@ BODIES = {
                 2.30417297573763929e-05 * DAYS_PER_YEAR],
                2.85885980666130812e-04 * SOLAR_MASS),
 
-    ʼuranusʼ: ([1.28943695621391310e+01,
+    'uranus': ([1.28943695621391310e+01,
                 -1.51111514016986312e+01,
                 -2.23307578892655734e-01],
                [2.96460137564761618e-03 * DAYS_PER_YEAR,
@@ -49,7 +49,7 @@ BODIES = {
                 -2.96589568540237556e-05 * DAYS_PER_YEAR],
                4.36624404335156298e-05 * SOLAR_MASS),
 
-    ʼneptuneʼ: ([1.53796971148509165e+01,
+    'neptune': ([1.53796971148509165e+01,
                  -2.59193146099879641e+01,
                  1.79258772950371181e-01],
                 [2.68067772490389322e-03 * DAYS_PER_YEAR,
@@ -101,12 +101,12 @@ def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
     v[1] = py / m
     v[2] = pz / m
 
-def main(n, ref=ʼsunʼ):
+def main(n, ref='sun'):
     offset_momentum(BODIES[ref])
     report_energy()
     advance(0.01, n)
     report_energy()
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     main(int(sys.argv[1]))
 

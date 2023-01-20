@@ -1,7 +1,7 @@
 // The Computer Language Benchmarks Game
 // https://benchmarksgame-team.pages.debian.net/benchmarksgame/
 //
-// Adapted by Antti Lankila from the earlier Isaac Gouyʼs implementation
+// Adapted by Antti Lankila from the earlier Isaac Gouy's implementation
 // Add multithread & tweaks from C++ by The Anh Tran
 // Credits: Anthony Lloyd, Jomo Fisher, Peter Kese
 module Mandelbrot
@@ -30,18 +30,18 @@ let inline getByte (ciby:float) pcrbi =
         let mutable b = 0
         while b<>3 && j>0 do
             j <- j-1
-            let zrʼ = zrzr - zizi + vCrbx
+            let zr' = zrzr - zizi + vCrbx
             zi <- let zrzi = zr * zi in zrzi + zrzi + vCiby
-            zr <- zrʼ
+            zr <- zr'
             zrzr <- zr*zr
             zizi <- zi*zi
             let t = zrzr + zizi
             b <- b ||| if t.[0]>4.0 then 2 else 0
                    ||| if t.[1]>4.0 then 1 else 0
-        let resʼ = (res <<< 2) + b
-        let iʼ = i + 2n
-        if iʼ=8n then resʼ
-        else calc iʼ resʼ
+        let res' = (res <<< 2) + b
+        let i' = i + 2n
+        if i'=8n then res'
+        else calc i' res'
     calc 0n 0 ^^^ -1 |> byte
 
 

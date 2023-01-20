@@ -45,8 +45,8 @@ end
 
 # ruby 1.8.7: to iterate in-order use array not dictionary
 [
-[/tHa[Nt]/, ʼ<4>ʼ], [/aND|caN|Ha[DS]|WaS/, ʼ<3>ʼ], [/a[NSt]|BY/, ʼ<2>ʼ],
-[/<[^>]*>/, ʼ|ʼ], [/\|[^|][^|]*\|/, ʼ-ʼ]
+[/tHa[Nt]/, '<4>'], [/aND|caN|Ha[DS]|WaS/, '<3>'], [/a[NSt]|BY/, '<2>'],
+[/<[^>]*>/, '|'], [/\|[^|][^|]*\|/, '-']
 ].each { |f,r| seq.gsub!(f,r) }
 
 puts "#{match_results.join("\n")}\n\n#{ilen}\n#{clen}\n#{seq.length}"

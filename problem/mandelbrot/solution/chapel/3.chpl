@@ -11,7 +11,7 @@ use DynamicIters, IO;
 config const n = 200,             // image size in pixels (n x n)
              maxIter = 50,        // max # of iterations per pixel
              limit = 4.0,         // per-pixel convergence limit
-             chunkSize = 1;       // dynamic iteratorʼs chunk size
+             chunkSize = 1;       // dynamic iterator's chunk size
 
 param bitsPerElt = 8;             // # of bits to store per array element
 type eltType = uint(bitsPerElt);  // element type used to store the image
@@ -46,20 +46,20 @@ proc main() {
       Tr = Zr*Zr;
       Ti = Zi*Zi;
 
-      if (Tr + Ti > limit) then           // break out if we havenʼt converged
+      if (Tr + Ti > limit) then           // break out if we haven't converged
         break;
     }
 
-    // store ʼbitsPerEltʼ pixels compactly into the final image
+    // store 'bitsPerElt' pixels compactly into the final image
     var pixval: eltType;
     for param i in 0..<bitsPerElt do
-      if (Tr(i) + Ti(i) <= limit) then      // if ʼCʼ is within the limit,
+      if (Tr(i) + Ti(i) <= limit) then      // if 'C' is within the limit,
         pixval |= 0x1 << (bitsPerElt-i-1);  // turn the corresponding pixel on
 
     image[y, xelt] = pixval;
   }
 
-  // Get a lock-free writer channel on ʼstdoutʼ
+  // Get a lock-free writer channel on 'stdout'
   var w = openfd(1).writer(iokind.native, locking=false);
 
   // Write the file header and the image array.

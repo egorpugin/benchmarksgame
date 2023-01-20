@@ -7,17 +7,17 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 
-!Core.BenchmarksGame class methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame class methodsFor: 'private'!
 
 readFasta: sequenceName from: input
    | prefix newline buffer description line char |
-   prefix := ʼ>ʼ,sequenceName.
+   prefix := '>',sequenceName.
    newline := Character cr.
 
    "* find start of particular fasta sequence *"
@@ -44,8 +44,8 @@ reverseComplement: sequence named: sequenceName to: output
 
    complement := String new: 128 withAll: $*.
 
-   ʼABCDGHKMNRSTVWYʼ with:
-   ʼTVGHCDMKNYSABWRʼ
+   'ABCDGHKMNRSTVWY' with:
+   'TVGHCDMKNYSABWR'
       do: [:a :b|
          complement at: a asInteger put: b.
          complement at: a asLowercase asInteger put: b].
@@ -64,7 +64,7 @@ reverseComplement: sequence named: sequenceName to: output
          n := n - lineLength.
       ]! !
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | input output |
@@ -73,12 +73,12 @@ do: n
    output := ExternalWriteStream on:
       (ExternalConnection ioAccessor: (UnixDiskFileAccessor new handle: 1)).
 
-   #(ʼONEʼ ʼTWOʼ ʼTHREEʼ) do:
+   #('ONE' 'TWO' 'THREE') do:
       [:sequenceName|   | fasta |
          fasta := self readFasta: sequenceName from: input.
          self reverseComplement: fasta value named: fasta key to: output.
       ].
 
    output flush.
-   ^ʼʼ! !
+   ^''! !
 

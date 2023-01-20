@@ -7,21 +7,21 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 Smalltalk defineClass: #PiDigitSpigot
         superclass: #{Core.Stream}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼnumer accum denom k ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼShootoutʼ!
+        instanceVariableNames: 'numer accum denom k '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'Shootout'!
 
-!Core.BenchmarksGame class methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame class methodsFor: 'private'!
 
 pidigitsTo: v width: width to: output
    | n i pidigits |
@@ -44,20 +44,20 @@ t)].
 
       n := n - width]! !
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self pidigitsTo: n width: 10 to: Stdout.
-   ^ʼʼ! !
+   ^''! !
 
 
-!PiDigitSpigot class methodsFor: ʼinstance creationʼ!
+!PiDigitSpigot class methodsFor: 'instance creation'!
 
 new
    ^super basicNew initialize! !
 
 
-!PiDigitSpigot methodsFor: ʼprivateʼ!
+!PiDigitSpigot methodsFor: 'private'!
 
 initialize
     numer := denom := 1.
@@ -83,7 +83,7 @@ step
     numer := numer * k.
     denom := denom * y2.! !
 
-!PiDigitSpigot methodsFor: ʼstreamʼ!
+!PiDigitSpigot methodsFor: 'stream'!
 
 atEnd
     ^false!
@@ -94,7 +94,7 @@ next
     self eliminate: digit.
     ^digit! !
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

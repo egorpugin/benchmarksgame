@@ -3,13 +3,13 @@
     contributed by Isaac Gouy *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 substringFrequencies: aString for: aLength using: aDictionary
    | m |
@@ -26,7 +26,7 @@ substringFrequencies: aString for: aLength using: aDictionary
 readFasta: sequenceName from: input
    | prefix line hasDescription description buffer |
 
-   prefix := ʼ>ʼ, sequenceName, ʼ*ʼ.
+   prefix := '>', sequenceName, '*'.
 
    [input atEnd or: [(((line := input nextLine) at: 1) = $>)
       and: [(hasDescription := prefix match: line)
@@ -45,7 +45,7 @@ readFasta: sequenceName from: input
 knucleotideFrom: input to: output
    | sequence writeFrequencies writeCount |
 
-   sequence := (self readFasta: ʼTHREEʼ from: input) value asUppercase.
+   sequence := (self readFasta: 'THREE' from: input) value asUppercase.
 
    writeFrequencies :=
       [:k | | frequencies count |
@@ -61,7 +61,7 @@ knucleotideFrom: input to: output
       frequencies do: [:each | | percentage |
          percentage := (each value / count) * 100.0.
          output
-            nextPutAll: each key; nextPutAll: ʼ ʼ;
+            nextPutAll: each key; nextPutAll: ' ';
             print: percentage digits: 3; lf]].
 
    writeCount := [:nucleotideFragment | | frequencies count |
@@ -74,14 +74,14 @@ knucleotideFrom: input to: output
    writeFrequencies value: 1. output lf.
    writeFrequencies value: 2. output lf.
 
-   writeCount value: ʼGGTʼ.
-   writeCount value: ʼGGTAʼ.
-   writeCount value: ʼGGTATTʼ.
-   writeCount value: ʼGGTATTTTAATTʼ.
-   writeCount value: ʼGGTATTTTAATTTATAGTʼ! !
+   writeCount value: 'GGT'.
+   writeCount value: 'GGTA'.
+   writeCount value: 'GGTATT'.
+   writeCount value: 'GGTATTTTAATT'.
+   writeCount value: 'GGTATTTTAATTTATAGT'! !
 
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self knucleotideFrom:
@@ -90,7 +90,7 @@ do: n
       to: Stdio stdout! !
 
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 tab
    self nextPut: Character tab!

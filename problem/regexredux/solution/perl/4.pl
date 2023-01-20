@@ -33,11 +33,11 @@ sub run {
     my @variants_re = map qr/$_/xiaa, @variants;
 
     my @iub = (
-        [ ʼtHa [Nt]ʼ,                 ʼ<4>ʼ ],
-        [ ʼaND | caN | Ha[DS] | WaSʼ, ʼ<3>ʼ ],
-        [ ʼa [NSt] | BYʼ,             ʼ<2>ʼ ],
-        [ ʼ< [^>]* >ʼ,                ʼ|ʼ   ],
-        [ ʼ\| [^|] [^|]* \|ʼ,         ʼ-ʼ   ],
+        [ 'tHa [Nt]',                 '<4>' ],
+        [ 'aND | caN | Ha[DS] | WaS', '<3>' ],
+        [ 'a [NSt] | BY',             '<2>' ],
+        [ '< [^>]* >',                '|'   ],
+        [ '\| [^|] [^|]* \|',         '-'   ],
     );
 
     my $seq = do { local $/; <STDIN> };
@@ -56,19 +56,19 @@ sub run {
         if ( $pid ) {
             $readers{ $pid } = $reader;
             close $writer
-                or die "Failed to close worker $workerʼs writer in parent: $!";
+                or die "Failed to close worker $worker's writer in parent: $!";
         }
         else {
             die "Fork failed: $?" unless defined $pid;
             close $reader
-                or die "Failed to close parentʼs reader in worker $worker: $!";
+                or die "Failed to close parent's reader in worker $worker: $!";
             for (N_MATCH_WORKERS*($worker - 1) .. (N_MATCH_WORKERS*$worker - 1))
  {
                 printf $writer "%s\t%d\n", $variants[$_],
                     scalar( () = $seq =~ /$variants_re[$_]/g );
             }
             close $writer
-                or die "Failed to close worker ${worker}ʼs writer in worker: $!"
+                or die "Failed to close worker ${worker}'s writer in worker: $!"
 ;
             exit( 0 );
         }
@@ -77,7 +77,7 @@ sub run {
     # do our own work
     $seq =~ s/$_->[0]/$_->[1]/gx for @iub;
     push @report, length( $seq );
-    unshift @report, ʼʼ;
+    unshift @report, '';
 
     # collect output from match workers
     my %match_results;

@@ -3,7 +3,7 @@
 #
 # Contributed by Andrei Fomiga, Stefan Karpinski, Viral B. Shah, Jeff
 # Bezanson, and Adam Beckmeyer.
-# Based on Mark C. Lewisʼs Java version.
+# Based on Mark C. Lewis's Java version.
 
 using Printf
 
@@ -39,8 +39,8 @@ function advance!(bodies, dt)
     @inbounds for i=1:n-1
         bi = bodies[i]
 
-        # Since the fields of bi arenʼt mutable, we track the changing
-        # value of biʼs velocity outside of the Body struct
+        # Since the fields of bi aren't mutable, we track the changing
+        # value of bi's velocity outside of the Body struct
         ivx = bi.vx
         ivy = bi.vy
         ivz = bi.vz

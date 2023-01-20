@@ -26,7 +26,7 @@ rify t :toplevel (lambda () (vops::main) (quit)))"
 (eval-when (:load-toplevel :compile-toplevel :execute)
   #+x86-64(handler-bind ((simple-error (lambda (condition)
                                          condition
-                                         (invoke-restart ʼcontinue))))
+                                         (invoke-restart 'continue))))
 
             (sb-c::defknown complex-double-float/sse-* ((complex double-float) (
 complex double-float))
@@ -60,10 +60,10 @@ le-float))
             (macrolet ((generate (opinst test movmsk constant-sc load-inst)
                          `(flet ((get-constant (tn)
                                    (register-inline-constant
-                                    ,@(and (eq constant-sc ʼfp-single-immediate)
-                                           ʼ(:aligned))
+                                    ,@(and (eq constant-sc 'fp-single-immediate)
+                                           '(:aligned))
                                     (tn-value tn))))
-                            (declare (ignorable #ʼget-constant))
+                            (declare (ignorable #'get-constant))
                             (cond
                               ((location= x r)
                                (when (sc-is y ,constant-sc)
@@ -127,11 +127,11 @@ movapd))))))
 (eval-when (:load-toplevel :compile-toplevel :execute)
   (defmacro cbyte (form)
     (cond ((stringp form)
-           (map ʼ(simple-array (unsigned-byte 8) (*)) #ʼchar-code form))
+           (map '(simple-array (unsigned-byte 8) (*)) #'char-code form))
           ((characterp form)
            (char-code form))
           ((listp form)
-           `(map ʼ(simple-array (unsigned-byte 8) (*)) #ʼchar-code ,form))
+           `(map '(simple-array (unsigned-byte 8) (*)) #'char-code ,form))
           )))
 
 (defconstant +zero+ (complex 0.0d0 0.0d0))
@@ -267,14 +267,14 @@ ops::+four+)))
            (inverse-w (/ 2.0d0 (the fixnum (ash bytes-per-row 3))))
            (inverse-h (/ 2.0d0 N))
            (crvs
-            (make-array (ash N -1) :element-type ʼ(complex double-float))))
+            (make-array (ash N -1) :element-type '(complex double-float))))
       (declare (type fixnum N bytes-per-row)
                (type double-float inverse-h inverse-w)
                (type (simple-array (complex double-float) (*)) crvs))
       (let ((bitmap
              (make-array (* bytes-per-row N)
                          :initial-element 0
-                         :element-type ʼ(unsigned-byte 8))))
+                         :element-type '(unsigned-byte 8))))
         (declare (type (simple-array (unsigned-byte 8) (*)) bitmap))
         (loop for i of-type fixnum from 0 below N by 2
            do (setf (aref crvs (ash i -1))
@@ -286,7 +286,7 @@ ops::+four+)))
            do (calc-row y n bitmap bytes-per-row crvs inverse-h))
         #+sb-thread
         (let ((ndiv (the fixnum (truncate n +workers+))))
-          (mapcar #ʼsb-thread:join-thread
+          (mapcar #'sb-thread:join-thread
                   (loop for i from 0 below +workers+
                      collecting (sb-thread:make-thread
                                  (let ((start (* ndiv i))
@@ -297,7 +297,7 @@ er-row crvs inverse-h))))))))
         (with-open-file (stream #p"/dev/stdout"
                                 :direction :output
                                 :if-exists :append
-                                :element-type ʼ(unsigned-byte 8))
+                                :element-type '(unsigned-byte 8))
           (write-sequence (cbyte (format nil "P4~%~d ~d~%" n n)) stream)
           (write-sequence bitmap stream)))
       (values)))

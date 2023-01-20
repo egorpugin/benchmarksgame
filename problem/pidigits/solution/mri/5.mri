@@ -3,7 +3,7 @@
 # contributed by Aaron Tavistock
 
 # Leverage GMP like all the other languages
-require ʼgmpʼ
+require 'gmp'
 
 # Helpers that improve readability
 class GMP::Z

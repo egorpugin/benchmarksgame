@@ -113,26 +113,26 @@ replace !pattern !replacement !srcString !dstString !mcontext !mdata =
           let
             growLoop str@(GrowString !dat !siz)
               | siz + match0 - pos + replacementSize > M.length dat = do
-                !datʼ <- M.grow dat (M.length dat) :: IO (M.IOVector Word8)
-                growLoop (GrowString datʼ siz)
+                !dat' <- M.grow dat (M.length dat) :: IO (M.IOVector Word8)
+                growLoop (GrowString dat' siz)
               | otherwise = return str
           (GrowString dat siz) <- growLoop dstString
 
           -- Append the characters preceding the match and the replacement text
           -- to dstString and update the size of dstString.
           let
-            !sizʼ = siz + match0 - pos
-            !sizʼʼ = sizʼ + replacementSize
+            !siz' = siz + match0 - pos
+            !siz'' = siz' + replacementSize
           V.copy (M.slice siz  (match0 - pos)  dat)
             (V.slice pos (match0 - pos) srcString)
-          V.copy (M.slice sizʼ replacementSize dat) replacement
+          V.copy (M.slice siz' replacementSize dat) replacement
 
           -- Find the new pos to continue after the current match.
-          !posʼ <- fromIntegral <$> peekElemOff match 1
+          !pos' <- fromIntegral <$> peekElemOff match 1
 
-          go posʼ (GrowString dat sizʼʼ)
+          go pos' (GrowString dat siz'')
         else return (pos, dstString)
-    (!pos, !dstStringʼ) <- go 0 dstString
+    (!pos, !dstString') <- go 0 dstString
 
     c_pcre2_code_free regex
 
@@ -142,10 +142,10 @@ replace !pattern !replacement !srcString !dstString !mcontext !mdata =
     let
       growLoop str@(GrowString !dat !siz)
         | siz + srcStringLen - pos > M.length dat = do
-          datʼ <- M.grow dat (M.length dat) :: IO (M.IOVector Word8)
-          growLoop (GrowString datʼ siz)
+          dat' <- M.grow dat (M.length dat) :: IO (M.IOVector Word8)
+          growLoop (GrowString dat' siz)
         | otherwise = return str
-    (GrowString dat siz) <- growLoop dstStringʼ
+    (GrowString dat siz) <- growLoop dstString'
 
     -- Append the characters following the last match (or the entire srcString
     -- if there was no match) to dstString and update the size of dstString.
@@ -190,15 +190,15 @@ main = do
         $ \inputPtr -> hGetBuf stdin inputPtr (M.length dat - siz)
       if bytesRead > 0 then do
         -- update the size of input to reflect the newly read input and if
-        -- weʼve reached the full capacity of the input string then also double
+        -- we've reached the full capacity of the input string then also double
         -- its size.
-        datʼ <- if (siz + bytesRead == M.length dat)
+        dat' <- if (siz + bytesRead == M.length dat)
           then M.grow dat (M.length dat) :: IO (M.IOVector Word8)
           else return dat
-        readLoop (GrowString datʼ (siz + bytesRead))
+        readLoop (GrowString dat' (siz + bytesRead))
       else return (GrowString dat siz)
-  inputʼ <- freezeGrowString =<< readLoop input
-  let !inputSiz = V.length inputʼ
+  input' <- freezeGrowString =<< readLoop input
+  let !inputSiz = V.length input'
 
   let
     threadInit = do
@@ -211,15 +211,15 @@ main = do
 
   -- Find all sequence descriptions and new lines in input, replace them with
   -- empty strings, and store the result in the sequences string.
-  sequencesʼ@(GrowString seqDat seqSiz) <-
-    replace (f ">.*\\n|\\n") (f "") inputʼ sequences mcontext mdata
+  sequences'@(GrowString seqDat seqSiz) <-
+    replace (f ">.*\\n|\\n") (f "") input' sequences mcontext mdata
 
   -- Work on performing all the replacements serially.
   replaceVar <- newEmptyMVar
   -- Fork this thread explicitely to capability 0 to discourage the scheduler
   -- from interrupting this thread.
   forkOn 0 $ do
-    -- Weʼll use two strings when doing all the replacements, searching for
+    -- We'll use two strings when doing all the replacements, searching for
     -- patterns in prereplaceString and using postreplaceString to store the
     -- string after the replacements have been made. After each iteration these
     -- two then get swapped. Start out with both strings having the same
@@ -232,12 +232,12 @@ main = do
     -- replaceInfo
     let
       cons (pre@(GrowString dat _),post) (a,b) = do
-        datʼ <- freezeGrowString pre
-        postʼ <- replace a b datʼ post mcontext mdata
-        let preʼ = (GrowString dat 0)
+        dat' <- freezeGrowString pre
+        post' <- replace a b dat' post mcontext mdata
+        let pre' = (GrowString dat 0)
         -- Swap pre and post in the next iteration.
-        return (postʼ, preʼ)
-    -- If any replacements were made, theyʼll be in the fst element of the
+        return (post', pre')
+    -- If any replacements were made, they'll be in the fst element of the
     -- tuple instead of the second because of the swap done at the end of each
     -- iteration.
     (GrowString _ !siz, _) <- foldlM cons
@@ -274,11 +274,11 @@ main = do
             (castPtr datPtr) (fromIntegral siz) pos 0 mdata mcontext
           if x >= 0 then do
             -- Find the new pos to continue searching after the current match.
-            posʼ <- peekElemOff match 1
-            go (count + 1) posʼ
+            pos' <- peekElemOff match 1
+            go (count + 1) pos'
           else return count
           where
-            (GrowString dat siz) = sequencesʼ
+            (GrowString dat siz) = sequences'
       count <- go 0 0
 
       c_pcre2_code_free regex

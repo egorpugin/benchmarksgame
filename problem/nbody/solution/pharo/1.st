@@ -3,24 +3,24 @@
     contributed by Isaac Gouy *"!
 
 Object subclass: #NBodySystem
-   instanceVariableNames: ʼbodiesʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'bodies'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 Object subclass: #Body
-   instanceVariableNames: ʼx y z vx vy vz massʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'x y z vx vy vz mass'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
-!Body class methodsFor: ʼconstantsʼ!
+!Body class methodsFor: 'constants'!
 
 daysPerYear
    ^365.24d0!
@@ -82,7 +82,7 @@ neptune
       mass: 5.15138902046611451d-5 * self solarMass! !
 
 
-!Body methodsFor: ʼaccessingʼ!
+!Body methodsFor: 'accessing'!
 
 z
    ^z!
@@ -105,7 +105,7 @@ x: d1 y: d2 z: d3 vx: d4 vy: d5 vz: d6 mass: d7
 y
    ^y! !
 
-!Body methodsFor: ʼnbodyʼ!
+!Body methodsFor: 'nbody'!
 
 offsetMomentum: anArray
    | m |
@@ -160,7 +160,7 @@ kineticEnergy
    ^0.5d0 * mass * ((vx * vx) + (vy * vy) + (vz * vz))! !
 
 
-!NBodySystem methodsFor: ʼinitialize-releaseʼ!
+!NBodySystem methodsFor: 'initialize-release'!
 
 initialize
    bodies := OrderedCollection new
@@ -171,7 +171,7 @@ initialize
       (bodies inject: (Array with: 0.0d0 with: 0.0d0 with: 0.0d0)
          into: [:m :each | each addMomentumTo: m])! !
 
-!NBodySystem methodsFor: ʼnbodyʼ!
+!NBodySystem methodsFor: 'nbody'!
 
 after: dt
    1 to: bodies size do: [:i|
@@ -191,7 +191,7 @@ energy
    ].
    ^e! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | bodies |
@@ -200,7 +200,7 @@ do: n
    n timesRepeat: [bodies after: 0.01d0].
    Stdio stdout print: bodies energy digits: 9; nl! !
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf!

@@ -40,18 +40,18 @@ static void repeat_And_Wrap_String(const char string_To_Repeat[],
    intnative_t offset=0;
 
    char line[MAXIMUM_LINE_WIDTH+1];
-   line[MAXIMUM_LINE_WIDTH]=ʼ\nʼ;
+   line[MAXIMUM_LINE_WIDTH]='\n';
 
    for(intnative_t current_Number_Of_Characters_To_Create=
      number_Of_Characters_To_Create;
      current_Number_Of_Characters_To_Create>0;){
-      // Figure out the length of the line we need to write. If itʼs less than
+      // Figure out the length of the line we need to write. If it's less than
       // MAXIMUM_LINE_WIDTH then we also need to add a line feed in the right
       // spot too.
       intnative_t line_Length=MAXIMUM_LINE_WIDTH;
       if(current_Number_Of_Characters_To_Create<MAXIMUM_LINE_WIDTH){
          line_Length=current_Number_Of_Characters_To_Create;
-         line[line_Length]=ʼ\nʼ;
+         line[line_Length]='\n';
       }
 
       memcpy(line, extended_String_To_Repeat+offset, line_Length);
@@ -94,7 +94,7 @@ static void generate_And_Wrap_Pseudorandom_DNA_Sequence(
   const intnative_t number_Of_Characters_To_Create){
 
    // Cumulate the probabilities. Note that the probability is being multiplied
-   // by IM because later on weʼll also be calling the random number generator
+   // by IM because later on we'll also be calling the random number generator
    // with a value that is multiplied by IM. Since the random number generator
    // does a division by IM this allows the compiler to cancel out the
    // multiplication and division by IM with each other without requiring any
@@ -108,18 +108,18 @@ static void generate_And_Wrap_Pseudorandom_DNA_Sequence(
    }
 
    char line[MAXIMUM_LINE_WIDTH+1];
-   line[MAXIMUM_LINE_WIDTH]=ʼ\nʼ;
+   line[MAXIMUM_LINE_WIDTH]='\n';
 
    for(intnative_t current_Number_Of_Characters_To_Create=
      number_Of_Characters_To_Create;
      current_Number_Of_Characters_To_Create>0;){
-      // Figure out the length of the line we need to write. If itʼs less than
+      // Figure out the length of the line we need to write. If it's less than
       // MAXIMUM_LINE_WIDTH then we also need to add a line feed in the right
       // spot too.
       intnative_t line_Length=MAXIMUM_LINE_WIDTH;
       if(current_Number_Of_Characters_To_Create<MAXIMUM_LINE_WIDTH){
          line_Length=current_Number_Of_Characters_To_Create;
-         line[line_Length]=ʼ\nʼ;
+         line[line_Length]='\n';
       }
 
       // Fill up the line with characters from nucleotides_Information[] that
@@ -129,9 +129,9 @@ static void generate_And_Wrap_Pseudorandom_DNA_Sequence(
 
          // Count the number of nucleotides with a probability less than what
          // was selected by the random number generator and then use that
-         // count as an index for the nucleotide to select. Itʼs arguable
+         // count as an index for the nucleotide to select. It's arguable
          // whether this qualifies as a linear search but I guess you can say
-         // that youʼre doing a linear search for all the nucleotides with a
+         // that you're doing a linear search for all the nucleotides with a
          // probability less than what was selected by the random number
          // generator and then just counting how many matches were found.
          // With a small number of nucleotides this can be faster than doing
@@ -167,16 +167,16 @@ int main(int argc, char ** argv){
 
    fputs(">TWO IUB ambiguity codes\n", stdout);
    nucleotide_info iub_Nucleotides_Information[]={
-     {ʼaʼ, 0.27}, {ʼcʼ, 0.12}, {ʼgʼ, 0.12}, {ʼtʼ, 0.27}, {ʼBʼ, 0.02},
-     {ʼDʼ, 0.02}, {ʼHʼ, 0.02}, {ʼKʼ, 0.02}, {ʼMʼ, 0.02}, {ʼNʼ, 0.02},
-     {ʼRʼ, 0.02}, {ʼSʼ, 0.02}, {ʼVʼ, 0.02}, {ʼWʼ, 0.02}, {ʼYʼ, 0.02}};
+     {'a', 0.27}, {'c', 0.12}, {'g', 0.12}, {'t', 0.27}, {'B', 0.02},
+     {'D', 0.02}, {'H', 0.02}, {'K', 0.02}, {'M', 0.02}, {'N', 0.02},
+     {'R', 0.02}, {'S', 0.02}, {'V', 0.02}, {'W', 0.02}, {'Y', 0.02}};
    generate_And_Wrap_Pseudorandom_DNA_Sequence(iub_Nucleotides_Information,
      sizeof(iub_Nucleotides_Information)/sizeof(nucleotide_info), 3*n);
 
    fputs(">THREE Homo sapiens frequency\n", stdout);
    nucleotide_info homo_Sapien_Nucleotides_Information[]={
-     {ʼaʼ, 0.3029549426680}, {ʼcʼ, 0.1979883004921},
-     {ʼgʼ, 0.1975473066391}, {ʼtʼ, 0.3015094502008}};
+     {'a', 0.3029549426680}, {'c', 0.1979883004921},
+     {'g', 0.1975473066391}, {'t', 0.3015094502008}};
    generate_And_Wrap_Pseudorandom_DNA_Sequence(
      homo_Sapien_Nucleotides_Information,
      sizeof(homo_Sapien_Nucleotides_Information)/sizeof(nucleotide_info), 5*n);

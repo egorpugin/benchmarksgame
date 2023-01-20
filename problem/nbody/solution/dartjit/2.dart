@@ -2,11 +2,11 @@
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
    contributed by Jos Hirth,
-   transliterated from Isaac Gouy and Robert F. Toblerʼs C# program
+   transliterated from Isaac Gouy and Robert F. Tobler's C# program
    + null safety
 */
 
-import ʼdart:mathʼ as Math;
+import 'dart:math' as Math;
 
 void main(args) {
   int n = args.length > 0 ? int.parse(args[0]) : 0;

@@ -47,7 +47,7 @@ int main()
     assert(read_size > 0);
     cin.seekg(0, ios_base::beg);
 
-    string str(read_size, ʼ\0ʼ);
+    string str(read_size, '\0');
     cin.read(&str[0], read_size);
     size_t len1 = cin.gcount();
     assert(len1);

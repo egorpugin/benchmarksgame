@@ -5,8 +5,8 @@
  * Based on the node.js program from Léo Sarrazin and Andrey Filatkin
 */
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
 
 if (isMainThread) {
     mainThread();
@@ -40,7 +40,7 @@ function runTasks (tasks) {
         let tasksRemaining = tasks.length;
         for (let i = 0; i < tasks.length; i++) {
             new Worker(__filename, { workerData: tasks[i] })
-            .on(ʼmessageʼ, message => {
+            .on('message', message => {
                 results[i] = message;
                 tasksRemaining--;
                 if (tasksRemaining === 0) {

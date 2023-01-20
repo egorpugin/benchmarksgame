@@ -9,21 +9,21 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 Smalltalk defineClass: #TreeNode
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼleft right ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼbenchmarks gameʼ!
+        instanceVariableNames: 'left right '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'benchmarks game'!
 
-!Core.BenchmarksGame class methodsFor: ʼbenchmarks gameʼ!
+!Core.BenchmarksGame class methodsFor: 'benchmarks game'!
 
 do: n
    | checks depths iterations longLivedTree maxDepth minDepth
@@ -35,8 +35,8 @@ do: n
 
    checks := (TreeNode bottomUpTree: stretchDepth) itemCheck.
    Stdout
-      nextPutAll: ʼstretch tree of depth ʼ; print: stretchDepth; tab;
-      nextPutAll: ʼ check: ʼ; print: checks; nl.
+      nextPutAll: 'stretch tree of depth '; print: stretchDepth; tab;
+      nextPutAll: ' check: '; print: checks; nl.
 
    longLivedTree := TreeNode bottomUpTree: maxDepth.
 
@@ -45,7 +45,7 @@ do: n
 .
 
       "for larger workloads split the work across multiple processes"
-   nprocs := (ExternalProcess shOne: ʼnprocʼ) asNumber.
+   nprocs := (ExternalProcess shOne: 'nproc') asNumber.
    (nprocs > 1 and: [n > 16])
       ifTrue: [
          | workers |
@@ -62,14 +62,14 @@ do: n
    checks keysDo: [:i|
       Stdout
          print: (iterations at: i); tab;
-         nextPutAll: ʼ trees of depth ʼ; print: (depths at: i); tab;
-         nextPutAll: ʼ check: ʼ; print: (checks at: i); nl
+         nextPutAll: ' trees of depth '; print: (depths at: i); tab;
+         nextPutAll: ' check: '; print: (checks at: i); nl
    ].
 
    Stdout
-      nextPutAll: ʼlong lived tree of depth ʼ; print: maxDepth; tab;
-      nextPutAll: ʼ check: ʼ; print: longLivedTree itemCheck; nl.
-   ^ʼʼ!
+      nextPutAll: 'long lived tree of depth '; print: maxDepth; tab;
+      nextPutAll: ' check: '; print: longLivedTree itemCheck; nl.
+   ^''!
 
 
 checkBlock
@@ -81,7 +81,7 @@ checkBlock
    ]! !
 
 
-!TreeNode class methodsFor: ʼinstance creationʼ!
+!TreeNode class methodsFor: 'instance creation'!
 
 left: leftChild right: rightChild
    ^(super new) left: leftChild right: rightChild!
@@ -98,20 +98,20 @@ bottomUpTree: anInteger
       ]! !
 
 
-!TreeNode methodsFor: ʼbenchmarks gameʼ!
+!TreeNode methodsFor: 'benchmarks game'!
 
 itemCheck
    ^left isNil
       ifTrue: [1] ifFalse: [1 + left itemCheck + right itemCheck]! !
 
-!TreeNode methodsFor: ʼinstance creationʼ!
+!TreeNode methodsFor: 'instance creation'!
 
 left: leftChild right: rightChild
    left := leftChild.
    right := rightChild! !
 
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

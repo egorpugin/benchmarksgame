@@ -25,7 +25,7 @@ const BLOCK_ROWS: usize = 4096;
 static KNUCLEOTIDE_MAPPING: &[u8; 256] = b"\
     \0\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\
     \x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\
-    \x20!\"#$%&ʼ()*+,-./\
+    \x20!\"#$%&'()*+,-./\
     0123456789:;<=>?\
     @TVGHEFCDIJMLKNO\
     PQYSAABWXRZ[\\]^_\
@@ -130,14 +130,14 @@ mod fallback {
 #[cfg(not(target_feature = "ssse3"))]
 use fallback::*;
 
-struct Sequence<ʼa> {
-    buf: &ʼa mut [u8],
+struct Sequence<'a> {
+    buf: &'a mut [u8],
     content_offset: usize,
 }
 
-impl<ʼa> Sequence<ʼa> {
-    fn from_slice(data: &ʼa mut [u8]) -> Option<Sequence<ʼa>> {
-        match memchr(bʼ\nʼ, data) {
+impl<'a> Sequence<'a> {
+    fn from_slice(data: &'a mut [u8]) -> Option<Sequence<'a>> {
+        match memchr(b'\n', data) {
             Some(pos) => Some(Sequence { buf: data, content_offset: pos + 1 }),
             None => None,
         }
@@ -243,7 +243,7 @@ impl<R: Read> SequenceReader<R> {
         }
     }
 
-    fn next(&mut self) -> Option<io::Result<Sequence<ʼ_>>> {
+    fn next(&mut self) -> Option<io::Result<Sequence<'_>>> {
         // scan in buffer first
         if !self.buf.is_empty() {
             if self.next_pos >= self.buf.len() {
@@ -255,7 +255,7 @@ impl<R: Read> SequenceReader<R> {
             self.buf.truncate(self.buf.len() - self.next_pos);
 
             // find next header in buffer
-            let next_header_pos = match memchr(bʼ>ʼ, &self.buf[1..]) {
+            let next_header_pos = match memchr(b'>', &self.buf[1..]) {
                 Some(pos) => Some(pos + 1),
                 None if self.eof_reached => Some(self.buf.len()),
                 None => None,
@@ -288,7 +288,7 @@ impl<R: Read> SequenceReader<R> {
 
             // find next header
             let offset = cmp::min(cmp::max(old_len, 1), self.buf.len());
-            self.next_pos = match memchr(bʼ>ʼ, &self.buf[offset..]) {
+            self.next_pos = match memchr(b'>', &self.buf[offset..]) {
                 None if !self.eof_reached => continue,
                 Some(pos) => offset + pos,
                 None => self.buf.len(),

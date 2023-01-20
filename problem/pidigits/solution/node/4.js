@@ -7,7 +7,7 @@
    un-buffered by Isaac Gouy
 */
 
-const MPZ = require(ʼmpzjsʼ);
+const MPZ = require('mpzjs');
 const n = +process.argv[2] || 10000;
 
 let i = 0, ns = 0;
@@ -49,7 +49,7 @@ while (i < n) {
   i++;
   let last = i >= n;
   if (i % 10 == 0 || last) {
-    console.log(pad(ns, last) + ʼ\t:ʼ + i);
+    console.log(pad(ns, last) + '\t:' + i);
     ns = 0;
   }
 
@@ -64,7 +64,7 @@ function pad(i, last) {
   var res = i.toString(), count;
   count = 10 - res.length;
   while (count > 0) {
-    last ? res += ʼ ʼ : res = ʼ0ʼ + res;
+    last ? res += ' ' : res = '0' + res;
     count--;
   }
   return res;

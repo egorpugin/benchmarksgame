@@ -28,19 +28,19 @@ ayList<byte[]>());
       for (int i = 0; i < map.length; i++) {
          map[i] = (byte) i;
       }
-       map[ʼtʼ] = map[ʼTʼ] = ʼAʼ;
-       map[ʼaʼ] = map[ʼAʼ] = ʼTʼ;
-       map[ʼgʼ] = map[ʼGʼ] = ʼCʼ;
-       map[ʼcʼ] = map[ʼCʼ] = ʼGʼ;
-       map[ʼvʼ] = map[ʼVʼ] = ʼBʼ;
-       map[ʼhʼ] = map[ʼHʼ] = ʼDʼ;
-       map[ʼrʼ] = map[ʼRʼ] = ʼYʼ;
-       map[ʼmʼ] = map[ʼMʼ] = ʼKʼ;
-       map[ʼyʼ] = map[ʼYʼ] = ʼRʼ;
-       map[ʼkʼ] = map[ʼKʼ] = ʼMʼ;
-       map[ʼbʼ] = map[ʼBʼ] = ʼVʼ;
-       map[ʼdʼ] = map[ʼDʼ] = ʼHʼ;
-       map[ʼuʼ] = map[ʼUʼ] = ʼAʼ;
+       map['t'] = map['T'] = 'A';
+       map['a'] = map['A'] = 'T';
+       map['g'] = map['G'] = 'C';
+       map['c'] = map['C'] = 'G';
+       map['v'] = map['V'] = 'B';
+       map['h'] = map['H'] = 'D';
+       map['r'] = map['R'] = 'Y';
+       map['m'] = map['M'] = 'K';
+       map['y'] = map['Y'] = 'R';
+       map['k'] = map['K'] = 'M';
+       map['b'] = map['B'] = 'V';
+       map['d'] = map['D'] = 'H';
+       map['u'] = map['U'] = 'A';
    }
 
    public static void main(String[] args) throws IOException
@@ -105,7 +105,7 @@ stMapper);
          LinkedList<Integer> findings = new LinkedList<Integer>();
 
          for (int i = 0; i < size; i++) {
-            if (a[i] == ʼ>ʼ) {
+            if (a[i] == '>') {
                findings.add(i);
             }
          }
@@ -167,14 +167,14 @@ stMapper);
          byte[] bot = list.get(lp2);
 
          int p1 = positions[1];
-         while (tob[p1] != ʼ\nʼ) p1++;
+         while (tob[p1] != '\n') p1++;
 
          int p2 = positions[3];
 
          while (lp1 < lp2 || p1 < p2) {
-            if (tob[p1] == ʼ\nʼ) {
+            if (tob[p1] == '\n') {
                p1++;
-            } else if (bot[p2] == ʼ\nʼ) {
+            } else if (bot[p2] == '\n') {
                p2--;
             } else {
                byte tmp = tob[p1];

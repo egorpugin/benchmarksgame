@@ -7,7 +7,7 @@
 # *reset*
 # Thread.exclusive deprecated
 
-require ʼthreadʼ
+require 'thread'
 
 module MiniParallel
     class Worker

@@ -91,7 +91,7 @@ begin
   with TPasMP.CreateGlobalInstance() do
     Invoke(ParallelFor(nil, 0, Pred(Size), @RenderRows));
   IO := @Output;
-  Write(IO^, ʼP4ʼ, #10, Size, ʼ ʼ, Size, #10);
+  Write(IO^, 'P4', #10, Size, ' ', Size, #10);
   Flush(IO^);
   for Y := 0 to Pred(Size) do
     FileWrite(StdOutputHandle, Rows[Y][0], BytesPerRow);

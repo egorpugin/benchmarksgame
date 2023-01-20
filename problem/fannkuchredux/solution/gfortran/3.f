@@ -25,7 +25,7 @@ program fannkuch
   WR1 = WR1 .or. WR
 
   call get_command_argument(1,arg)
-  read(arg,ʼ(I2)ʼ) NP
+  read(arg,'(I2)') NP
   NQ = factorial(MAXL)/MAXL
   allocate(blk(NP,NQ))
   allocate(cnt(NP))
@@ -33,9 +33,9 @@ program fannkuch
 
   call fkcompute(NP)
 
-  write(out,ʼ(i15)ʼ) cksum-2
-  write(*,ʼ(a)ʼ) trim(adjustl(out))
-  write(*,ʼ(3a,i3)ʼ) ʼPfannkuchen(ʼ,trim(adjustl(arg)),ʼ) =ʼ,maxfk
+  write(out,'(i15)') cksum-2
+  write(*,'(a)') trim(adjustl(out))
+  write(*,'(3a,i3)') 'Pfannkuchen(',trim(adjustl(arg)),') =',maxfk
 
 contains
 

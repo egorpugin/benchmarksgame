@@ -94,14 +94,14 @@ package body Nbody_Pck is
       Dx, Dy, Dz, Distance : Real;
       E                    : Real := 0.0;
    begin
-      for I in BodiesʼRange loop
+      for I in Bodies'Range loop
         E := E + 0.5 * Bodies (I).Mass
           * (Bodies (I).Vx * Bodies (I).Vx
                + Bodies (I).Vy * Bodies (I).Vy
                + Bodies (I).Vz * Bodies (I).Vz);
 
-        if I /= Body_NameʼLast then
-           for J in Body_NameʼSucc (I) .. Body_NameʼLast loop
+        if I /= Body_Name'Last then
+           for J in Body_Name'Succ (I) .. Body_Name'Last loop
               Dx := Bodies (I).X - Bodies (J).X;
               Dy := Bodies (I).Y - Bodies (J).Y;
               Dz := Bodies (I).Z - Bodies (J).Z;
@@ -117,9 +117,9 @@ package body Nbody_Pck is
    procedure Advance (Dt : in Real) is
       Dx, Dy, Dz, Distance, Mag : Real;
    begin
-      for I in Body_NameʼRange loop
-         if I /= Body_NameʼLast then
-            for J in Body_NameʼSucc (I) .. Body_NameʼLast loop
+      for I in Body_Name'Range loop
+         if I /= Body_Name'Last then
+            for J in Body_Name'Succ (I) .. Body_Name'Last loop
                Dx := Bodies (I).X - Bodies (J).X;
                Dy := Bodies (I).Y - Bodies (J).Y;
                Dz := Bodies (I).Z - Bodies (J).Z;
@@ -138,7 +138,7 @@ package body Nbody_Pck is
          end if;
       end loop;
 
-      for I in Body_NameʼRange loop
+      for I in Body_Name'Range loop
          Bodies (I).X := Bodies (I).X + Dt * Bodies (I).Vx;
          Bodies (I).Y := Bodies (I).Y + Dt * Bodies (I).Vy;
          Bodies (I).Z := Bodies (I).Z + Dt * Bodies (I).Vz;
@@ -164,12 +164,12 @@ procedure Nbody is
      (Item : Real; Fore : Field := 0; Aft : Field := 9;
       Exp  : Field := 0) renames RIO.Put;
 
-   N : constant Integer := IntegerʼValue (Argument (1));
+   N : constant Integer := Integer'Value (Argument (1));
 
    Px, Py, Pz : Real := 0.0;
 
 begin
-   for I in Body_NameʼRange loop
+   for I in Body_Name'Range loop
       Px := Px + Bodies (I).Vx * Bodies (I).Mass;
       Py := Py + Bodies (I).Vy * Bodies (I).Mass;
       Pz := Pz + Bodies (I).Vz * Bodies (I).Mass;

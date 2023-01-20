@@ -102,12 +102,12 @@ genSeeds !bufferSize !v !s = go 0 s where
   go :: Word32 -> Word32 -> IO Word32
   go !n !s
     | n < bufferSize = do
-      M.unsafeWrite v (fromIntegral n) sʼ
-      go (n + 1) sʼ
+      M.unsafeWrite v (fromIntegral n) s'
+      go (n + 1) s'
     | otherwise = return s
     where
       -- This is the LCG formula
-      !sʼ = (ia * s + ic) `rem` im
+      !s' = (ia * s + ic) `rem` im
 
 -- The worker is designed to run in a separate thread. It first generates a
 -- block of random values, then it consumes that block. This is done repeatedly
@@ -127,15 +127,15 @@ worker !bufferSize !p0 !p1 !mvar !ref = do
   let
     loop = do
       -- Find out how many characters still need to be done.
-      n <- atomicModifyIORefʼ ref $ \x ->
+      n <- atomicModifyIORef' ref $ \x ->
         if x > 0
           then (max 0 (x - bufferSize), min x bufferSize)
           else (0, 0)
       when (n > 0) $ do
         next <- newEmptyMVar
         (rnd, prev) <- takeMVar mvar
-        rndʼ <- genSeeds (fromIntegral n) m rnd
-        putMVar mvar (rndʼ, next)
+        rnd' <- genSeeds (fromIntegral n) m rnd
+        putMVar mvar (rnd', next)
         consume n p0 p1 s v prev next
         loop
   loop
@@ -173,8 +173,8 @@ consume !bufferSize !p0 !p1 !s !v !prev !next = do
 cumulativeProbabilities :: [(Char, Float)] -> V.Vector (Word32, Word8)
 cumulativeProbabilities = V.unfoldr uncons . (0,) where
   uncons (_   , []) = Nothing
-  uncons (prev, ((c,p):xs)) = let pʼ = p + prev in Just
-    ((floor (fromIntegral im * pʼ), fromIntegral (ord c)), (pʼ, xs))
+  uncons (prev, ((c,p):xs)) = let p' = p + prev in Just
+    ((floor (fromIntegral im * p'), fromIntegral (ord c)), (p', xs))
 
 printRandomFasta
   :: V.Vector Word32
@@ -199,16 +199,16 @@ main = do
 
   let
     p0 = cumulativeProbabilities
-      [(ʼaʼ, 0.27), (ʼcʼ, 0.12), (ʼgʼ, 0.12), (ʼtʼ, 0.27), (ʼBʼ, 0.02),
-       (ʼDʼ, 0.02), (ʼHʼ, 0.02), (ʼKʼ, 0.02), (ʼMʼ, 0.02), (ʼNʼ, 0.02),
-       (ʼRʼ, 0.02), (ʼSʼ, 0.02), (ʼVʼ, 0.02), (ʼWʼ, 0.02), (ʼYʼ, 0.02)]
+      [('a', 0.27), ('c', 0.12), ('g', 0.12), ('t', 0.27), ('B', 0.02),
+       ('D', 0.02), ('H', 0.02), ('K', 0.02), ('M', 0.02), ('N', 0.02),
+       ('R', 0.02), ('S', 0.02), ('V', 0.02), ('W', 0.02), ('Y', 0.02)]
     p00 = V.map fst p0
     p01 = V.map snd p0
 
   let
     p1 = cumulativeProbabilities
-      [(ʼaʼ, 0.3029549426680), (ʼcʼ, 0.1979883004921),
-       (ʼgʼ, 0.1975473066391), (ʼtʼ, 0.3015094502008)]
+      [('a', 0.3029549426680), ('c', 0.1979883004921),
+       ('g', 0.1975473066391), ('t', 0.3015094502008)]
     p10 = V.map fst p1
     p11 = V.map snd p1
 
@@ -216,10 +216,10 @@ main = do
   printRepeatedFasta (2 * n) (B.length alu) alu
 
   putStrLn ">TWO IUB ambiguity codes"
-  sʼ <- printRandomFasta p00 p01 (3 * n) 42
+  s' <- printRandomFasta p00 p01 (3 * n) 42
 
   putStrLn ">THREE Homo sapiens frequency"
-  printRandomFasta p10 p11 (5 * n) sʼ
+  printRandomFasta p10 p11 (5 * n) s'
 
   return ()
 

@@ -1,14 +1,14 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Isaac Gouy, updated Alexander Fyodorovʼs Dart #2
+   contributed by Isaac Gouy, updated Alexander Fyodorov's Dart #2
 */
 
 String pad(i, last) {
   var res = i.toString(), count;
   count = 10 - res.length;
   while (count > 0) {
-    last ? res += ʼ ʼ : res = ʼ0ʼ + res;
+    last ? res += ' ' : res = '0' + res;
     count--;
   }
   return res;
@@ -49,7 +49,7 @@ void calculatePi(arg) {
 
         var last = i >= arg;
         if (i % 10 == 0 || last) {
-          print(pad(ns, last) + ʼ\t:$iʼ);
+          print(pad(ns, last) + '\t:$i');
           ns = 0;
         }
 

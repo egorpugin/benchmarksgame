@@ -1,7 +1,7 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   direct transliteration of Greg Buchholzʼs C program
+   direct transliteration of Greg Buchholz's C program
    contributed by Isaac Gouy, fix by David Turnbull
 */
 

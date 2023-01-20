@@ -43,7 +43,7 @@
   (declare (optimize (speed 3) (safety 0) (debug 0))
            (type fixnum num)
            (type fixnum k))
-  (let ((gene (make-array k :element-type ʼbase-char))
+  (let ((gene (make-array k :element-type 'base-char))
         (acgt #(#\A #\C #\G #\T)))
     (dotimes (i k)
       (let ((pos (* i 2)))
@@ -59,15 +59,15 @@
 
 (defun read-data (stream)
   (declare (optimize (speed 3) (safety 0) (debug 0)))
-  (let ((data (make-array 0 :element-type ʼbase-char :adjustable t :fill-pointer
+  (let ((data (make-array 0 :element-type 'base-char :adjustable t :fill-pointer
  0)))
-    (do ((line (read-line stream nil ʼeof) (read-line stream nil ʼeof)))
-        ((or (eq line ʼeof) (char= (schar line 0) #\>)))
+    (do ((line (read-line stream nil 'eof) (read-line stream nil 'eof)))
+        ((or (eq line 'eof) (char= (schar line 0) #\>)))
       (if (not (char= (schar line 0) #\;))
           (dotimes (char-index (length line))
             (vector-push-extend (char-upcase (the base-char (schar line char-ind
 ex))) data))))
-    (coerce data ʼsimple-base-string)))
+    (coerce data 'simple-base-string)))
 
 (defun print-precentages (gene k ht)
   (declare (type simple-base-string gene)

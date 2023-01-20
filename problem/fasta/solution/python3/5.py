@@ -33,7 +33,7 @@ def lock_pair(pre_lock=None, post_lock=None, locks=None):
         post.release()
 
 def write_lines(
-        sequence, n, width, lines_per_block=10000, newline=bʼ\nʼ, table=None):
+        sequence, n, width, lines_per_block=10000, newline=b'\n', table=None):
     i = 0
     blocks = (n - width) // width // lines_per_block
     if blocks:
@@ -72,7 +72,7 @@ def cumulative_probabilities(alphabet, factor=1.0):
     return probabilities, table
 
 def copy_from_sequence(header, sequence, n, width, locks=None):
-    sequence = bytearray(sequence, encoding=ʼutf8ʼ)
+    sequence = bytearray(sequence, encoding='utf8')
     while len(sequence) < n:
         sequence.extend(sequence)
 
@@ -117,7 +117,7 @@ def lookup_and_write(
     with lock_pair(locks=locks):
         if start == 0:
             write(header)
-        write_lines(output, len(output), width, newline=bʼ\xffʼ, table=table)
+        write_lines(output, len(output), width, newline=b'\xff', table=table)
 
 def random_selection(header, alphabet, n, width, seed, locks=None):
     im = 139968.0
@@ -159,7 +159,7 @@ def random_selection(header, alphabet, n, width, seed, locks=None):
             p.join()
 
 def fasta(n):
-    alu = sub(rʼ\s+ʼ, ʼʼ, """
+    alu = sub(r'\s+', '', """
 GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGA
 TCACCTGAGGTCAGGAGTTCGAGACCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACT
 AAAAATACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAGCTACTCGGGAG
@@ -167,21 +167,21 @@ GCTGAGGCAGGAGAATCGCTTGAACCCGGGAGGCGGAGGTTGCAGTGAGCCGAGATCGCG
 CCACTGCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA
 """)
 
-    iub = list(zip_longest(ʼacgtBDHKMNRSVWYʼ,
+    iub = list(zip_longest('acgtBDHKMNRSVWY',
                            (.27, .12, .12, .27), fillvalue=.02))
 
-    homosapiens = list(zip(ʼacgtʼ, (0.3029549426680, 0.1979883004921,
+    homosapiens = list(zip('acgt', (0.3029549426680, 0.1979883004921,
                                     0.1975473066391, 0.3015094502008)))
 
-    seed = RawValue(ʼfʼ, 42)
+    seed = RawValue('f', 42)
     width = 60
     tasks = [
         (copy_from_sequence,
-         [bʼ>ONE Homo sapiens alu\nʼ, alu, n * 2, width]),
+         [b'>ONE Homo sapiens alu\n', alu, n * 2, width]),
         (random_selection,
-         [bʼ>TWO IUB ambiguity codes\nʼ, iub, n * 3, width, seed]),
+         [b'>TWO IUB ambiguity codes\n', iub, n * 3, width, seed]),
         (random_selection,
-         [bʼ>THREE Homo sapiens frequency\nʼ, homosapiens, n * 5, width, seed]),
+         [b'>THREE Homo sapiens frequency\n', homosapiens, n * 5, width, seed]),
     ]
 
     if cpu_count() < 2:

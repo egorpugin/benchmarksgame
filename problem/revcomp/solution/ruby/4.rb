@@ -9,8 +9,8 @@ def process_segment(segment)
   sequence.delete!("\n\r >")
   sequence.reverse!
   sequence.tr!(
-    ʼwsatugcyrkmbdhvnATUGCYRKMBDHVNʼ,
-    ʼWSTAACGRYMKVHDBNTAACGRYMKVHDBNʼ
+    'wsatugcyrkmbdhvnATUGCYRKMBDHVN',
+    'WSTAACGRYMKVHDBNTAACGRYMKVHDBN'
   )
 
   sequence_length = sequence.length
@@ -52,7 +52,7 @@ def forking_worker(segment)
   results
 end
 
-if RUBY_PLATFORM != ʼjavaʼ
+if RUBY_PLATFORM != 'java'
   class << self
     alias_method :original_process_segment, :process_segment
     alias_method :process_segment, :forking_worker
@@ -60,7 +60,7 @@ if RUBY_PLATFORM != ʼjavaʼ
 end
 
 threads = []
-STDIN.each_line(ʼ>ʼ).lazy.each do |segment|
+STDIN.each_line('>').lazy.each do |segment|
   next if segment.length < 2
   threads << Thread.new do
     Thread.current[:output] = process_segment(segment)

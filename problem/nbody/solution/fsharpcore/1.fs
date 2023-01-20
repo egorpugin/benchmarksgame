@@ -26,20 +26,20 @@ let advance bodies dt =
     for i = 0 to n do
         let b = bodies.[i]
         for j = i+1 to n do
-            let bʼ = bodies.[j]
-            let dx = b.X - bʼ.X
-            let dy = b.Y - bʼ.Y
-            let dz = b.Z - bʼ.Z
+            let b' = bodies.[j]
+            let dx = b.X - b'.X
+            let dy = b.Y - b'.Y
+            let dz = b.Z - b'.Z
             let dist2 = dx * dx + dy * dy + dz * dz
             let mag = dt / (dist2 * sqrt(dist2))
 
-            b.VX <- b.VX - dx * bʼ.Mass * mag
-            b.VY <- b.VY - dy * bʼ.Mass * mag
-            b.VZ <- b.VZ - dz * bʼ.Mass * mag
+            b.VX <- b.VX - dx * b'.Mass * mag
+            b.VY <- b.VY - dy * b'.Mass * mag
+            b.VZ <- b.VZ - dz * b'.Mass * mag
 
-            bʼ.VX <- bʼ.VX + dx * b.Mass * mag
-            bʼ.VY <- bʼ.VY + dy * b.Mass * mag
-            bʼ.VZ <- bʼ.VZ + dz * b.Mass * mag
+            b'.VX <- b'.VX + dx * b.Mass * mag
+            b'.VY <- b'.VY + dy * b.Mass * mag
+            b'.VZ <- b'.VZ + dz * b.Mass * mag
 
     for i = 0 to n do
         let b = bodies.[i]
@@ -54,12 +54,12 @@ let energy bodies =
         let b = bodies.[i]
         e <- e + 0.5 * b.Mass * (b.VX * b.VX + b.VY * b.VY + b.VZ * b.VZ)
         for j = i+1 to n do
-            let bʼ = bodies.[j]
-            let dx = b.X - bʼ.X
-            let dy = b.Y - bʼ.Y
-            let dz = b.Z - bʼ.Z
+            let b' = bodies.[j]
+            let dx = b.X - b'.X
+            let dy = b.Y - b'.Y
+            let dz = b.Z - b'.Z
             let distance = sqrt(dx * dx + dy * dy + dz * dz)
-            e <- e - (b.Mass * bʼ.Mass) / distance
+            e <- e - (b.Mass * b'.Mass) / distance
     e
 
 let offset_momentum bodies =

@@ -7,14 +7,14 @@
    converted by Isaac Gouy
 */
 
-const MPZ = require(ʼmpzjsʼ);
+const MPZ = require('mpzjs');
 
 const n = +process.argv[2] || 10000;
 
-const char0 = ʼ0ʼ.charCodeAt(0);
-const charT = ʼ\tʼ.charCodeAt(0);
-const charN = ʼ\nʼ.charCodeAt(0);
-const charC = ʼ:ʼ.charCodeAt(0);
+const char0 = '0'.charCodeAt(0);
+const charT = '\t'.charCodeAt(0);
+const charN = '\n'.charCodeAt(0);
+const charC = ':'.charCodeAt(0);
 
 let bufSize = (10 + 2 + n.toString().length + 1) * (n / 10);
 for (let i = 10, ii = 10 ** (Math.log10(n) >>> 0); i < ii; i *= 10) {

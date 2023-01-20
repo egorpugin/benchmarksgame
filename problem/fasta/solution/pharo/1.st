@@ -4,53 +4,53 @@
     modified by Eliot Miranda *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 Object subclass: #RandomNumber
-   instanceVariableNames: ʼseed scaleʼ
-   classVariableNames: ʼFModulus Increment Modulus Multiplierʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'seed scale'
+   classVariableNames: 'FModulus Increment Modulus Multiplier'
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 ReadStream subclass: #RepeatStream
-   instanceVariableNames: ʼrepeatPtr repeatLimitʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'repeatPtr repeatLimit'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 RepeatStream subclass: #RandomStream
-   instanceVariableNames: ʼrandom percentagesʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'random percentages'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 fasta: n to: out
    | r lineLength |
    lineLength := 60.
    self
-      writeFasta: ʼONE Homo sapiens aluʼ
+      writeFasta: 'ONE Homo sapiens alu'
       from:
          ( RepeatStream
             to: n*2
-            on:ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ,
-               ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ,
-               ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ,
-               ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ,
-               ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ,
-               ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ,
-               ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ )
+            on:'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG',
+               'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA',
+               'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT',
+               'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA',
+               'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG',
+               'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC',
+               'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA' )
       to: out
       lineLength: lineLength.
 
    r := RandomNumber to: 1. "Shared random sequence"
 
    self
-      writeFasta: ʼTWO IUB ambiguity codesʼ
+      writeFasta: 'TWO IUB ambiguity codes'
       from:
          (( RandomStream
             to: n*3
@@ -76,7 +76,7 @@ fasta: n to: out
       lineLength: lineLength.
 
    self
-      writeFasta: ʼTHREE Homo sapiens frequencyʼ
+      writeFasta: 'THREE Homo sapiens frequency'
       from:
          (( RandomStream
             to: n*5
@@ -101,13 +101,13 @@ writeFasta: aString from: inStream to: outStream lineLength: lineLength
       i := i + 1].
    outStream nl! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self fasta: n to: Stdio stdout! !
 
 
-!RandomNumber class methodsFor: ʼclass initializationʼ!
+!RandomNumber class methodsFor: 'class initialization'!
 
 initialize
    FModulus := 139968.0d0.
@@ -115,51 +115,51 @@ initialize
    Modulus := 139968.
    Multiplier := 3877.! !
 
-!RandomNumber class methodsFor: ʼinitialize-releaseʼ!
+!RandomNumber class methodsFor: 'initialize-release'!
 
 to: anInteger
    ^self basicNew to: anInteger! !
 
 
-!RandomNumber methodsFor: ʼprivateʼ!
+!RandomNumber methodsFor: 'private'!
 
 to: anInteger
    seed := 42.
    scale := anInteger! !
 
-!RandomNumber methodsFor: ʼaccessingʼ!
+!RandomNumber methodsFor: 'accessing'!
 
 next
    seed := (seed * Multiplier + Increment) \\ Modulus.
    ^(seed * scale) / FModulus! !
 
 
-!RepeatStream class methodsFor: ʼinstance creationʼ!
+!RepeatStream class methodsFor: 'instance creation'!
 
 to: anInteger on: aCollection
    ^(super on: aCollection) to: anInteger! !
 
 
-!RepeatStream methodsFor: ʼaccessingʼ!
+!RepeatStream methodsFor: 'accessing'!
 
 next
    position >= readLimit ifTrue: [ self position: 0 ].
    repeatPtr := repeatPtr + 1.
    ^collection at: (position := position + 1)! !
 
-!RepeatStream methodsFor: ʼtestingʼ!
+!RepeatStream methodsFor: 'testing'!
 
 atEnd
    ^repeatPtr >= repeatLimit! !
 
-!RepeatStream methodsFor: ʼinitialize-releaseʼ!
+!RepeatStream methodsFor: 'initialize-release'!
 
 to: anInteger
    repeatPtr := 0.
    repeatLimit := anInteger! !
 
 
-!RandomStream methodsFor: ʼaccessingʼ!
+!RandomStream methodsFor: 'accessing'!
 
 random: aRandomNumber
 "* Share the random number generator so we can get the expected results. *"
@@ -172,7 +172,7 @@ next
    1 to: percentages size do: [:i|
       (r < (percentages at: i)) ifTrue: [^collection at: i]]! !
 
-!RandomStream methodsFor: ʼinitialize-releaseʼ!
+!RandomStream methodsFor: 'initialize-release'!
 
 on: aCollection
    | size cp |
@@ -188,7 +188,7 @@ on: aCollection
    ]! !
 
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

@@ -85,20 +85,20 @@ trat where
 -- build a tree
 make :: Int -> Tree
 make d =
-  if d < 10 then makeʼ d else makePar2 d
+  if d < 10 then make' d else makePar2 d
 
-makeʼ :: Int -> Tree
-makeʼ 0 = Node Nil Nil
-makeʼ d = Node (makeʼ (d - 1)) (makeʼ (d - 1))
+make' :: Int -> Tree
+make' 0 = Node Nil Nil
+make' d = Node (make' (d - 1)) (make' (d - 1))
 
 -- build a tree in parallel (4-threaded version)
 makePar4 :: Int -> Tree
 makePar4 d = Node (Node ll lr) (Node rl rr) `using` strat where
-  !dʼ = d - 2
-  ll = makeʼ dʼ
-  lr = makeʼ dʼ
-  rl = makeʼ dʼ
-  rr = makeʼ dʼ
+  !d' = d - 2
+  ll = make' d'
+  lr = make' d'
+  rl = make' d'
+  rr = make' d'
   strat v = do
     rpar ll
     rpar lr
@@ -109,9 +109,9 @@ makePar4 d = Node (Node ll lr) (Node rl rr) `using` strat where
 -- build a tree in parallel (2-threaded version)
 makePar2 :: Int -> Tree
 makePar2 d = Node l r  `using` strat where
-  !dʼ = d - 1
-  l = makeʼ dʼ
-  r = makeʼ dʼ
+  !d' = d - 1
+  l = make' d'
+  r = make' d'
   strat v = do
     rpar l
     rseq r

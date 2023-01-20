@@ -20,7 +20,7 @@ namespace {
     using std::vector;
 
     constexpr size_t basepairs_in_line = 60;
-    constexpr size_t line_len = basepairs_in_line + sizeof(ʼ\nʼ);
+    constexpr size_t line_len = basepairs_in_line + sizeof('\n');
 
     // custom vector impl. that has *similar* methods to a
     // `vector<char>`. The reason this is necessary is because the stdlib
@@ -78,7 +78,7 @@ namespace {
             } else {
                 // The POSIX definition of `realloc` states that a failed
                 // reallocation leaves the supplied pointer untouched, so
-                // throw here and let the classʼs destructor free the
+                // throw here and let the class's destructor free the
                 // untouched ptr (if necessary).
                 throw bad_alloc{};
             }
@@ -99,28 +99,28 @@ namespace {
         static const char complement_lut[] = {
             // [0-32): non-printables: just ensure that newline gets
             // identity-complemented.
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\nʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
+            '\0', '\0', '\n', '\0',  '\0', '\0', '\0', '\0',
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
 
             // [32-64): not useful here
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,  ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
+            '\0', '\0', '\0', '\0',  '\0', '\0', '\0', '\0',
 
             // [64-96): uppercase chars
-            ʼ\0ʼ, ʼTʼ, ʼVʼ, ʼGʼ,     ʼHʼ, ʼ\0ʼ, ʼ\0ʼ, ʼCʼ,
-            ʼDʼ, ʼ\0ʼ, ʼ\0ʼ, ʼMʼ,    ʼ\0ʼ, ʼKʼ, ʼNʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼYʼ, ʼSʼ,    ʼAʼ, ʼAʼ, ʼBʼ, ʼWʼ,
-            ʼ\0ʼ, ʼRʼ, ʼ\0ʼ, ʼ\0ʼ,   ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
+            '\0', 'T', 'V', 'G',     'H', '\0', '\0', 'C',
+            'D', '\0', '\0', 'M',    '\0', 'K', 'N', '\0',
+            '\0', '\0', 'Y', 'S',    'A', 'A', 'B', 'W',
+            '\0', 'R', '\0', '\0',   '\0', '\0', '\0', '\0',
 
             // [96-128]: lowercase chars
-            ʼ\0ʼ, ʼTʼ, ʼVʼ, ʼGʼ,     ʼHʼ, ʼ\0ʼ, ʼ\0ʼ, ʼCʼ,
-            ʼDʼ, ʼ\0ʼ, ʼ\0ʼ, ʼMʼ,   ʼ\0ʼ, ʼKʼ, ʼNʼ, ʼ\0ʼ,
-            ʼ\0ʼ, ʼ\0ʼ, ʼYʼ, ʼSʼ,    ʼAʼ, ʼAʼ, ʼBʼ, ʼWʼ,
-            ʼ\0ʼ, ʼRʼ, ʼ\0ʼ, ʼ\0ʼ,   ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ
+            '\0', 'T', 'V', 'G',     'H', '\0', '\0', 'C',
+            'D', '\0', '\0', 'M',   '\0', 'K', 'N', '\0',
+            '\0', '\0', 'Y', 'S',    'A', 'A', 'B', 'W',
+            '\0', 'R', '\0', '\0',   '\0', '\0', '\0', '\0'
         };
 
         return complement_lut[character];
@@ -154,18 +154,18 @@ namespace {
         // Lookup for all elements <16
         __m128i lt16_mask = _mm_cmplt_epi8(v, packed(16));
         __m128i lt16_els = _mm_and_si128(v, lt16_mask);
-        __m128i lt16_lut = _mm_set_epi8(ʼ\0ʼ, ʼNʼ, ʼKʼ, ʼ\0ʼ,
-                                        ʼMʼ, ʼ\nʼ, ʼ\0ʼ, ʼDʼ,
-                                        ʼCʼ, ʼ\0ʼ, ʼ\0ʼ, ʼHʼ,
-                                        ʼGʼ, ʼVʼ, ʼTʼ, ʼ\0ʼ);
+        __m128i lt16_lut = _mm_set_epi8('\0', 'N', 'K', '\0',
+                                        'M', '\n', '\0', 'D',
+                                        'C', '\0', '\0', 'H',
+                                        'G', 'V', 'T', '\0');
         __m128i lt16_vals = _mm_shuffle_epi8(lt16_lut, lt16_els);
 
         // Lookup for all elements >16
         __m128i g16_els = _mm_sub_epi8(v, packed(16));
-        __m128i g16_lut = _mm_set_epi8(ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ,
-                                       ʼ\0ʼ, ʼ\0ʼ, ʼRʼ, ʼ\0ʼ,
-                                       ʼWʼ, ʼBʼ, ʼAʼ, ʼAʼ,
-                                       ʼSʼ, ʼYʼ, ʼ\0ʼ, ʼ\0ʼ);
+        __m128i g16_lut = _mm_set_epi8('\0', '\0', '\0', '\0',
+                                       '\0', '\0', 'R', '\0',
+                                       'W', 'B', 'A', 'A',
+                                       'S', 'Y', '\0', '\0');
         __m128i g16_vals = _mm_shuffle_epi8(g16_lut, g16_els);
 
         // OR both lookup results
@@ -192,7 +192,7 @@ si128((__m128i*)end)));
             start += 16;
         }
 #else
-        // even when not using platform-dependent SIMD, itʼs still
+        // even when not using platform-dependent SIMD, it's still
         // advantageous to unroll the loop. This gives a ~10 % speedup on
         // my laptop (intel i7-8550U)
         while (num_bps >= 16) {
@@ -231,7 +231,7 @@ si128((__m128i*)end)));
     //
     // - If newlines are not stripped from the input, then they need to be
     //   handled by this step. The easiest way to handle the newlines (<10
-    //   LOC) is to have an `if (next_char == ʼ\nʼ) skip;` check on each
+    //   LOC) is to have an `if (next_char == '\n') skip;` check on each
     //   iteration (front and back). However, this introduces two compare
     //   + (sometimes) jump operations per basepair, plus the main loop
     //   invariant. It also prevents doing multi-basepair swaps (SIMD,
@@ -280,7 +280,7 @@ si128((__m128i*)end)));
         // (it is a "trailing" line). This means that newlines in the
         // input appear at non-symmetrical offsets relative to `begin` and
         // `end`. Because of this, the algorithm has to carefully step
-        // over the newlines so that they arenʼt reversed into an
+        // over the newlines so that they aren't reversed into an
         // incorrect location in the output.
         size_t trailer_bps = trailer_len > 0 ? trailer_len - 1 : 0;
 
@@ -292,7 +292,7 @@ si128((__m128i*)end)));
 
         // there are at least two whole lines (+ trailer) per iteration of
         // this loop. This means that we can revcomp the trailer, skip the
-        // trailer (+ newline, on the trailerʼs side), then revcomp the
+        // trailer (+ newline, on the trailer's side), then revcomp the
         // remainder, skip the remainder (+newline, on the starting side)
         // to maintain the loop invariant.
         for (size_t i = 0; i < num_steps; ++i) {
@@ -347,7 +347,7 @@ si128((__m128i*)end)));
             } else if (in.eof()) {
                 // hit EOF, rather than delmiter, but an EOF can be
                 // treated almost identially to a delmiter, except that we
-                // donʼt remove the delimiter from the read buffer.
+                // don't remove the delimiter from the read buffer.
                 break;
             } else {
                 // succeeded in reading *up to and including* the sequence
@@ -363,13 +363,13 @@ si128((__m128i*)end)));
     void read_sequence(istream& in, Sequence& out) {
         out.header.resize(0);
         std::getline(in, out.header);
-        read_up_to(in, out.seq, ʼ>ʼ);
+        read_up_to(in, out.seq, '>');
     }
 
     void write_sequence(ostream& out, Sequence& s) {
-        out << ʼ>ʼ;
+        out << '>';
         out << s.header;
-        out << ʼ\nʼ;
+        out << '\n';
         out.write(s.seq.data(), s.seq.size());
     }
 }
@@ -378,10 +378,10 @@ namespace revcomp {
     // Reverse-complement an istream of FASTA data (in) and write the
     // output into `out`.
     void reverse_complement_fasta_stream(istream& in, ostream& out) {
-        // the read function assumes that ʼ>ʼ has already been read
+        // the read function assumes that '>' has already been read
         // (because istream::getline will read it per loop iteration:
-        // prevents needing to ʼpeekʼ a bunch).
-        if (in.get() != ʼ>ʼ) {
+        // prevents needing to 'peek' a bunch).
+        if (in.get() != '>') {
             throw runtime_error{"unexpected input: next char should be the start
  of a seqence header"};
         }

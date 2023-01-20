@@ -32,7 +32,7 @@ program mandelbrot
   inv_h = 2.0_dp / h
 
   ! pbm header
-  write(*,ʼ("P4",/,i0," ",i0)ʼ) w, h
+  write(*,'("P4",/,i0," ",i0)') w, h
 
   !$OMP PARALLEL DO PRIVATE(y, x, bit_num, pos, byte, Zr, Cr, Ci, inside, i)
   do y = 0, h - 1
@@ -57,7 +57,7 @@ program mandelbrot
            end if
         end do
 
-        ! Weʼre in the set, set this bit to 0
+        ! We're in the set, set this bit to 0
         if (inside) byte = ibset(byte, bit_num)
 
         if (bit_num == 0 .or. x == w - 1) then
@@ -73,7 +73,7 @@ program mandelbrot
 
   ! print output
   do y = 1, h
-     write(*, ʼ(10000000a1)ʼ, advance=ʼnoʼ) buf(:,y)
+     write(*, '(10000000a1)', advance='no') buf(:,y)
   end do
   deallocate(buf)
 end program mandelbrot

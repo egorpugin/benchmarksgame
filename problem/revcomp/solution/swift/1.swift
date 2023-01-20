@@ -53,14 +53,14 @@ final class BlockReader {
         var description = [Int8]()
         var seq = [Int8]()
 
-        // Read a block if we donʼt have one
+        // Read a block if we don't have one
         if bytesRead == 0 {
             readBlock()
         }
 
         // Read description
         if block[readPos] == descMarker {
-            // search for ʼ\nʼ
+            // search for '\n'
             var descStart = readPos
             while block[readPos] != 10 {
                 readPos += 1
@@ -157,7 +157,7 @@ utf16.map{Int8($0)}
 func reverseComplement(seq: inout [Int8]) {
     var front = 0
     var back = seq.count - 1
-    // Ignore ʼ\nʼ at front and back
+    // Ignore '\n' at front and back
     while seq[front] == 10 && front <= back {
         front += 1
     }

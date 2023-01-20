@@ -84,8 +84,8 @@ do {
 } while ($minDepth <= $maxDepth);
 
 $size = 128;
-extension_loaded(ʼshmopʼ) or dl(ʼshmop.soʼ);
-$shmId = shmop_open(ftok(__FILE__, ʼbʼ), ʼcʼ, 0644, $size * (count($depthIterati
+extension_loaded('shmop') or dl('shmop.so');
+$shmId = shmop_open(ftok(__FILE__, 'b'), 'c', 0644, $size * (count($depthIterati
 ons) + 1));
 $workersPIDs = [];
 $n = 0;

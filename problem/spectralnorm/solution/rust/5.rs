@@ -81,7 +81,7 @@ fn mult<F>(v: &[F64x2], out: &mut [F64x2], a: F)
     // Parallelize along the output vector, with each pair of slots as a paralle
 lism unit.
     out.par_iter_mut().enumerate().for_each(|(i, slot)| {
-        // Weʼre computing everything in chunks of two so the indces of slot[0]
+        // We're computing everything in chunks of two so the indces of slot[0]
 and slot[1] are 2*i
         // and 2*i + 1.
         let i = 2 * i;

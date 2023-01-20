@@ -22,7 +22,7 @@
                (setq zq (* aq bq)
                      zr (+ (* aq br) (* ar bt))
                      zt (* at bt))))
-      #ʼ(lambda ()
+      #'(lambda ()
           (let ((y (extract 3)))
             (declare (type (integer 0 9) y))
             (loop while (not (= y (extract 4)))

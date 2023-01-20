@@ -23,15 +23,15 @@ newSize len sz
 
 {-# INLINE putBuf #-}
 putBuf pS lS (Buf lD szD pD) run
-  | lDʼ > szD  = do
-    let szDʼ = newSize lDʼ szD
-    pDʼ <- reallocBytes pD szDʼ
-    copyArray (pDʼ +* lD) pS lS
-    run (Buf lDʼ szDʼ pDʼ)
+  | lD' > szD  = do
+    let szD' = newSize lD' szD
+    pD' <- reallocBytes pD szD'
+    copyArray (pD' +* lD) pS lS
+    run (Buf lD' szD' pD')
   | otherwise  = do
     copyArray (pD +* lD) pS lS
-    run (Buf lDʼ szD pD)
-  where lDʼ = lD + lS
+    run (Buf lD' szD pD)
+  where lD' = lD + lS
 
 findChar p n c zero one = do
     q <- memchr p c (fromIntegral (n :: Int))
@@ -43,7 +43,7 @@ main = allocaArray 82 $ \ line ->
   let go !buf = do
         !m <- hGetBuf stdin line 82
         if m == 0 then revcomp buf else do
-          findChar line m (c2w ʼ>ʼ)
+          findChar line m (c2w '>')
             (putBuf line m buf go)
             (\ end -> do
               putBuf line end buf revcomp
@@ -66,18 +66,18 @@ ca = unsafeDupablePerformIO $ do
        return a
 
 revcomp (Buf lBuf _ pBuf) = when (lBuf > 0) $ ca `seq`
-  findChar pBuf lBuf (c2w ʼ\nʼ) undefined $ \ begin -> let
-    beginʼ = begin + 1
+  findChar pBuf lBuf (c2w '\n') undefined $ \ begin -> let
+    begin' = begin + 1
     rc :: Ptr Word8 -> Ptr Word8 -> IO ()
     rc !i !j | i < j = do
       x <- peek i
-      if x == c2w ʼ\nʼ then let !iʼ = i +* 1 in rc1 j iʼ =<< peek iʼ
+      if x == c2w '\n' then let !i' = i +* 1 in rc1 j i' =<< peek i'
         else rc1 j i x
     rc i j = when (i == j) (poke i =<< comp =<< peek i)
 
     rc1 !j !i !xi = do
       y <- peek j
-      if y == c2w ʼ\nʼ then let !jʼ = j +* (-1) in rc2 i xi jʼ =<< peek jʼ
+      if y == c2w '\n' then let !j' = j +* (-1) in rc2 i xi j' =<< peek j'
         else rc2 i xi j y
 
     comp = peekElemOff ca . fromIntegral
@@ -87,7 +87,7 @@ revcomp (Buf lBuf _ pBuf) = when (lBuf > 0) $ ca `seq`
       poke i =<< comp xj
       rc (i +* 1) (j +* (-1))
     in do
-      hPutBuf stdout pBuf beginʼ
-      rc (pBuf +* beginʼ) (pBuf +* (lBuf - 1))
-      hPutBuf stdout (pBuf +* beginʼ) (lBuf - begin - 1)
+      hPutBuf stdout pBuf begin'
+      rc (pBuf +* begin') (pBuf +* (lBuf - 1))
+      hPutBuf stdout (pBuf +* begin') (lBuf - begin - 1)
 

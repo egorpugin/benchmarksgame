@@ -79,11 +79,11 @@ real(dp), parameter :: threshold = 4.0_dp
     !$omp end parallel do
 
 
-    !open(unit=100,file=ʼoutʼ,status=ʼreplaceʼ, form=ʼunformattedʼ,access=ʼstrea
-mʼ)
+    !open(unit=100,file='out',status='replace', form='unformatted',access='strea
+m')
     !! pbm header
     !write(100) "P4"//char(10)
-    !write(sbuffer, ʼ(I0,A,I0,A)ʼ) w,ʼ ʼ,w,char(10)
+    !write(sbuffer, '(I0,A,I0,A)') w,' ',w,char(10)
     !write(100) trim(sbuffer)
     !
     !do i = 1, w
@@ -92,10 +92,10 @@ mʼ)
     !close(100)
 
     ! pbm header
-    write(*,ʼ("P4",/,i0," ",i0)ʼ) w, w
+    write(*,'("P4",/,i0," ",i0)') w, w
     ! print output
     do i = 1, w
-        write(*, ʼ(10000000a1)ʼ, advance=ʼnoʼ) buf(1:ceiling(w/8.0),i)
+        write(*, '(10000000a1)', advance='no') buf(1:ceiling(w/8.0),i)
     end do
 
 end program mandelbrot

@@ -73,13 +73,13 @@ NE_WIDTH;
         intnative_t offset = 0;
 
         char line[MAXIMUM_LINE_WIDTH + 1];
-        line[MAXIMUM_LINE_WIDTH] = ʼ\nʼ;
+        line[MAXIMUM_LINE_WIDTH] = '\n';
 
         for (intnative_t current_Number_Of_Characters_To_Create =
                 number_Of_Characters_To_Create;
                 current_Number_Of_Characters_To_Create>0;)
         {
-                // Figure out the length of the line we need to write. If itʼs l
+                // Figure out the length of the line we need to write. If it's l
 ess than
                 // MAXIMUM_LINE_WIDTH then we also need to add a line feed in th
 e right
@@ -88,7 +88,7 @@ e right
                 if (current_Number_Of_Characters_To_Create<MAXIMUM_LINE_WIDTH)
                 {
                         line_Length = current_Number_Of_Characters_To_Create;
-                        line[line_Length] = ʼ\nʼ;
+                        line[line_Length] = '\n';
                 }
 
                 memcpy(line, extended_String_To_Repeat + offset, line_Length);
@@ -296,15 +296,15 @@ _tid);
                                 if (++col >= MAXIMUM_LINE_WIDTH)
                                 {
                                         col = 0;
-                                        *line++ = ʼ\nʼ;
+                                        *line++ = '\n';
                                 }
                         }
                         //Check if we need to end the line
                         if (0 != col)
                         {
-                                //Last iteration didnʼt end the line, so finish
+                                //Last iteration didn't end the line, so finish
 the job.
-                                *line++ = ʼ\nʼ;
+                                *line++ = '\n';
                         }
                         //Print results
                         do
@@ -343,11 +343,11 @@ CTCAAAAA";
         fputs(">TWO IUB ambiguity codes\n", stdout);
         nucleotide_info iub_Nucleotides_Information[] =
         {
-                { ʼaʼ, 0.27 },{ ʼcʼ, 0.12 },{ ʼgʼ, 0.12 },{ ʼtʼ, 0.27 },{ ʼBʼ, 0
+                { 'a', 0.27 },{ 'c', 0.12 },{ 'g', 0.12 },{ 't', 0.27 },{ 'B', 0
 .02 },
-                { ʼDʼ, 0.02 },{ ʼHʼ, 0.02 },{ ʼKʼ, 0.02 },{ ʼMʼ, 0.02 },{ ʼNʼ, 0
+                { 'D', 0.02 },{ 'H', 0.02 },{ 'K', 0.02 },{ 'M', 0.02 },{ 'N', 0
 .02 },
-                { ʼRʼ, 0.02 },{ ʼSʼ, 0.02 },{ ʼVʼ, 0.02 },{ ʼWʼ, 0.02 },{ ʼYʼ, 0
+                { 'R', 0.02 },{ 'S', 0.02 },{ 'V', 0.02 },{ 'W', 0.02 },{ 'Y', 0
 .02 }
         };
         generate_And_Wrap_Pseudorandom_DNA_Sequence(iub_Nucleotides_Information,
@@ -357,8 +357,8 @@ CTCAAAAA";
         fputs(">THREE Homo sapiens frequency\n", stdout);
         nucleotide_info homo_Sapien_Nucleotides_Information[] =
         {
-                { ʼaʼ, 0.3029549426680 },{ ʼcʼ, 0.1979883004921 },
-                { ʼgʼ, 0.1975473066391 },{ ʼtʼ, 0.3015094502008 }
+                { 'a', 0.3029549426680 },{ 'c', 0.1979883004921 },
+                { 'g', 0.1975473066391 },{ 't', 0.3015094502008 }
         };
         generate_And_Wrap_Pseudorandom_DNA_Sequence(homo_Sapien_Nucleotides_Info
 rmation,

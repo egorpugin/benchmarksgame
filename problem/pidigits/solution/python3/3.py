@@ -1,7 +1,7 @@
 # The Computer Language Benchmarks Game
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 #
-# Translated from Mr Ledrugʼs C program by Jeremy Zerfas.
+# Translated from Mr Ledrug's C program by Jeremy Zerfas.
 #
 # WARNING: I normally do my programming in other languages. This may not be an
 # optimal Python program. Please contribute a better program if you can make a
@@ -12,11 +12,11 @@ from ctypes.util import find_library
 from sys import argv
 
 
-# Weʼll be using GMP for our arbitrary-precision math needs instead of using
-# Pythonʼs built in arbitrary-precision math because it is significantly faster.
+# We'll be using GMP for our arbitrary-precision math needs instead of using
+# Python's built in arbitrary-precision math because it is significantly faster.
 GMP=CDLL(find_library("gmp"))
 
-# By default, Python assumes that C functions will return intʼs but that is not
+# By default, Python assumes that C functions will return int's but that is not
 # quite correct for the __gmpz_get_ui() function which returns an unsigned long
 # instead so we tell it the correct type here.
 GMP.__gmpz_get_ui.restype=c_ulong
@@ -35,7 +35,7 @@ num=mpz_t()
 
 
 def extract_Digit(nth):
-    # Joggling between tmp1 and tmp2, so GMP wonʼt have to use temp buffers.
+    # Joggling between tmp1 and tmp2, so GMP won't have to use temp buffers.
     GMP.__gmpz_mul_ui(byref(tmp1), byref(num), c_ulong(nth))
     GMP.__gmpz_add(byref(tmp2), byref(tmp1), byref(acc))
     GMP.__gmpz_tdiv_q(byref(tmp1), byref(tmp2), byref(den))

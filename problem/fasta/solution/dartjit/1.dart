@@ -5,8 +5,8 @@
    + null safety
 */
 
-import ʼdart:ioʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:typed_data';
 
 const String ALU = "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
     "GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA"
@@ -17,21 +17,21 @@ const String ALU = "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
     "AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA";
 
 final Frequency IUB = new Frequency([
-  ʼaʼ,
-  ʼcʼ,
-  ʼgʼ,
-  ʼtʼ,
-  ʼBʼ,
-  ʼDʼ,
-  ʼHʼ,
-  ʼKʼ,
-  ʼMʼ,
-  ʼNʼ,
-  ʼRʼ,
-  ʼSʼ,
-  ʼVʼ,
-  ʼWʼ,
-  ʼYʼ
+  'a',
+  'c',
+  'g',
+  't',
+  'B',
+  'D',
+  'H',
+  'K',
+  'M',
+  'N',
+  'R',
+  'S',
+  'V',
+  'W',
+  'Y'
 ], [
   0.27,
   0.12,
@@ -50,7 +50,7 @@ final Frequency IUB = new Frequency([
   0.02,
 ]);
 
-final Frequency HOMO_SAPIENS = new Frequency([ʼaʼ, ʼcʼ, ʼgʼ, ʼtʼ],
+final Frequency HOMO_SAPIENS = new Frequency(['a', 'c', 'g', 't'],
     [0.3029549426680, 0.1979883004921, 0.1975473066391, 0.3015094502008]);
 
 const int IM = 139968;

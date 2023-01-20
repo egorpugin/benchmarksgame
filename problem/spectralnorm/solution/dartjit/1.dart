@@ -5,8 +5,8 @@
 // based on the JavaScript version by Ian Osgood with modifications by Isaac Gou
 y
 
-import ʼdart:mathʼ as math;
-import ʼdart:typed_dataʼ;
+import 'dart:math' as math;
+import 'dart:typed_data';
 
 double A(int i, int j) {
   int div = ((i + j) * (i + j + 1) >> 1) + i + 1;

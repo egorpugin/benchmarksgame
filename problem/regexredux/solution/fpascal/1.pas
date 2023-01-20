@@ -5,7 +5,7 @@ Program regexredux;
   https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
   contributed by Vitaly Trifonov
-  adapted for ʼreduxʼ by Peter Blackman
+  adapted for 'redux' by Peter Blackman
 *)
 
 {$mode objfpc}
@@ -15,7 +15,7 @@ uses sysutils;
 (******************************    pcre wrap   *****************************)
 
 const
-  libpcre = ʼpcreʼ;
+  libpcre = 'pcre';
   PCRE_STUDY_JIT_COMPILE = $00001;
 
 
@@ -46,27 +46,27 @@ function pcre_study( const external_re: pcre;
 
 const
     patt: array[1..5] of pChar = (
-        ʼtHa[Nt]ʼ,
-        ʼaND|caN|Ha[DS]|WaSʼ,
-        ʼa[NSt]|BYʼ,
-        ʼ<[^>]*>ʼ,
-        ʼ\|[^|][^|]*\|ʼ);
+        'tHa[Nt]',
+        'aND|caN|Ha[DS]|WaS',
+        'a[NSt]|BY',
+        '<[^>]*>',
+        '\|[^|][^|]*\|');
 
-    repl: array[1..5] of pChar = (ʼ<4>ʼ, ʼ<3>ʼ, ʼ<2>ʼ, ʼ|ʼ, ʼ-ʼ);
+    repl: array[1..5] of pChar = ('<4>', '<3>', '<2>', '|', '-');
 
 
 var
   patterns: array[1..9] of PChar =
     (
-      ʼagggtaaa|tttaccctʼ,
-      ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-      ʼa[act]ggtaaa|tttacc[agt]tʼ,
-      ʼag[act]gtaaa|tttac[agt]ctʼ,
-      ʼagg[act]taaa|ttta[agt]cctʼ,
-      ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-      ʼagggt[cgt]aa|tt[acg]accctʼ,
-      ʼagggta[cgt]a|t[acg]taccctʼ,
-      ʼagggtaa[cgt]|[acg]ttaccctʼ
+      'agggtaaa|tttaccct',
+      '[cgt]gggtaaa|tttaccc[acg]',
+      'a[act]ggtaaa|tttacc[agt]t',
+      'ag[act]gtaaa|tttac[agt]ct',
+      'agg[act]taaa|ttta[agt]cct',
+      'aggg[acg]aaa|ttt[cgt]ccct',
+      'agggt[cgt]aa|tt[acg]accct',
+      'agggta[cgt]a|t[acg]taccct',
+      'agggtaa[cgt]|[acg]ttaccct'
     );
 
 
@@ -95,13 +95,13 @@ var
   split: PChar;
   vcount: Longint;
 begin
-  split := strscan(pattern, ʼ|ʼ);
+  split := strscan(pattern, '|');
   Byte(split^) := 0;
 
   vcount := count(pattern, seq, len);
   vcount += count(@split[1], seq, len);
 
-  split^ := ʼ|ʼ;
+  split^ := '|';
   split_count := vcount
 end;
 
@@ -188,12 +188,12 @@ begin
 
 
 (* Remove FASTA sequence descriptions and all linefeed characters.  *)
-  seqLen := subst(ʼ>.*|\nʼ, ʼʼ, seq, readLen);
+  seqLen := subst('>.*|\n', '', seq, readLen);
 
 
 (* Count all matches of patterns[i] in  seq buffer. *)
   for i := 1 to length (patterns) do
-    writeln(patterns[i], ʼ ʼ, split_count(patterns[i], seq, seqLen));
+    writeln(patterns[i], ' ', split_count(patterns[i], seq, seqLen));
 
   writeln;
   writeln(readLen);

@@ -5,13 +5,13 @@
 
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 mandelbrot: extent to: output
    | limit2 m bits zr zi cr ci i tr stepr stepi |
@@ -49,13 +49,13 @@ mandelbrot: extent to: output
       ]
    ]! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | out |
    Stdio stdout
-      nextPutAll: ʼP4ʼ; lf;
-      print: n; nextPutAll: ʼ ʼ; print: n; lf;
+      nextPutAll: 'P4'; lf;
+      print: n; nextPutAll: ' '; print: n; lf;
       binary.
 
    out := (ZnBufferedWriteStream on: Stdio stdout).

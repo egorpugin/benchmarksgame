@@ -150,7 +150,7 @@ fn main() {
 
 /// Pop a mutable reference off the head of a slice, mutating the slice to no
 /// longer contain the mutable reference.
-fn shift_mut_ref<ʼa, T>(r: &mut &ʼa mut [T]) -> Option<&ʼa mut T> {
+fn shift_mut_ref<'a, T>(r: &mut &'a mut [T]) -> Option<&'a mut T> {
     if r.len() == 0 { return None }
     let tmp = std::mem::replace(r, &mut []);
     let (h, t) = tmp.split_at_mut(1);

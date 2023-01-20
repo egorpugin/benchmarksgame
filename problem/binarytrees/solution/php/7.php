@@ -10,7 +10,7 @@
 
 function createTree($depth)
 {
-    echo ʼʼ;
+    echo '';
     if (!$depth) {
         return [null, null];
     }
@@ -29,7 +29,7 @@ function checkTree($treeNode)
         + ($treeNode[1][0] === null ? 1 : checkTree($treeNode[1]));
 }
 
-// We promise there wonʼt be any cycles so we donʼt need this
+// We promise there won't be any cycles so we don't need this
 gc_disable();
 
 $minDepth = 4;
@@ -73,7 +73,7 @@ do {
 } while ($minDepth <= $maxDepth);
 
 $size = 128;
-$shmId = shmop_open(ftok(__FILE__, ʼbʼ), ʼcʼ, 0644, $size * (count($depthIterati
+$shmId = shmop_open(ftok(__FILE__, 'b'), 'c', 0644, $size * (count($depthIterati
 ons) + 1));
 $PIDs = [];
 $n = 0;

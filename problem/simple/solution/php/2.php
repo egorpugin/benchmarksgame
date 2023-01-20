@@ -2,7 +2,7 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Thomas GODART (based on Greg Buchholzʼs C program)
+   contributed by Thomas GODART (based on Greg Buchholz's C program)
 */
 
 $w = 0; $h = 0; $bit_num = 0;

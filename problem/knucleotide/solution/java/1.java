@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
 
 public class knucleotide {
     static final byte[] codes = { -1, 0, -1, 1, 3, -1, -1, 2 };
-    static final char[] nucleotides = { ʼAʼ, ʼCʼ, ʼGʼ, ʼTʼ };
+    static final char[] nucleotides = { 'A', 'C', 'G', 'T' };
 
     static class Result {
         Long2IntOpenHashMap map = new Long2IntOpenHashMap();
@@ -80,7 +80,7 @@ ring(key,
             sb.append(String.format(Locale.ENGLISH, "%s %.3f\n", entry.getKey(),
                     entry.getValue() * 100.0f / totalCount));
         }
-        return sb.append(ʼ\nʼ).toString();
+        return sb.append('\n').toString();
     }
 
     static String writeCount(List<Future<Result>> futures, String nucleotideFrag
@@ -98,7 +98,7 @@ ment)
             }
         }
 
-        return count + "\t" + nucleotideFragment + ʼ\nʼ;
+        return count + "\t" + nucleotideFragment + '\n';
     }
 
     /**
@@ -148,7 +148,7 @@ ment)
 
         byte[] bytes = new byte[1048576];
         int position = 0;
-        while ((line = in.readLine()) != null && line.charAt(0) != ʼ>ʼ) {
+        while ((line = in.readLine()) != null && line.charAt(0) != '>') {
             if (line.length() + position > bytes.length) {
                 byte[] newBytes = new byte[bytes.length * 2];
                 System.arraycopy(bytes, 0, newBytes, 0, position);

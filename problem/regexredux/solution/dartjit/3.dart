@@ -6,10 +6,10 @@
 /// parallelism added by Dwayne Slater
 /// migrated by Alexander Fyodorov
 
-import ʼdart:asyncʼ;
-import ʼdart:convertʼ;
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
 
 // Set up an isolate for each CPU asynchronously to accept tasks
 
@@ -65,34 +65,34 @@ void regexAllTheThings(String fullText) {
   final List<Completer<String>> taskResult;
 
   regexp = [
-    ʼagggtaaa|tttaccctʼ,
-    ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-    ʼa[act]ggtaaa|tttacc[agt]tʼ,
-    ʼag[act]gtaaa|tttac[agt]ctʼ,
-    ʼagg[act]taaa|ttta[agt]cctʼ,
-    ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-    ʼagggt[cgt]aa|tt[acg]accctʼ,
-    ʼagggta[cgt]a|t[acg]taccctʼ,
-    ʼagggtaa[cgt]|[acg]ttaccctʼ,
+    'agggtaaa|tttaccct',
+    '[cgt]gggtaaa|tttaccc[acg]',
+    'a[act]ggtaaa|tttacc[agt]t',
+    'ag[act]gtaaa|tttac[agt]ct',
+    'agg[act]taaa|ttta[agt]cct',
+    'aggg[acg]aaa|ttt[cgt]ccct',
+    'agggt[cgt]aa|tt[acg]accct',
+    'agggta[cgt]a|t[acg]taccct',
+    'agggtaa[cgt]|[acg]ttaccct',
   ];
 
   replacements = [
-    ʼtHa[Nt]ʼ,
-    ʼ<4>ʼ,
-    ʼaND|caN|Ha[DS]|WaSʼ,
-    ʼ<3>ʼ,
-    ʼa[NSt]|BYʼ,
-    ʼ<2>ʼ,
-    ʼ<[^>]*>ʼ,
-    ʼ|ʼ,
-    ʼ\\|[^|][^|]*\\|ʼ,
-    ʼ-ʼ
+    'tHa[Nt]',
+    '<4>',
+    'aND|caN|Ha[DS]|WaS',
+    '<3>',
+    'a[NSt]|BY',
+    '<2>',
+    '<[^>]*>',
+    '|',
+    '\\|[^|][^|]*\\|',
+    '-'
   ];
 
   lengthA = fullText.length;
 
   // still ridiculously slow with r21658
-  fullText = fullText.replaceAll(RegExp(ʼ^>.*\n|\nʼ, multiLine: true), ʼʼ);
+  fullText = fullText.replaceAll(RegExp('^>.*\n|\n', multiLine: true), '');
 
   lengthB = fullText.length;
 
@@ -141,7 +141,7 @@ void regexAllTheThings(String fullText) {
   Future.forEach(
           taskResult, (Completer<String> result) => result.future.then(print))
       .then((_) {
-    print(ʼ\n$lengthA\n$lengthB\n$lengthCʼ);
+    print('\n$lengthA\n$lengthB\n$lengthC');
     // Clean up our receive ports so Dart can exit gracefully
     taskRecv.close();
     taskRecvPorts.forEach((port) => port.close());

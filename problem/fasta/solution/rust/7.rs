@@ -167,7 +167,7 @@ fn fasta_repeat(seq: &[u8], n: usize) -> io::Result<()> {
         for j in 0..LINE_LENGTH {
             buf[i * (LINE_LENGTH + 1) + j] = it.next().unwrap();
         }
-        buf[i * (LINE_LENGTH + 1) + LINE_LENGTH] = bʼ\nʼ;
+        buf[i * (LINE_LENGTH + 1) + LINE_LENGTH] = b'\n';
     }
 
     // write to stdout
@@ -180,7 +180,7 @@ fn fasta_repeat(seq: &[u8], n: usize) -> io::Result<()> {
 
     // trailing line feed
     if n % LINE_LENGTH != 0 {
-        buf[n2] = bʼ\nʼ;
+        buf[n2] = b'\n';
         n2 += 1;
     }
 
@@ -218,7 +218,7 @@ fn fasta_random(
                 out_buf[j + line_count] = wr.gen_from_u32(rn);
             }
 
-            out_buf[end + line_count] = bʼ\nʼ;
+            out_buf[end + line_count] = b'\n';
             line_count += 1;
         }
 
@@ -279,21 +279,21 @@ fn main() {
     // IUB ambiguity codes
     {
         let iub = WeightedRandom::from_slice(&[
-            (bʼaʼ, 0.27),
-            (bʼcʼ, 0.12),
-            (bʼgʼ, 0.12),
-            (bʼtʼ, 0.27),
-            (bʼBʼ, 0.02),
-            (bʼDʼ, 0.02),
-            (bʼHʼ, 0.02),
-            (bʼKʼ, 0.02),
-            (bʼMʼ, 0.02),
-            (bʼNʼ, 0.02),
-            (bʼRʼ, 0.02),
-            (bʼSʼ, 0.02),
-            (bʼVʼ, 0.02),
-            (bʼWʼ, 0.02),
-            (bʼYʼ, 0.02),
+            (b'a', 0.27),
+            (b'c', 0.12),
+            (b'g', 0.12),
+            (b't', 0.27),
+            (b'B', 0.02),
+            (b'D', 0.02),
+            (b'H', 0.02),
+            (b'K', 0.02),
+            (b'M', 0.02),
+            (b'N', 0.02),
+            (b'R', 0.02),
+            (b'S', 0.02),
+            (b'V', 0.02),
+            (b'W', 0.02),
+            (b'Y', 0.02),
         ]);
 
         println!(">TWO IUB ambiguity codes");
@@ -305,10 +305,10 @@ fn main() {
     // Homo sapience frequency
     {
         let homosapiens = WeightedRandom::from_slice(&[
-            (bʼaʼ, 0.3029549426680),
-            (bʼcʼ, 0.1979883004921),
-            (bʼgʼ, 0.1975473066391),
-            (bʼtʼ, 0.3015094502008),
+            (b'a', 0.3029549426680),
+            (b'c', 0.1979883004921),
+            (b'g', 0.1975473066391),
+            (b't', 0.3015094502008),
         ]);
 
         println!(">THREE Homo sapiens frequency");

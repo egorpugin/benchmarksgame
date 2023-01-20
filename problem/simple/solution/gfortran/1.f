@@ -24,8 +24,8 @@ program simple
   bit_num = 0
   byte_acc = K0
   ! Output pbm header
-  write(*,ʼ(a)ʼ) ʼP4ʼ
-  write(*,ʼ(i0,a,i0)ʼ) w,ʼ ʼ,h
+  write(*,'(a)') 'P4'
+  write(*,'(i0,a,i0)') w,' ',h
   do y=0,h-1
      do x=0,w-1
         C = cmplx(2.0d0*x/w-1.5d0,2.0d0*y/h-1.0d0, dp)
@@ -49,14 +49,14 @@ program simple
         bit_num = bit_num + 1
         if (bit_num == 8) then
            ! All bits set so output them
-           write(*,ʼ(a1)ʼ,advance=ʼnoʼ) char(byte_acc)
+           write(*,'(a1)',advance='no') char(byte_acc)
            byte_acc = K0
            bit_num = 0
 
         elseif (x == w-1) then
            ! End of a row so left-justify the bits we have and output them
            byte_acc = ishft(byte_acc,8-mod(w,8))
-           write(*,ʼ(a1)ʼ,advance=ʼnoʼ) char(byte_acc)
+           write(*,'(a1)',advance='no') char(byte_acc)
            byte_acc = K0
            bit_num = 0
 

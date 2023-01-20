@@ -12,7 +12,7 @@
 ;;      * Distribute work across multiple cores on SBCL
 ;;    Modified by Isaac Gouy 2019-10-21
 ;;      * eval-A like C gcc #4 program
-;;      * posix-argv like Jon Smithʼs fannkuch-redux Lisp SBCL #2 program
+;;      * posix-argv like Jon Smith's fannkuch-redux Lisp SBCL #2 program
 ;;      * deftype & type function suggested by tfb on SO
 
 (declaim (optimize (speed 3) (safety 0) (space 0)))
@@ -55,7 +55,7 @@
                        (sb-thread:make-thread
                         (lambda () (funcall function start end))))
           into threads
-          finally (mapcar #ʼsb-thread:join-thread threads))))
+          finally (mapcar #'sb-thread:join-thread threads))))
 
 #-sb-thread
 (defun execute-parallel (start end function )
@@ -73,9 +73,9 @@
   (let* ((args (cdr sb-ext:*posix-argv*))
          (n (parse-integer (car args))))
     (declare (type int31 n))
-    (let ((u (make-array n :element-type ʼdouble-float :initial-element 1.0d0))
-          (v (make-array n :element-type ʼdouble-float))
-          (tmp (make-array n :element-type ʼdouble-float)))
+    (let ((u (make-array n :element-type 'double-float :initial-element 1.0d0))
+          (v (make-array n :element-type 'double-float))
+          (tmp (make-array n :element-type 'double-float)))
       (declare (type (simple-array double-float) U V tmp))
       (dotimes (i 10)
         (eval-AtA-times-u u v tmp n 0 n)

@@ -6,7 +6,7 @@
 # contributed by Gabriele Renzi
 # modified by Pilho Kim
 
-require ʼgmpʼ
+require 'gmp'
 
 class PiDigitSpigot
     def initialize()

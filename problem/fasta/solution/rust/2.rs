@@ -112,7 +112,7 @@ fn make_fasta2<I: Iterator<Item=u8>>(header: &str, mut it: I, mut n: usize)
             line[i] = it.next().unwrap();
         }
         n -= nb;
-        line[nb] = ʼ\nʼ as u8;
+        line[nb] = '\n' as u8;
         try!(sysout.write_all(&line[..(nb+1)]));
     }
     Ok(())
@@ -138,7 +138,7 @@ fn do_fasta(thread_num: u16, rng: Arc<Mutex<MyRandom>>,
         let mut line_count = 0;
         for i in 0..count {
             if i % LINE_LENGTH == 0 && i > 0 {
-                out_buf[i+line_count] = bʼ\nʼ;
+                out_buf[i+line_count] = b'\n';
                 line_count += 1;
             }
             let rn = rng_buf[i];
@@ -149,7 +149,7 @@ fn do_fasta(thread_num: u16, rng: Arc<Mutex<MyRandom>>,
                 }
             }
         }
-        out_buf[count+line_count] = bʼ\nʼ;
+        out_buf[count+line_count] = b'\n';
 
         while let Err(_) = wr.lock()
                 .unwrap()
@@ -196,16 +196,16 @@ fn main() {
                        CCACTGCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCT\
                        CAAAAA";
 
-    let iub = &[(ʼaʼ, 0.27), (ʼcʼ, 0.12), (ʼgʼ, 0.12),
-                (ʼtʼ, 0.27), (ʼBʼ, 0.02), (ʼDʼ, 0.02),
-                (ʼHʼ, 0.02), (ʼKʼ, 0.02), (ʼMʼ, 0.02),
-                (ʼNʼ, 0.02), (ʼRʼ, 0.02), (ʼSʼ, 0.02),
-                (ʼVʼ, 0.02), (ʼWʼ, 0.02), (ʼYʼ, 0.02)];
+    let iub = &[('a', 0.27), ('c', 0.12), ('g', 0.12),
+                ('t', 0.27), ('B', 0.02), ('D', 0.02),
+                ('H', 0.02), ('K', 0.02), ('M', 0.02),
+                ('N', 0.02), ('R', 0.02), ('S', 0.02),
+                ('V', 0.02), ('W', 0.02), ('Y', 0.02)];
 
-    let homosapiens = &[(ʼaʼ, 0.3029549426680),
-                        (ʼcʼ, 0.1979883004921),
-                        (ʼgʼ, 0.1975473066391),
-                        (ʼtʼ, 0.3015094502008)];
+    let homosapiens = &[('a', 0.3029549426680),
+                        ('c', 0.1979883004921),
+                        ('g', 0.1975473066391),
+                        ('t', 0.3015094502008)];
 
     make_fasta2(">ONE Homo sapiens alu\n",
                     alu.iter().cycle().map(|c| *c), n * 2).unwrap();

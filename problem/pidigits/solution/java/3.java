@@ -1,7 +1,7 @@
 // The Computer Language Benchmarks Game
 // https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 //
-// Translated from Mr Ledrugʼs C program by Jeremy Zerfas.
+// Translated from Mr Ledrug's C program by Jeremy Zerfas.
 
 final class pidigits extends Java_GMP_Wrapper{
     // These variables are used to store pointers to the GMP numbers we will be
@@ -22,7 +22,7 @@ final class pidigits extends Java_GMP_Wrapper{
 
 
     static final long extract_Digit(final long nth){
-        // joggling between tmp1_Pointer and tmp2_Pointer, so GMP wonʼt have to
+        // joggling between tmp1_Pointer and tmp2_Pointer, so GMP won't have to
         // use temp buffers
         mpz_mul_ui(tmp1_Pointer, num_Pointer, nth);
         mpz_add(tmp2_Pointer, tmp1_Pointer, acc_Pointer);
@@ -58,7 +58,7 @@ final class pidigits extends Java_GMP_Wrapper{
         mpz_init_set_ui(den_Pointer, 1);
         mpz_init_set_ui(num_Pointer, 1);
 
-        // Itʼs considerably faster to use a StringBuilder to buffer all the
+        // It's considerably faster to use a StringBuilder to buffer all the
         // output and do one single print() call instead of many print(ln)()
         // calls. A BufferedWriter could be used alternatively and works about
         // equally well and is a little more flexible but it also increases the
@@ -92,14 +92,14 @@ class Java_GMP_Wrapper{
 
     // Note that the following *_ui() functions will be calling GMP functions of
     // the same name and they will be expecting C unsigned longs (which are at
-    // least 32 bits in size) but weʼll actually be passing them Java signed
+    // least 32 bits in size) but we'll actually be passing them Java signed
     // longs (which are 64 bits). All of these functions except for
     // mpz_addmul_ui() and mpz_submul_ui() have a _si vesion that uses signed
     // longs instead but I just decided to use the _ui versions for all of these
     // anyway to be consistent with the original C program this was translated
     // from and since I already had no choice for the mpz_addmul_ui() and
-    // mpz_submul_ui() functions. This shouldnʼt be an issue as long as the
-    // machine architecture and/or C implementation isnʼt weird which is the
+    // mpz_submul_ui() functions. This shouldn't be an issue as long as the
+    // machine architecture and/or C implementation isn't weird which is the
     // case for just about every present day computer capable of running Java.
     //
     // Also see the comment up above regarding the pointers.

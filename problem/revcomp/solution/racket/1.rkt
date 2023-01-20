@@ -9,7 +9,7 @@
 
 (define translation (make-vector 128))
 
-(for ([from-to ʼ([a t]
+(for ([from-to '([a t]
                  [c g]
                  [g c]
                  [t a]

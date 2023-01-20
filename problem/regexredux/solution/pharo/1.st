@@ -5,44 +5,44 @@
 
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 matchPatterns
-   ^#(   ʼagggtaaa|tttaccctʼ
-         ʼ[cgt]gggtaaa|tttaccc[acg]ʼ
-         ʼa[act]ggtaaa|tttacc[agt]tʼ
-         ʼag[act]gtaaa|tttac[agt]ctʼ
-         ʼagg[act]taaa|ttta[agt]cctʼ
-         ʼaggg[acg]aaa|ttt[cgt]ccctʼ
-         ʼagggt[cgt]aa|tt[acg]accctʼ
-         ʼagggta[cgt]a|t[acg]taccctʼ
-         ʼagggtaa[cgt]|[acg]ttaccctʼ
+   ^#(   'agggtaaa|tttaccct'
+         '[cgt]gggtaaa|tttaccc[acg]'
+         'a[act]ggtaaa|tttacc[agt]t'
+         'ag[act]gtaaa|tttac[agt]ct'
+         'agg[act]taaa|ttta[agt]cct'
+         'aggg[acg]aaa|ttt[cgt]ccct'
+         'agggt[cgt]aa|tt[acg]accct'
+         'agggta[cgt]a|t[acg]taccct'
+         'agggtaa[cgt]|[acg]ttaccct'
    )! !
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 substitutionPatterns
-   ^#(   #(ʼtHa[Nt]ʼ ʼ<4>ʼ)
-         #(ʼaND|caN|Ha[DS]|WaSʼ ʼ<3>ʼ)
-         #(ʼa[NSt]|BYʼ ʼ<2>ʼ)
-         #(ʼ<[^>]*>ʼ ʼ|ʼ)
-         #(ʼ\\|[^|][^|]*\\|ʼ ʼ-ʼ))! !
+   ^#(   #('tHa[Nt]' '<4>')
+         #('aND|caN|Ha[DS]|WaS' '<3>')
+         #('a[NSt]|BY' '<2>')
+         #('<[^>]*>' '|')
+         #('\\|[^|][^|]*\\|' '-'))! !
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 regexDNA: sequence to: output
    | s size1 size2 translation |
    size1 := sequence size.
 
    "* remove FASTA sequence descriptions and new-lines *"
-   s := sequence copyWithRegex: ʼ>[^\r]*\r|\rʼ matchesReplacedWith: ʼʼ.
+   s := sequence copyWithRegex: '>[^\r]*\r|\r' matchesReplacedWith: ''.
    size2 := s size.
 
    "* regex match *"
@@ -57,8 +57,8 @@ regexDNA: sequence to: output
    self substitutionPatterns do: [:each|
       translation at: each first put: each last].
 
-   s := s copyWithRegex: ʼ[ʼ,
-         (translation keys asArray fold: [:a :b| a, b]), ʼ]ʼ
+   s := s copyWithRegex: '[',
+         (translation keys asArray fold: [:a :b| a, b]), ']'
       matchesTranslatedUsing: [:l| translation at: l].
 
    output
@@ -68,13 +68,13 @@ regexDNA: sequence to: output
       print: s size; nl! !
 
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self regexDNA: Stdio stdin contents asString to: Stdio stdout! !
 
 
-!Stream methodsFor: ʼbenchmarks gameʼ!
+!Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

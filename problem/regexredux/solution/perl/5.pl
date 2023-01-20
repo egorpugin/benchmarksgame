@@ -7,8 +7,8 @@
 # then continues to do the "hard" search-replaces and when that ends
 # starts to look for the answers of the childs to the first matches.
 #
-# Itʼs all file-based, no pipes used here. That could be a small
-# optimization but it wonʼt make the program significantly faster.
+# It's all file-based, no pipes used here. That could be a small
+# optimization but it won't make the program significantly faster.
 
 
 use strict;
@@ -26,15 +26,15 @@ $length[1]=length($file_in);
 
 
 my @match_these = (
-    ʼagggtaaa|tttaccctʼ,
-    ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-    ʼa[act]ggtaaa|tttacc[agt]tʼ,
-    ʼag[act]gtaaa|tttac[agt]ctʼ,
-    ʼagg[act]taaa|ttta[agt]cctʼ,
-    ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-    ʼagggt[cgt]aa|tt[acg]accctʼ,
-    ʼagggta[cgt]a|t[acg]taccctʼ,
-    ʼagggtaa[cgt]|[acg]ttaccctʼ);
+    'agggtaaa|tttaccct',
+    '[cgt]gggtaaa|tttaccc[acg]',
+    'a[act]ggtaaa|tttacc[agt]t',
+    'ag[act]gtaaa|tttac[agt]ct',
+    'agg[act]taaa|ttta[agt]cct',
+    'aggg[acg]aaa|ttt[cgt]ccct',
+    'agggt[cgt]aa|tt[acg]accct',
+    'agggta[cgt]a|t[acg]taccct',
+    'agggtaa[cgt]|[acg]ttaccct');
 
 
 
@@ -59,20 +59,20 @@ foreach my $search (@match_these) {
 
 # meanwhile, start processing the last answers
 my %search_replace = (
-    ʼtHa[Nt]ʼ => ʼ<4>ʼ,
-    ʼaND|caN|Ha[DS]|WaSʼ => ʼ<3>ʼ,
-    ʼa[NSt]|BYʼ => ʼ<2>ʼ,
-    ʼ<[^>]*>ʼ => ʼ|ʼ,
-    ʼ\\|[^\|][^\|]*\\|ʼ => ʼ-ʼ );
+    'tHa[Nt]' => '<4>',
+    'aND|caN|Ha[DS]|WaS' => '<3>',
+    'a[NSt]|BY' => '<2>',
+    '<[^>]*>' => '|',
+    '\\|[^\|][^\|]*\\|' => '-' );
 
 # We need this exact order so we need to explicitely again set these
 # keys here:
 my @search_replace = (
-    ʼtHa[Nt]ʼ,
-    ʼaND|caN|Ha[DS]|WaSʼ,
-    ʼa[NSt]|BYʼ,
-    ʼ<[^>]*>ʼ,
-    ʼ\\|[^\|][^\|]*\\|ʼ);
+    'tHa[Nt]',
+    'aND|caN|Ha[DS]|WaS',
+    'a[NSt]|BY',
+    '<[^>]*>',
+    '\\|[^\|][^\|]*\\|');
 
 # Now do the costly search-replaces
 foreach my $key (@search_replace) {

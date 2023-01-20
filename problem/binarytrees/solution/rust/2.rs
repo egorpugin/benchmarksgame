@@ -12,8 +12,8 @@ extern crate rayon;
 use typed_arena::Arena;
 use rayon::prelude::*;
 
-struct Tree<ʼa> {
-    children: Option<(&ʼa Tree<ʼa>, &ʼa Tree<ʼa>)>,
+struct Tree<'a> {
+    children: Option<(&'a Tree<'a>, &'a Tree<'a>)>,
 }
 
 fn item_check(tree: &Tree) -> i32 {
@@ -24,8 +24,8 @@ fn item_check(tree: &Tree) -> i32 {
     }
 }
 
-fn bottom_up_tree<ʼr>(arena: &ʼr Arena<Tree<ʼr>>, depth: i32)
-                  -> &ʼr Tree<ʼr> {
+fn bottom_up_tree<'r>(arena: &'r Arena<Tree<'r>>, depth: i32)
+                  -> &'r Tree<'r> {
     let mut tree = arena.alloc(Tree { children: None });
     if depth > 0 {
         let right = bottom_up_tree(arena, depth - 1);

@@ -5,8 +5,8 @@
 -- https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 --
 -- Contributed by Brian Kolden
--- Ada port of Mark C. Lewisʼs N-Body
--- Built off of Pascal Obryʼs N-Body
+-- Ada port of Mark C. Lewis's N-Body
+-- Built off of Pascal Obry's N-Body
 
 with Ada.Command_Line; use Ada.Command_Line;
 with Ada.Text_IO;      use Ada.Text_IO;
@@ -15,7 +15,7 @@ with Root; use Root;
 procedure Nbody is
    pragma Suppress(All_Checks);
 
-   N : constant Positive := IntegerʼValue (Argument (1));
+   N : constant Positive := Integer'Value (Argument (1));
 
    package RIO is new Ada.Text_IO.Float_Io (S_Real);
 
@@ -49,11 +49,11 @@ package Nbody_Pck is
    type R is record
       DX, DY, DZ, Filler: S_Real;
    end record;
-   for RʼAlignment use 16;
+   for R'Alignment use 16;
    type R_Array_Type is array(0..999) of R;
 
    type Mag_Type is array (0..999) of S_Real;
-   for Mag_TypeʼAlignment use 16;
+   for Mag_Type'Alignment use 16;
 
    PX, PY, PZ: S_Real;
    Bodies: array(0..4) of System:=(Sun, Jupiter, Saturn, Uranus, Neptune);
@@ -69,13 +69,13 @@ end Nbody_Pck;
 package body Nbody_Pck is
 
    procedure Advance(DT: S_Real) is
-      N: constant Integer := (BodiesʼLength-1)*BodiesʼLength/2;
+      N: constant Integer := (Bodies'Length-1)*Bodies'Length/2;
       R_Array : R_Array_Type;
       Mag : Mag_Type;
       K: Integer := 0;
    begin
-      for I in BodiesʼFirst..BodiesʼLast-1 loop
-         for J in I+1..BodiesʼLast loop
+      for I in Bodies'First..Bodies'Last-1 loop
+         for J in I+1..Bodies'Last loop
             R_Array(K).DX := Bodies(I).X - Bodies(J).X;
             R_Array(K).DY := Bodies(I).Y - Bodies(J).Y;
             R_Array(K).DZ := Bodies(I).Z - Bodies(J).Z;
@@ -116,8 +116,8 @@ package body Nbody_Pck is
       end;
 
       K:= 0;
-      for I in BodiesʼFirst..BodiesʼLast-1 loop
-         for J in I+1..BodiesʼLast loop
+      for I in Bodies'First..Bodies'Last-1 loop
+         for J in I+1..Bodies'Last loop
             Bodies(I).VX:= Bodies(I).VX - (R_Array(K).DX * Bodies(J).Mass * Mag(
 K));
             Bodies(I).VY:= Bodies(I).VY - (R_Array(K).DY * Bodies(J).Mass * Mag(
@@ -151,12 +151,12 @@ K));
       E: S_Real := 0.0;
       DX, DY, DZ, Distance : S_Real;
    begin
-      for I in BodiesʼRange loop
+      for I in Bodies'Range loop
          E := E + (0.5 * Bodies(I).Mass *
                 ( Bodies(I).VX * Bodies(I).VX
                     + Bodies(I).VY * Bodies(I).VY
                     + Bodies(I).VZ * Bodies(I).VZ ));
-         for J in I+1..BodiesʼLast loop
+         for J in I+1..Bodies'Last loop
             declare
                J_Body: constant System := Bodies(J);
             begin
@@ -273,16 +273,16 @@ package Root is
 
    type S_Real is new Long_Float;
 
-   pragma Assert (S_RealʼSize = 64 and S_Realʼdigits > 13);
+   pragma Assert (S_Real'Size = 64 and S_Real'digits > 13);
 
    type m128d is array (0 .. 1) of S_Real;
-   for m128dʼAlignment use 16;
+   for m128d'Alignment use 16;
    pragma Machine_Attribute (m128d, "vector_type");
 
    type m128s is array (0 .. 3) of Float;
-   for m128sʼAlignment use 16;
+   for m128s'Alignment use 16;
    pragma Machine_Attribute (m128s, "vector_type");
-   pragma Assert (FloatʼDigits < 7 and m128sʼsize = 128);
+   pragma Assert (Float'Digits < 7 and m128s'size = 128);
 
    function ia32_Div (X, Y : m128d) return m128d;
    pragma Import (Intrinsic, ia32_Div, "__builtin_ia32_divpd");

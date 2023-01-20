@@ -64,8 +64,8 @@ begin
   SetTextBuf(OutFile^, TextBuf);
 
   Val(ParamStr(1), n);
-  writeln(OutFile^, ʼP4ʼ);
-  writeln(OutFile^, n,ʼ ʼ,n);
+  writeln(OutFile^, 'P4');
+  writeln(OutFile^, n,' ',n);
   run;
 end.
 

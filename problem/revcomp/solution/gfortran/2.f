@@ -18,7 +18,7 @@ program revcomp
   character(len=LineWidth) :: line, title
 
   ! Read and process
-  allocate(data(100))  ! Allocate enough lines so that we donʼt have to grow the
+  allocate(data(100))  ! Allocate enough lines so that we don't have to grow the
  array for the test
   readFile: do
      read(*, "(a)", iostat=stat) line
@@ -35,7 +35,7 @@ program revcomp
         cycle readFile
      end if
      bcount = bcount + 1
-     if (bcount > size(data)) then ! Included for completeness - it shouldnʼt be
+     if (bcount > size(data)) then ! Included for completeness - it shouldn't be
  called in the test
         allocate(w(size(data)))
         w = data

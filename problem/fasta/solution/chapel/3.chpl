@@ -65,7 +65,7 @@ proc main() {
 }
 
 //
-// Scan the alphabetsʼ probabilities to compute cut-offs
+// Scan the alphabets' probabilities to compute cut-offs
 //
 proc sumProbs(alphabet: []) {
   var p = 0.0;
@@ -100,7 +100,7 @@ proc repeatMake(desc, alu, n) {
 }
 
 //
-// Output a random sequence of length ʼnʼ using distribution a
+// Output a random sequence of length 'n' using distribution a
 //
 proc randomMake(desc, a, n) {
   var line_buff: [0..lineLength] int(8);

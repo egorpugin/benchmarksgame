@@ -101,7 +101,7 @@ begin
   for i := 0 to 3 do
     WaitForThreadTerminate(tt[i], 0);
   finish := now;
-  //WriteLn(ʼTime : ʼ, MilliSecondsBetween(start, finish) / 1000 : 0 : 4);
+  //WriteLn('Time : ', MilliSecondsBetween(start, finish) / 1000 : 0 : 4);
 
   buf_index := 0;
   for y := 0 to n_1 do
@@ -115,8 +115,8 @@ end;
 
 begin
   Val(ParamStr(1), n);
-  write(ʼP4ʼ, chr(10), n, ʼ ʼ, n, chr(10));
-  //write(ʼP5ʼ, chr(10), n, ʼ ʼ, n, chr(10), 255, chr(10));
+  write('P4', chr(10), n, ' ', n, chr(10));
+  //write('P5', chr(10), n, ' ', n, chr(10), 255, chr(10));
 
   dimx := Ceil(n / 8);
   dimy := n;

@@ -8,18 +8,18 @@
    improved by Levi Cameron
 */
 
-$sequence = read_sequence(ʼTHREEʼ);
+$sequence = read_sequence('THREE');
 
 fclose(STDIN);
 
 $jobs = array(
-   array(ʼwrite_freqʼ, 1),
-   array(ʼwrite_freqʼ, 2),
-   array(ʼwrite_countʼ, ʼGGTʼ),
-   array(ʼwrite_countʼ, ʼGGTAʼ),
-   array(ʼwrite_countʼ, ʼGGTATTʼ),
-   array(ʼwrite_countʼ, ʼGGTATTTTAATTʼ),
-   array(ʼwrite_countʼ, ʼGGTATTTTAATTTATAGTʼ),
+   array('write_freq', 1),
+   array('write_freq', 2),
+   array('write_count', 'GGT'),
+   array('write_count', 'GGTA'),
+   array('write_count', 'GGTATT'),
+   array('write_count', 'GGTATTTTAATT'),
+   array('write_count', 'GGTATTTTAATTTATAGT'),
 );
 
 $tok = ftok(__FILE__, chr(time() & 255));
@@ -30,7 +30,7 @@ $count = count($jobs);
 for ($i = 1; $i < $count; ++$i) {
    $pid = pcntl_fork();
    if ($pid === -1) {
-      die(ʼcould not forkʼ);
+      die('could not fork');
    } else if ($pid) {
       continue;
    }
@@ -76,14 +76,14 @@ msg_remove_queue($queue);
 
 /* functions definitions follow */
 function read_sequence($id) {
-   $id = ʼ>ʼ . $id;
+   $id = '>' . $id;
    $ln_id = strlen($id);
    $fd = STDIN;
 
    // reach sequence three
    do {
       $line = stream_get_line($fd, 250, "\n");
-          // if EOF then we couldnʼt find the sequence
+          // if EOF then we couldn't find the sequence
           if (feof($fd)) exit(-1);
    } while (strncmp($line, $id, $ln_id) !== 0);
 
@@ -94,8 +94,8 @@ st
       $line = stream_get_line($fd, 250, "\n");
       if (!isset($line[0])) continue;
       $c = $line[0];
-      if ($c === ʼ;ʼ) continue;
-      if ($c === ʼ>ʼ) break;
+      if ($c === ';') continue;
+      if ($c === '>') break;
       // append the uppercase sequence fragment,
       // must get rid of the CR/LF or whatever if present
       echo $line;
@@ -105,7 +105,7 @@ st
 
 function write_freq($sequence, $key_length) {
    $map = generate_frequencies($sequence, $key_length);
-   uasort($map, ʼfreq_name_comparatorʼ);
+   uasort($map, 'freq_name_comparator');
    foreach($map as $key => $val) {
       printf ("%s %.3f\n", $key, $val);
    }

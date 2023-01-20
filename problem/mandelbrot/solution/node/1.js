@@ -1,7 +1,7 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   Greg Buchholzʼs simple C #2 program transliterated by Isaac Gouy.
+   Greg Buchholz's simple C #2 program transliterated by Isaac Gouy.
 */
 
 

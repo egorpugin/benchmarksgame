@@ -4,13 +4,13 @@
     reworked by Isaac Gouy *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 spectralnorm: n
    | u v vBv vv |
@@ -26,7 +26,7 @@ spectralnorm: n
        vv := vv + ((v at: i) * (v at: i))].
    ^(vBv / vv) sqrt! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    Stdio stdout
@@ -34,13 +34,13 @@ do: n
       nl! !
 
 
-!SmallInteger methodsFor: ʼbenchmarks gameʼ!
+!SmallInteger methodsFor: 'benchmarks game'!
 
 matrixA: anInteger
    ^1.0d0 / ((self + anInteger - 2) * (self + anInteger - 1) /2  + self)! !
 
 
-!Array methodsFor: ʼbenchmarks gameʼ!
+!Array methodsFor: 'benchmarks game'!
 
 multiplyAtv
    | n atv sum |
@@ -68,7 +68,7 @@ multiplyAv
    ^av! !
 
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf!

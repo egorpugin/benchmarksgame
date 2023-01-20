@@ -35,29 +35,29 @@ std::array<char, 288> alu =
 
 std::array<IUB,15> iub =
 {{
-    { 0.27f, ʼaʼ },
-    { 0.12f, ʼcʼ },
-    { 0.12f, ʼgʼ },
-    { 0.27f, ʼtʼ },
-    { 0.02f, ʼBʼ },
-    { 0.02f, ʼDʼ },
-    { 0.02f, ʼHʼ },
-    { 0.02f, ʼKʼ },
-    { 0.02f, ʼMʼ },
-    { 0.02f, ʼNʼ },
-    { 0.02f, ʼRʼ },
-    { 0.02f, ʼSʼ },
-    { 0.02f, ʼVʼ },
-    { 0.02f, ʼWʼ },
-    { 0.02f, ʼYʼ }
+    { 0.27f, 'a' },
+    { 0.12f, 'c' },
+    { 0.12f, 'g' },
+    { 0.27f, 't' },
+    { 0.02f, 'B' },
+    { 0.02f, 'D' },
+    { 0.02f, 'H' },
+    { 0.02f, 'K' },
+    { 0.02f, 'M' },
+    { 0.02f, 'N' },
+    { 0.02f, 'R' },
+    { 0.02f, 'S' },
+    { 0.02f, 'V' },
+    { 0.02f, 'W' },
+    { 0.02f, 'Y' }
 }};
 
 std::array<IUB, 4> homosapiens =
 {{
-    { 0.3029549426680f, ʼaʼ },
-    { 0.1979883004921f, ʼcʼ },
-    { 0.1975473066391f, ʼgʼ },
-    { 0.3015094502008f, ʼtʼ }
+    { 0.3029549426680f, 'a' },
+    { 0.1979883004921f, 'c' },
+    { 0.1975473066391f, 'g' },
+    { 0.3015094502008f, 't' }
 }};
 
 float gen_random(float max = 1.0f)
@@ -124,7 +124,7 @@ void make_cumulative(iterator_type first, iterator_type last)
 template <class F>
 void make(const char* desc, int n, F functor)
 {
-    std::cout << ʼ>ʼ << desc << ʼ\nʼ;
+    std::cout << '>' << desc << '\n';
     const int MAXLINE = 60;
     char line[MAXLINE + 1];
     while (n > 0)
@@ -136,7 +136,7 @@ void make(const char* desc, int n, F functor)
         for(int i=0; i<thisline; ++i)
             line[i] = functor();
 
-        line[thisline] = ʼ\nʼ;
+        line[thisline] = '\n';
         std::cout.write(line, thisline+1);
         n -= thisline;
     }

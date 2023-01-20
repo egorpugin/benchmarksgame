@@ -6,12 +6,12 @@
 
 open String;;
 
-let t, b, bi = make 256 ʼ ʼ, make 61 ʼ\nʼ, ref 1;;
+let t, b, bi = make 256 ' ', make 61 '\n', ref 1;;
 blit "TVGHEFCDIJMLKNOPQYSAABWXRZ" 0 t 65 26; blit t 65 t 97 26;
 
 let rec rd ls =
   let l, q = try input_line stdin, false with _ -> "", true in
-  if l <> "" && l.[0] <> ʼ>ʼ then rd (l::ls)
+  if l <> "" && l.[0] <> '>' then rd (l::ls)
   else (
     let rec wr = function
       s::ss ->

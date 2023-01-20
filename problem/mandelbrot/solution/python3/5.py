@@ -16,7 +16,7 @@ def do_row(fy):
     xr_offs = range(7, -1, -1)
     xr_iter = range(50)
 
-    result = array(ʼBʼ)
+    result = array('B')
     for x in range(7, size, 8):
         byte_acc = 0
         for offset in xr_offs:
@@ -38,14 +38,14 @@ def do_row(fy):
     return result.tostring()
 
 def main(out):
-    out.write((ʼP4\n%d %d\nʼ % (size, size)).encode(ʼASCIIʼ))
+    out.write(('P4\n%d %d\n' % (size, size)).encode('ASCII'))
 
     pool = Pool()
     step = 2.0j / size
     for row in pool.imap(do_row, (step*y-(1.5+1j) for y in range(size))):
         out.write(row)
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     size = int(sys.argv[1])
     main(sys.stdout.buffer)
 

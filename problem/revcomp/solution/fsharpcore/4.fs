@@ -52,9 +52,9 @@ ge]
         while checkhilo() do
             let iValue = loPage.[lo]
             let jValue = hiPage.[hi]
-            if iValue=ʼ\nʼB || jValue=ʼ\nʼB then
-                if iValue=ʼ\nʼB then lo <- lo+1
-                if jValue=ʼ\nʼB then hi <- hi-1
+            if iValue='\n'B || jValue='\n'B then
+                if iValue='\n'B then lo <- lo+1
+                if jValue='\n'B then hi <- hi-1
             else
                 loPage.[lo] <- map.[int jValue]
                 hiPage.[hi] <- map.[int iValue]
@@ -66,14 +66,14 @@ ge]
     let rec reverseAll page i previousThread =
         let rec skipHeader page i =
             while page = readCount do Thread.SpinWait 0
-            let i = Array.IndexOf(pages.[page],ʼ\nʼB, i, PageSize-i)
+            let i = Array.IndexOf(pages.[page],'\n'B, i, PageSize-i)
             if -1<>i then page,i+1 else skipHeader (page+1) 0
         let loPageID, lo = skipHeader page i
         let rec findNextAndReverse pageID i previousThread =
             while pageID = readCount do Thread.SpinWait 0
             let onLastPage = pageID + 1 = readCount && lastPageSize <> -1
             let thisPageSize = if onLastPage then lastPageSize else PageSize
-            let i = Array.IndexOf(pages.[pageID],ʼ>ʼB, i, thisPageSize-i)
+            let i = Array.IndexOf(pages.[pageID],'>'B, i, thisPageSize-i)
             if -1<>i then
                 let newThread = Thread(fun () ->
                     reverse loPageID lo pageID (i-1) previousThread)

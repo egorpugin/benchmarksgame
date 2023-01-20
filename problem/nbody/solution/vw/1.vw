@@ -6,30 +6,30 @@ Smalltalk defineClass: #NBodySystem
     superclass: #{Core.Object}
     indexedType: #none
     private: false
-    instanceVariableNames: ʼbodies ʼ
-    classInstanceVariableNames: ʼʼ
-    imports: ʼʼ
-    category: ʼbenchmarks gameʼ!
+    instanceVariableNames: 'bodies '
+    classInstanceVariableNames: ''
+    imports: ''
+    category: 'benchmarks game'!
 
 Smalltalk defineClass: #Body
     superclass: #{Core.Object}
     indexedType: #none
     private: false
-    instanceVariableNames: ʼx y z vx vy vz mass ʼ
-    classInstanceVariableNames: ʼʼ
-    imports: ʼʼ
-    category: ʼbenchmarks gameʼ!
+    instanceVariableNames: 'x y z vx vy vz mass '
+    classInstanceVariableNames: ''
+    imports: ''
+    category: 'benchmarks game'!
 
 Smalltalk.Core defineClass: #BenchmarksGame
     superclass: #{Core.Object}
     indexedType: #none
     private: false
-    instanceVariableNames: ʼʼ
-    classInstanceVariableNames: ʼʼ
-    imports: ʼʼ
-    category: ʼʼ!
+    instanceVariableNames: ''
+    classInstanceVariableNames: ''
+    imports: ''
+    category: ''!
 
-!Body class methodsFor: ʼconstantsʼ!
+!Body class methodsFor: 'constants'!
 
 daysPerYear
    ^365.24d0!
@@ -91,7 +91,7 @@ neptune
       mass: 5.15138902046611451d-5 * self solarMass! !
 
 
-!Body methodsFor: ʼaccessingʼ!
+!Body methodsFor: 'accessing'!
 
 z
    ^z!
@@ -114,7 +114,7 @@ x: d1 y: d2 z: d3 vx: d4 vy: d5 vz: d6 mass: d7
 y
    ^y! !
 
-!Body methodsFor: ʼnbodyʼ!
+!Body methodsFor: 'nbody'!
 
 offsetMomentum: anArray
    | m |
@@ -169,7 +169,7 @@ kineticEnergy
    ^0.5d0 * mass * ((vx * vx) + (vy * vy) + (vz * vz))! !
 
 
-!NBodySystem methodsFor: ʼinitialize-releaseʼ!
+!NBodySystem methodsFor: 'initialize-release'!
 
 initialize
    bodies := OrderedCollection new
@@ -180,7 +180,7 @@ initialize
       (bodies inject: (Array with: 0.0d0 with: 0.0d0 with: 0.0d0)
          into: [:m :each | each addMomentumTo: m])! !
 
-!NBodySystem methodsFor: ʼnbodyʼ!
+!NBodySystem methodsFor: 'nbody'!
 
 after: dt
    1 to: bodies size do: [:i|
@@ -200,7 +200,7 @@ energy
    ].
    ^e! !
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    bodies := NBodySystem new initialize.
@@ -208,9 +208,9 @@ do: n
    n timesRepeat: [bodies after: 0.01d0].
    Stdout print: bodies energy digits: 9; nl.
 
-   ^ʼʼ! !
+   ^''! !
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf!

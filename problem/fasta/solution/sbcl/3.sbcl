@@ -11,7 +11,7 @@
 (defconstant +im+ 139968)
 
 (declaim (simple-base-string *alu*))
-(defparameter *alu* (concatenate ʼsimple-base-string
+(defparameter *alu* (concatenate 'simple-base-string
                                                 "GGCCGGGCGCGGTGGCTCACGCCTGTAATCC
 CAGCACTTTGG"
                                                 "GAGGCCGAGGCGGGCGGATCACCTGAGGTCA
@@ -30,7 +30,7 @@ AAAA"))
 (defun cumsum (lst)
   (let ((c 0.0))
         (declare (type single-float c))
-        (mapcar #ʼ(lambda (x)
+        (mapcar #'(lambda (x)
                                 (declare (type single-float x)
                                                  (values fixnum))
                                 (the fixnum (ceiling (* +im+ (incf c x)))))
@@ -38,17 +38,17 @@ AAAA"))
 
 (defun make-cprob (probs)
   (make-array (length probs)
-                           :element-type ʼfixnum
+                           :element-type 'fixnum
                            :initial-contents (cumsum probs)))
 
 (defparameter *amino-acids-syms* "acgtBDHKMNRSVWY")
 (defparameter *amino-acids-cprobs*
-  (make-cprob ʼ(0.27 0.12 0.12 0.27 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02
+  (make-cprob '(0.27 0.12 0.12 0.27 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02 0.02
  0.02 0.02)))
 
 (defparameter *homo-sapiens-syms* "acgt")
 (defparameter *homo-sapiens-cprobs*
-  (make-cprob ʼ(0.3029549426680 0.1979883004921 0.1975473066391 0.3015094502008)
+  (make-cprob '(0.3029549426680 0.1979883004921 0.1975473066391 0.3015094502008)
 ))
 
 (let ((r 42)
@@ -89,7 +89,7 @@ AAAA"))
   (output-line title)
   (loop
         with buf of-type simple-base-string = (make-string +buffer-size+ :elemen
-t-type ʼbase-char)
+t-type 'base-char)
         with i of-type fixnum = 0
         with max-j of-type fixnum = (1- +buffer-size+)
         for j of-type fixnum from 0
@@ -115,7 +115,7 @@ dom)))
   (declare (type simple-base-string alu)
                    (type fixnum n))
   (let ((len (length alu))
-                (buf (concatenate ʼsimple-base-string
+                (buf (concatenate 'simple-base-string
                                                   alu
                                                   (subseq alu 0 +line-length+)))
 )

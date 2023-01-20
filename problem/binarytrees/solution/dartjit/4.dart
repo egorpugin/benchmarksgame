@@ -1,16 +1,16 @@
 /* The Computer Language Benchmarks game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   Contributed by Jos Hirth, transliterated from Jarkko Miettinenʼs Java program
+   Contributed by Jos Hirth, transliterated from Jarkko Miettinen's Java program
    Optimized and parallelized by by Dwayne Slater
    modified by Isaac Gouy
    mostly same but do stretch tree and longLivedTree earlier
    + null safety
 */
 
-import ʼdart:asyncʼ;
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
+import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
 
 const int minDepth = 4;
 

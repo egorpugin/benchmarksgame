@@ -34,10 +34,10 @@ end
 # Multiply vector v by matrix A and store result in out
 mul_by_A!(v, out) = mul_by_f!(A, v, out)
 
-# Multiply vector v by matrix Aʼ and store result in out
+# Multiply vector v by matrix A' and store result in out
 mul_by_At!(v, out) = mul_by_f!(At, v, out)
 
-# Multiply v by (Aʼ * A) and store result in out using w as a temporary workspac
+# Multiply v by (A' * A) and store result in out using w as a temporary workspac
 e
 function mul_by_AtA!(v, out, w)
     mul_by_A!(v, w)

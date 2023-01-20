@@ -2,7 +2,7 @@
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
    contributed by Isaac Gouy
-   transliterated from Rex Kerrʼs Scala program
+   transliterated from Rex Kerr's Scala program
 */
 
 

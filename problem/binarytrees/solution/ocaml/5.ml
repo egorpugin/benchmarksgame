@@ -6,7 +6,7 @@
  * *reset*
  *)
 
-type ʼa tree = Empty | Node of ʼa tree * ʼa tree
+type 'a tree = Empty | Node of 'a tree * 'a tree
 
 let rec make d =
 (* if d = 0 then Empty *)

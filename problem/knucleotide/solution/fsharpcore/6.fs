@@ -49,7 +49,7 @@ let main _ =
         else findHeader matchIndex buffer
 
     let rec findSequence i buffer =
-        let i = Array.IndexOf(buffer, ʼ\nʼB, i)
+        let i = Array.IndexOf(buffer, '\n'B, i)
         if i <> -1 then buffer,i+1
         else
             read buffer
@@ -66,7 +66,7 @@ let main _ =
             [[||];buffer]
         else
             let rec findEnd i buffer threeBlocks =
-                let i = Array.IndexOf(buffer, ʼ>ʼB, i)
+                let i = Array.IndexOf(buffer, '>'B, i)
                 if i <> -1 then
                     threeEnd <- i
                     buffer::threeBlocks
@@ -88,12 +88,12 @@ let main _ =
 
     threeStart, List.rev threeBlocks |> List.toArray, threeEnd
 
-  let toChar = [|ʼAʼ; ʼCʼ; ʼGʼ; ʼTʼ|]
+  let toChar = [|'A'; 'C'; 'G'; 'T'|]
   let toNum = Array.zeroCreate 256
-  toNum.[int ʼcʼB] <- 1uy; toNum.[int ʼCʼB] <- 1uy
-  toNum.[int ʼgʼB] <- 2uy; toNum.[int ʼGʼB] <- 2uy
-  toNum.[int ʼtʼB] <- 3uy; toNum.[int ʼTʼB] <- 3uy
-  toNum.[int ʼ\nʼB] <- 255uy; toNum.[int ʼ>ʼB] <- 255uy; toNum.[255] <- 255uy
+  toNum.[int 'c'B] <- 1uy; toNum.[int 'C'B] <- 1uy
+  toNum.[int 'g'B] <- 2uy; toNum.[int 'G'B] <- 2uy
+  toNum.[int 't'B] <- 3uy; toNum.[int 'T'B] <- 3uy
+  toNum.[int '\n'B] <- 255uy; toNum.[int '>'B] <- 255uy; toNum.[255] <- 255uy
 
   Array.Parallel.iter (fun bs ->
     for i = 0 to Array.length bs-1 do

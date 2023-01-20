@@ -5,9 +5,9 @@
    based on Go source code by Oleg Mazurov
 */
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
-const os = require(ʼosʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
+const os = require('os');
 
 const fact = [];
 
@@ -174,23 +174,23 @@ function threadReduce(tasks, workerData, reducer) {
         for (let i = 0; i < size; i++) {
             const worker = new Worker(__filename, {workerData});
 
-            worker.on(ʼmessageʼ, message => {
+            worker.on('message', message => {
                 const name = message.name;
 
-                if (name === ʼresultʼ) {
+                if (name === 'result') {
                     reducer(message.data);
                 }
-                if (name === ʼreadyʼ || name === ʼresultʼ) {
+                if (name === 'ready' || name === 'result') {
                     if (ind < tasks.length) {
                         const data = tasks[ind];
                         ind++;
-                        worker.postMessage({name: ʼworkʼ, data});
+                        worker.postMessage({name: 'work', data});
                     } else {
-                        worker.postMessage({name: ʼexitʼ});
+                        worker.postMessage({name: 'exit'});
                     }
                 }
             });
-            worker.on(ʼexitʼ, () => {
+            worker.on('exit', () => {
                 workers.delete(worker);
                 if (workers.size === 0) {
                     resolve();
@@ -203,18 +203,18 @@ function threadReduce(tasks, workerData, reducer) {
 }
 
 function runWorker(port, onWork) {
-    port.on(ʼmessageʼ, message => {
+    port.on('message', message => {
         const name = message.name;
 
-        if (name === ʼworkʼ) {
+        if (name === 'work') {
             port.postMessage({
-                name: ʼresultʼ,
+                name: 'result',
                 data: onWork(message.data),
             });
-        } else if (name === ʼexitʼ) {
+        } else if (name === 'exit') {
             process.exit();
         }
     });
-    port.postMessage({name: ʼreadyʼ});
+    port.postMessage({name: 'ready'});
 }
 

@@ -28,29 +28,29 @@ import qualified Data.ByteString.Char8     as B
 type HashTable s k v = H.HashTable s k v
 
 
-{- By using only 2 bits to encode keys, itʼs important to use a different table
- - for different key sizes. Otherwise, if we encode ʼAʼ as 0x00, "AT" and
+{- By using only 2 bits to encode keys, it's important to use a different table
+ - for different key sizes. Otherwise, if we encode 'A' as 0x00, "AT" and
  - "AAT" would map to the same bucket in the table.
  -
  - We could use 3 bits per letter to avoid this problem if needed.
  -}
 bitsForChar :: Char -> Word64
-bitsForChar ʼaʼ = 0
-bitsForChar ʼAʼ = 0
-bitsForChar ʼcʼ = 1
-bitsForChar ʼCʼ = 1
-bitsForChar ʼgʼ = 2
-bitsForChar ʼGʼ = 2
-bitsForChar ʼtʼ = 3
-bitsForChar ʼTʼ = 3
+bitsForChar 'a' = 0
+bitsForChar 'A' = 0
+bitsForChar 'c' = 1
+bitsForChar 'C' = 1
+bitsForChar 'g' = 2
+bitsForChar 'G' = 2
+bitsForChar 't' = 3
+bitsForChar 'T' = 3
 bitsForChar _   = error "Ay, Caramba!"
 
 
 charForBits :: Word64 -> Char
-charForBits 0 = ʼAʼ
-charForBits 1 = ʼCʼ
-charForBits 2 = ʼGʼ
-charForBits 3 = ʼTʼ
+charForBits 0 = 'A'
+charForBits 1 = 'C'
+charForBits 2 = 'G'
+charForBits 3 = 'T'
 charForBits _ = error "Ay, Caramba!"
 
 
@@ -79,7 +79,7 @@ updateTable t f k = do
     mv <- H.lookup t k
     case mv of
         Nothing -> newSTRef 1 >>= H.insert t k
-        Just v  -> modifySTRefʼ v f
+        Just v  -> modifySTRef' v f
 {-# INLINE updateTable #-}
 
 
@@ -123,14 +123,14 @@ countOccurrences jumpSize frameSize input = do
 extractSequence :: String -> B.ByteString -> B.ByteString
 extractSequence s = findSeq
   where
-    prefix = B.pack (ʼ>ʼ : s)
+    prefix = B.pack ('>' : s)
     skipSeq =
-          B.dropWhile (/= ʼ>ʼ)
+          B.dropWhile (/= '>')
         . B.drop 1
     takeSeq =
-          B.filter    (/= ʼ\nʼ)
-        . B.takeWhile (/=  ʼ>ʼ) -- extract until next header
-        . B.dropWhile (/= ʼ\nʼ) -- skip header
+          B.filter    (/= '\n')
+        . B.takeWhile (/=  '>') -- extract until next header
+        . B.dropWhile (/= '\n') -- skip header
     findSeq str
         | prefix `B.isPrefixOf` str  =  takeSeq str
         | otherwise                  =  findSeq (skipSeq str)
@@ -175,8 +175,8 @@ main = do
   where
 
     sortFreq = sortBy
-        (\ (k :: String, v :: Double) (kʼ, vʼ) ->
-            (compare vʼ v) `mappend` (compare k kʼ))
+        (\ (k :: String, v :: Double) (k', v') ->
+            (compare v' v) `mappend` (compare k k'))
 
     printFreq :: [(String, Double)] -> IO ()
     printFreq l = forM_ (sortFreq l) $ uncurry (printf "%s %.3f\n")

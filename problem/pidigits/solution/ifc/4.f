@@ -18,33 +18,33 @@ module gmp_mod
 
   interface
      ! int mpz_cmp (mpz_t op1, mpz_t op2)
-     integer(c_int) function  mpz_cmp(op1, op2) bind(C, name=ʼ__gmpz_cmpʼ)
+     integer(c_int) function  mpz_cmp(op1, op2) bind(C, name='__gmpz_cmp')
        import
        type(mpz_t), intent(inout) :: op1
        type(mpz_t), intent(inout) :: op2
      end function mpz_cmp
 
      ! void mpz_init (mpz_t integer)
-     subroutine mpz_init(op) bind(C,name=ʼ__gmpz_initʼ)
+     subroutine mpz_init(op) bind(C,name='__gmpz_init')
        import
        type(mpz_t), intent(inout) :: op
      end subroutine mpz_init
 
      ! void mpz_init_set_ui (mpz_t rop, unsigned long int op)
-     subroutine mpz_init_set_ui(op, N) bind(C, name=ʼ__gmpz_init_set_uiʼ)
+     subroutine mpz_init_set_ui(op, N) bind(C, name='__gmpz_init_set_ui')
        import
        type(mpz_t), intent(inout) :: op
        integer(c_long), value, intent(in) :: N
      end subroutine mpz_init_set_ui
 
      ! unsigned long int mpz_get_ui (mpz_t op)
-     integer function  mpz_get_ui(op1) bind(C, name=ʼ__gmpz_get_uiʼ)
+     integer function  mpz_get_ui(op1) bind(C, name='__gmpz_get_ui')
        import
        type(mpz_t), intent(inout) :: op1
      end function mpz_get_ui
 
      ! void mpz_add (mpz_t rop, mpz_t op1, mpz_t op2)
-     subroutine mpz_add(op1, op2, op3) bind(C, name=ʼ__gmpz_addʼ)
+     subroutine mpz_add(op1, op2, op3) bind(C, name='__gmpz_add')
        import
        type(mpz_t), intent(inout) :: op1
        type(mpz_t), intent(inout) :: op2
@@ -52,7 +52,7 @@ module gmp_mod
      end subroutine mpz_add
 
      ! void mpz_mul_ui (mpz_t rop, mpz_t op1, unsigned long int op2)
-     subroutine mpz_mul_ui(op1, op2, N) bind(C, name=ʼ__gmpz_mul_uiʼ)
+     subroutine mpz_mul_ui(op1, op2, N) bind(C, name='__gmpz_mul_ui')
        import
        type(mpz_t), intent(inout) :: op1
        type(mpz_t), intent(inout) :: op2
@@ -60,7 +60,7 @@ module gmp_mod
      end subroutine mpz_mul_ui
 
      ! void mpz_submul_ui (mpz_t rop, mpz_t op1, unsigned long int op2)
-     subroutine mpz_submul_ui(op1, op2, N) bind(C, name=ʼ__gmpz_submul_uiʼ)
+     subroutine mpz_submul_ui(op1, op2, N) bind(C, name='__gmpz_submul_ui')
        import
        type(mpz_t), intent(inout) :: op1
        type(mpz_t), intent(inout) :: op2
@@ -68,7 +68,7 @@ module gmp_mod
      end subroutine mpz_submul_ui
 
      ! void mpz_addmul_ui (mpz_t rop, mpz_t op1, unsigned long int op2)
-     subroutine mpz_addmul_ui(op1, op2, N) bind(C, name=ʼ__gmpz_addmul_uiʼ)
+     subroutine mpz_addmul_ui(op1, op2, N) bind(C, name='__gmpz_addmul_ui')
        import
        type(mpz_t), intent(inout) :: op1
        type(mpz_t), intent(inout) :: op2
@@ -76,7 +76,7 @@ module gmp_mod
      end subroutine mpz_addmul_ui
 
      ! void mpz_tdiv_q (mpz_t rop, mpz_t op1, mpz_t op2)
-     subroutine mpz_tdiv_q(op1, op2, op3) bind(C, name=ʼ__gmpz_tdiv_qʼ)
+     subroutine mpz_tdiv_q(op1, op2, op3) bind(C, name='__gmpz_tdiv_q')
        import
        type(mpz_t), intent(inout) :: op1
        type(mpz_t), intent(inout) :: op2
@@ -119,7 +119,7 @@ program pidigits
         j = mod(i, 10)
         intout = intout * 10 + d
         if (j == 0) then
-            write(*, ʼ(i0.10, a, i0)ʼ) intout, achar(9)//ʼ:ʼ, i
+            write(*, '(i0.10, a, i0)') intout, achar(9)//':', i
             intout = 0
         end if
 
@@ -129,9 +129,9 @@ program pidigits
     end do
 
     if (j /= 0) then
-        write(fmtstr, ʼ(a, i0, a)ʼ) ʼ(i0.ʼ, j, ʼ, a, i0)ʼ
+        write(fmtstr, '(a, i0, a)') '(i0.', j, ', a, i0)'
         write(strout, fmtstr) intout
-        write(*, ʼ(2a, i0)ʼ) adjustl(strout), achar(9)//ʼ:ʼ, i
+        write(*, '(2a, i0)') adjustl(strout), achar(9)//':', i
     end if
 
 contains

@@ -2,7 +2,7 @@
 The Computer Language Benchmarks Game
 https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-Contributed by Adam Beckmeyer. Based on Drake Diedrichʼs C implementation #9
+Contributed by Adam Beckmeyer. Based on Drake Diedrich's C implementation #9
 =#
 
 const LINESIZE = 60
@@ -56,7 +56,7 @@ function repeat_fasta(io, src, n)
  of src
     # aligns with a new line again
     buf_lines = length(src)
-    buf = fill(ʼ\nʼ % UInt8, buf_lines * (LINESIZE+1))
+    buf = fill('\n' % UInt8, buf_lines * (LINESIZE+1))
 
     iter = Iterators.Stateful(Iterators.cycle(src))
     for l=0:buf_lines-1, i=1:LINESIZE
@@ -76,12 +76,12 @@ function repeat_fasta(io, src, n)
 
     resize!(buf, remaining_full_lines * (LINESIZE+1) + partial_line_chars)
     write(io, buf)
-    partial_line_chars == 0 || write(io, ʼ\nʼ)
+    partial_line_chars == 0 || write(io, '\n')
 end
 
 function random_fasta(io, table, n)
     # Create a buffer to be filled with lines of random fasta output
-    buf = fill(ʼ\nʼ % UInt8, BUFFERLINES * (LINESIZE + 1))
+    buf = fill('\n' % UInt8, BUFFERLINES * (LINESIZE + 1))
 
     # Fill the whole buffer for most of the data skipping over linebreaks
     buffer_count = n ÷ LINESIZE ÷ BUFFERLINES
@@ -112,7 +112,7 @@ function random_fasta(io, table, n)
 
     # If there was no partial line, the output already has a newline at end; oth
 erwise write one
-    partial_line_chars == 0 || write(io, ʼ\nʼ)
+    partial_line_chars == 0 || write(io, '\n')
 end
 
 function fasta(n, io=stdout)

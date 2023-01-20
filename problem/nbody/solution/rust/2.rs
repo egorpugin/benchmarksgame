@@ -144,7 +144,7 @@ fn update_velocities(bodies: &mut [Planet; N_BODIES], dt: f64,
 /// Advances the solar system by one timestep by first updating the
 /// velocities and then integrating the positions using the updated velocities.
 ///
-/// Note: the `diff` & `mag` arrays are effectively scratch space. Theyʼre
+/// Note: the `diff` & `mag` arrays are effectively scratch space. They're
 /// provided as arguments to avoid re-zeroing them every time `advance` is
 /// called.
 fn advance(mut bodies: &mut [Planet; N_BODIES], dt: f64,
@@ -168,7 +168,7 @@ fn energy(bodies: &[Planet; N_BODIES]) -> f64 {
     e
 }
 
-/// Offsets the sunʼs velocity to make the overall momentum of the system zero.
+/// Offsets the sun's velocity to make the overall momentum of the system zero.
 fn offset_momentum(bodies: &mut [Planet; N_BODIES]) {
     let p = bodies.iter().fold(Vec3::zero(), |v, b| v + b.vel * b.mass);
     bodies[0].vel = p * (-1.0 / bodies[0].mass);
@@ -195,7 +195,7 @@ fn main() {
 
 /// Pop a mutable reference off the head of a slice, mutating the slice to no
 /// longer contain the mutable reference.
-fn shift_mut_ref<ʼa, T>(r: &mut &ʼa mut [T]) -> Option<&ʼa mut T> {
+fn shift_mut_ref<'a, T>(r: &mut &'a mut [T]) -> Option<&'a mut T> {
     if r.len() == 0 { return None }
     let tmp = std::mem::replace(r, &mut []);
     let (h, t) = tmp.split_at_mut(1);

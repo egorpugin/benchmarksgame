@@ -1,7 +1,7 @@
 # The Computer Language Benchmarks Game
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-# based on Oleg Mazurovʼs Java Implementation and Jeremy Zerfasʼ C implementatio
+# based on Oleg Mazurov's Java Implementation and Jeremy Zerfas' C implementatio
 n
 # transliterated and modified by Hamza Yusuf Çakır
 
@@ -108,7 +108,7 @@ Base.@propagate_inbounds @inline function count_flips(perm::Perm)
 
             if first > 3
                 lo = 2; hi = first - 1
-                # see the note in Jeremy Zerfasʼ C implementation for
+                # see the note in Jeremy Zerfas' C implementation for
                 # this loop
                 for k = 0:13
                     t = pp[lo]

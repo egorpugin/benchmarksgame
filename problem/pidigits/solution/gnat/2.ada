@@ -5,7 +5,7 @@
 --
 --  Contributed by Brian Kolden
 --  gmp headers by Karl-Michael Schindler and Brian Kolden
---  Port of Mr Ledrugʼs pidigits
+--  Port of Mr Ledrug's pidigits
 --  Fixed by johnisgood
 
 with Ada.Command_Line;    use Ada.Command_Line;
@@ -114,7 +114,7 @@ s
 begin
   N := 2_500;
   if Argument_Count=1 then
-    N := Interfaces.C.unsignedʼValue(Argument(1));
+    N := Interfaces.C.unsigned'Value(Argument(1));
   end if;
 
   mpz_init(Tmp1);
@@ -152,7 +152,7 @@ begin
 
     end loop;
     if I rem 10 /= 0 then
-       for X in 1 .. 10 - IntegerʼVal (I) rem 10 loop
+       for X in 1 .. 10 - Integer'Val (I) rem 10 loop
           Put_Char (Space);
        end loop;
        Put_Line (Print_String, I);

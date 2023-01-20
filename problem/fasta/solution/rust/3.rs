@@ -72,7 +72,7 @@ fn run(n: usize) -> io::Result<()> {
 
     // Generate a DNA sequence by copying from the given sequence.
 
-    const ALU: &ʼstatic [u8] =
+    const ALU: &'static [u8] =
         b"GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGA\
           TCACCTGAGGTCAGGAGTTCGAGACCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACT\
           AAAAATACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAGCTACTCGGGAG\
@@ -88,13 +88,13 @@ fn run(n: usize) -> io::Result<()> {
     // Generate DNA sequences by weighted random selection from two alphabets.
 
     let p0 = cumulative_probabilities(
-        &[(ʼaʼ, 0.27), (ʼcʼ, 0.12), (ʼgʼ, 0.12), (ʼtʼ, 0.27), (ʼBʼ, 0.02),
-          (ʼDʼ, 0.02), (ʼHʼ, 0.02), (ʼKʼ, 0.02), (ʼMʼ, 0.02), (ʼNʼ, 0.02),
-          (ʼRʼ, 0.02), (ʼSʼ, 0.02), (ʼVʼ, 0.02), (ʼWʼ, 0.02), (ʼYʼ, 0.02)]);
+        &[('a', 0.27), ('c', 0.12), ('g', 0.12), ('t', 0.27), ('B', 0.02),
+          ('D', 0.02), ('H', 0.02), ('K', 0.02), ('M', 0.02), ('N', 0.02),
+          ('R', 0.02), ('S', 0.02), ('V', 0.02), ('W', 0.02), ('Y', 0.02)]);
 
     let p1 = cumulative_probabilities(
-        &[(ʼaʼ, 0.3029549426680), (ʼcʼ, 0.1979883004921),
-          (ʼgʼ, 0.1975473066391), (ʼtʼ, 0.3015094502008)]);
+        &[('a', 0.3029549426680), ('c', 0.1979883004921),
+          ('g', 0.1975473066391), ('t', 0.3015094502008)]);
 
     let mut rng = Rng::new();
 

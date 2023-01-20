@@ -22,7 +22,7 @@ end
 # Looping "chunkwise" elides check for newline characters every loop.
 function print_sequence(v)
     l = 1
-    # Donʼt count the last newline
+    # Don't count the last newline
     r = length(v) - 1
 
     # The number of characters on the last line of the sequence determines the
@@ -64,7 +64,7 @@ end
 function perf_revcomp()
     seek(INIO, 1)
     while !eof(INIO)
-        # Seek back 1 since previous loop put position on ʼ>ʼ
+        # Seek back 1 since previous loop put position on '>'
         seek(INIO, position(INIO) - 1)
         # Write header line
         write(OUTIO, readline(INIO; keep=true))
@@ -74,10 +74,10 @@ function perf_revcomp()
         # law in "read line-by-line", doing so is impossible since
         # regardless of user machinations, Julia always reads 128 kb
         # at a time from io; there is no way to disable this
-        # buffering. Other implementations (e.g. Matt Brubeckʼs Rust
+        # buffering. Other implementations (e.g. Matt Brubeck's Rust
         # 2) also use this pattern. The only difference is that
-        # Juliaʼs buffer-size is 128 kb while Rustʼs is only 8 kb.
-        print_sequence(readuntil(INIO, ʼ>ʼ % UInt8; keep=false))
+        # Julia's buffer-size is 128 kb while Rust's is only 8 kb.
+        print_sequence(readuntil(INIO, '>' % UInt8; keep=false))
     end
 end
 

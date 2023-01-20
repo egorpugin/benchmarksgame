@@ -3,34 +3,34 @@
 #
 # Contributed by Aaron Tavistock
 
-ALU = ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGATCACCTGAGGTCA
+ALU = 'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGATCACCTGAGGTCA
 GGAGTTCGAGACCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATACAAAAATTAGCCGGGCGTGGTGGCGC
 GCGCCTGTAATCCCAGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGAGGCGGAGGTTGCAGTGAGCCGA
-GATCGCGCCACTGCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ
+GATCGCGCCACTGCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA'
 
 IUB = [
-  [ʼaʼ, 0.27],
-  [ʼcʼ, 0.12],
-  [ʼgʼ, 0.12],
-  [ʼtʼ, 0.27],
-  [ʼBʼ, 0.02],
-  [ʼDʼ, 0.02],
-  [ʼHʼ, 0.02],
-  [ʼKʼ, 0.02],
-  [ʼMʼ, 0.02],
-  [ʼNʼ, 0.02],
-  [ʼRʼ, 0.02],
-  [ʼSʼ, 0.02],
-  [ʼVʼ, 0.02],
-  [ʼWʼ, 0.02],
-  [ʼYʼ, 0.02],
+  ['a', 0.27],
+  ['c', 0.12],
+  ['g', 0.12],
+  ['t', 0.27],
+  ['B', 0.02],
+  ['D', 0.02],
+  ['H', 0.02],
+  ['K', 0.02],
+  ['M', 0.02],
+  ['N', 0.02],
+  ['R', 0.02],
+  ['S', 0.02],
+  ['V', 0.02],
+  ['W', 0.02],
+  ['Y', 0.02],
 ]
 
 HOMOSAPIENS = [
-  [ʼaʼ, 0.3029549426680],
-  [ʼcʼ, 0.1979883004921],
-  [ʼgʼ, 0.1975473066391],
-  [ʼtʼ, 0.3015094502008],
+  ['a', 0.3029549426680],
+  ['c', 0.1979883004921],
+  ['g', 0.1975473066391],
+  ['t', 0.3015094502008],
 ]
 
 class RandomSequence
@@ -44,7 +44,7 @@ class RandomSequence
   def initialize(seed_value, map, size)
     @size = size
     @value = seed_value
-    @output_buffer = ʼʼ
+    @output_buffer = ''
     generate_map_value_method(map)
   end
 
@@ -70,7 +70,7 @@ class RandomSequence
     end
     conditions[-1] = "#{map.last.first.ord}" # Substitute last condition for fix
 ed value
-    conditions << ʼ)ʼ * (map.size - 1)
+    conditions << ')' * (map.size - 1)
 
     instance_eval %[def map_value(value); #{conditions.join}; end]
   end
@@ -112,11 +112,11 @@ end
 size = (ARGV[0] || 27).to_i
 
 one = RepeatSequence.new(ALU, size*2)
-one.render(ʼONE Homo sapiens aluʼ)
+one.render('ONE Homo sapiens alu')
 
 two = RandomSequence.new(42, IUB, size*3)
-two.render(ʼTWO IUB ambiguity codesʼ)
+two.render('TWO IUB ambiguity codes')
 
 three = RandomSequence.new(two.value, HOMOSAPIENS, size*5)
-three.render(ʼTHREE Homo sapiens frequencyʼ)
+three.render('THREE Homo sapiens frequency')
 

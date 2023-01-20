@@ -26,7 +26,7 @@ procedure SpectralNorm is
    Vbv, Vv : Real := 0.0;
 begin
    if Argument_Count = 1 then
-      N := NaturalʼValue (Argument(1));
+      N := Natural'Value (Argument(1));
    end if;
 
    declare
@@ -41,7 +41,7 @@ begin
          Eval_Ata_Times_U(U, V);
          Eval_Ata_Times_U(V, U);
       end loop;
-      for I in VʼRange loop
+      for I in V'Range loop
          Vbv := Vbv + U(I) * V(I);
          Vv  := Vv  + V(I) * V(I);
       end loop;
@@ -131,13 +131,13 @@ package body Spectral_Utils is
    begin
       for I in Start .. Finish loop
          Sum := 0.0;
-         for J in Natural range 0 .. UʼLength/2 - 1 loop
-            J_Index    := UʼFirst + 2*J;
+         for J in Natural range 0 .. U'Length/2 - 1 loop
+            J_Index    := U'First + 2*J;
             A_Elements := Eval_A_Twice (I, J_Index);
             Sum := Sum + A_Elements(0)*U(J_Index) + A_Elements(1)*U(J_Index+1);
          end loop;
-         if UʼLength mod 2 = 1 then
-            Sum := Sum + Eval_A(I, UʼLast) * U(UʼLast); -- J_Index := UʼLast;
+         if U'Length mod 2 = 1 then
+            Sum := Sum + Eval_A(I, U'Last) * U(U'Last); -- J_Index := U'Last;
          end if;
          Au(I) := Sum;
       end loop;
@@ -156,13 +156,13 @@ package body Spectral_Utils is
    begin
       for I in Start .. Finish loop
          Sum := 0.0;
-         for J in Natural range 0 .. UʼLength/2 - 1 loop
-            J_Index    := UʼFirst + 2*J;
+         for J in Natural range 0 .. U'Length/2 - 1 loop
+            J_Index    := U'First + 2*J;
             A_Elements := Eval_A_tr_Twice (I, J_Index);
             Sum := Sum + A_Elements(0)*U(J_Index) + A_Elements(1)*U(J_Index+1);
          end loop;
-         if UʼLength mod 2 = 1 then
-            Sum := Sum + Eval_A (UʼLast, I) * U(UʼLast); -- J_Index := UʼLast;
+         if U'Length mod 2 = 1 then
+            Sum := Sum + Eval_A (U'Last, I) * U(U'Last); -- J_Index := U'Last;
          end if;
          Au(I) := Sum;
       end loop;
@@ -256,14 +256,14 @@ package body Spectral_Utils is
    is
       V, Partial_Product : Matrix;
 
-      Segment_Length : constant Integer := UʼLength / No_Of_Tasks + 1;
+      Segment_Length : constant Integer := U'Length / No_Of_Tasks + 1;
       -- Gives the 1st few tasks a slightly greater share of the work.
 
       I1, I2, J1, J2 : Natural;
    begin
-      I1 := VʼFirst;
-      I2 := VʼFirst + Segment_Length - 1;
-      I2 := IntegerʼMin (I2, VʼLast);
+      I1 := V'First;
+      I2 := V'First + Segment_Length - 1;
+      I2 := Integer'Min (I2, V'Last);
 
       -- Start running the tasks in Task_Range:
 
@@ -271,10 +271,10 @@ package body Spectral_Utils is
          Partial_Matrix_A_times_U(k).Multiply (U, I1, I2);
          I1 := I2 + 1;
          I2 := I2 + Segment_Length;
-         I2 := IntegerʼMin (I2, VʼLast);
+         I2 := Integer'Min (I2, V'Last);
       end loop;
 
-      Eval_A_Times (U, I1, VʼLast, V); -- Env task updates V(I1 .. VʼLast).
+      Eval_A_Times (U, I1, V'Last, V); -- Env task updates V(I1 .. V'Last).
 
       -- Rendezvous with tasks to get partial results. Write results to V:
 
@@ -285,19 +285,19 @@ package body Spectral_Utils is
 
       -- The result, stored in V, is A*U. Next get A_transpose * (A*U).
 
-      I1 := VʼFirst;
-      I2 := VʼFirst + Segment_Length - 1;
-      I2 := IntegerʼMin (I2, VʼLast);
+      I1 := V'First;
+      I2 := V'First + Segment_Length - 1;
+      I2 := Integer'Min (I2, V'Last);
 
       for k in Task_Range loop
          Partial_Matrix_A_tr_times_V(k).Multiply (V, I1, I2);
          I1 := I2 + 1;
          I2 := I2 + Segment_Length;
-         I2 := IntegerʼMin (I2, VʼLast);
+         I2 := Integer'Min (I2, V'Last);
       end loop;
 
-      Eval_At_Times (V, I1, VʼLast, A_transpose_A_times_U);
-      -- Env. task updates A_transpose_A_times_U (I1 .. VʼLast).
+      Eval_At_Times (V, I1, V'Last, A_transpose_A_times_U);
+      -- Env. task updates A_transpose_A_times_U (I1 .. V'Last).
 
       for k in Task_Range loop
          Partial_Matrix_A_tr_times_V(k).Result (J1, J2, Partial_Product);

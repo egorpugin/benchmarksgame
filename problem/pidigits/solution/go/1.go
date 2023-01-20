@@ -95,7 +95,7 @@ func main() {
     var d, k int64
     for i := 1; i <= n; i++ {
         d, k = next_digit(k)
-        line = append(line, byte(d)+ʼ0ʼ)
+        line = append(line, byte(d)+'0')
         if len(line) == 10 {
             if silent != true {
                 fmt.Fprintf(w, "%s\t:%d\n", string(line), i)

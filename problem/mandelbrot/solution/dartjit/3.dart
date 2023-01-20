@@ -1,11 +1,11 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   Andrey Filatkinʼs node #3 program made sequential by Isaac Gouy.
+   Andrey Filatkin's node #3 program made sequential by Isaac Gouy.
 */
 
-import ʼdart:ioʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:typed_data';
 
   const iter = 50, limit = 4.0;
 
@@ -73,7 +73,7 @@ void main(List<String> args) {
     return row;
   }
 
-  stdout.write(ʼP4\n$w $h\nʼ);
+  stdout.write('P4\n$w $h\n');
 
   for (int y = 0; y < h; ++y) {
     stdout.add(renderRow(y));

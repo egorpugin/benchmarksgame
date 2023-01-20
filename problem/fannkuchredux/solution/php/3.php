@@ -13,8 +13,8 @@ $count_base = array();
 $p_base = range(0, $n - 1);
 
 $procs = 1;
-if (file_exists(ʼ/proc/cpuinfoʼ)) {
-  $procs = preg_match_all(ʼ/^processor\s/mʼ, file_get_contents(ʼ/proc/cpuinfoʼ),
+if (file_exists('/proc/cpuinfo')) {
+  $procs = preg_match_all('/^processor\s/m', file_get_contents('/proc/cpuinfo'),
  $discard);
 }
 $procs <<= 1;
@@ -29,7 +29,7 @@ $index_max = $Fact[$n];
 $index_step = intval(($index_max + $procs-1) / $procs);
 
 $shsize = $procs * 16;
-$shmop = shmop_open(ftok(__FILE__, chr(time() & 255)), ʼcʼ, 0644, $shsize);
+$shmop = shmop_open(ftok(__FILE__, chr(time() & 255)), 'c', 0644, $shsize);
 
 if (!$shmop) {
    echo "faild to shmop_open()\n";
@@ -41,7 +41,7 @@ for ($proc = 0; $proc < $procs; ++$proc, $index += $index_step ) {
    if($proc < $procs - 1) {
       $pid = pcntl_fork();
       if ($pid === -1) {
-         die(ʼcould not forkʼ);
+         die('could not fork');
       } else if ($pid) {
          continue;
       }
@@ -149,7 +149,7 @@ $offset = 0;
 $res = 0;
 $chk = 0;
 for ($proc = 0; $proc < $procs; ++$proc, $offset += 16 ) {
-   list($v, $chk_v) = array_values(unpack(ʼia/ibʼ, shmop_read($shmop, $offset, $
+   list($v, $chk_v) = array_values(unpack('ia/ib', shmop_read($shmop, $offset, $
 written_size)));
    $res = max( $res, $v );
    $chk += $chk_v;

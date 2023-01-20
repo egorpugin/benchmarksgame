@@ -16,12 +16,12 @@ procedure Nbody is
      (Item : Real; Fore : Field := 0; Aft : Field := 9;
       Exp  : Field := 0) renames RIO.Put;
 
-   N : constant Integer := IntegerʼValue (Argument (1));
+   N : constant Integer := Integer'Value (Argument (1));
 
    Px, Py, Pz : Real := 0.0;
 
 begin
-   for I in Body_NameʼRange loop
+   for I in Body_Name'Range loop
       Add_Momentum (I, Px, Py, Pz);
    end loop;
 
@@ -152,8 +152,8 @@ package body Nbody_Pck is
                + Velocity (I, Y) * Velocity (I, Y)
                + Velocity (I, Z) * Velocity (I, Z));
 
-        if I /= Body_NameʼLast then
-           for J in Body_NameʼSucc (I) .. Body_NameʼLast loop
+        if I /= Body_Name'Last then
+           for J in Body_Name'Succ (I) .. Body_Name'Last loop
               Dx := Position (I, X) - Position (J, X);
               Dy := Position (I, Y) - Position (J, Y);
               Dz := Position (I, Z) - Position (J, Z);
@@ -169,8 +169,8 @@ package body Nbody_Pck is
    procedure Advance(Dt : in Real) is
       Dx, Dy, Dz, Dist_Sq, Mag : Real;
       Mass_I: Real;
-      subtype I_Name is Body_Name range Body_Nameʼfirst .. Body_Nameʼpred(Body_N
-ameʼlast);
+      subtype I_Name is Body_Name range Body_Name'first .. Body_Name'pred(Body_N
+ame'last);
 
    begin
       for I in I_Name loop

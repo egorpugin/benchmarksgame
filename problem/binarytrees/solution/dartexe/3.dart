@@ -5,7 +5,7 @@
    + null safety
 */
 
-import ʼdart:isolateʼ;
+import 'dart:isolate';
 
 void main(List<String> args) async {
   int n = int.parse(args.elementAt(0));
@@ -20,7 +20,7 @@ void main(List<String> args) async {
   var maxIterId = (maxIter - 4) / 2;
 
   /// Variables for output control on flow
-  var expectedId = ʼstretch-treeʼ;
+  var expectedId = 'stretch-tree';
   var iterResult = 0;
 
   /// Create map for storing data
@@ -28,7 +28,7 @@ void main(List<String> args) async {
   var status = Map<String, bool>();
 
   /// Set final status to finish loop of output
-  status[ʼfinishedʼ] = false;
+  status['finished'] = false;
 
   /// Create a port for dealing with results
   ReceivePort port = new ReceivePort();
@@ -45,22 +45,22 @@ void main(List<String> args) async {
     var nextIdStatus = true;
     while (nextIdStatus == true) {
       if (status[expectedId] == true) {
-        if (expectedId == ʼstretch-treeʼ) {
+        if (expectedId == 'stretch-tree') {
           /// Get stretch tree result and output
-          var result = results[ʼstretch-treeʼ] as ResultTreeMessage;
+          var result = results['stretch-tree'] as ResultTreeMessage;
           int checkVal = result.check;
           print("stretch tree of depth ${n + 1}\t check: ${checkVal}");
 
           /// Change expectedId to first iter tree: 0-tree
           expectedId = "${iterResult}-tree";
-        } else if (expectedId == ʼlong-lived-treeʼ) {
+        } else if (expectedId == 'long-lived-tree') {
           /// Get long lived tree result and output
-          var result = results[ʼlong-lived-treeʼ] as ResultTreeMessage;
+          var result = results['long-lived-tree'] as ResultTreeMessage;
           int checkVal = result.check;
           print("long lived tree of depth ${n}\t check: ${checkVal}");
 
-          /// Change expectedId to ʼfinishedʼ to avoid errors
-          expectedId = ʼfinishedʼ;
+          /// Change expectedId to 'finished' to avoid errors
+          expectedId = 'finished';
           nextIdStatus = false;
 
           /// Close port because we finished job
@@ -91,7 +91,7 @@ void main(List<String> args) async {
         }
       }
 
-      /// Donʼt continue unless next result is already available
+      /// Don't continue unless next result is already available
       nextIdStatus = false;
       if (status[expectedId] == true) {
         nextIdStatus = true;
@@ -105,23 +105,23 @@ void main(List<String> args) async {
 
   /// Stretch Tree
   /// Uses depth of n + 1
-  /// Keep id as ʼstretch-treeʼ
+  /// Keep id as 'stretch-tree'
   StartMessage stretchStartMessage =
-      new StartMessage(n + 1, ʼstretch-treeʼ, false, port.sendPort, 0);
-  status[ʼstretch-treeʼ] = false;
+      new StartMessage(n + 1, 'stretch-tree', false, port.sendPort, 0);
+  status['stretch-tree'] = false;
   isolates.add(await Isolate.spawn(runIsoCheckTree, stretchStartMessage));
 
   /// Long Lived Tree
   /// Uses depth of n
-  /// Keep id as ʼlong-lived-treeʼ
+  /// Keep id as 'long-lived-tree'
   StartMessage longLivedStartMessage =
-      new StartMessage(n, ʼlong-lived-treeʼ, true, port.sendPort, 0);
-  status[ʼlong-lived-treeʼ] = false;
+      new StartMessage(n, 'long-lived-tree', true, port.sendPort, 0);
+  status['long-lived-tree'] = false;
   isolates.add(await Isolate.spawn(runIsoCheckTree, longLivedStartMessage));
 
   /// Start iterating by steps of 2
   /// Begin at d (which is 4) and goes up to maxIter
-  /// Id of each tree will be ʼ${niter}-treeʼ
+  /// Id of each tree will be '${niter}-tree'
   d = 4;
   var iterId = 0;
   while (d <= n) {

@@ -32,15 +32,15 @@ fn get_sequences() -> Result<Vec<Vec<u8>>> {
     let mut buf = Vec::with_capacity(16 * 1024);
 
     // Read the header line.
-    input.read_until(bʼ\nʼ, &mut buf)?;
+    input.read_until(b'\n', &mut buf)?;
     let start = buf.len();
 
     // Read sequence data.
-    input.read_until(bʼ>ʼ, &mut buf)?;
+    input.read_until(b'>', &mut buf)?;
     let end = buf.len();
     drop(input);
 
-    if buf[end - 1] == bʼ>ʼ {
+    if buf[end - 1] == b'>' {
         // Found the start of a new sequence. Process this one
         // and start reading the next one in parallel.
         let mut results = rayon::join(
@@ -88,7 +88,7 @@ ling_len: usize) {
             let mut b = right.split_off_right(trailing_len);
             right.split_off_right(1); // Skip the newline in `right`.
 
-            // If weʼve reached the middle of the sequence here and there is an
+            // If we've reached the middle of the sequence here and there is an
             // odd number of bytes remaining, the odd one will be on the right.
             if b.len() > a.len() {
                 let mid = b.split_off_left(1);
@@ -103,7 +103,7 @@ ling_len: usize) {
             b = right.split_off_right(n);
             left.split_off_left(1); // Skip the newline in `left`.
 
-            // If weʼve reached the middle of the sequence and there is an odd
+            // If we've reached the middle of the sequence and there is an odd
             // number of bytes remaining, the odd one will now be on the left.
             if a.len() > b.len() {
                 let mid = a.split_off_right(1);
@@ -140,7 +140,7 @@ trait SplitOff {
     fn split_off_left(&mut self, n: usize) -> Self;
     fn split_off_right(&mut self, n: usize) -> Self;
 }
-impl<ʼa, T> SplitOff for &ʼa mut [T] {
+impl<'a, T> SplitOff for &'a mut [T] {
     /// Split the left `n` items from self and return them as a separate slice.
     fn split_off_left(&mut self, n: usize) -> Self {
         let n = min(self.len(), n);

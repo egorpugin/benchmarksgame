@@ -14,16 +14,16 @@ flop (6:x1:x2:x3:x4:x5:t) = x5:x4:x3:x2:x1:6:t
 flop (7:x1:x2:x3:x4:x5:x6:t) = x6:x5:x4:x3:x2:x1:7:t
 
 flop lst@(h:_) = r where
-        (t, r) = flopʼ h (lst, t)
-        flopʼ 0 (t, r) = (t, r)
-        flopʼ n ((h:t), r) = flopʼ (n-1) (t, h:r)
+        (t, r) = flop' h (lst, t)
+        flop' 0 (t, r) = (t, r)
+        flop' n ((h:t), r) = flop' (n-1) (t, h:r)
 
 flopS (1:_) = 0
 flopS lst = 1 + flopS (flop lst)
 
-rotate n (h:t) = rotateʼ (n-1) t where
-        rotateʼ 0 l = h:l
-        rotateʼ n (f:t) = f:(rotateʼ (n-1) t)
+rotate n (h:t) = rotate' (n-1) t where
+        rotate' 0 l = h:l
+        rotate' n (f:t) = f:(rotate' (n-1) t)
 
 checksum i f
    | mod i 2 == 0 = f

@@ -67,7 +67,7 @@ ce>();
 
     static void Grouper()
     {
-        const byte GT = (byte)ʼ>ʼ;
+        const byte GT = (byte)'>';
         var startHeader = 0;
         var i = 1;
         var data = new List<page>();
@@ -101,30 +101,30 @@ Exclusive = data[data.Count-1].length });
         // Set up complements map
         var map = new byte[256];
         for (byte i=0; i<255; i++) map[i]=i;
-        map[(byte)ʼAʼ] = (byte)ʼTʼ;
-        map[(byte)ʼBʼ] = (byte)ʼVʼ;
-        map[(byte)ʼCʼ] = (byte)ʼGʼ;
-        map[(byte)ʼDʼ] = (byte)ʼHʼ;
-        map[(byte)ʼGʼ] = (byte)ʼCʼ;
-        map[(byte)ʼHʼ] = (byte)ʼDʼ;
-        map[(byte)ʼKʼ] = (byte)ʼMʼ;
-        map[(byte)ʼMʼ] = (byte)ʼKʼ;
-        map[(byte)ʼRʼ] = (byte)ʼYʼ;
-        map[(byte)ʼTʼ] = (byte)ʼAʼ;
-        map[(byte)ʼVʼ] = (byte)ʼBʼ;
-        map[(byte)ʼYʼ] = (byte)ʼRʼ;
-        map[(byte)ʼaʼ] = (byte)ʼTʼ;
-        map[(byte)ʼbʼ] = (byte)ʼVʼ;
-        map[(byte)ʼcʼ] = (byte)ʼGʼ;
-        map[(byte)ʼdʼ] = (byte)ʼHʼ;
-        map[(byte)ʼgʼ] = (byte)ʼCʼ;
-        map[(byte)ʼhʼ] = (byte)ʼDʼ;
-        map[(byte)ʼkʼ] = (byte)ʼMʼ;
-        map[(byte)ʼmʼ] = (byte)ʼKʼ;
-        map[(byte)ʼrʼ] = (byte)ʼYʼ;
-        map[(byte)ʼtʼ] = (byte)ʼAʼ;
-        map[(byte)ʼvʼ] = (byte)ʼBʼ;
-        map[(byte)ʼyʼ] = (byte)ʼRʼ;
+        map[(byte)'A'] = (byte)'T';
+        map[(byte)'B'] = (byte)'V';
+        map[(byte)'C'] = (byte)'G';
+        map[(byte)'D'] = (byte)'H';
+        map[(byte)'G'] = (byte)'C';
+        map[(byte)'H'] = (byte)'D';
+        map[(byte)'K'] = (byte)'M';
+        map[(byte)'M'] = (byte)'K';
+        map[(byte)'R'] = (byte)'Y';
+        map[(byte)'T'] = (byte)'A';
+        map[(byte)'V'] = (byte)'B';
+        map[(byte)'Y'] = (byte)'R';
+        map[(byte)'a'] = (byte)'T';
+        map[(byte)'b'] = (byte)'V';
+        map[(byte)'c'] = (byte)'G';
+        map[(byte)'d'] = (byte)'H';
+        map[(byte)'g'] = (byte)'C';
+        map[(byte)'h'] = (byte)'D';
+        map[(byte)'k'] = (byte)'M';
+        map[(byte)'m'] = (byte)'K';
+        map[(byte)'r'] = (byte)'Y';
+        map[(byte)'t'] = (byte)'A';
+        map[(byte)'v'] = (byte)'B';
+        map[(byte)'y'] = (byte)'R';
 
         sequence sequence;
         while (tryTake(groupQue, out sequence))

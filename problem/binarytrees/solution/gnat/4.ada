@@ -19,7 +19,7 @@ procedure Binarytrees is
    function Get_Depth return Positive is
    begin
       if Argument_Count > 0 then
-         return PositiveʼValue (Argument (1));
+         return Positive'Value (Argument (1));
       else
          return 10;
       end if;
@@ -27,14 +27,14 @@ procedure Binarytrees is
 
    Min_Depth     : constant := 4;
    Requested_Depth : constant Positive := Get_Depth;
-   Max_Depth     : constant Positive := PositiveʼMax (Min_Depth + 2,
+   Max_Depth     : constant Positive := Positive'Max (Min_Depth + 2,
                                                       Requested_Depth);
    Depth_Iterations : constant Positive := (Max_Depth - Min_Depth) / 2 + 1;
 
    function Get_Worker_Count return Positive is
    begin
       if Argument_Count > 1 then
-         return PositiveʼValue (Argument (2));
+         return Positive'Value (Argument (2));
       else
          --  This seems to be the sweet spot assuming max depth of 20
          return 5;
@@ -44,7 +44,7 @@ procedure Binarytrees is
    Worker_Count     : constant Positive := Get_Worker_Count;
 
    task type Depth_Worker
-     (Start, Finish : Positive := PositiveʼLast) is
+     (Start, Finish : Positive := Positive'Last) is
       pragma Storage_Size (16#100#);
    end Depth_Worker;
 
@@ -167,7 +167,7 @@ begin
       null;
    end;
 
-   for I in ResultsʼRange loop
+   for I in Results'Range loop
       Put (Item => Iteration_Tracking (I), Width => 0);
       Put (HT & " trees of depth ");
       Put (Item => Min_Depth + 2 * (I - 1), Width => 0);
@@ -277,7 +277,7 @@ package body Trees is
    overriding procedure Initialize (Item : in out Node_Pool) is
       Status : constant Apr_Status :=
         Pools.Create
-          (New_Pool => Item.PoolʼAddress,
+          (New_Pool => Item.Pool'Address,
            Parent   => System.Null_Address);
       pragma Unreferenced (Status);
    begin
@@ -301,7 +301,7 @@ package body Trees is
    begin
       return Node_Convert
         (Pools.Allocate (Pool => Pool.Pool,
-                         Size => NodeʼSize / Interfaces.Unsigned_8ʼSize));
+                         Size => Node'Size / Interfaces.Unsigned_8'Size));
    end New_Node;
 end Trees;
 

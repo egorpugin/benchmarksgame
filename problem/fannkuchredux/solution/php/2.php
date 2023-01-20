@@ -2,7 +2,7 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Isaac Gouy, transliterated from Mike Pallʼs Lua program
+   contributed by Isaac Gouy, transliterated from Mike Pall's Lua program
    further optimization by Oleksii Prudkyi
 */
 

@@ -19,12 +19,12 @@ program nbody
   call get_command_argument(1, argv);read (argv,*) nstep
   call init(x,v,mass)
   e = energy(x,v,mass)
-  write (*,ʼ(f12.9)ʼ) e
+  write (*,'(f12.9)') e
   do i = 1, nstep
      call advance(x,v,mass)
   end do
   e = energy(x,v,mass)
-  write (*,ʼ(f12.9)ʼ) e
+  write (*,'(f12.9)') e
 contains
   subroutine advance(x,v,mass)
     real(dp), intent(inout) :: x(3,NB),v(3,NB)

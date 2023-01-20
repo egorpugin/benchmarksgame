@@ -62,10 +62,10 @@ class Seq {
       data: [inds] uint(8);  // the data buffer
 
   // read a chunk of bytes into the data buffer from the input channel;
-  // returns whether weʼve seen EOF (true) or not (false)
+  // returns whether we've seen EOF (true) or not (false)
   proc readChunk(input) {
     last = cursor + readSize - 1;
-    // if we donʼt have enough space for the last byte, double the data buffer
+    // if we don't have enough space for the last byte, double the data buffer
     if last >= dataLen {
       dataLen *= 2;
       inds = {0..#dataLen};
@@ -73,29 +73,29 @@ class Seq {
     return !input.read(data[cursor..last]);
   }
 
-  // process the chunk from ʼcursorʼ through ʼlastʼ looking for ʼ>ʼs or ʼ\0ʼs;
+  // process the chunk from 'cursor' through 'last' looking for '>'s or '\0's;
   // returns a pair of bools where the first indicates whether or not we found
   // a sequence and the second indicates whether there may yet be more.
   proc processChunk() {
     for i in cursor..last {
-      if data[i] == ">".toByte() {  // if we find ʼ>ʼ
-        if start == -1 {            // and havenʼt started a sequence yet
+      if data[i] == ">".toByte() {  // if we find '>'
+        if start == -1 {            // and haven't started a sequence yet
           start = i;                // this is the start
         } else {
           end = i-1;                // otherwise, it starts the next one
-          return (true, true);      // we found a sequence and thereʼs more
+          return (true, true);      // we found a sequence and there's more
         }
-      } else if data[i] == 0 {      // if we find ʼ\0ʼ, the file has ended
+      } else if data[i] == 0 {      // if we find '\0', the file has ended
         end = i-1;
         if start != -1 then
-          return (true, false);     // we found a sequence and thereʼs no more
+          return (true, false);     // we found a sequence and there's no more
       }
     }
 
     // we did not find the end of a sequence, so advance the cursor to
     // prepare for the next read
     cursor = last+1;
-    return (false, false);          // we didnʼt find a sequence
+    return (false, false);          // we didn't find a sequence
   }
 
   // copy the unused tail of our data buffer into a new sequence
@@ -111,7 +111,7 @@ class Seq {
   proc revcomp() {
     last = end;                  // snapshot the end of the sequence
 
-    // advance ʼstartʼ to the first end-of-line
+    // advance 'start' to the first end-of-line
     do {
       start += 1;
     } while data[start] != eol;
@@ -135,15 +135,15 @@ class Seq {
     }
 
     // write the sequence to stdout
-    seqToWrite.waitFor(id);         // wait for our IDʼs turn to write
+    seqToWrite.waitFor(id);         // wait for our ID's turn to write
     stdoutBin.write(data[..last]);  // write the transformed data
-    seqToWrite.write(id+1);         // make it the next sequenceʼs turn
+    seqToWrite.write(id+1);         // make it the next sequence's turn
   }
 }
 
 
 proc createTable() {
-  // `pairs` compactly represents the table weʼre creating, where the
+  // `pairs` compactly represents the table we're creating, where the
   // first byte of each pair (in either case) maps to the second:
   //   A|a -> T, C|c -> G, G|g -> C, T|t -> A, etc.
   param pairs = b"ATCGGCTAUAMKRYWWSSYRKMVBHDDHBVNN",

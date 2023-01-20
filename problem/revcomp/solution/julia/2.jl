@@ -4,22 +4,22 @@
 # contributed by Ziong
 
 const revcompdata = Dict(
-   ʼAʼ=> ʼTʼ, ʼaʼ=> ʼTʼ,
-   ʼCʼ=> ʼGʼ, ʼcʼ=> ʼGʼ,
-   ʼGʼ=> ʼCʼ, ʼgʼ=> ʼCʼ,
-   ʼTʼ=> ʼAʼ, ʼtʼ=> ʼAʼ,
-   ʼUʼ=> ʼAʼ, ʼuʼ=> ʼAʼ,
-   ʼMʼ=> ʼKʼ, ʼmʼ=> ʼKʼ,
-   ʼRʼ=> ʼYʼ, ʼrʼ=> ʼYʼ,
-   ʼWʼ=> ʼWʼ, ʼwʼ=> ʼWʼ,
-   ʼSʼ=> ʼSʼ, ʼsʼ=> ʼSʼ,
-   ʼYʼ=> ʼRʼ, ʼyʼ=> ʼRʼ,
-   ʼKʼ=> ʼMʼ, ʼkʼ=> ʼMʼ,
-   ʼVʼ=> ʼBʼ, ʼvʼ=> ʼBʼ,
-   ʼHʼ=> ʼDʼ, ʼhʼ=> ʼDʼ,
-   ʼDʼ=> ʼHʼ, ʼdʼ=> ʼHʼ,
-   ʼBʼ=> ʼVʼ, ʼbʼ=> ʼVʼ,
-   ʼNʼ=> ʼNʼ, ʼnʼ=> ʼNʼ,
+   'A'=> 'T', 'a'=> 'T',
+   'C'=> 'G', 'c'=> 'G',
+   'G'=> 'C', 'g'=> 'C',
+   'T'=> 'A', 't'=> 'A',
+   'U'=> 'A', 'u'=> 'A',
+   'M'=> 'K', 'm'=> 'K',
+   'R'=> 'Y', 'r'=> 'Y',
+   'W'=> 'W', 'w'=> 'W',
+   'S'=> 'S', 's'=> 'S',
+   'Y'=> 'R', 'y'=> 'R',
+   'K'=> 'M', 'k'=> 'M',
+   'V'=> 'B', 'v'=> 'B',
+   'H'=> 'D', 'h'=> 'D',
+   'D'=> 'H', 'd'=> 'H',
+   'B'=> 'V', 'b'=> 'V',
+   'N'=> 'N', 'n'=> 'N',
 )
 
 
@@ -30,10 +30,10 @@ function print_buff(buff)
    outbuff = IOBuffer()
    for i in l:-1:1
       write(outbuff, revcompdata[out[i]])
-      n % 60 == 0 ?  write(outbuff, ʼ\nʼ) : false
+      n % 60 == 0 ?  write(outbuff, '\n') : false
       n += 1
    end
-   n % 60 > 1 ? write(outbuff, ʼ\nʼ) : false
+   n % 60 > 1 ? write(outbuff, '\n') : false
    print(String(take!(outbuff)))
 end
 
@@ -41,7 +41,7 @@ function main()
    buff = IOBuffer()
    line = readline()
    while !isempty(line)
-      if line[1] == ʼ>ʼ
+      if line[1] == '>'
          buff.size > 0 ? print_buff(buff) : false
          println(line)
          buff = IOBuffer()

@@ -32,23 +32,23 @@ using hana::_;
 namespace {
 constexpr uint8_t swmap(uint8_t c) {
   switch(c) {
-    case ʼAʼ: case ʼaʼ: return ʼTʼ;// ʼAʼ | ʼaʼ => ʼTʼ,
-    case ʼCʼ: case ʼcʼ: return ʼGʼ;// ʼCʼ | ʼcʼ => ʼGʼ,
-    case ʼGʼ: case ʼgʼ: return ʼCʼ;// ʼGʼ | ʼgʼ => ʼCʼ,
-    case ʼTʼ: case ʼtʼ: return ʼAʼ;// ʼTʼ | ʼtʼ => ʼAʼ,
-    case ʼUʼ: case ʼuʼ: return ʼAʼ;// ʼUʼ | ʼuʼ => ʼAʼ,
-    case ʼMʼ: case ʼmʼ: return ʼKʼ;// ʼMʼ | ʼmʼ => ʼKʼ,
-    case ʼRʼ: case ʼrʼ: return ʼYʼ;// ʼRʼ | ʼrʼ => ʼYʼ,
-    case ʼWʼ: case ʼwʼ: return ʼWʼ;// ʼWʼ | ʼwʼ => ʼWʼ,
-    case ʼSʼ: case ʼsʼ: return ʼSʼ;// ʼSʼ | ʼsʼ => ʼSʼ,
-    case ʼYʼ: case ʼyʼ: return ʼRʼ;// ʼYʼ | ʼyʼ => ʼRʼ,
-    case ʼKʼ: case ʼkʼ: return ʼMʼ;// ʼKʼ | ʼkʼ => ʼMʼ,
-    case ʼVʼ: case ʼvʼ: return ʼBʼ;// ʼVʼ | ʼvʼ => ʼBʼ,
-    case ʼHʼ: case ʼhʼ: return ʼDʼ;// ʼHʼ | ʼhʼ => ʼDʼ,
-    case ʼDʼ: case ʼdʼ: return ʼHʼ;// ʼDʼ | ʼdʼ => ʼHʼ,
-    case ʼBʼ: case ʼbʼ: return ʼVʼ;// ʼBʼ | ʼbʼ => ʼVʼ,
-    case ʼNʼ: case ʼnʼ: return ʼNʼ;// ʼNʼ | ʼnʼ => ʼNʼ,
-    default: return ʼ_ʼ;
+    case 'A': case 'a': return 'T';// 'A' | 'a' => 'T',
+    case 'C': case 'c': return 'G';// 'C' | 'c' => 'G',
+    case 'G': case 'g': return 'C';// 'G' | 'g' => 'C',
+    case 'T': case 't': return 'A';// 'T' | 't' => 'A',
+    case 'U': case 'u': return 'A';// 'U' | 'u' => 'A',
+    case 'M': case 'm': return 'K';// 'M' | 'm' => 'K',
+    case 'R': case 'r': return 'Y';// 'R' | 'r' => 'Y',
+    case 'W': case 'w': return 'W';// 'W' | 'w' => 'W',
+    case 'S': case 's': return 'S';// 'S' | 's' => 'S',
+    case 'Y': case 'y': return 'R';// 'Y' | 'y' => 'R',
+    case 'K': case 'k': return 'M';// 'K' | 'k' => 'M',
+    case 'V': case 'v': return 'B';// 'V' | 'v' => 'B',
+    case 'H': case 'h': return 'D';// 'H' | 'h' => 'D',
+    case 'D': case 'd': return 'H';// 'D' | 'd' => 'H',
+    case 'B': case 'b': return 'V';// 'B' | 'b' => 'V',
+    case 'N': case 'n': return 'N';// 'N' | 'n' => 'N',
+    default: return '_';
   }
 }
 
@@ -86,17 +86,17 @@ template<size_t noffset> void replace60(const char * in, char * out) {
 //   0...
     *out++ = map256[*(--in)];
     --in;
-//     assert(*in == ʼ\nʼ);
+//     assert(*in == '\n');
     *out++ = map256[*(--in)];
     (29_c - tail_size).times(op);
   } else {// even
 //   ...\n
 //   ...
     in -= 1;
-//     assert(*in == ʼ\nʼ);
+//     assert(*in == '\n');
     (30_c - tail_size).times(op);
   }
-  *(out++) = ʼ\nʼ;
+  *(out++) = '\n';
 }
 }
 
@@ -174,10 +174,10 @@ int main() {
 
   auto next = [=, prev = 0ul]() mutable -> std::pair<range, range> {
     size_t endfile{};
-    auto arrow_pos = find_first_of(fd, ʼ>ʼ, prev, endfile);
-    auto begin_pos = find_first_of(fd, ʼ\nʼ, arrow_pos, endfile);
+    auto arrow_pos = find_first_of(fd, '>', prev, endfile);
+    auto begin_pos = find_first_of(fd, '\n', arrow_pos, endfile);
     if(begin_pos == sv::npos) return {};
-    prev = find_first_of(fd, ʼ>ʼ, begin_pos, endfile);
+    prev = find_first_of(fd, '>', begin_pos, endfile);
     prev = (prev == sv::npos) ? endfile : prev;
     return {{arrow_pos, begin_pos - arrow_pos + 1}, {begin_pos + 1, prev - begin
 _pos - 2}};

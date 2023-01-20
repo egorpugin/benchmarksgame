@@ -3,15 +3,15 @@
    The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Thomas GODART (based on Greg Buchholzʼs C program)
+   contributed by Thomas GODART (based on Greg Buchholz's C program)
    multicore by anon
  */
 
 function getProcs() {
    $procs = 1;
-   if (file_exists(ʼ/proc/cpuinfoʼ)) {
-      $procs = preg_match_all(ʼ/^processor\s/mʼ, file_get_contents(ʼ/proc/cpuinf
-oʼ), $discard);
+   if (file_exists('/proc/cpuinfo')) {
+      $procs = preg_match_all('/^processor\s/m', file_get_contents('/proc/cpuinf
+o'), $discard);
    }
    $procs <<= 1;
    return $procs;
@@ -28,7 +28,7 @@ if ($w % 8) {
 printf ("P4\n%d %d\n", $w, $h);
 
 $shsize = $w * ($w >> 3);
-$shmop = shmop_open(ftok(__FILE__, chr(time() & 255)), ʼcʼ, 0644, $shsize);
+$shmop = shmop_open(ftok(__FILE__, chr(time() & 255)), 'c', 0644, $shsize);
 
 if (!$shmop) {
    echo "faild to shmop_open()\n";
@@ -49,7 +49,7 @@ $child = $procs - 1;
 while ($child > 0) {
    $pid = pcntl_fork();
    if ($pid === -1) {
-      die(ʼcould not forkʼ);
+      die('could not fork');
    } else if ($pid) {
       --$child;
       continue;
@@ -62,7 +62,7 @@ $y = $child;
 
 for ( ; $y < $h ; $y+=$step)
 {
-   $result = array(ʼc*ʼ);
+   $result = array('c*');
 
    $Ci = $y * $yfac - 1.0;
 
@@ -96,7 +96,7 @@ for ( ; $y < $h ; $y+=$step)
       $bit_num = 128;
       $byte_acc = 0;
    }
-   shmop_write($shmop, call_user_func_array(ʼpackʼ, $result), $y * $shifted_w);
+   shmop_write($shmop, call_user_func_array('pack', $result), $y * $shifted_w);
 }
 
 if ($child > 0) {

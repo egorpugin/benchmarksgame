@@ -103,7 +103,7 @@ begin
     DoParallel(@RenderRows, 0, Pred(Size), @Data);
   end;
   IO := @Output;
-  Write(IO^, ʼP4ʼ, #10, Size, ʼ ʼ, Size, #10);
+  Write(IO^, 'P4', #10, Size, ' ', Size, #10);
   Flush(IO^);
   FileWrite(StdOutPutHandle, Data.Rows[0], BytesPerRow * Size);
   with Data do begin

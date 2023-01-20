@@ -7,21 +7,21 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 Smalltalk defineClass: #PermGeneratorRedux
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼtimesRotated perm atEnd ʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼbenchmarks gameʼ!
+        instanceVariableNames: 'timesRotated perm atEnd '
+        classInstanceVariableNames: ''
+        imports: ''
+        category: 'benchmarks game'!
 
-!PermGeneratorRedux class methodsFor: ʼinstance creationʼ!
+!PermGeneratorRedux class methodsFor: 'instance creation'!
 
 new: size
    ^self new
@@ -29,7 +29,7 @@ new: size
       yourself! !
 
 
-!PermGeneratorRedux methodsFor: ʼaccessingʼ!
+!PermGeneratorRedux methodsFor: 'accessing'!
 
 atEnd
    ^atEnd!
@@ -57,7 +57,7 @@ next
    self makeNext.
    ^result! !
 
-!PermGeneratorRedux methodsFor: ʼinitialize-releaseʼ!
+!PermGeneratorRedux methodsFor: 'initialize-release'!
 
 initialize: size
    perm := (1 to: size) asArray.
@@ -86,24 +86,24 @@ makeNext
    atEnd := true! !
 
 
-!Core.BenchmarksGame class methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame class methodsFor: 'private'!
 
 fannkuchRedux: n to: output
    ^(PermGeneratorRedux new: n) maxPfannkuchenTo: output! !
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | f |
    f := self fannkuchRedux: n to: Stdout.
    Stdout
-      nextPutAll: ʼPfannkuchen(ʼ, n printString, ʼ) = ʼ;
+      nextPutAll: 'Pfannkuchen(', n printString, ') = ';
       print: f; nl.
 
-   ^ʼʼ! !
+   ^''! !
 
 
-!Core.Array methodsFor: ʼbenchmarks gameʼ!
+!Core.Array methodsFor: 'benchmarks game'!
 
 pfannkuchen
    | first complement a b k |
@@ -121,7 +121,7 @@ pfannkuchen
    ^k! !
 
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

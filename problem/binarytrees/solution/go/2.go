@@ -9,7 +9,7 @@
 // the implementation.
 //
 // The following alternative implementations were considered before submitting
-// this code. All of them had worse readability and didnʼt yield better results
+// this code. All of them had worse readability and didn't yield better results
 // on my local machine:
 //
 // 0. general:

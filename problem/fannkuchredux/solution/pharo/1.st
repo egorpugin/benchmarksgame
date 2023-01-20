@@ -4,19 +4,19 @@
    modified by Isaac Gouy *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 Object subclass: #PermGeneratorRedux
-   instanceVariableNames: ʼtimesRotated perm atEndʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼbenchmarks gameʼ!
+   instanceVariableNames: 'timesRotated perm atEnd'
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: 'benchmarks game'!
 
 
-!PermGeneratorRedux class methodsFor: ʼinstance creationʼ!
+!PermGeneratorRedux class methodsFor: 'instance creation'!
 
 new: size
    ^self new
@@ -24,7 +24,7 @@ new: size
       yourself! !
 
 
-!PermGeneratorRedux methodsFor: ʼaccessingʼ!
+!PermGeneratorRedux methodsFor: 'accessing'!
 
 atEnd
    ^atEnd!
@@ -52,7 +52,7 @@ next
    self makeNext.
    ^result! !
 
-!PermGeneratorRedux methodsFor: ʼinitialize-releaseʼ!
+!PermGeneratorRedux methodsFor: 'initialize-release'!
 
 initialize: size
    perm := (1 to: size) asArray.
@@ -81,22 +81,22 @@ makeNext
    atEnd := true! !
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 fannkuchRedux: n to: output
    ^(PermGeneratorRedux new: n) maxPfannkuchenTo: output! !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | f |
    f := self fannkuchRedux: n to: Stdio stdout.
    Stdio stdout
-      nextPutAll: ʼPfannkuchen(ʼ, n printString, ʼ) = ʼ;
+      nextPutAll: 'Pfannkuchen(', n printString, ') = ';
       print: f; nl! !
 
 
-!Array methodsFor: ʼbenchmarks gameʼ!
+!Array methodsFor: 'benchmarks game'!
 
 pfannkuchen
    | first complement a b k |
@@ -114,7 +114,7 @@ pfannkuchen
    ^k! !
 
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

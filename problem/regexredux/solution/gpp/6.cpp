@@ -8,7 +8,7 @@
 // (JIT compile) which makes it extremely fast.
 //
 // See https://www.pcre.org/current/doc/html/index.html for more info on PCRE2.
-// The code is heavily commented to enhance readability for people who donʼt
+// The code is heavily commented to enhance readability for people who don't
 // know C++. For those who do the comments might be annoying ;)
 
 #include <algorithm>

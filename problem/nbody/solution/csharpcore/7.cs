@@ -111,7 +111,7 @@ system+2)->Mass)),
 
 
   // prevent inlining into main to decrease JIT time to generate main
-  // donʼt aggressively optimize because only entered twice for relativly short
+  // don't aggressively optimize because only entered twice for relativly short
 time
   [SkipLocalsInit][MethodImpl(NoInlining)]
   private static double Energy(Body* bi) {

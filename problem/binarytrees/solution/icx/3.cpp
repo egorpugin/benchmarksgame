@@ -23,7 +23,7 @@ typedef struct tree_node{
 } tree_node;
 
 
-// Create a binary tree of depth tree_Depth in memory_Pool, set the root nodeʼs
+// Create a binary tree of depth tree_Depth in memory_Pool, set the root node's
 // value to root_Node_Value, and finally return a pointer to the created binary
 // tree.
 static inline tree_node * create_Tree(const intnative_t tree_Depth,
@@ -82,7 +82,7 @@ int main(int argc, char ** argv){
    // Create a memory pool and then create a long-lived binary tree of depth
    // maximum_Tree_Depth which will be left alone for a while while
    // more binary trees get allocated and deallocaited as required by the
-   // rules. Weʼll finish working with this later.
+   // rules. We'll finish working with this later.
    apr_pool_create_unmanaged(&memory_Pool);
    tree_node * long_Lived_Tree=create_Tree(maximum_Tree_Depth, memory_Pool);
 

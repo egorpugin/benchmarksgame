@@ -2,7 +2,7 @@
 // https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 //
 // Contributed by TeXitoi
-// Inspired by Mr Ledrugʼs C version and thestingerʼs rust-gmp
+// Inspired by Mr Ledrug's C version and thestinger's rust-gmp
 
 #![allow(non_camel_case_types)]
 

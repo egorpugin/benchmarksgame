@@ -8,13 +8,13 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
 
-!Core.BenchmarksGame class methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame class methodsFor: 'private'!
 
 mandelbrot: extent to: output
    | limit2 m bits zr zi cr ci i tr stepr stepi |
@@ -52,18 +52,18 @@ mandelbrot: extent to: output
       ]
    ]! !
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    Stdout
-      nextPutAll: ʼP4ʼ; nl;
+      nextPutAll: 'P4'; nl;
       print: n; space; print: n; nl;
       binary.
 
    self mandelbrot: n to: Stdout.
-   ^ʼʼ! !
+   ^''! !
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 nl
    self nextPut: Character lf! !

@@ -6,7 +6,7 @@
 ;; Single core implementation.
 ;; Inspired by the Erlang one by Alkis Gotovos and Maria Christakis.
 
-(eval-when (:execute) (proclaim ʼ(optimize (speed))))
+(eval-when (:execute) (proclaim '(optimize (speed))))
 
 (defun fannkuch (n)
    (labels
@@ -18,7 +18,7 @@
           for j from 2 to n
           collect
             `((,j)
-              ,(append ʼ(flip (the fixnum (1+ acc)))
+              ,(append '(flip (the fixnum (1+ acc)))
                        (reverse (subseq params 0 j))
                        (subseq params j)))))
        (nextperm-branches
@@ -48,7 +48,7 @@
         (let ((csum 0)
               (max-flips 0)
               (even nil)
-              (c (make-array ,n :initial-element 0 :element-type ʼfixnum)))
+              (c (make-array ,n :initial-element 0 :element-type 'fixnum)))
           (declare (type fixnum csum max-flips)
                    (type boolean even)
                    (type (simple-array fixnum (,n)) c))
@@ -61,7 +61,7 @@
              (ecase i
                (,n (format t "~s~%Pfannkuchen(~s) = ~s~%" csum ,n max-flips))
                ,@nextperm-branches)))
-           (apply #ʼperm
+           (apply #'perm
             1
             (loop for j of-type fixnum from 1 to ,n collect j))))))))
     (funcall (compile nil (mkperm n)))))

@@ -7,7 +7,7 @@
 ;; implementation on Java #6, which is similar to java #1 but does not rely on
 ;; the external library it.unimi.dsi.fastutil my testing (once I had already tra
 nslated
-;; Java #1 to lisp) shows that a great deal of Java #1ʼs performance comes from
+;; Java #1 to lisp) shows that a great deal of Java #1's performance comes from
 it
 ;; relying on a specialized hash table fastutil.longs.Long2IntOpenHashMap.
 
@@ -86,8 +86,8 @@ task-mutex*)))))
 
 (defstruct result
   (outmap (make-hash-table
-           :test ʼeql
-           :hash-function #ʼhash-function
+           :test 'eql
+           :hash-function #'hash-function
            :rehash-size 2.0
            :rehash-threshold 0.7))
   (keylength 0))
@@ -148,7 +148,7 @@ gethash key2 (result-outmap result1) 0)) (the (unsigned-byte 32) value2))))
 (defun write-frequencies (totalCount frequencies)
   (declare (optimize (speed 3) (safety 0) (debug 0)))
   (let ((freq (make-array (hash-table-count (result-outmap frequencies)) :fill-p
-ointer 0 :element-type ʼcons)))
+ointer 0 :element-type 'cons)))
     (loop for key being the hash-keys of (result-outmap frequencies)
        using (hash-value cnt) do
          (let ((nentry (cons (key-to-string key (result-keylength frequencies))
@@ -156,8 +156,8 @@ cnt)))
            (vector-push-extend nentry freq)))
     (sort freq (lambda (x y) (> (cdr x) (cdr y))))
     (let ((outstr
-           (apply #ʼconcatenate
-                  (append (list ʼstring)
+           (apply #'concatenate
+                  (append (list 'string)
                           (loop for index from 0 below (length freq)
                                            for (key . value) = (elt freq index)
                                            collect
@@ -167,7 +167,7 @@ alue 100.0) totalCount)))))))
 
 (defun write-count (tasks nucleotideFragment)
   (declare (optimize (speed 3) (safety 0) (debug 0)))
-  (let* ((key (to-codes-new (map ʼ(vector (unsigned-byte 8)) #ʼchar-code nucleot
+  (let* ((key (to-codes-new (map '(vector (unsigned-byte 8)) #'char-code nucleot
 ideFragment) (length nucleotideFragment)) )
          (k (get-key key 0 (length nucleotideFragment)))
          (count 0))
@@ -205,14 +205,14 @@ o
   (declare (type (simple-array (unsigned-byte 8)) sequence)
            (type (unsigned-byte 32) length)
            )
-  (let ((result (make-array length :element-type ʼ(unsigned-byte 8))))
+  (let ((result (make-array length :element-type '(unsigned-byte 8))))
     (loop for i of-type (unsigned-byte 32) from 0 below length do
          (setf (elt result i) (elt CODES (logand (elt sequence i) #x7))))
     result))
 
 (defun read-in-data-new (pistream)
   (declare (optimize (speed 3) (safety 0) (debug 0)))
-  (let ((bytes (make-array 1048576 :element-type ʼ(unsigned-byte 8)))
+  (let ((bytes (make-array 1048576 :element-type '(unsigned-byte 8)))
         (position 0))
     (declare (type (simple-array (unsigned-byte 8)) bytes)
              (type (unsigned-byte 32) position))
@@ -225,7 +225,7 @@ three
          while (not (or (eql line :eof) (eql (elt line 0) #\>))) do
            (if (> (+ position (length line)) (length bytes)) ;;then we need to g
 row the array
-               (let ((newbytes (make-array (* 2 (length bytes)) :element-type ʼ(
+               (let ((newbytes (make-array (* 2 (length bytes)) :element-type '(
 unsigned-byte 8))))
                  (loop for i from 0 below (length bytes) do
                       (setf (elt newbytes i) (elt bytes i)))

@@ -117,7 +117,7 @@ static void repeat_fasta(const char *seq,
   char *buffer2 = malloc(buflen2);
   for (i=0; i<len; i++) {
     memcpy(buffer2+i*(LINELEN+1), buffer1+((i*LINELEN)%len), LINELEN);
-    buffer2[(i+1)*(LINELEN+1)-1] = ʼ\nʼ;
+    buffer2[(i+1)*(LINELEN+1)-1] = '\n';
   }
 
   int whole_buffers = n / (len*LINELEN);
@@ -153,7 +153,7 @@ static char * build_hash(const char *symb,const float *probability) {
 static char * buffer_with_linebreaks(const int lines) {
   char *buffer = malloc((LINELEN+1)*lines);
   if (!buffer) exit(-1);
-  for (int i=0; i<lines; i++) buffer[i*(LINELEN+1)+LINELEN] = ʼ\nʼ;
+  for (int i=0; i<lines; i++) buffer[i*(LINELEN+1)+LINELEN] = '\n';
   return buffer;
 }
 

@@ -9,12 +9,12 @@ program reverse_complement;
 var lookupComplement : array[#0..#255] of char;
 
 Const FASTAXLAT : array[0..11] of array[0..1] of char = (
-                  ( ʼAʼ, ʼTʼ ), ( ʼCʼ, ʼGʼ ),
-                  ( ʼBʼ, ʼVʼ ), ( ʼDʼ, ʼHʼ ),
-                  ( ʼKʼ, ʼMʼ ), ( ʼRʼ, ʼYʼ ),
-                  ( ʼaʼ, ʼtʼ ), ( ʼcʼ, ʼgʼ ),
-                  ( ʼbʼ, ʼvʼ ), ( ʼdʼ, ʼhʼ ),
-                  ( ʼkʼ, ʼmʼ ), ( ʼrʼ, ʼyʼ ));
+                  ( 'A', 'T' ), ( 'C', 'G' ),
+                  ( 'B', 'V' ), ( 'D', 'H' ),
+                  ( 'K', 'M' ), ( 'R', 'Y' ),
+                  ( 'a', 't' ), ( 'c', 'g' ),
+                  ( 'b', 'v' ), ( 'd', 'h' ),
+                  ( 'k', 'm' ), ( 'r', 'y' ));
 
       BufferIncrement = 1024;
 
@@ -88,7 +88,7 @@ begin
       readln(s);
       inc(line);
       len:=length(s);
-      if (len>0) and (s[1]=ʼ>ʼ) then
+      if (len>0) and (s[1]='>') then
           begin
             flushbuffer(p,bufferptr);
             writeln(s);

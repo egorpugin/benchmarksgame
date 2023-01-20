@@ -11,25 +11,25 @@ and lines_per_worker =
   | 64 -> 500000
   | _ -> assert false
 
-let rc_table = String.make 256 ʼ\000ʼ
+let rc_table = String.make 256 '\000'
 let _ =
-  rc_table.[Char.code ʼAʼ] <- ʼTʼ; rc_table.[Char.code ʼTʼ] <- ʼAʼ;
-  rc_table.[Char.code ʼwʼ] <- ʼWʼ; rc_table.[Char.code ʼsʼ] <- ʼSʼ;
-  rc_table.[Char.code ʼaʼ] <- ʼTʼ; rc_table.[Char.code ʼtʼ] <- ʼAʼ;
-  rc_table.[Char.code ʼCʼ] <- ʼGʼ; rc_table.[Char.code ʼGʼ] <- ʼCʼ;
-  rc_table.[Char.code ʼcʼ] <- ʼGʼ; rc_table.[Char.code ʼgʼ] <- ʼCʼ;
-  rc_table.[Char.code ʼUʼ] <- ʼAʼ; rc_table.[Char.code ʼuʼ] <- ʼAʼ;
-  rc_table.[Char.code ʼMʼ] <- ʼKʼ; rc_table.[Char.code ʼKʼ] <- ʼMʼ;
-  rc_table.[Char.code ʼmʼ] <- ʼKʼ; rc_table.[Char.code ʼkʼ] <- ʼMʼ;
-  rc_table.[Char.code ʼRʼ] <- ʼYʼ; rc_table.[Char.code ʼYʼ] <- ʼRʼ;
-  rc_table.[Char.code ʼrʼ] <- ʼYʼ; rc_table.[Char.code ʼyʼ] <- ʼRʼ;
-  rc_table.[Char.code ʼWʼ] <- ʼWʼ; rc_table.[Char.code ʼSʼ] <- ʼSʼ;
-  rc_table.[Char.code ʼwʼ] <- ʼWʼ; rc_table.[Char.code ʼsʼ] <- ʼSʼ;
-  rc_table.[Char.code ʼVʼ] <- ʼBʼ; rc_table.[Char.code ʼBʼ] <- ʼVʼ;
-  rc_table.[Char.code ʼvʼ] <- ʼBʼ; rc_table.[Char.code ʼbʼ] <- ʼVʼ;
-  rc_table.[Char.code ʼHʼ] <- ʼDʼ; rc_table.[Char.code ʼDʼ] <- ʼHʼ;
-  rc_table.[Char.code ʼhʼ] <- ʼDʼ; rc_table.[Char.code ʼdʼ] <- ʼHʼ;
-  rc_table.[Char.code ʼNʼ] <- ʼNʼ; rc_table.[Char.code ʼnʼ] <- ʼNʼ
+  rc_table.[Char.code 'A'] <- 'T'; rc_table.[Char.code 'T'] <- 'A';
+  rc_table.[Char.code 'w'] <- 'W'; rc_table.[Char.code 's'] <- 'S';
+  rc_table.[Char.code 'a'] <- 'T'; rc_table.[Char.code 't'] <- 'A';
+  rc_table.[Char.code 'C'] <- 'G'; rc_table.[Char.code 'G'] <- 'C';
+  rc_table.[Char.code 'c'] <- 'G'; rc_table.[Char.code 'g'] <- 'C';
+  rc_table.[Char.code 'U'] <- 'A'; rc_table.[Char.code 'u'] <- 'A';
+  rc_table.[Char.code 'M'] <- 'K'; rc_table.[Char.code 'K'] <- 'M';
+  rc_table.[Char.code 'm'] <- 'K'; rc_table.[Char.code 'k'] <- 'M';
+  rc_table.[Char.code 'R'] <- 'Y'; rc_table.[Char.code 'Y'] <- 'R';
+  rc_table.[Char.code 'r'] <- 'Y'; rc_table.[Char.code 'y'] <- 'R';
+  rc_table.[Char.code 'W'] <- 'W'; rc_table.[Char.code 'S'] <- 'S';
+  rc_table.[Char.code 'w'] <- 'W'; rc_table.[Char.code 's'] <- 'S';
+  rc_table.[Char.code 'V'] <- 'B'; rc_table.[Char.code 'B'] <- 'V';
+  rc_table.[Char.code 'v'] <- 'B'; rc_table.[Char.code 'b'] <- 'V';
+  rc_table.[Char.code 'H'] <- 'D'; rc_table.[Char.code 'D'] <- 'H';
+  rc_table.[Char.code 'h'] <- 'D'; rc_table.[Char.code 'd'] <- 'H';
+  rc_table.[Char.code 'N'] <- 'N'; rc_table.[Char.code 'n'] <- 'N'
 
 let _ =
   let aug_chars_per_line = chars_per_line + 1
@@ -46,7 +46,7 @@ let _ =
   let rec spawn tag beg first =
     let output_tag () =
       print_string tag;
-      print_char ʼ\nʼ;
+      print_char '\n';
       flush stdout
     and buf = String.create (lines_per_worker * chars_per_line + 2)
     and len = ref (String.length beg) in
@@ -64,19 +64,19 @@ let _ =
       if rem > 0 then begin
         let to_do = min rem (len - !dne) in
         output stdout buf !dne to_do;
-        output_char stdout ʼ\nʼ;
+        output_char stdout '\n';
         dne := !dne + to_do
       end;
       while len - !dne >= chars_per_line do
         output stdout buf !dne chars_per_line;
-        output_char stdout ʼ\nʼ;
+        output_char stdout '\n';
         dne := !dne + chars_per_line
       done;
       let rem = len - !dne in
       if rem > 0 then begin
         output stdout buf !dne rem;
         if eol then
-          output_char stdout ʼ\nʼ
+          output_char stdout '\n'
       end;
       flush stdout;
       if eol then
@@ -87,20 +87,20 @@ let _ =
       for i = 2 to lines_per_worker do
         really_input stdin buf !len aug_chars_per_line;
         let new_len = ref (!len + chars_per_line) in
-        if buf.[!len] = ʼ>ʼ || buf.[!new_len] <> ʼ\nʼ then begin
-          while buf.[!len] <> ʼ>ʼ do
+        if buf.[!len] = '>' || buf.[!new_len] <> '\n' then begin
+          while buf.[!len] <> '>' do
             incr len
           done;
           let ptr = ref !len in
           (* Needed to patch the hideous bug in the output of the C program *)
-          if buf.[!len - 1] <> ʼ\nʼ then begin
+          if buf.[!len - 1] <> '\n' then begin
             String.blit buf !len buf (!len + 1) aug_chars_per_line;
-            buf.[!len] <- ʼ\nʼ;
+            buf.[!len] <- '\n';
             incr new_len;
             incr ptr
           end else
             decr len;
-          while !ptr < !new_len && buf.[!ptr] <> ʼ\nʼ do
+          while !ptr < !new_len && buf.[!ptr] <> '\n' do
             incr ptr
           done;
           match Unix.fork () with
@@ -140,7 +140,7 @@ let _ =
               exit rem
           | _ -> assert false
     with End_of_file ->
-      while buf.[!len] <> ʼ\nʼ do
+      while buf.[!len] <> '\n' do
         incr len
       done;
       get_ack ();

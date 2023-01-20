@@ -55,7 +55,7 @@ proc main() {
 
 
 //
-// Repeat ʼaluʼ to generate a sequence of length ʼnʼ
+// Repeat 'alu' to generate a sequence of length 'n'
 //
 proc repeatMake(param alu, n) {
   param len = alu.size,
@@ -82,8 +82,8 @@ proc repeatMake(param alu, n) {
 }
 
 //
-// Use ʼnuclInfoʼs probability distribution to generate a random
-// sequence of length ʼnʼ
+// Use 'nuclInfo's probability distribution to generate a random
+// sequence of length 'n'
 //
 proc randomMake(nuclInfo, n) {
   var hash: [0..<IM] uint(8),

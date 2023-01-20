@@ -59,7 +59,7 @@ fn read_input() -> Vec<u8> {
 
         loop {
             match input_bytes.last() {
-                Some(&bʼ\rʼ) | Some(&bʼ\nʼ) => { input_bytes.pop(); },
+                Some(&b'\r') | Some(&b'\n') => { input_bytes.pop(); },
                 _ => break
             }
         }

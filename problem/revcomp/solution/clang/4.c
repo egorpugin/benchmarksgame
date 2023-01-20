@@ -30,15 +30,15 @@ int main () {                    // ***** main *****
   pj = fgets(jjj,JBFSIZE,stdin);         // fetch 1st line
   if (!pj)
     return errex("No input data",0);
-  if (*jjj != ʼ>ʼ)
-    return errex("1st char not ʼ>ʼ", 0);
+  if (*jjj != '>')
+    return errex("1st char not '>'", 0);
 
   while (pj) {                           // MAIN LOOP: process data
     fputs(jjj, stdout);                  // output ID line
 
     for (pq=qqq+1, pr=pqstop; ; pq++) {  // LOOP: fill output buffer
       pj = fgets(jjj, JBFSIZE, stdin);   // get line from stdin
-      if (!pj || (*jjj==ʼ>ʼ))  break;    // EOF or new ID line
+      if (!pj || (*jjj=='>'))  break;    // EOF or new ID line
       if (pr <= (pq+61)) {               // need to resize buffer
         char *newstop = pqstop + 12777888;
         char *newptr  = realloc(qqq, newstop-qqq);

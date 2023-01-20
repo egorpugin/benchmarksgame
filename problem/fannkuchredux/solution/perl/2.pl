@@ -16,7 +16,7 @@ sub count_flips($) {
     my($first);
 
 # debug permutation order:
-#print unpack(ʼc*ʼ, $p), "\n";
+#print unpack('c*', $p), "\n";
     while($first = vec($p, 0, 8)) {
         $first ++;
         $flips ++;
@@ -70,7 +70,7 @@ sub fannkuchredux($$) {
 ## MAIN()
 
 $n = shift;
-$p = pack(ʼc*ʼ, (0 .. $n - 1));
+$p = pack('c*', (0 .. $n - 1));
 $sign = 1;
 
 $count = $n;

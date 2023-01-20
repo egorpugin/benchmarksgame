@@ -15,11 +15,11 @@ module pcre2_mod
         integer :: size
     end type
 
-    integer(c_int), parameter :: PCRE2_JIT_COMPLETE = int(zʼ00000001ʼ)
+    integer(c_int), parameter :: PCRE2_JIT_COMPLETE = int(z'00000001')
 
     interface
         ! void pcre2_code_free(pcre2_code *code)
-        subroutine pcre2_code_free(code) bind(c, name=ʼpcre2_code_free_8ʼ)
+        subroutine pcre2_code_free(code) bind(c, name='pcre2_code_free_8')
             import
             type(c_ptr), intent(in), value :: code
         end subroutine
@@ -30,7 +30,7 @@ module pcre2_mod
         !                           pcre2_compile_context *ccontext)
         function pcre2_compile &
                 (pattern, length, options, errorcode, erroroffset, ccontext) &
-                result(code) bind(c, name=ʼpcre2_compile_8ʼ)
+                result(code) bind(c, name='pcre2_compile_8')
             import
             type(c_ptr) :: code
             character(kind=c_char), intent(in) :: pattern(*)
@@ -42,7 +42,7 @@ module pcre2_mod
 
         ! PCRE2_SIZE *pcre2_get_ovector_pointer(pcre2_match_data *match_data)
         function pcre2_get_ovector_pointer(match_data) result(ret) &
-                bind(c, name=ʼpcre2_get_ovector_pointer_8ʼ)
+                bind(c, name='pcre2_get_ovector_pointer_8')
             import
             type(c_ptr) :: ret
             type(c_ptr), intent(in), value :: match_data
@@ -50,7 +50,7 @@ module pcre2_mod
 
         ! int pcre2_jit_compile(pcre2_code *code, uint32_t options)
         function pcre2_jit_compile(code, options) &
-                result(errorcode) bind(c, name=ʼpcre2_jit_compile_8ʼ)
+                result(errorcode) bind(c, name='pcre2_jit_compile_8')
             import
             integer :: errorcode
             type(c_ptr), intent(in), value :: code
@@ -63,7 +63,7 @@ module pcre2_mod
         !                     pcre2_match_context *mcontext)
         function pcre2_jit_match (code, subject, length, startoffset, options, &
                 match_data, mcontext) &
-                result(ret) bind(c, name=ʼpcre2_jit_match_8ʼ)
+                result(ret) bind(c, name='pcre2_jit_match_8')
             import
             integer :: ret
             type(c_ptr), intent(in), value :: code, match_data, mcontext
@@ -75,7 +75,7 @@ module pcre2_mod
         !   pcre2_jit_callback callback_function, void *callback_data)
         subroutine pcre2_jit_stack_assign &
                 (mcontext, callback_function, callback_data) &
-                bind(c, name=ʼpcre2_jit_stack_assign_8ʼ)
+                bind(c, name='pcre2_jit_stack_assign_8')
             import
             type(c_ptr), intent(in), value :: mcontext, callback_function, &
                 callback_data
@@ -85,7 +85,7 @@ module pcre2_mod
         !   PCRE2_SIZE startsize, PCRE2_SIZE maxsize,
         !   pcre2_general_context *gcontext)
         function pcre2_jit_stack_create(startsize, maxsize, gcontext) &
-                result(stack) bind(c, name=ʼpcre2_jit_stack_create_8ʼ)
+                result(stack) bind(c, name='pcre2_jit_stack_create_8')
             import
             type(c_ptr) :: stack
             integer(c_size_t), intent(in), value :: startsize, maxsize
@@ -94,7 +94,7 @@ module pcre2_mod
 
         ! void pcre2_jit_stack_free(pcre2_jit_stack *jit_stack)
         subroutine pcre2_jit_stack_free(jit_stack) &
-                bind(c, name=ʼpcre2_jit_stack_free_8ʼ)
+                bind(c, name='pcre2_jit_stack_free_8')
             import
             type(c_ptr), intent(in), value :: jit_stack
         end subroutine
@@ -102,7 +102,7 @@ module pcre2_mod
         ! pcre2_match_context *pcre2_match_context_create(
         !   pcre2_general_context *gcontext)
         function pcre2_match_context_create(gcontext) &
-                result(mcontext) bind(c, name=ʼpcre2_match_context_create_8ʼ)
+                result(mcontext) bind(c, name='pcre2_match_context_create_8')
             import
             type(c_ptr) :: mcontext
             type(c_ptr), intent(in), value :: gcontext
@@ -110,7 +110,7 @@ module pcre2_mod
 
         ! void pcre2_match_context_free(pcre2_match_context *mcontext)
         subroutine pcre2_match_context_free(mcontext) &
-                bind(c, name=ʼpcre2_match_context_free_8ʼ)
+                bind(c, name='pcre2_match_context_free_8')
             import
             type(c_ptr), intent(in), value :: mcontext
         end subroutine
@@ -118,7 +118,7 @@ module pcre2_mod
         ! pcre2_match_data *pcre2_match_data_create(
         !   uint32_t ovecsize, pcre2_general_context *gcontext)
         function pcre2_match_data_create(ovecsize, gcontext) &
-                result(mdata) bind(c, name=ʼpcre2_match_data_create_8ʼ)
+                result(mdata) bind(c, name='pcre2_match_data_create_8')
             import
             type(c_ptr) :: mdata
             integer(c_size_t), intent(in), value :: ovecsize
@@ -127,7 +127,7 @@ module pcre2_mod
 
         ! void pcre2_match_data_free(pcre2_match_data *match_data)
         subroutine pcre2_match_data_free(match_data) &
-                bind(c, name=ʼpcre2_match_data_free_8ʼ)
+                bind(c, name='pcre2_match_data_free_8')
             import
             type(c_ptr), intent(in), value :: match_data
         end subroutine
@@ -246,22 +246,22 @@ program regexredux
 
 
     count_info = [ &
-        const_str(ʼagggtaaa|tttaccctʼ), &
-        const_str(ʼ[cgt]gggtaaa|tttaccc[acg]ʼ), &
-        const_str(ʼa[act]ggtaaa|tttacc[agt]tʼ), &
-        const_str(ʼag[act]gtaaa|tttac[agt]ctʼ), &
-        const_str(ʼagg[act]taaa|ttta[agt]cctʼ), &
-        const_str(ʼaggg[acg]aaa|ttt[cgt]ccctʼ), &
-        const_str(ʼagggt[cgt]aa|tt[acg]accctʼ), &
-        const_str(ʼagggta[cgt]a|t[acg]taccctʼ), &
-        const_str(ʼagggtaa[cgt]|[acg]ttaccctʼ) &
+        const_str('agggtaaa|tttaccct'), &
+        const_str('[cgt]gggtaaa|tttaccc[acg]'), &
+        const_str('a[act]ggtaaa|tttacc[agt]t'), &
+        const_str('ag[act]gtaaa|tttac[agt]ct'), &
+        const_str('agg[act]taaa|ttta[agt]cct'), &
+        const_str('aggg[acg]aaa|ttt[cgt]ccct'), &
+        const_str('agggt[cgt]aa|tt[acg]accct'), &
+        const_str('agggta[cgt]a|t[acg]taccct'), &
+        const_str('agggtaa[cgt]|[acg]ttaccct') &
     ]
     replace_info = reshape([ &
-        const_str(ʼtHa[Nt]ʼ), const_str(ʼ<4>ʼ), &
-        const_str(ʼaND|caN|Ha[DS]|WaSʼ), const_str(ʼ<3>ʼ), &
-        const_str(ʼa[NSt]|BYʼ), const_str(ʼ<2>ʼ), &
-        const_str(ʼ<[^>]*>ʼ), const_str(ʼ|ʼ), &
-        const_str(ʼ\|[^|][^|]*\|ʼ), const_str(ʼ-ʼ) &
+        const_str('tHa[Nt]'), const_str('<4>'), &
+        const_str('aND|caN|Ha[DS]|WaS'), const_str('<3>'), &
+        const_str('a[NSt]|BY'), const_str('<2>'), &
+        const_str('<[^>]*>'), const_str('|'), &
+        const_str('\|[^|][^|]*\|'), const_str('-') &
     ], [2, 5])
 
     open(unit=input_unit, action="read", form="unformatted", access="stream")
@@ -280,11 +280,11 @@ program regexredux
 
     !$omp single
     allocate (character(len=16384) :: sequences%data)
-    call replace(ʼ>.*\n|\nʼ, ʼʼ, input, sequences, mcontext, mdata)
+    call replace('>.*\n|\n', '', input, sequences, mcontext, mdata)
     deallocate(input%data)
     !$omp end single
 
-    ! Weʼll use two strings when doing all the replacements, searching
+    ! We'll use two strings when doing all the replacements, searching
     ! for patterns in prereplace_string and using postreplace_string to
     ! store the string after the replacements have been made. After
     ! each iteration these two then get swapped. Start out with both
@@ -351,7 +351,7 @@ program regexredux
 
         ! Print the count for each pattern in the correct order.
         !$omp ordered
-        print ʼ(A, " ", I0)ʼ, count_info(i)%data, info_count
+        print '(A, " ", I0)', count_info(i)%data, info_count
         !$omp end ordered
     end do
     !$omp end do
@@ -366,7 +366,7 @@ program regexredux
     ! Print the size of the original input, the size of the input without the
     ! sequence descriptions & new lines, and the size after having made all the
     ! replacements.
-    print ʼ(/ I0 / I0 / I0)ʼ, input_size, sequences%size, prereplace_string%size
+    print '(/ I0 / I0 / I0)', input_size, sequences%size, prereplace_string%size
 
 end program regexredux
 

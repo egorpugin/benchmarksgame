@@ -12,7 +12,7 @@ def main():
     limit2 = 4.
     w = h = int(sys.argv[1])
 
-    sys.stdout.write(fʼP4\n{w} {h}\nʼ); sys.stdout.flush()
+    sys.stdout.write(f'P4\n{w} {h}\n'); sys.stdout.flush()
 
     for y in range(h):
         fy = 2j * y / h - 1j

@@ -133,7 +133,7 @@ ls)
 __m128i create_current(small_int_t n,
                               std::array<big_int_t, max_n>& count)
 {
-    // not a "hotspot", using intrinsics for rotations donʼt bring
+    // not a "hotspot", using intrinsics for rotations don't bring
     // much benefit here considering the increased complexity
     alignas(16) std::array<small_int_t, max_n> current_aux =
         {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};

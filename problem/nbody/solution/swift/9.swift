@@ -3,7 +3,7 @@
 ///
 /// contributed by Thomas Roughton
 ///
-/// Derived mainly from Stuart Carnieʼs Swift version,
+/// Derived mainly from Stuart Carnie's Swift version,
 /// which in turn from numerous versions, including Swift and Go
 ///
 /// This code requires hardware supporting

@@ -42,7 +42,7 @@ for $i (1..$n) {
     unless ( $i % 10 ) { print $s, ":$i"; undef $s }
 }
 
-$s .= ʼ ʼ x (10-$i) if $i = $n % 10;
+$s .= ' ' x (10-$i) if $i = $n % 10;
 
 print $s, ":$n" if $s
 

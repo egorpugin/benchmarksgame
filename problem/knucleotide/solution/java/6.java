@@ -71,7 +71,7 @@ p1, Map<ByteString, ByteString> map2) {
             sb.append(String.format("%s %.3f\n", k.toString().toUpperCase(), (fl
 oat)(k.count) * 100.0f / totalCount));
 
-        return sb.append(ʼ\nʼ).toString();
+        return sb.append('\n').toString();
     }
 
     static String writeCount(List<Future<Map<ByteString, ByteString>>> futures,
@@ -85,7 +85,7 @@ String nucleotideFragment) throws Exception {
             if (temp != null) count += temp.count;
         }
 
-        return count + "\t" + nucleotideFragment.toUpperCase() + ʼ\nʼ;
+        return count + "\t" + nucleotideFragment.toUpperCase() + '\n';
     }
 
     public static void main (String[] args) throws Exception {

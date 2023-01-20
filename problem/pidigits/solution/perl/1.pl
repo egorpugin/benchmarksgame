@@ -7,10 +7,10 @@
 
 use strict;
 
-use Math::BigInt lib => ʼGMPʼ;
+use Math::BigInt lib => 'GMP';
 
-die ʼMath::BigInt::GMP missing!ʼ
-    if Math::BigInt->config->{lib} ne ʼMath::BigInt::GMPʼ;
+die 'Math::BigInt::GMP missing!'
+    if Math::BigInt->config->{lib} ne 'Math::BigInt::GMP';
 
 my $z0 = Math::BigInt->new(1);
 my $z1 = Math::BigInt->new(0);
@@ -47,7 +47,7 @@ for $i (1..$n) {
     unless ( $i % 10 ) { print $s, ":$i"; undef $s }
 }
 
-$s .= ʼ ʼ x (10-$i) if $i = $n % 10;
+$s .= ' ' x (10-$i) if $i = $n % 10;
 
 print $s, ":$n" if $s
 

@@ -17,11 +17,11 @@
   (eval-At-times-u n (eval-A-times-u n u)))
 
 ;; This is our most expensive function.  Optimized with the knowledge
-;; that ʼnʼ will never be "huge".  This will break if ʼnʼ exceeds
+;; that 'n' will never be "huge".  This will break if 'n' exceeds
 ;; approximately half of the square root of the largest fixnum
 ;; supported by the implementation.  On sbcl 0.9.3,
-;; ʼmost-positive-fixnumʼ is 536870911, and we can support values of
-;; ʼnʼ above 11000.
+;; 'most-positive-fixnum' is 536870911, and we can support values of
+;; 'n' above 11000.
 (declaim (inline eval-A))
 (defun eval-A (i j)
   (declare (type fixnum i j))
@@ -33,7 +33,7 @@
 (defun eval-A-times-u (n u)
   (declare (type fixnum n)
            (type (simple-array double-float) u))
-  (let ((retval (make-array n :element-type ʼdouble-float :initial-element 0.0d0
+  (let ((retval (make-array n :element-type 'double-float :initial-element 0.0d0
 )))
     (dotimes (i n)
       (dotimes (j n)
@@ -43,7 +43,7 @@
 (defun eval-At-times-u (n u)
   (declare (type fixnum n)
            (type (simple-array double-float) u))
-  (let ((retval (make-array n :element-type ʼdouble-float :initial-element 0.0d0
+  (let ((retval (make-array n :element-type 'double-float :initial-element 0.0d0
 )))
     (dotimes (i n)
       (dotimes (j n)
@@ -59,10 +59,10 @@
 ngs*
                                              #+gcl  si::*command-args*))
                                   "2000")))))
-    (or (typep (* (- (* 2 n) 1) (- (* 2 n) 2)) ʼfixnum)
-        (error "The supplied value of ʼnʼ breaks the optimizations in EVAL-A"))
-    (let ((u (make-array n :element-type ʼdouble-float :initial-element 1.0d0))
-          (v (make-array n :element-type ʼdouble-float)))
+    (or (typep (* (- (* 2 n) 1) (- (* 2 n) 2)) 'fixnum)
+        (error "The supplied value of 'n' breaks the optimizations in EVAL-A"))
+    (let ((u (make-array n :element-type 'double-float :initial-element 1.0d0))
+          (v (make-array n :element-type 'double-float)))
       (declare (type (simple-array double-float) U V))
       (dotimes (i 10)
         (setf v (eval-AtA-times-u n u))

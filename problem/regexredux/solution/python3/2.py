@@ -17,12 +17,12 @@ from os import cpu_count
 from sys import stdin
 
 
-# Weʼll be using PCRE2 for our regular expression needs instead of using
-# Pythonʼs built in regular expression engine because it is significantly
+# We'll be using PCRE2 for our regular expression needs instead of using
+# Python's built in regular expression engine because it is significantly
 # faster.
 PCRE2=CDLL(find_library("pcre2-8"))
 
-# By default, Python assumes that C functions will return intʼs but that is not
+# By default, Python assumes that C functions will return int's but that is not
 # correct for the following functions which return pointers instead so we tell
 # it the correct types here.
 PCRE2.pcre2_compile_8.restype=POINTER(c_char)
@@ -131,7 +131,7 @@ nt)
                 # tuples in the task.
                 else:
 
-                        # Weʼll use two strings when doing all the replacements,
+                        # We'll use two strings when doing all the replacements,
  searching
                         # for patterns in prereplace_String and using postreplac
 e_String to
@@ -171,7 +171,7 @@ in preparation
 th
                                 postreplace_String_Length=string_Capacities
 
-                        # If any replacements were made, theyʼll be in prereplac
+                        # If any replacements were made, they'll be in prereplac
 e_String
                         # instead of postreplace_String because of the swap done
  after each
@@ -180,7 +180,7 @@ e_String
                         worker_Pipe.send(prereplace_String_Length)
 
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
         # Read in input from stdin and also get the input_Length.
         input=stdin.buffer.read()
         input_Length=len(input)
@@ -198,7 +198,7 @@ if __name__ == ʼ__main__ʼ:
 gth,
           sequences, sequences_Length)
 
-        # Weʼll be using the sequences string instead of the input string from n
+        # We'll be using the sequences string instead of the input string from n
 ow
         # on so delete our reference to it since this can often free up the memo
 ry
@@ -220,7 +220,7 @@ e
 
 
         # Wait for the first worker subproces to send us a None object that
-        # indicates itʼs ready to start processing tasks and then have it start
+        # indicates it's ready to start processing tasks and then have it start
         # working on performing all the replacements serially.
         manager_Pipes[0].recv()
         manager_Pipes[0].send((
@@ -250,7 +250,7 @@ sses
 ults
         # that they send back, sending them any remaining counting tasks, and th
 en
-        # finally telling them when itʼs OK for them to exit (when there are no
+        # finally telling them when it's OK for them to exit (when there are no
 more
         # tasks to process).
         index_For_Next_Count=0
@@ -260,7 +260,7 @@ more
                 for manager_Pipe in wait(manager_Pipes):
                         result=manager_Pipe.recv()
 
-                        # If the result is an int, then itʼs the postreplace_Len
+                        # If the result is an int, then it's the postreplace_Len
 gth that
                         # resulted after applying all the replacments that were
 specified
@@ -268,7 +268,7 @@ specified
                         if type(result) is int:
                                 postreplace_Length=result
 
-                        # If the result is a tuple, then itʼs the results from o
+                        # If the result is a tuple, then it's the results from o
 ne of the
                         # counting tasks for the patterns in count_Info[]. The f
 irst element
@@ -284,7 +284,7 @@ sult[1]]
 
                         # Send the worker subprocess the index_For_Next_Count an
 d pattern to
-                        # work on if we havenʼt reached the end of count_Info[]
+                        # work on if we haven't reached the end of count_Info[]
 yet.
                         if index_For_Next_Count<len(count_Info):
                                 manager_Pipe.send((index_For_Next_Count,

@@ -33,8 +33,8 @@ public:
     , _width (roundToMultiple(width, CHAR_BIT))
     , _height (roundToMultiple(height, numberOfCpuCores))
     , _data ((_width * _height) / CHAR_BIT) {
-        _ostr << "P4" << ʼ\nʼ;
-        _ostr << _width << ʼ ʼ << _height << ʼ\nʼ;
+        _ostr << "P4" << '\n';
+        _ostr << _width << ' ' << _height << '\n';
     }
     ~PortableBinaryBitmap() {
         _ostr.write(_data.data(), _data.size());

@@ -3,7 +3,7 @@
     https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
     contributed by Branimir Maksimovic
-    optimized/rewritten by Bryan OʼSullivan
+    optimized/rewritten by Bryan O'Sullivan
     modified by Gabriel Gonzalez
     fix for GHC 9.2 by Artem Pelenitsyn
 -}

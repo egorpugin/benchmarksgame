@@ -28,7 +28,7 @@
 (define-syntax (let-n s)
   (syntax-case s ()
     [(_ N bs E)
-     (for/fold ([E #ʼE]) ([_ (syntax-e #ʼN)]) #`(let bs #,E))]))
+     (for/fold ([E #'E]) ([_ (syntax-e #'N)]) #`(let bs #,E))]))
 
 (define-syntax-rule (M Cr Ci)
   (let loop ([i 0] [Zr 0.0] [Zi 0.0])

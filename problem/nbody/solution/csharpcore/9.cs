@@ -4,7 +4,7 @@
   *
   * Contributed by Derek Ziemba
   *
-  * This is a port based on Milesʼs "n-body C gcc #9 program"
+  * This is a port based on Miles's "n-body C gcc #9 program"
   */
 
 using System;
@@ -61,7 +61,7 @@ r128Single(s)));
       V256d c1250 = Vector256.Create(1.25);
       V256d c1875 = Vector256.Create(1.875);
       V256d* r = stackalloc V256d[14];
-      // Align the memory (C# doesnʼt have a built in way AFAIK) to prevent faul
+      // Align the memory (C# doesn't have a built in way AFAIK) to prevent faul
 t when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
       r = (V256d*)((((UInt64)r)+31UL)&~31UL);
       double* w = (double*)(r+10);
@@ -141,7 +141,7 @@ d.Zero).GetElement(0) * m[4] * 0.5;
 
 
       V256d* r = stackalloc V256d[14];
-      // Align the memory (C# doesnʼt have a built in way AFAIK) to prevent faul
+      // Align the memory (C# doesn't have a built in way AFAIK) to prevent faul
 t when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
       r = (V256d*)((((UInt64)r)+31UL)&~31UL);
       InitDiffs(p, r);
@@ -179,7 +179,7 @@ ower(), x.GetUpper()));
     if (iterations <= 0) { return; }
 
     V256d* mem = stackalloc V256d[18];
-    // Align the memory (C# doesnʼt have a built in way AFAIK) to prevent fault
+    // Align the memory (C# doesn't have a built in way AFAIK) to prevent fault
 when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
     mem = (V256d*)((((UInt64)mem)+31UL)&~31UL);
 

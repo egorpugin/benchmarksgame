@@ -1,7 +1,7 @@
 // The Computer Language Benchmarks Game
 // https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 //
-// Contributed by Cliff L. Biffle, translated from Jeremy Zerfasʼs C program.
+// Contributed by Cliff L. Biffle, translated from Jeremy Zerfas's C program.
 //
 // The C program was based on the Ada program by Jonathan Parker and Georg
 // Bauhaus which in turn was based on code by Dave Fladebo, Eckehard Berns,

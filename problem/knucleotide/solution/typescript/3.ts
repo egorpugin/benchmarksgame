@@ -6,11 +6,11 @@ etnev
    Contributed by Dani Biro
 */
 
-ʼuse strictʼ;
+'use strict';
 
-const rd = require(ʼreadlineʼ);
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
+const rd = require('readline');
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
 
 function RefNum (num) { this.num = num; }
 RefNum.prototype.toString = function () { return this.num.toString(); };
@@ -29,7 +29,7 @@ function bitwiseTrimLeft (value, length) {
   );
 }
 
-const keyMap = [ʼaʼ, ʼtʼ, ʼcʼ, ʼgʼ];
+const keyMap = ['a', 't', 'c', 'g'];
 
 function keyToString (value, length) {
   const str = new Array(length);
@@ -38,7 +38,7 @@ function keyToString (value, length) {
     str[length - i - 1] = keyMap[key];
     value = Math.floor(value / 4);
   }
-  return str.join(ʼʼ).toUpperCase();
+  return str.join('').toUpperCase();
 }
 
 function frequency (seq, length) {
@@ -73,21 +73,21 @@ function sort (seq, length) {
 `);
   }
 
-  res.push(ʼ\nʼ);
-  return res.join(ʼʼ);
+  res.push('\n');
+  return res.join('');
 }
 
 function toTransformedBuffer (str) {
   const sharedArray = new Uint8Array(new SharedArrayBuffer(str.length));
   for (let i = 0; i < sharedArray.length; ++i) {
     switch (str.charAt(i)) {
-      case ʼtʼ:
+      case 't':
         sharedArray[i] = 1;
         break;
-      case ʼcʼ:
+      case 'c':
         sharedArray[i] = 2;
         break;
-      case ʼgʼ:
+      case 'g':
         sharedArray[i] = 3;
         break;
     }
@@ -139,7 +139,7 @@ function master () {
       } else {
         results[workerId] = message;
         if (--jobs === 0) {
-          process.stdout.write(results.join(ʼʼ));
+          process.stdout.write(results.join(''));
           process.exit(0);
         }
       }
@@ -148,14 +148,14 @@ function master () {
 
   const workers = [...Array(jobs)].map((_, workerId) => {
     const worker = new Worker(__filename, { workerData: { workerId } });
-    worker.on(ʼmessageʼ, messageHandler(workerId));
+    worker.on('message', messageHandler(workerId));
     return worker;
   });
 
   const readOnThread = function (done) {
-    const str = lines.join(ʼʼ);
+    const str = lines.join('');
     const sharedArray = new Uint8Array(new SharedArrayBuffer(str.length));
-    sharedArray.set(Buffer.from(str, ʼasciiʼ));
+    sharedArray.set(Buffer.from(str, 'ascii'));
     workers[0].postMessage({ buf: sharedArray, done });
   };
 
@@ -168,8 +168,8 @@ function master () {
         lines = [];
         currentLen = 0;
       }
-    } else if (line[0] === ʼ>ʼ) {
-      reading = line.slice(0, 6) === ʼ>THREEʼ;
+    } else if (line[0] === '>') {
+      reading = line.slice(0, 6) === '>THREE';
     };
   };
 
@@ -178,8 +178,8 @@ function master () {
     output: process.stdout,
     terminal: false
   })
-    .on(ʼlineʼ, lineHandler)
-    .on(ʼcloseʼ, function () {
+    .on('line', lineHandler)
+    .on('close', function () {
       readOnThread(true);
     });
 }
@@ -200,7 +200,7 @@ function transformArray (arr) {
 }
 
 function worker () {
-  parentPort.on(ʼmessageʼ, (message) => {
+  parentPort.on('message', (message) => {
     if (message.buf) {
       transformArray(message.buf);
       parentPort.postMessage(message);
@@ -211,20 +211,20 @@ function worker () {
         case 0:
           res.push(sort(seq, 1));
           res.push(sort(seq, 2));
-          res.push(find(seq, ʼggtʼ));
+          res.push(find(seq, 'ggt'));
           break;
         case 1:
-          res.push(find(seq, ʼggtaʼ));
-          res.push(find(seq, ʼggtattʼ));
+          res.push(find(seq, 'ggta'));
+          res.push(find(seq, 'ggtatt'));
           break;
         case 2:
-          res.push(find(seq, ʼggtattttaattʼ));
+          res.push(find(seq, 'ggtattttaatt'));
           break;
         case 3:
-          res.push(find(seq, ʼggtattttaatttatagtʼ));
+          res.push(find(seq, 'ggtattttaatttatagt'));
           break;
       }
-      parentPort.postMessage(res.join(ʼʼ));
+      parentPort.postMessage(res.join(''));
     }
   });
 }

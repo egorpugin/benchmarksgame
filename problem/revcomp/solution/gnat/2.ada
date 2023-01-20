@@ -14,15 +14,15 @@ procedure Revcomp is
    Multitasking_Version_Desired : constant Boolean := True;
 
    Complement : constant array (Character) of Character :=
-     (ʼAʼ => ʼTʼ, ʼCʼ => ʼGʼ, ʼGʼ => ʼCʼ, ʼTʼ => ʼAʼ, ʼUʼ => ʼAʼ,
-      ʼMʼ => ʼKʼ, ʼRʼ => ʼYʼ, ʼWʼ => ʼWʼ, ʼSʼ => ʼSʼ, ʼYʼ => ʼRʼ,
-      ʼKʼ => ʼMʼ, ʼVʼ => ʼBʼ, ʼHʼ => ʼDʼ, ʼDʼ => ʼHʼ, ʼBʼ => ʼVʼ,
-      ʼNʼ => ʼNʼ,
-      ʼaʼ => ʼTʼ, ʼcʼ => ʼGʼ, ʼgʼ => ʼCʼ, ʼtʼ => ʼAʼ, ʼuʼ => ʼAʼ,
-      ʼmʼ => ʼKʼ, ʼrʼ => ʼYʼ, ʼwʼ => ʼWʼ, ʼsʼ => ʼSʼ, ʼyʼ => ʼRʼ,
-      ʼkʼ => ʼMʼ, ʼvʼ => ʼBʼ, ʼhʼ => ʼDʼ, ʼdʼ => ʼHʼ, ʼbʼ => ʼVʼ,
-      ʼnʼ => ʼNʼ,
-      others => ʼ?ʼ);
+     ('A' => 'T', 'C' => 'G', 'G' => 'C', 'T' => 'A', 'U' => 'A',
+      'M' => 'K', 'R' => 'Y', 'W' => 'W', 'S' => 'S', 'Y' => 'R',
+      'K' => 'M', 'V' => 'B', 'H' => 'D', 'D' => 'H', 'B' => 'V',
+      'N' => 'N',
+      'a' => 'T', 'c' => 'G', 'g' => 'C', 't' => 'A', 'u' => 'A',
+      'm' => 'K', 'r' => 'Y', 'w' => 'W', 's' => 'S', 'y' => 'R',
+      'k' => 'M', 'v' => 'B', 'h' => 'D', 'd' => 'H', 'b' => 'V',
+      'n' => 'N',
+      others => '?');
 
    Max_Line_Length : constant := 60;
 
@@ -34,7 +34,7 @@ procedure Revcomp is
       Fasta_Finish : in     Natural;
       Bundle       : in out String)
    is
-      L : Natural := BundleʼFirst; -- Leftmost char
+      L : Natural := Bundle'First; -- Leftmost char
       R : Natural := Fasta_Finish; -- Rightmost char
       c0, c1 : Character;
    begin
@@ -66,18 +66,18 @@ procedure Revcomp is
       Fasta_Data_Length : in Natural)
    is
       Lines_per_Bundle : constant := 2000;
-      Line_Feed_Len    : constant Natural := End_Of_LineʼLength;
+      Line_Feed_Len    : constant Natural := End_Of_Line'Length;
       Line_Bundle : String(1 .. Lines_per_Bundle*(Max_Line_Length + Line_Feed_Le
 n));
       L        : Natural := Fasta_Data_Length;
-      B_start  : Natural := Line_BundleʼFirst;
+      B_start  : Natural := Line_Bundle'First;
       B_finish : Natural := B_start + Max_Line_Length - 1;
    begin
 
       -- Append line feed string (End_Of_Line) to 2000 Line_Bundle lines:
 
       while L >= Lines_per_Bundle * Max_Line_Length loop
-         B_start := Line_BundleʼFirst;
+         B_start := Line_Bundle'First;
          for j in 1 .. Lines_per_Bundle loop
             B_finish := B_start + Max_Line_Length - 1;
             Reverse_Fasta
@@ -118,7 +118,7 @@ n));
      (Job_Is_Complete : out Boolean)
    is
       Section_o_Fasta : String_Pointer (2**20 * 128);
-      Header          : String(1..Max_Line_Length) := (others => ʼ?ʼ);
+      Header          : String(1..Max_Line_Length) := (others => '?');
       Section_Length  : Natural := 0;
       Header_Length   : Natural := 0;
    begin
@@ -153,7 +153,7 @@ n));
 
    task body Read_Reverse_Write_a_Section is
       Section_o_Fasta : String_Pointer (2**20 * 128);
-      Header          : String(1..Max_Line_Length) := (others => ʼ?ʼ);
+      Header          : String(1..Max_Line_Length) := (others => '?');
       Section_Length  : Natural := 0;
       Header_Length   : Natural := 0;
       Hit_End_Of_File : Boolean := False;
@@ -202,7 +202,7 @@ t
       declare
          type Task_Id_Type is mod 2;
          Do_a_Section : array (Task_Id_Type) of Read_Reverse_Write_a_Section;
-         i : Task_Id_Type := Task_Id_TypeʼFirst;
+         i : Task_Id_Type := Task_Id_Type'First;
          Reached_End_Of_File : Boolean := False;
       begin
 
@@ -227,7 +227,7 @@ g:
             end if;
 
             Do_a_Section(i).Done_Writing;
-            -- Block here until task i says itʼs done writing. (If task i+1 were
+            -- Block here until task i says it's done writing. (If task i+1 were
             -- to write while task i writes, then their output is interleaved.)
             -- Next go to top of loop to unblock task i+1 so that it can write.
 
@@ -276,7 +276,7 @@ led with
       Header_Length   :    out Natural;
       Max_Line_Length : in     Natural := 1024);
 
-   Section_Marker : constant Character := ʼ>ʼ;
+   Section_Marker : constant Character := '>';
 
    -- Read_Section reads until EOF or Section_Marker is found at start
    -- of a line. Can accept any line of length <= Max_Line_Length.
@@ -304,9 +304,9 @@ package body Text_Input is
 
       Fill_Data_Buffer:
       loop
-         if Data_Length + Max_Line_Length > Data_BufferʼLength then
+         if Data_Length + Max_Line_Length > Data_Buffer'Length then
             Ptr := Data_Buffer;
-            Data_Buffer := new String (1 .. 2 * Data_BufferʼLength);
+            Data_Buffer := new String (1 .. 2 * Data_Buffer'Length);
             Data_Buffer (1 .. Data_Length) := Ptr (1 .. Data_Length);
             Free (Ptr);
          end if;
@@ -314,7 +314,7 @@ package body Text_Input is
          Get_Next_Line:
          declare
             Line : constant String := Line_IO.Get_Line;
-            Present_Line_Length : constant Natural := LineʼLength;
+            Present_Line_Length : constant Natural := Line'Length;
             Strt : Natural;
          begin
 
@@ -327,8 +327,8 @@ package body Text_Input is
                raise Program_Error;
             end if;
 
-            if Line(LineʼFirst) = Section_Marker then
-               Strt := Next_HeaderʼFirst;
+            if Line(Line'First) = Section_Marker then
+               Strt := Next_Header'First;
                Next_Header(Strt .. Strt + Present_Line_Length - 1) := Line;
                Header_Length := Present_Line_Length;
                exit Fill_Data_Buffer;
@@ -385,33 +385,33 @@ package body Line_IO is
    use Ada.Streams;
 
    subtype Separator_Index is Stream_Element_Offset
-       range 0 .. SeparatorʼLength - 1;
+       range 0 .. Separator'Length - 1;
    Separator_Bytes : constant Stream_Element_Array (Separator_Index) :=
-       (0 => CharacterʼPos (Separator (1)));
+       (0 => Character'Pos (Separator (1)));
    --  Converts Separator into type Stream_Element_Array. Used by Put_Line.
 
    Stdin  : Stream_IO.File_Type;
    Stdout : Stream_IO.File_Type;
 
    procedure Put_Line (Item : String) is
-      subtype Index is Stream_Element_Offset range 1 .. ItemʼLength;
+      subtype Index is Stream_Element_Offset range 1 .. Item'Length;
       subtype XBytes is Stream_Element_Array (Index);
       Item_Bytes: XBytes;
       pragma Import (Ada, Item_Bytes);
-      for Item_BytesʼAddress use ItemʼAddress;
-      pragma Assert (ItemʼSize = Item_BytesʼSize);
+      for Item_Bytes'Address use Item'Address;
+      pragma Assert (Item'Size = Item_Bytes'Size);
    begin
       Stream_IO.Write (Stdout, Item_Bytes);
       Stream_IO.Write (Stdout, Separator_Bytes);
    end Put_Line;
 
    procedure Put (Item : String) is
-      subtype Index is Stream_Element_Offset range 1 .. ItemʼLength;
+      subtype Index is Stream_Element_Offset range 1 .. Item'Length;
       subtype XBytes is Stream_Element_Array (Index);
       Item_Bytes: XBytes;
       pragma Import (Ada, Item_Bytes);
-      for Item_BytesʼAddress use ItemʼAddress;
-      pragma Assert (ItemʼSize = Item_BytesʼSize);
+      for Item_Bytes'Address use Item'Address;
+      pragma Assert (Item'Size = Item_Bytes'Size);
    begin
       Stream_IO.Write (Stdout, Item_Bytes);
    end Put;
@@ -419,30 +419,30 @@ package body Line_IO is
    --  Declarations associated with filling a text buffer.
 
    BUFSIZ: constant := 8_192 * 8;
-   pragma Assert(CharacterʼSize = Stream_ElementʼSize);
+   pragma Assert(Character'Size = Stream_Element'Size);
 
-   SL : constant Natural   := SeparatorʼLength;
+   SL : constant Natural   := Separator'Length;
 
    subtype Extended_Buffer_Index is Positive range 1 .. BUFSIZ + SL;
    subtype Buffer_Index is Extended_Buffer_Index
-     range Extended_Buffer_IndexʼFirst .. Extended_Buffer_IndexʼLast - SL;
+     range Extended_Buffer_Index'First .. Extended_Buffer_Index'Last - SL;
    subtype Extended_Bytes_Index is Stream_Element_Offset
-     range 1 .. Stream_Element_Offset(Extended_Buffer_IndexʼLast);
+     range 1 .. Stream_Element_Offset(Extended_Buffer_Index'Last);
    subtype Bytes_Index is Extended_Bytes_Index
-     range Extended_Bytes_IndexʼFirst
-     .. (Extended_Bytes_IndexʼLast - Stream_Element_Offset(SL));
+     range Extended_Bytes_Index'First
+     .. (Extended_Bytes_Index'Last - Stream_Element_Offset(SL));
 
    subtype Buffer_Data is String(Extended_Buffer_Index);
    subtype Buffer_Bytes is Stream_Element_Array(Extended_Bytes_Index);
 
    Buffer : Buffer_Data;
    Bytes  : Buffer_Bytes;
-   for BytesʼAddress use BufferʼAddress;
+   for Bytes'Address use Buffer'Address;
    pragma Import (Ada, Bytes);
 
    -- start of next substring and last valid character in buffer
-   Position : Natural range 0 .. Extended_Buffer_IndexʼLast;
-   Last     : Natural range 0 .. Buffer_IndexʼLast;
+   Position : Natural range 0 .. Extended_Buffer_Index'Last;
+   Last     : Natural range 0 .. Buffer_Index'Last;
    End_Of_Input : Boolean;
 
    function Get_Line return String is
@@ -451,7 +451,7 @@ package body Line_IO is
          --  fill Buffer with bytes available
          Last_Filled : Stream_Element_Offset;
       begin
-         if Last < Buffer_IndexʼLast then
+         if Last < Buffer_Index'Last then
             raise Stream_IO.End_Error;
          end if;
          Stream_IO.Read(Stdin,
@@ -478,7 +478,7 @@ package body Line_IO is
         return K;
       end Separator_Position;
 
-      Next_Separator : Natural range 0 .. Extended_Buffer_IndexʼLast;
+      Next_Separator : Natural range 0 .. Extended_Buffer_Index'Last;
    begin  -- Get_Line
 
       if End_Of_Input then
@@ -527,9 +527,9 @@ begin
       Mode => Stream_IO.In_File,
       Name => "/dev/stdin");
 
-   Buffer(Buffer_IndexʼLast + 1 .. BufferʼLast) := Separator;
-   Position := Buffer_IndexʼLast + 1;
-   Last     := Buffer_IndexʼLast;
+   Buffer(Buffer_Index'Last + 1 .. Buffer'Last) := Separator;
+   Position := Buffer_Index'Last + 1;
+   Last     := Buffer_Index'Last;
    End_Of_Input := False;
 end Line_IO;
 

@@ -13,7 +13,7 @@
 ;; -------------------------------
 
 (define VARIANTS
-  ʼ(#"agggtaaa|tttaccct" #"[cgt]gggtaaa|tttaccc[acg]" #"a[act]ggtaaa|tttacc[agt]
+  '(#"agggtaaa|tttaccct" #"[cgt]gggtaaa|tttaccc[acg]" #"a[act]ggtaaa|tttacc[agt]
 t"
     #"ag[act]gtaaa|tttac[agt]ct" #"agg[act]taaa|ttta[agt]cct" #"aggg[acg]aaa|ttt
 [cgt]ccct"
@@ -22,7 +22,7 @@ g]ttaccct"))
 
 
 (define IUBS
-  ʼ((#"tHa[Nt]" #"<4>") (#"aND|caN|Ha[DS]|WaS" #"<3>") (#"a[NSt]|BY" #"<2>")
+  '((#"tHa[Nt]" #"<4>") (#"aND|caN|Ha[DS]|WaS" #"<3>") (#"a[NSt]|BY" #"<2>")
     (#"<[^>]*>" #"|") (#"\\|[^|][^|]*\\|" #"-")))
 
 ;; -------------------------------

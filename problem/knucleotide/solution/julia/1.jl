@@ -73,7 +73,7 @@ function perf_k_nucleotide()
     # delete the newlines and convert to upper case
     i, j = 1, 1
     while i <= length(data)
-        if data[i] != ʼ\nʼ
+        if data[i] != '\n'
             data[j] = uppercase(data[i])
             j += 1
         end

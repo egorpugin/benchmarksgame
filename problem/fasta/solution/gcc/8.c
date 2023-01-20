@@ -85,12 +85,12 @@ static void repeat_fasta(const char *seq,
   int whole_lines = n / LINELEN;
   for (i=0; i<whole_lines; i++) {
     int wrote = fwrite(&buffer[t % len], 1, LINELEN, stdout);
-    putchar(ʼ\nʼ);
+    putchar('\n');
     t += wrote;
   }
   fwrite(&buffer[t % len], 1, n-t, stdout);
   free(buffer);
-  if (n % LINELEN != 0) putchar(ʼ\nʼ);
+  if (n % LINELEN != 0) putchar('\n');
 }
 
 /* surprisingly faster this way than terminating the scan once v>p[j].
@@ -144,7 +144,7 @@ static void random_fasta(const char *symb,
   double *p = malloc(sizeof(*p) * len);
   int i,k;
   char *buffer = malloc(LINELEN+2);
-  buffer[LINELEN] = ʼ\nʼ;
+  buffer[LINELEN] = '\n';
 
   p[0] = probability[0];
   for (i=1; i<len;i++) p[i] = probability[i] + p[i-1];
@@ -162,7 +162,7 @@ static void random_fasta(const char *symb,
     buffer[k] = symb[LOOKUP(len,p,v)];
   }
   fwrite(buffer, 1, remainder, stdout);
-  if (n % LINELEN != 0) putchar(ʼ\nʼ);
+  if (n % LINELEN != 0) putchar('\n');
   free(buffer);
 }
 

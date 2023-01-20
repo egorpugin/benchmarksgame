@@ -11,8 +11,8 @@ STDIN.each_line(LEADER).lazy.each do |chunk|
   next unless segment
 
   segment.delete!(CR+LEADER)
-  segment.reverse!.tr!(ʼwsatugcyrkmbdhvnATUGCYRKMBDHVNʼ,ʼWSTAACGRYMKVHDBNTAACGRY
-MKVHDBNʼ)
+  segment.reverse!.tr!('wsatugcyrkmbdhvnATUGCYRKMBDHVN','WSTAACGRYMKVHDBNTAACGRY
+MKVHDBN')
 
   STDOUT.write LEADER, header, CR
   segment_size = segment.size

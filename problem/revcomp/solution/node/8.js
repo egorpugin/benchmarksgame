@@ -8,8 +8,8 @@
     multi thread by Andrey Filatkin
 */
 
-const { Worker, isMainThread, parentPort } = require(ʼworker_threadsʼ);
-const os = require(ʼosʼ);
+const { Worker, isMainThread, parentPort } = require('worker_threads');
+const os = require('os');
 
 const smap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -20,8 +20,8 @@ const smap = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
 const lineLen = 60;
 const fullLineLen = lineLen + 1;
-const caret = ʼ>ʼ.charCodeAt(0);
-const endLine = ʼ\nʼ.charCodeAt(0);
+const caret = '>'.charCodeAt(0);
+const endLine = '\n'.charCodeAt(0);
 
 if (isMainThread) {
     mainThread();
@@ -144,7 +144,7 @@ n >> 1;
                     topSize: topRealStart - topRealFinish,
                     bottomSize: bottomRealFinish - bottomRealStart
                 }});
-                worker.on(ʼexitʼ, () => {
+                worker.on('exit', () => {
                     wait--;
                     if (wait === 0) {
                         resolve();
@@ -166,7 +166,7 @@ n >> 1;
 }
 
 function workerThread() {
-    parentPort.on(ʼmessageʼ, message => {
+    parentPort.on('message', message => {
         writeBuf(message.data);
         process.exit();
     });

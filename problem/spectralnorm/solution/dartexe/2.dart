@@ -5,11 +5,11 @@
 // Java version by Ziad Hatahet
 // isolates added by Maximilian Simmoteit
 
-import ʼdart:mathʼ as math;
-import ʼdart:typed_dataʼ;
-import ʼdart:isolateʼ;
-import ʼdart:asyncʼ;
-import ʼdart:ioʼ;
+import 'dart:math' as math;
+import 'dart:typed_data';
+import 'dart:isolate';
+import 'dart:async';
+import 'dart:io';
 
 final num_threads = 2 * Platform.numberOfProcessors;
 
@@ -40,11 +40,11 @@ void calculateTimes(SendPort initialReplyTo) {
   initialReplyTo.send(port.sendPort);
 
   port.listen((msg) {
-    Float64List u = msg[ʼuʼ];
-    int from = msg[ʼfromʼ];
-    int len = msg[ʼlenʼ];
-    bool transpose = msg[ʼtranspʼ];
-    SendPort replyTo = msg[ʼportʼ];
+    Float64List u = msg['u'];
+    int from = msg['from'];
+    int len = msg['len'];
+    bool transpose = msg['transp'];
+    SendPort replyTo = msg['port'];
 
     var timesSegment = timesCalculation(u, from, len, transpose);
     replyTo.send(timesSegment);
@@ -63,11 +63,11 @@ Future<void> AtAu(Float64List u, Float64List v, Float64List w,
     var response = ReceivePort();
     var localFrom = from;
     isolate_communication_send[i]?.send({
-      ʼuʼ: u,
-      ʼfromʼ: localFrom,
-      ʼlenʼ: len,
-      ʼtranspʼ: false,
-      ʼportʼ: response.sendPort
+      'u': u,
+      'from': localFrom,
+      'len': len,
+      'transp': false,
+      'port': response.sendPort
     });
     var newFuture = response.first;
     partial_u_to_w_results[i] = newFuture;
@@ -92,11 +92,11 @@ Future<void> AtAu(Float64List u, Float64List v, Float64List w,
     var response = ReceivePort();
     var localFrom = from;
     isolate_communication_send[i]?.send({
-      ʼuʼ: w,
-      ʼfromʼ: localFrom,
-      ʼlenʼ: len,
-      ʼtranspʼ: true,
-      ʼportʼ: response.sendPort
+      'u': w,
+      'from': localFrom,
+      'len': len,
+      'transp': true,
+      'port': response.sendPort
     });
     var newFuture = response.first;
     partial_w_to_v_results[i] = newFuture;

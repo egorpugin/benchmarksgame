@@ -22,27 +22,27 @@ def main():
     seq = stdin.read()
     ilen = len(seq)
 
-    seq = sub(ʼ>.*\n|\nʼ, ʼʼ, seq)
+    seq = sub('>.*\n|\n', '', seq)
     clen = len(seq)
 
     pool = Pool(initializer = init, initargs = (seq,))
 
     variants = (
-          ʼagggtaaa|tttaccctʼ,
-          ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-          ʼa[act]ggtaaa|tttacc[agt]tʼ,
-          ʼag[act]gtaaa|tttac[agt]ctʼ,
-          ʼagg[act]taaa|ttta[agt]cctʼ,
-          ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-          ʼagggt[cgt]aa|tt[acg]accctʼ,
-          ʼagggta[cgt]a|t[acg]taccctʼ,
-          ʼagggtaa[cgt]|[acg]ttaccctʼ)
+          'agggtaaa|tttaccct',
+          '[cgt]gggtaaa|tttaccc[acg]',
+          'a[act]ggtaaa|tttacc[agt]t',
+          'ag[act]gtaaa|tttac[agt]ct',
+          'agg[act]taaa|ttta[agt]cct',
+          'aggg[acg]aaa|ttt[cgt]ccct',
+          'agggt[cgt]aa|tt[acg]accct',
+          'agggta[cgt]a|t[acg]taccct',
+          'agggtaa[cgt]|[acg]ttaccct')
     for f in zip(variants, pool.imap(var_find, variants)):
         print(f[0], f[1])
 
     subst = {
-          ʼtHa[Nt]ʼ : ʼ<4>ʼ, ʼaND|caN|Ha[DS]|WaSʼ : ʼ<3>ʼ, ʼa[NSt]|BYʼ : ʼ<2>ʼ,
-          ʼ<[^>]*>ʼ : ʼ|ʼ, ʼ\\|[^|][^|]*\\|ʼ : ʼ-ʼ}
+          'tHa[Nt]' : '<4>', 'aND|caN|Ha[DS]|WaS' : '<3>', 'a[NSt]|BY' : '<2>',
+          '<[^>]*>' : '|', '\\|[^|][^|]*\\|' : '-'}
     for f, r in list(subst.items()):
         seq = sub(f, r, seq)
 

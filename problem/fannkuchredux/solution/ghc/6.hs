@@ -4,7 +4,7 @@ The Computer Language Benchmarks Game
 https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
 Contributed by Branimir Maksimovic.
-Optimized/rewritten by Bryan OʼSullivan.
+Optimized/rewritten by Bryan O'Sullivan.
 Parallelized and rewritten by James Brock.
 
 Build:
@@ -69,7 +69,7 @@ fannkuch !n = do
     results <- mapConcurrently (uncurry $ work n) workRanges
 
     -- Gather up the results and return.
-    return $ foldl1ʼ (\(fc0,cs0) (fc1,cs1) -> (max fc0 fc1, cs0+cs1)) results
+    return $ foldl1' (\(fc0,cs0) (fc1,cs1) -> (max fc0 fc1, cs0+cs1)) results
 
 
 -- | Basic tail-call factorial. Never called on the hot path of this program.

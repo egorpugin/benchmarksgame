@@ -63,13 +63,13 @@ let dna_three =
   (* Skip possible comment *)
   (try while true do
      let line = input_line stdin in
-     if line.[0] <> ʼ;ʼ then
+     if line.[0] <> ';' then
        (Buffer.add_string buf (String.uppercase line); raise Exit)
    done with _ -> ());
   (* Read the DNA sequence *)
   (try while true do
        let line = input_line stdin in
-       if line.[0] = ʼ>ʼ then raise End_of_file;
+       if line.[0] = '>' then raise End_of_file;
        Buffer.add_string buf (String.uppercase line)
    done with End_of_file -> ());
   Buffer.contents buf

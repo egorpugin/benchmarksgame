@@ -11,7 +11,7 @@
 ;;      * Clean up type declarations in eval-A
 ;;    Modified by Isaac Gouy 2019-10-17
 ;;      * eval-A like C gcc #4 program
-;;      * posix-argv like Jon Smithʼs fannkuch-redux Lisp SBCL #2 program
+;;      * posix-argv like Jon Smith's fannkuch-redux Lisp SBCL #2 program
 ;;      * deftype suggested by tfb on SO
 
 (deftype int31 (&optional (bits 31))
@@ -25,7 +25,7 @@
 (defun eval-A-times-u (n u)
   (declare (type int31 n)
            (type (simple-array double-float) u))
-  (let ((retval (make-array n :element-type ʼdouble-float :initial-element 0.0d0
+  (let ((retval (make-array n :element-type 'double-float :initial-element 0.0d0
 )))
     (dotimes (i n)
       (dotimes (j n)
@@ -35,7 +35,7 @@
 (defun eval-At-times-u (n u)
   (declare (type int31 n)
            (type (simple-array double-float) u))
-  (let ((retval (make-array n :element-type ʼdouble-float :initial-element 0.0d0
+  (let ((retval (make-array n :element-type 'double-float :initial-element 0.0d0
 )))
     (dotimes (i n)
       (dotimes (j n)
@@ -49,8 +49,8 @@
   (let* ((args (cdr sb-ext:*posix-argv*))
          (n (parse-integer (car args))))
     (declare (type int31 n))
-    (let ((u (make-array n :element-type ʼdouble-float :initial-element 1.0d0))
-          (v (make-array n :element-type ʼdouble-float)))
+    (let ((u (make-array n :element-type 'double-float :initial-element 1.0d0))
+          (v (make-array n :element-type 'double-float)))
       (declare (type (simple-array double-float) U V))
       (dotimes (i 10)
         (setf v (eval-AtA-times-u n u))

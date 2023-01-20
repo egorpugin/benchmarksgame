@@ -44,10 +44,10 @@ public final class revcomp {
 
             while (true) {
                 byte bb = buf[begin];
-                if (bb == ʼ\nʼ)
+                if (bb == '\n')
                     bb = buf[++begin];
                 byte be = buf[end];
-                if (be == ʼ\nʼ)
+                if (be == '\n')
                     be = buf[--end];
                 if (begin > end)
                     break;
@@ -64,10 +64,10 @@ ion {
         List<Reverse> tasks = new LinkedList<Reverse>();
 
         for (int i = 0; i < buf.length; ) {
-            while (buf[i++] != ʼ\nʼ) ;
+            while (buf[i++] != '\n') ;
             int data = i;
             byte b;
-            while (i < buf.length && (b = buf[i++]) != ʼ>ʼ) {
+            while (i < buf.length && (b = buf[i++]) != '>') {
                 buf[i-1] = map[b];
             }
             Reverse task = new Reverse(buf, data, i - 2);

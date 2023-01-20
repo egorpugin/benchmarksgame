@@ -69,9 +69,9 @@ procedure Binarytrees is
 
 begin
    if Argument_Count > 0 then
-      N := PositiveʼValue(Argument(1));
+      N := Positive'Value(Argument(1));
    end if;
-   Max_Depth := PositiveʼMax(Min_Depth + 2, N);
+   Max_Depth := Positive'Max(Min_Depth + 2, N);
    Stretch_Depth := Max_Depth + 1;
    Stretch_Tree := Bottom_Up_Tree(Stretch_Depth);
    Item_Check(Stretch_Tree, Check);
@@ -89,7 +89,7 @@ begin
       Check := 0;
 
 -- Setup tasking parameters for reasonable task granularity
--- Too large and we canʼt balance CPU loads
+-- Too large and we can't balance CPU loads
 -- Too small and we waste time in task switches
 -- Not very critical - anything more complex is probably a waste of effort
 
@@ -163,10 +163,10 @@ package body Treenodes is
       return Treenode is
    begin
       if Depth > 0 then
-         return new Nodeʼ(Bottom_Up_Tree(Depth -1),
+         return new Node'(Bottom_Up_Tree(Depth -1),
             Bottom_Up_Tree(Depth -1));
       else
-         return new Nodeʼ(null, null);
+         return new Node'(null, null);
       end if;
    end Bottom_Up_Tree;
 

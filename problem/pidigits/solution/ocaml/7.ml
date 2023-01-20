@@ -52,7 +52,7 @@ let rec print_digits pos n digits =
   else match digits () with
   | Seq.Nil ->
     if pos mod columns > 0 then begin
-      print_char ʼ ʼ;
+      print_char ' ';
       print_digits (pos + 1) n digits
     end
   | Seq.Cons (d, rest) ->

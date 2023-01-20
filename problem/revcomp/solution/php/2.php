@@ -12,18 +12,18 @@
 ob_implicit_flush(1);
 ob_start(NULL, 4096);
 
-$seq = ʼʼ;
+$seq = '';
 
 # read in the file, a line at a time
 do {
     $str = trim(fgets(STDIN));
-    if( $str && $str[0] == ʼ>ʼ ){
-        # if weʼre on a comment line, print the previous seq and move on
-                if($seq != ʼʼ){
+    if( $str && $str[0] == '>' ){
+        # if we're on a comment line, print the previous seq and move on
+                if($seq != ''){
                    echo wordwrap( strrev( strtr(strtoupper($seq),
-                          ʼCGATMKRYVBHDʼ, ʼGCTAKMYRBVDHʼ) ), 60, "\n", true ), "
+                          'CGATMKRYVBHD', 'GCTAKMYRBVDH') ), 60, "\n", true ), "
 \n";
-                   $seq = ʼʼ;
+                   $seq = '';
                 }
         echo $str, "\n";
     }else{
@@ -31,8 +31,8 @@ do {
         $seq .= $str;
     }
 } while( !feof(STDIN) );
-if($seq != ʼʼ){
+if($seq != ''){
         echo wordwrap( strrev( strtr(strtoupper($seq),
-           ʼCGATMKRYVBHDʼ, ʼGCTAKMYRBVDHʼ) ), 60, "\n", true ), "\n";
+           'CGATMKRYVBHD', 'GCTAKMYRBVDH') ), 60, "\n", true ), "\n";
 }
 

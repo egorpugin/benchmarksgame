@@ -80,8 +80,8 @@ task-mutex*)))))
 
 (defstruct result
   (outmap (make-hash-table
-           :test ʼeql
-           :hash-function #ʼhash-function
+           :test 'eql
+           :hash-function #'hash-function
            :rehash-size 2.0
            :rehash-threshold 0.7))
   (keylength 0))
@@ -135,7 +135,7 @@ gethash key2 (result-outmap result1) 0)) (the (unsigned-byte 32) value2))))
 
 (defun write-frequencies (totalCount frequencies)
   (let ((freq (make-array (hash-table-count (result-outmap frequencies)) :fill-p
-ointer 0 :element-type ʼcons)))
+ointer 0 :element-type 'cons)))
     (loop for key being the hash-keys of (result-outmap frequencies)
        using (hash-value cnt) do
          (let ((nentry (cons (key-to-string key (result-keylength frequencies))
@@ -143,8 +143,8 @@ cnt)))
            (vector-push-extend nentry freq)))
     (sort freq (lambda (x y) (> (cdr x) (cdr y))))
     (let ((outstr
-           (apply #ʼconcatenate
-                  (append (list ʼstring)
+           (apply #'concatenate
+                  (append (list 'string)
                           (loop for index from 0 below (length freq)
                                            for (key . value) = (elt freq index)
                                            collect
@@ -153,7 +153,7 @@ alue 100.0) totalCount)))))))
       outstr)))
 
 (defun write-count (tasks nucleotideFragment)
-  (let* ((key (to-codes-new (map ʼ(vector (unsigned-byte 8)) #ʼchar-code nucleot
+  (let* ((key (to-codes-new (map '(vector (unsigned-byte 8)) #'char-code nucleot
 ideFragment) (length nucleotideFragment)) )
          (k (get-key key 0 (length nucleotideFragment)))
          (count 0))
@@ -188,7 +188,7 @@ o
   (declare (type (simple-array (unsigned-byte 8) (*)) sequence)
            (type (unsigned-byte 32) length)
            )
-  (let ((result (make-array length :element-type ʼ(unsigned-byte 8))))
+  (let ((result (make-array length :element-type '(unsigned-byte 8))))
     (loop for i of-type (unsigned-byte 32) from 0 below length do
          (setf (elt result i) (elt CODES (logand (elt sequence i) #x7))))
     result))
@@ -196,18 +196,18 @@ o
 (defconstant FRAGMENT-LENGTHS  #(1 2 3 4 6 12 18))
 (defconstant NUCLEOTIDE-FRAGMENTS #("GGT" "GGTA" "GGTATT" "GGTATTTTAATT"
                                            "GGTATTTTAATTTATAGT" ))
-(defconstant DNA_THREE_IN_BYTES (map ʼ(simple-array (unsigned-byte 8) (*)) #ʼcha
+(defconstant DNA_THREE_IN_BYTES (map '(simple-array (unsigned-byte 8) (*)) #'cha
 r-code ">THREE"))
-(defconstant NEWLINE-CODE  (map ʼ(simple-array (unsigned-byte 8) (*)) #ʼchar-cod
+(defconstant NEWLINE-CODE  (map '(simple-array (unsigned-byte 8) (*)) #'char-cod
 e "
 "))
 
 (defun read-ascii-file-to-binary-array (filename)
-  (with-open-stream (stream (open filename :element-type ʼ(unsigned-byte 8)))
+  (with-open-stream (stream (open filename :element-type '(unsigned-byte 8)))
     (let* ((buffer
             (make-array (file-length stream)
                         :element-type
-                        ʼ(unsigned-byte 8))))
+                        '(unsigned-byte 8))))
       (read-sequence buffer stream)
       buffer)))
 
@@ -231,7 +231,7 @@ e "
                    (setf (aref bytes writeposition) (aref bytes pos))
                    (incf writeposition))
                  )))
-      (let ((outarr (make-array writeposition :element-type ʼ(unsigned-byte 8)))
+      (let ((outarr (make-array writeposition :element-type '(unsigned-byte 8)))
 )
         (declare (type (simple-array (unsigned-byte 8) (*)) outarr))
         (loop for i from 0 below writeposition do

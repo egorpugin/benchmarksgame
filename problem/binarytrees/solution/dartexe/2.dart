@@ -1,12 +1,12 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Isaac Gouy, borrowing from Andrey Filatkinʼs program
+   contributed by Isaac Gouy, borrowing from Andrey Filatkin's program
 */
 
-import ʼdart:asyncʼ;
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
+import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
 
 class TreeNode {
   TreeNode? left, right;

@@ -4,7 +4,7 @@
 -- Inspired by version contributed by Branimir Maksimovic
 -- Updated by Callan McGill:
 --   - to use hashmap from unordered containers
---   - bit encoding of ʼaʼ, ʼcʼ, ʼgʼ, ʼtʼ
+--   - bit encoding of 'a', 'c', 'g', 't'
 --   - Vector streaming framework to re-write algorithm
 -- Fix mixup of order in 2-sequences by Artem Pelenitsyn
 
@@ -21,7 +21,7 @@ import           Data.Hashable
 import qualified Data.HashMap.Internal                as Internal
 import           Data.HashMap.Strict                  (HashMap)
 import qualified Data.HashMap.Strict                  as HashMap
-import           Data.List                            (foldlʼ)
+import           Data.List                            (foldl')
 import           Data.Primitive.PVar
 import qualified Data.Vector                          as Vector
 import qualified Data.Vector.Algorithms.Intro         as Sort
@@ -53,7 +53,7 @@ main = do
   -- return results in parallel.
   results <- ParallelIO.parallel (actions content)
   -- Put builder results to stdout.
-  Builder.putToStdOut (foldlʼ (<>) mempty results)
+  Builder.putToStdOut (foldl' (<>) mempty results)
 
 {-# inline actions #-}
 -- Tasks to be run in parallel.
@@ -78,17 +78,17 @@ writeFrequencies1 input = do
     let
       inputLength :: Double
       inputLength = fromIntegral (Storable.length input)
-    let b = Vector.foldlʼ (\acc (k,v)->
+    let b = Vector.foldl' (\acc (k,v)->
                       let
                         perc :: Double
                         perc = 100 * (fromIntegral v)/inputLength
                       in
                           acc
                        <> Builder.char (decode $ k)
-                       <> Builder.char ʼ ʼ
+                       <> Builder.char ' '
                        <> Builder.fixedDouble 3 perc
-                       <> Builder.char ʼ\nʼ) mempty sorted
-    pure (b <> Builder.char ʼ\nʼ)
+                       <> Builder.char '\n') mempty sorted
+    pure (b <> Builder.char '\n')
 
 -- Write the two-letter frequencies into text builder.
 writeFrequencies2 :: Storable.Vector Word8 -> IO Builder.Builder
@@ -100,24 +100,24 @@ writeFrequencies2 input = do
     let
       inputLength :: Double
       inputLength  = fromIntegral (Storable.length input) - 1
-    let b = foldlʼ (\acc (k,v)->
+    let b = foldl' (\acc (k,v)->
                       let
                         perc :: Double
                         perc = 100 * (fromIntegral v)/inputLength
                       in
                           acc
                        <> decode16 k
-                       <> Builder.char ʼ ʼ
+                       <> Builder.char ' '
                        <> Builder.fixedDouble 3 perc
-                       <> Builder.char ʼ\nʼ) mempty  sorted
-    pure (b <> Builder.char ʼ\nʼ)
+                       <> Builder.char '\n') mempty  sorted
+    pure (b <> Builder.char '\n')
 
 -- Convert byte back to letter.
 decode :: Word8 -> Char
-decode 0 = ʼAʼ
-decode 1 = ʼCʼ
-decode 2 = ʼTʼ
-decode 3 = ʼGʼ
+decode 0 = 'A'
+decode 1 = 'C'
+decode 2 = 'T'
+decode 3 = 'G'
 decode _ = error "decode: encountered unexpected byte"
 
 -- Convert pair of bytes back to pair of letters
@@ -143,7 +143,7 @@ decode16 n                  = error $ "decode16: unexpected bits: " <> show n
 
 -- Compute hashmap of single character occurences
 calculate1B :: Storable.Vector Word8 -> IO (HashMap Word8 Int)
-calculate1B input = Storable.foldMʼ updateMap HashMap.empty input >>= traverse r
+calculate1B input = Storable.foldM' updateMap HashMap.empty input >>= traverse r
 eadPVar
   where
     updateMap
@@ -156,11 +156,11 @@ eadPVar
               do
                 ref <- newPVar 1
                 let
-                  freqmapʼ
+                  freqmap'
                   -- Use insertNewKey as we know key is not present
                       = Internal.insertNewKey (fromIntegral word) word ref freqm
 ap
-                pure freqmapʼ
+                pure freqmap'
                    -- Mutate reference over copying hashmap on insert.
             Just x -> modifyPVar_ x (+1) >> pure freqmap
 
@@ -179,11 +179,11 @@ calculate2B input = fold16M updateMap HashMap.empty input >>= traverse readPVar
               do
                 ref <- newPVar 1
                 let
-                  freqmapʼ
+                  freqmap'
                   -- Use insertNewKey as we know key is not present
                       = Internal.insertNewKey (fromIntegral word) word ref freqm
 ap
-                pure freqmapʼ
+                pure freqmap'
                    -- Mutate reference over copying hashmap on insert.
             Just x -> modifyPVar_ x (+1) >> pure freqmap
 
@@ -199,9 +199,9 @@ writeCount input string = do
     let
       v :: Int
       v = maybe 0 id $ HashMap.lookup (coerce encoded) hm
-    let b = Builder.unsignedDecimal v <> Builder.char ʼ\tʼ <> Builder.asciiByteS
+    let b = Builder.unsignedDecimal v <> Builder.char '\t' <> Builder.asciiByteS
 tring string
-    pure (b <> Builder.char ʼ\nʼ)
+    pure (b <> Builder.char '\n')
 
 -- Compute hashmaps in parallel over given increment
 -- and then re-combine.
@@ -211,13 +211,13 @@ tcalculate input size = do
       computeHashMaps = map (\i -> calculate input i size 64) [0..63]
     results <- ParallelIO.parallel computeHashMaps
     return
-      $ foldlʼ (\ acc hm -> HashMap.unionWith (+) acc hm) HashMap.empty results
+      $ foldl' (\ acc hm -> HashMap.unionWith (+) acc hm) HashMap.empty results
 
 -- Compute hashmap from given beginning point with the given increment.
 calculate :: Storable.Vector Word8 -> Int -> Int -> Int -> IO (HashMap Increment
 al Int)
 calculate input !beg !size !incr =
-    Stream.foldMʼ updateHashMap HashMap.empty (fromVectorWithInc beg size incr e
+    Stream.foldM' updateHashMap HashMap.empty (fromVectorWithInc beg size incr e
 nd input) >>=
     traverse readPVar
   where
@@ -231,10 +231,10 @@ nd input) >>=
             Nothing -> do
               ref <- newPVar 1
               let
-                freqmapʼ
+                freqmap'
                     = Internal.insertNewKey (fromIntegral (hash slice)) slice re
 f freqmap
-              pure freqmapʼ
+              pure freqmap'
             Just x -> modifyPVar_ x (+1) >> pure freqmap
 
 
@@ -245,7 +245,7 @@ newtype Incremental = Incremental (Storable.Vector Word8)
 -- have extracted from the input
 instance Hashable Incremental where
   hash (Incremental v) =
-    Storable.foldlʼ
+    Storable.foldl'
     (\ acc w -> (acc `shiftL` 2) .|. (fromIntegral w))
     0
     v
@@ -269,8 +269,8 @@ fold16M f v vec = do
                   | otherwise =
                     do
                       x <- peek (castPtr @_ @Word16 p)
-                      zʼ <- f z x
-                      go zʼ (p `plusPtr` 1) end
+                      z' <- f z x
+                      go z' (p `plusPtr` 1) end
 
 
 

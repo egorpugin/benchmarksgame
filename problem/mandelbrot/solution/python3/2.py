@@ -29,7 +29,7 @@ ent
                     pos-=1
                 if buff[0][0]==buff_pos:  # write if segment is the next needed
 one
-                    cout(array(ʼBʼ, buff[0][2]).tostring())
+                    cout(array('B', buff[0][2]).tostring())
                     buff_pos = buff[0][1]
                     del(buff[0])
 
@@ -105,7 +105,7 @@ def main():
     for p in proc:
         p.join()
 
-if __name__==ʼ__main__ʼ:
+if __name__=='__main__':
     main()
 
 

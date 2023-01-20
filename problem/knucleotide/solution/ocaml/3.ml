@@ -9,14 +9,14 @@
 
 let tab = Array.make 256 0
 let _ =
-  tab.(Char.code ʼAʼ) <- 0;
-  tab.(Char.code ʼaʼ) <- 0;
-  tab.(Char.code ʼTʼ) <- 1;
-  tab.(Char.code ʼtʼ) <- 1;
-  tab.(Char.code ʼCʼ) <- 2;
-  tab.(Char.code ʼcʼ) <- 2;
-  tab.(Char.code ʼgʼ) <- 3;
-  tab.(Char.code ʼGʼ) <- 3
+  tab.(Char.code 'A') <- 0;
+  tab.(Char.code 'a') <- 0;
+  tab.(Char.code 'T') <- 1;
+  tab.(Char.code 't') <- 1;
+  tab.(Char.code 'C') <- 2;
+  tab.(Char.code 'c') <- 2;
+  tab.(Char.code 'g') <- 3;
+  tab.(Char.code 'G') <- 3
 
 let uppercase line =
   let len = Bytes.length line in
@@ -34,7 +34,7 @@ let dna =
   (try
      while true do
        let line = Bytes.unsafe_of_string (input_line stdin) in
-       if Bytes.get line 0 <> ʼ;ʼ then begin
+       if Bytes.get line 0 <> ';' then begin
          uppercase line;
          Buffer.add_bytes buf line;
          raise Exit
@@ -43,7 +43,7 @@ let dna =
   (* Read the DNA sequence *)
   (try while true do
        let line = Bytes.unsafe_of_string (input_line stdin) in
-       if Bytes.get line 0 = ʼ>ʼ then raise End_of_file;
+       if Bytes.get line 0 = '>' then raise End_of_file;
        uppercase line;
        Buffer.add_bytes buf line
      done with End_of_file -> ());
@@ -112,7 +112,7 @@ let pack_key16 seq =
   let h2 = pack_word_in seq threshold15 (k- threshold15) 0 in
   (h1, h2)
 
-let char = [| ʼAʼ; ʼTʼ; ʼCʼ; ʼGʼ |]
+let char = [| 'A'; 'T'; 'C'; 'G' |]
 
 let rec unpack h s pos k =
   let pos = pos - 1 in

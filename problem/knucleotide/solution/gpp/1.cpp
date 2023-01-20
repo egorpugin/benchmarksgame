@@ -18,15 +18,15 @@
 
 constexpr const unsigned char tochar[8] =
 {
-   ʼAʼ, ʼAʼ,
-   ʼCʼ, ʼCʼ,
-   ʼTʼ, ʼTʼ,
-   ʼGʼ, ʼGʼ
+   'A', 'A',
+   'C', 'C',
+   'T', 'T',
+   'G', 'G'
 };
 
 // the mask used in the running hash. for a string of size 1
 // this is 0b111, for a string of size 2 this is 0b11111,
-// for a string of size 4 itʼs 0b111111111 etc.
+// for a string of size 4 it's 0b111111111 etc.
 // so it sets the lower 2n+1 bits to 1.
 //
 // this makes it so that the running hash can just keep on shifting
@@ -37,10 +37,10 @@ uint64_t mask_for_size(unsigned size)
 }
 
 // incremental hash function that can hash strings of the
-// characters ʼaʼ, ʼAʼ, ʼcʼ, ʼCʼ, ʼtʼ, ʼTʼ, ʼgʼ, ʼGʼ
+// characters 'a', 'A', 'c', 'C', 't', 'T', 'g', 'G'
 // it works by realizing that the second and third last bit
-// of these are all different. ʼaʼ ends with 0b001,
-// ʼcʼ ends with 0b011, ʼtʼ ends with 0b100 and ʼgʼ
+// of these are all different. 'a' ends with 0b001,
+// 'c' ends with 0b011, 't' ends with 0b100 and 'g'
 // ends with 0b111. so we use the mask 0b110 to tell
 // them all apart
 struct RunningHash
@@ -148,8 +148,8 @@ void write_frequencies(const HashMap & f, unsigned input_size, unsigned size)
    });
    unsigned sum = input_size + 1 - size;
    for(auto && i : freq_sorted)
-      std::cout << i.second << ʼ ʼ << (double(100 * i.first) / sum) << ʼ\nʼ;
-   std::cout << ʼ\nʼ;
+      std::cout << i.second << ' ' << (double(100 * i.first) / sum) << '\n';
+   std::cout << '\n';
 }
 
 unsigned compute_count(const std::string & input, const std::string& string)
@@ -162,7 +162,7 @@ unsigned compute_count(const std::string & input, const std::string& string)
 
 void write_single_count(unsigned count, const char * string)
 {
-   std::cout << count << ʼ\tʼ << string << ʼ\nʼ;
+   std::cout << count << '\t' << string << '\n';
 }
 
 int main()
@@ -172,9 +172,9 @@ int main()
    while (fgets(buffer, 100, stdin) && memcmp(">THREE", buffer, 6) != 0)
    {
    }
-   while (fgets(buffer, 100, stdin) && buffer[0] != ʼ>ʼ)
+   while (fgets(buffer, 100, stdin) && buffer[0] != '>')
    {
-      if (buffer[0] != ʼ;ʼ)
+      if (buffer[0] != ';')
       {
          input.append(buffer, strlen(buffer) - 1);
       }

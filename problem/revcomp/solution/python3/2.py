@@ -8,18 +8,18 @@ from sys import stdin, stdout
 
 
 COMPLEMENTS = bytes.maketrans(
-    bʼACGTUMRWSYKVHDBNacgtumrwsykvhdbnʼ,
-    bʼTGCAAKYWSRMBDHVNTGCAAKYWSRMBDHVNʼ,
+    b'ACGTUMRWSYKVHDBNacgtumrwsykvhdbn',
+    b'TGCAAKYWSRMBDHVNTGCAAKYWSRMBDHVN',
 )
-COMMENT = ord(ʼ>ʼ)
+COMMENT = ord('>')
 
 
 def reverse_sequence(heading, sequence):
     chunk = bytearray(heading)
-    translated = sequence.translate(COMPLEMENTS, bʼ\nʼ)
+    translated = sequence.translate(COMPLEMENTS, b'\n')
     translated.reverse()
     for i in range(0, len(translated), 60):
-        chunk += translated[i:i+60] + bʼ\nʼ
+        chunk += translated[i:i+60] + b'\n'
     return chunk
 
 
@@ -37,7 +37,7 @@ def generate_sequences(lines):
     yield heading, sequence
 
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     sequences = generate_sequences(stdin.buffer)
     for chunk in starmap(reverse_sequence, sequences):
         stdout.buffer.write(chunk)

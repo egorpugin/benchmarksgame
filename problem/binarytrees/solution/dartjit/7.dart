@@ -2,11 +2,11 @@
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
    contributed by Isaac Gouy
-   TreeNode borrowed from Andrey Filatkinʼs JavaScript program
+   TreeNode borrowed from Andrey Filatkin's JavaScript program
 */
 
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
+import 'dart:io';
+import 'dart:isolate';
 
 final nIsolates = Platform.numberOfProcessors;
 
@@ -16,7 +16,7 @@ void main(List<String> args) {
 
   final stretchDepth = n + 1;
   final check = itemCheck(bottomUpTree(stretchDepth));
-  print(ʼstretch tree of depth $stretchDepth\t check: $checkʼ);
+  print('stretch tree of depth $stretchDepth\t check: $check');
   final longLivedTree = bottomUpTree(n);
 
   var i = nIsolates;
@@ -41,12 +41,12 @@ void main(List<String> args) {
       if (--awaited == 0) {
         replies.sort((a, b) => a.depth.compareTo(b.depth));
         for (var reply in replies) {
-          print(ʼ${reply.iterations}\t ʼ +
-              ʼtrees of depth ${reply.depth}\t ʼ +
-              ʼcheck: ${reply.check}ʼ);
+          print('${reply.iterations}\t ' +
+              'trees of depth ${reply.depth}\t ' +
+              'check: ${reply.check}');
         }
-        print(ʼlong lived tree of depth $n\t ʼ +
-            ʼcheck: ${itemCheck(longLivedTree)}ʼ);
+        print('long lived tree of depth $n\t ' +
+            'check: ${itemCheck(longLivedTree)}');
 
         mainIsolate.close();
       }

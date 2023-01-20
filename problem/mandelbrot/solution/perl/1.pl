@@ -39,7 +39,7 @@ X:
       }
       $line .= BLACK;
    }
-   $picture[$y] = pack ʼB*ʼ, $line;
+   $picture[$y] = pack 'B*', $line;
 }
 
 sub process_queue() {
@@ -49,7 +49,7 @@ sub process_queue() {
 }
 
 sub num_cpus() {
-   open my $fh, ʼ</proc/cpuinfoʼ or return 4;
+   open my $fh, '</proc/cpuinfo' or return 4;
    my $cpus;
    while(<$fh>) {
       $cpus ++ if /^processor\s+:/;

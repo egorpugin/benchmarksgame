@@ -71,7 +71,7 @@ function fastaRandom(n, table) {
         }
       }
     }
-    console.log( line.join(ʼʼ) );
+    console.log( line.join('') );
     n -= line.length;
   }
 }

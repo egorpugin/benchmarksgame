@@ -12,17 +12,17 @@ use std::hash::BuildHasherDefault;
 use fnv::FnvHasher;
 
 const SEQ_LENS: [usize; 7] = [1, 2, 3, 4, 6, 12, 18];
-const LOOKUPS: [&ʼstatic str; 5] = ["GGT", "GGTA", "GGTATT", "GGTATTTTAATT", "GG
+const LOOKUPS: [&'static str; 5] = ["GGT", "GGTA", "GGTATT", "GGTATTTTAATT", "GG
 TATTTTAATTTATAGT"];
 
 type Table = HashMap<u64, usize, BuildHasherDefault<FnvHasher>>;
 
 fn encode(c: char) -> u8 {
     match c {
-        ʼaʼ | ʼAʼ => 0,
-        ʼcʼ | ʼCʼ => 1,
-        ʼgʼ | ʼGʼ => 2,
-        ʼtʼ | ʼTʼ => 3,
+        'a' | 'A' => 0,
+        'c' | 'C' => 1,
+        'g' | 'G' => 2,
+        't' | 'T' => 3,
         _ => panic!("wrong character"),
     }
 }
@@ -37,10 +37,10 @@ fn decode(mut v: u64, len: usize) -> String {
     for _ in 0..len {
         let digit = v % 4;
         match digit {
-            0 => s.push(ʼAʼ),
-            1 => s.push(ʼCʼ),
-            2 => s.push(ʼGʼ),
-            3 => s.push(ʼTʼ),
+            0 => s.push('A'),
+            1 => s.push('C'),
+            2 => s.push('G'),
+            3 => s.push('T'),
             _ => {}
         };
         v /= 4;

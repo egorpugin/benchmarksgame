@@ -50,7 +50,7 @@ let main args =
                     a.[i+i/Width] <- 1.0/139968.0 * float rnds.[i] |> lookup
                 intPool.Return rnds
                 for i = 1 to (l+d)/Width do
-                    a.[i*Width1-1] <- ʼ\nʼB
+                    a.[i*Width1-1] <- '\n'B
                 a
             for i = offset to offset+(n-1)/blockSize-1 do
                 let rnds = rnds blockSize
@@ -91,7 +91,7 @@ let main args =
     for i = 0 to linesPerBlock*Width-1 do
         repeatedBytes.[i+i/Width] <- table.[i%tableLength]
     for i = 1 to linesPerBlock do
-        repeatedBytes.[i*Width1-1] <- ʼ\nʼB
+        repeatedBytes.[i*Width1-1] <- '\n'B
     for __ = 1 to (2*n-1)/(Width*linesPerBlock) do
         out.Write(repeatedBytes, 0, Width1*linesPerBlock)
     let remaining = (2*n-1)%(Width*linesPerBlock)+1
@@ -110,6 +110,6 @@ let main args =
            if l>200 then bytePool.Return bs
            i+1) |> write
     write 0
-    out.WriteByte ʼ\nʼB
+    out.WriteByte '\n'B
     0
 

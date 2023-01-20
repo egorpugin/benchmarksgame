@@ -5,8 +5,8 @@
    multi thread by Andrey Filatkin
 */
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
 
 if (isMainThread) {
     mainThread();
@@ -52,7 +52,7 @@ function runTasks(tasks) {
         for (let i = 0; i < tasks.length; i++) {
             const worker = new Worker(__filename, {workerData: tasks[i]});
 
-            worker.on(ʼmessageʼ, message => {
+            worker.on('message', message => {
                 results[i] = message.result;
                 tasksSize--;
                 if (tasksSize === 0) {

@@ -5,7 +5,7 @@
    - modified by Vincent Snijders
    - optimized and multithreaded by Jean de La Taille
    - modified by Jeppe Johansen
-   - modified by Peter Blackman (Restore ʼCalculatePointʼ as leaf function, bett
+   - modified by Peter Blackman (Restore 'CalculatePoint' as leaf function, bett
 er use of registers)
    - refactored and modified to use PasMP by Akira1364
 *)
@@ -82,7 +82,7 @@ begin
   with TPasMP.CreateGlobalInstance() do
     Invoke(ParallelFor(nil, 0, Pred(N), @DoMandelbrot));
   IO := @Output;
-  Write(IO^, ʼP4ʼ, #10, N, ʼ ʼ, N, #10);
+  Write(IO^, 'P4', #10, N, ' ', N, #10);
   Flush(IO^);
   FileWrite(StdOutputHandle, TextBuf[0], Len);
   FreeMem(TextBuf);

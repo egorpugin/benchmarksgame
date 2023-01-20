@@ -5,13 +5,13 @@
 
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''
 !
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    | input lineLength output buffer line |
@@ -21,10 +21,10 @@ do: n
 .
    buffer := ReadWriteStream on: (String new: 1028).
 
-   #(ʼONEʼ ʼTWOʼ ʼTHREEʼ) do: [:sequenceName|
+   #('ONE' 'TWO' 'THREE') do: [:sequenceName|
       | prefix description hasDescription complement sequence m |
 
-      prefix := ʼ>ʼ, sequenceName, ʼ*ʼ.
+      prefix := '>', sequenceName, '*'.
       buffer reset.
 
       (line notNil and: [prefix match: line])
@@ -45,8 +45,8 @@ do: n
 
       complement := String new: 128 withAll: $*.
 
-      ʼABCDGHKMNRSTVWYʼ with:
-      ʼTVGHCDMKNYSABWRʼ
+      'ABCDGHKMNRSTVWY' with:
+      'TVGHCDMKNYSABWR'
          do: [:a :b|
             complement at: a asInteger put: b.
             complement at: a asLowercase asInteger put: b].

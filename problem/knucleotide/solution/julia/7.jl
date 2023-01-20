@@ -26,10 +26,10 @@ encode(c) = (c >> 1) & 0x03
 
 # Return `c` such that `c == decode(encode(c))`.
 function decode(b::UInt8)
-    for c in (ʼaʼ % UInt8, ʼcʼ % UInt8, ʼgʼ % UInt8)
+    for c in ('a' % UInt8, 'c' % UInt8, 'g' % UInt8)
         b == encode(c) && return c
     end
-    ʼtʼ % UInt8
+    't' % UInt8
 end
 
 # Push encoding for `c` to last two bits of `s`.
@@ -55,7 +55,7 @@ function count_frame!(d::Dict{Seq{T}}, seq, frame) where T
     for i=frame:length(seq)
         v = @inbounds push(v, seq[i], mask)
         # This does two hashtable lookups currently. Doing better
-        # isnʼt possible until julia gets something like
+        # isn't possible until julia gets something like
         # https://github.com/JuliaLang/julia/pull/33758
         d[v] = get(d, v, 0) + 1
     end
@@ -76,7 +76,7 @@ Base.isless(a::SeqFreq, b::SeqFreq) =
     a.freq == b.freq ? isless(a.seq, b.seq) : isless(a.freq, b.freq)
 
 function Base.show(io::IO, x::SeqFreq)
-    write(io, uppercase(String(x.seq)), ʼ ʼ)
+    write(io, uppercase(String(x.seq)), ' ')
     @printf(io, "%2.3f", 100x.freq / x.total)
 end
 
@@ -86,7 +86,7 @@ function write_freqs(io, d, frame, total)
     for seqf in seqfreqs
         println(io, seqf)
     end
-    write(io, ʼ\nʼ)
+    write(io, '\n')
 end
 
 # Lifted directly from knucleotide-julia-6
@@ -110,8 +110,8 @@ function get_third_seq(io)
         else
             pos = position(io)
             nb = readbytes!(io, linebuffer)
-            @inbounds count += first(linebuffer) === ʼ>ʼ % UInt8
-            if last(linebuffer) !== ʼ\nʼ % UInt8
+            @inbounds count += first(linebuffer) === '>' % UInt8
+            if last(linebuffer) !== '\n' % UInt8
                 @inbounds seek(io, pos + findnext(isnewline, linebuffer, 1))
             end#if
         end#if
@@ -119,7 +119,7 @@ function get_third_seq(io)
     buffer
 end#function
 
-isnewline(c::UInt8)::Bool = c === ʼ\nʼ % UInt8
+isnewline(c::UInt8)::Bool = c === '\n' % UInt8
 
 function main(io, out)
     seq = get_third_seq(io)
@@ -143,7 +143,7 @@ function main(io, out)
         for c in v
             k = push(k, c, mask)
         end
-        write(out, string(get(d, k, 0)), ʼ\tʼ, uppercase(String(v)), ʼ\nʼ)
+        write(out, string(get(d, k, 0)), '\t', uppercase(String(v)), '\n')
     end
 
     freqs

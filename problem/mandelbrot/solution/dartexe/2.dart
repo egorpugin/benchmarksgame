@@ -1,11 +1,11 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   Greg Buchholzʼs simple C #2 program buffered, by Isaac Gouy.
+   Greg Buchholz's simple C #2 program buffered, by Isaac Gouy.
 */
 
-import ʼdart:ioʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:typed_data';
 
 void main(List<String> args) {
   int bit_num = 0, byte_acc = 0;
@@ -15,7 +15,7 @@ void main(List<String> args) {
   final h = (args.length > 0) ? int.parse(args[0]) : 200, w = h;
   final bytesPerRow = w >> 3;
 
-  stdout.write(ʼP4\n$w $h\nʼ);
+  stdout.write('P4\n$w $h\n');
 
   for (int y = 0; y < h; ++y) {
     var row = Uint8List(bytesPerRow);

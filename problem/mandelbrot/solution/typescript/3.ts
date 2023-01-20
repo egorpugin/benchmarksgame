@@ -6,8 +6,8 @@
    converted by Isaac Gouy
 */
 
-import { Worker, isMainThread, parentPort, workerData } from ʼworker_threadsʼ;
-const os = require(ʼosʼ);
+import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
+const os = require('os');
 
 const limit = 4;
 const maxIter = 50;
@@ -49,8 +49,8 @@ async function mainThread(size: number) {
             for (let i = 0; i < cpus; i++) {
                 const worker = new Worker(__filename, {workerData: {size, bytesP
 erRow}});
-                worker.postMessage({name: ʼsabʼ, data: sab});
-                worker.on(ʼexitʼ, () => {
+                worker.postMessage({name: 'sab', data: sab});
+                worker.on('exit', () => {
                     wait--;
                     if (wait === 0) {
                         resolve();
@@ -72,8 +72,8 @@ function workerThread({size, bytesPerRow}: Data) {
     let initialR: Float64Array;
     let initialI: Float64Array;
 
-    parentPort?.on(ʼmessageʼ, message => {
-        if (message.name === ʼsabʼ) {
+    parentPort?.on('message', message => {
+        if (message.name === 'sab') {
             sab = message.data;
             nextY = new Int32Array(sab, 0, 1);
             initialR = new Float64Array(sab, nextYSize, size);

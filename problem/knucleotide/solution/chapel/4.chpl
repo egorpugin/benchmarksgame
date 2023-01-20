@@ -16,7 +16,7 @@ proc main(args: [] string) {
         fileLen = consoleIn.size,
         stdinNoLock = consoleIn.reader(kind=ionative, locking=false);
 
-  // Read line-by-line until we see a line beginning with ʼ>THʼ
+  // Read line-by-line until we see a line beginning with '>TH'
   var buff: [1..columns] uint(8),
       lineSize = 0,
       numRead = 0;

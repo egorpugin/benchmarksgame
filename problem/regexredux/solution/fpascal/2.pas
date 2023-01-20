@@ -5,20 +5,20 @@ Program regexredux;
   https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
   contributed by Vitaly Trifonov
-  adapted for ʼreduxʼ by Peter Blackman
+  adapted for 'redux' by Peter Blackman
 *)
 
 {$mode objfpc}
 uses cthreads, mtprocs, sysutils;
 
 function memcpy(__dest:pointer; __src:pointer; __n:longint):pointer;cdecl; exter
-nal ʼlibcʼ;
+nal 'libc';
 
 
 (******************************    pcre wrap   *****************************)
 
 const
-  libpcre = ʼpcreʼ;
+  libpcre = 'pcre';
   PCRE_STUDY_JIT_COMPILE = $00001;
 
 
@@ -49,27 +49,27 @@ function pcre_study( const external_re: pcre;
 
 const
     patt: array[1..5] of pChar = (
-        ʼtHa[Nt]ʼ,
-        ʼaND|caN|Ha[DS]|WaSʼ,
-        ʼa[NSt]|BYʼ,
-        ʼ<[^>]*>ʼ,
-        ʼ\|[^|][^|]*\|ʼ);
+        'tHa[Nt]',
+        'aND|caN|Ha[DS]|WaS',
+        'a[NSt]|BY',
+        '<[^>]*>',
+        '\|[^|][^|]*\|');
 
-    repl: array[1..5] of pChar = (ʼ<4>ʼ, ʼ<3>ʼ, ʼ<2>ʼ, ʼ|ʼ, ʼ-ʼ);
+    repl: array[1..5] of pChar = ('<4>', '<3>', '<2>', '|', '-');
 
 
 var
   patterns: array[1..9] of PChar =
     (
-      ʼagggtaaa|tttaccctʼ,
-      ʼ[cgt]gggtaaa|tttaccc[acg]ʼ,
-      ʼa[act]ggtaaa|tttacc[agt]tʼ,
-      ʼag[act]gtaaa|tttac[agt]ctʼ,
-      ʼagg[act]taaa|ttta[agt]cctʼ,
-      ʼaggg[acg]aaa|ttt[cgt]ccctʼ,
-      ʼagggt[cgt]aa|tt[acg]accctʼ,
-      ʼagggta[cgt]a|t[acg]taccctʼ,
-      ʼagggtaa[cgt]|[acg]ttaccctʼ
+      'agggtaaa|tttaccct',
+      '[cgt]gggtaaa|tttaccc[acg]',
+      'a[act]ggtaaa|tttacc[agt]t',
+      'ag[act]gtaaa|tttac[agt]ct',
+      'agg[act]taaa|ttta[agt]cct',
+      'aggg[acg]aaa|ttt[cgt]ccct',
+      'agggt[cgt]aa|tt[acg]accct',
+      'agggta[cgt]a|t[acg]taccct',
+      'agggtaa[cgt]|[acg]ttaccct'
     );
 
   counts : array[1..9] of Longint = (0,0,0,0,0,0,0,0,0);
@@ -104,13 +104,13 @@ var
   split: PChar;
   vcount: Longint;
 begin
-  split := strscan(patterns[i], ʼ|ʼ);
+  split := strscan(patterns[i], '|');
   Byte(split^) := 0;
 
   vcount := count(patterns[i]);
   vcount += count(@split[1]);
 
-  split^ := ʼ|ʼ;
+  split^ := '|';
   counts[i] := vcount;
 end;
 
@@ -184,7 +184,7 @@ begin
   GetMem(sseq, SizeOf(Char)*(maxSeqLen+1));
 
 (* Read FASTA format file from stdin and count length. *)
-    assign(infile, ʼ/dev/stdinʼ);
+    assign(infile, '/dev/stdin');
     reset(infile, 1);
     blockread (infile, sseq^, maxSeqLen, slen);
     readlen += slen;
@@ -201,14 +201,14 @@ begin
     Byte(sseq[readLen]) := 0; //end read data
 
 (* Remove FASTA sequence descriptions and all linefeed characters.  *)
-  seqLen := subst(ʼ>.*|\nʼ, ʼʼ, sseq, readLen);
+  seqLen := subst('>.*|\n', '', sseq, readLen);
 
 
 (* Count all matches of patterns[i] in  seq buffer. *)
   ProcThreadPool.DoParallel(@split_count,  1, length (patterns), nil);
 
   for i := 1 to length (patterns) do
-    writeln (patterns[i], ʼ ʼ, counts[i]);
+    writeln (patterns[i], ' ', counts[i]);
 
   writeln;
   writeln(readLen);

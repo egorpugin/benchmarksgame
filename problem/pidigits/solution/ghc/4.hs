@@ -1,6 +1,6 @@
 -- The Computer Language Benchmarks Game
 -- https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
--- contributed by Bryan OʼSullivan
+-- contributed by Bryan O'Sullivan
 -- modified by Eugene Kirpichov: pidgits only generates
 -- the result string instead of printing it. For some
 -- reason, this gives a speedup.

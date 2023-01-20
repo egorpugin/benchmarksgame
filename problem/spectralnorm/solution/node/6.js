@@ -6,9 +6,9 @@
 // modified for Node.js by Isaac Gouy
 // multi thread by Andrey Filatkin
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
-const os = require(ʼosʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
+const os = require('os');
 
 const bytesPerFloat = Float64Array.BYTES_PER_ELEMENT;
 
@@ -27,8 +27,8 @@ async function mainThread(n) {
     startWorkers();
 
     for (let i = 0; i < 10; i++) {
-        await atAu(ʼuʼ, ʼvʼ, ʼwʼ);
-        await atAu(ʼvʼ, ʼuʼ, ʼwʼ);
+        await atAu('u', 'v', 'w');
+        await atAu('v', 'u', 'w');
     }
 
     stopWorkers();
@@ -45,8 +45,8 @@ async function mainThread(n) {
     console.log(result.toFixed(9));
 
     async function atAu(u, v, w) {
-        await work(ʼauʼ, {vec1: u, vec2: w});
-        await work(ʼatuʼ, {vec1: w, vec2: v});
+        await work('au', {vec1: u, vec2: w});
+        await work('atu', {vec1: w, vec2: v});
     }
 
     function startWorkers() {
@@ -62,7 +62,7 @@ async function mainThread(n) {
             const worker = new Worker(__filename, {workerData: {n, start, end}})
 ;
 
-            worker.postMessage({name: ʼsabʼ, data: sab});
+            worker.postMessage({name: 'sab', data: sab});
             workers.add(worker);
         }
     }
@@ -72,7 +72,7 @@ async function mainThread(n) {
             let wait = 0;
             workers.forEach(worker => {
                 worker.postMessage({name, data});
-                worker.once(ʼmessageʼ, () => {
+                worker.once('message', () => {
                     wait--;
                     if (wait === 0) {
                         resolve();
@@ -84,7 +84,7 @@ async function mainThread(n) {
     }
 
     function stopWorkers() {
-        workers.forEach(worker => worker.postMessage({name: ʼexitʼ}));
+        workers.forEach(worker => worker.postMessage({name: 'exit'}));
     }
 }
 
@@ -95,21 +95,21 @@ function workerThread({n, start, end}) {
         w: null,
     };
 
-    parentPort.on(ʼmessageʼ, message => {
+    parentPort.on('message', message => {
         const name = message.name;
 
-        if (name === ʼsabʼ) {
+        if (name === 'sab') {
             const sab = message.data;
             data.u = new Float64Array(sab, 0, n);
             data.v = new Float64Array(sab, bytesPerFloat * n, n);
             data.w = new Float64Array(sab, 2 * bytesPerFloat * n, n);
-        } else if (name === ʼauʼ) {
+        } else if (name === 'au') {
             au(data[message.data.vec1], data[message.data.vec2]);
-            parentPort.postMessage({name: ʼendʼ});
-        } else if (name === ʼatuʼ) {
+            parentPort.postMessage({name: 'end'});
+        } else if (name === 'atu') {
             atu(data[message.data.vec1], data[message.data.vec2]);
-            parentPort.postMessage({name: ʼendʼ});
-        } else if (name === ʼexitʼ) {
+            parentPort.postMessage({name: 'end'});
+        } else if (name === 'exit') {
             process.exit();
         }
     });

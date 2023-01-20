@@ -45,7 +45,7 @@ while y < size
     bit_num += 1
 
     # Code is very similar for these cases, but using separate blocks
-    # ensures we skip the shifting when itʼs unnecessary, which is most cases.
+    # ensures we skip the shifting when it's unnecessary, which is most cases.
     if (bit_num == 8)
       print byte_acc.chr
       byte_acc = 0

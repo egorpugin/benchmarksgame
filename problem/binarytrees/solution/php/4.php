@@ -9,7 +9,7 @@
 
 function createTree($depth)
 {
-    echo ʼʼ;
+    echo '';
     if (!$depth) {
         return [null, null];
     }
@@ -68,9 +68,9 @@ do {
     }
 } while ($minDepth <= $maxDepth);
 
-extension_loaded(ʼshmopʼ) or dl(ʼshmop.soʼ);
+extension_loaded('shmop') or dl('shmop.so');
 $size = 128;
-$shmId = shmop_open(ftok(__FILE__, ʼbʼ), ʼcʼ, 0644, $size * (count($depthIterati
+$shmId = shmop_open(ftok(__FILE__, 'b'), 'c', 0644, $size * (count($depthIterati
 ons) + 1));
 $PIDs = [];
 $n = 0;

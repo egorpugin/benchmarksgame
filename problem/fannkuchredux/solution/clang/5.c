@@ -83,7 +83,7 @@ int main(int argc, char ** argv){
          if(current_Permutation[0]>0){
 
             // Make a copy of current_Permutation[] to work on. Note that we
-            // donʼt need to copy the first value since that will be stored
+            // don't need to copy the first value since that will be stored
             // in a separate variable since it gets used a lot.
             for(intnative_t i=0; ++i<n;)
                temp_Permutation[i]=current_Permutation[i];
@@ -108,10 +108,10 @@ int main(int argc, char ** argv){
                   intnative_t low_Index=1, high_Index=first_Value-1;
                   // Note that this loop is written so that it will run at
                   // most 16 times so that compilers will be more willing
-                  // to unroll it. Consequently this wonʼt work right when
+                  // to unroll it. Consequently this won't work right when
                   // n is greater than 35. This would probably be the
-                  // least of your concerns since 21! wonʼt fit into 64
-                  // bit integers and even if it did you probably wouldnʼt
+                  // least of your concerns since 21! won't fit into 64
+                  // bit integers and even if it did you probably wouldn't
                   // want to run this program with a value that large
                   // since it would take thousands of years to do on a
                   // modern desktop computer. ;-)

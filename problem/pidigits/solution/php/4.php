@@ -50,7 +50,7 @@ while(true) {
    }
 }
 if($i % 10 != 0) {
-   echo str_repeat(ʼ ʼ, 10 - $N % 10), "\t:", $N, "\n";
+   echo str_repeat(' ', 10 - $N % 10), "\t:", $N, "\n";
 }
 
 ob_end_flush();

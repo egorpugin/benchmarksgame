@@ -209,7 +209,7 @@ spectral_game(int N)
         my_param.N2  = N/2;
 
         /*
-         * calculate each threadʼs working range [range1 .. range2) => static
+         * calculate each thread's working range [range1 .. range2) => static
          * schedule here
          */
         my_param.r_begin   = threadid * chunk;

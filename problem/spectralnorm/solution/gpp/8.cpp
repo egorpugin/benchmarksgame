@@ -42,7 +42,7 @@ struct Param
       v2dt*   xmm_v;
    };
 
-   int    length;         // source/desti vecʼs length
+   int    length;         // source/desti vec's length
    int    half_length;
 
    int    r_begin;      // working range of each thread
@@ -231,7 +231,7 @@ spectral_game(int N)
       my_param.length         = N;
       my_param.half_length   = N /2;
 
-      // calculate each threadʼs working range [r1 .. r2) => static schedule
+      // calculate each thread's working range [r1 .. r2) => static schedule
       my_param.r_begin   = threadid * chunk;
       my_param.r_end      = (threadid < (threadcount -1)) ? (my_param.r_begin +
 chunk) : N;

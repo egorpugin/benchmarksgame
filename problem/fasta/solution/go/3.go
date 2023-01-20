@@ -59,7 +59,7 @@ func RepeatFasta(s []byte, count int) {
    for count > 0 {
       line := min(WIDTH, count)
       out.Write(s2[pos : pos+line])
-      out.WriteByte(ʼ\nʼ)
+      out.WriteByte('\n')
       pos += line
       if pos >= len(s) {
          pos -= len(s)
@@ -119,7 +119,7 @@ func RandomFasta(genelist []AminoAcid, count int) {
             j := 0
             for i := 0; i < line; i++ {
                if i > 0 && i%WIDTH == 0 {
-                  buf[j] = ʼ\nʼ
+                  buf[j] = '\n'
                   j++
                }
                r := float64(int(block[i]))
@@ -132,7 +132,7 @@ func RandomFasta(genelist []AminoAcid, count int) {
                }
             }
             // fix len of buf (final block is shorter)
-            buf[j] = ʼ\nʼ
+            buf[j] = '\n'
             j++
             if len(buf) != j {
                buf = buf[:j]
@@ -163,28 +163,28 @@ func main() {
    }
 
    iub := []AminoAcid{
-      AminoAcid{0.27, ʼaʼ},
-      AminoAcid{0.12, ʼcʼ},
-      AminoAcid{0.12, ʼgʼ},
-      AminoAcid{0.27, ʼtʼ},
-      AminoAcid{0.02, ʼBʼ},
-      AminoAcid{0.02, ʼDʼ},
-      AminoAcid{0.02, ʼHʼ},
-      AminoAcid{0.02, ʼKʼ},
-      AminoAcid{0.02, ʼMʼ},
-      AminoAcid{0.02, ʼNʼ},
-      AminoAcid{0.02, ʼRʼ},
-      AminoAcid{0.02, ʼSʼ},
-      AminoAcid{0.02, ʼVʼ},
-      AminoAcid{0.02, ʼWʼ},
-      AminoAcid{0.02, ʼYʼ},
+      AminoAcid{0.27, 'a'},
+      AminoAcid{0.12, 'c'},
+      AminoAcid{0.12, 'g'},
+      AminoAcid{0.27, 't'},
+      AminoAcid{0.02, 'B'},
+      AminoAcid{0.02, 'D'},
+      AminoAcid{0.02, 'H'},
+      AminoAcid{0.02, 'K'},
+      AminoAcid{0.02, 'M'},
+      AminoAcid{0.02, 'N'},
+      AminoAcid{0.02, 'R'},
+      AminoAcid{0.02, 'S'},
+      AminoAcid{0.02, 'V'},
+      AminoAcid{0.02, 'W'},
+      AminoAcid{0.02, 'Y'},
    }
 
    homosapiens := []AminoAcid{
-      AminoAcid{0.3029549426680, ʼaʼ},
-      AminoAcid{0.1979883004921, ʼcʼ},
-      AminoAcid{0.1975473066391, ʼgʼ},
-      AminoAcid{0.3015094502008, ʼtʼ},
+      AminoAcid{0.3029549426680, 'a'},
+      AminoAcid{0.1979883004921, 'c'},
+      AminoAcid{0.1975473066391, 'g'},
+      AminoAcid{0.3015094502008, 't'},
    }
 
    AccumulateProbabilities(iub)

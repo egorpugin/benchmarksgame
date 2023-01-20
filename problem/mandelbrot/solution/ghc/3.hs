@@ -8,7 +8,7 @@
 --
 -- ver 2: added a couple of optimizations
 -- - Reduced number of times a vector of 8 was checked to see if
---    they had all escaped, similar to Dominic Letzʼs C #5 entry.
+--    they had all escaped, similar to Dominic Letz's C #5 entry.
 -- - Processed 64 pixels at a time if width was a multiple of 64,
 --    thereby reducing writes to the bitmap.
 
@@ -71,32 +71,32 @@ calcSum
     ,  (# i01, i11, i21, i31 #)
     ,  (# sum01, sum11, sum21, sum31 #) #)
   where
-    rʼ0 = r00 `timesDoubleX2#` r00
-    iʼ0 = i00 `timesDoubleX2#` i00
+    r'0 = r00 `timesDoubleX2#` r00
+    i'0 = i00 `timesDoubleX2#` i00
     ri0 = r00 `timesDoubleX2#` i00
-    sum01 = rʼ0 `plusDoubleX2#` iʼ0
-    r01 = (rʼ0 `minusDoubleX2#` iʼ0) `plusDoubleX2#` initR0
+    sum01 = r'0 `plusDoubleX2#` i'0
+    r01 = (r'0 `minusDoubleX2#` i'0) `plusDoubleX2#` initR0
     i01 = (ri0 `plusDoubleX2#` ri0) `plusDoubleX2#` initI
 
-    rʼ1 = r10 `timesDoubleX2#` r10
-    iʼ1 = i10 `timesDoubleX2#` i10
+    r'1 = r10 `timesDoubleX2#` r10
+    i'1 = i10 `timesDoubleX2#` i10
     ri1 = r10 `timesDoubleX2#` i10
-    sum11 = rʼ1 `plusDoubleX2#` iʼ1
-    r11 = (rʼ1 `minusDoubleX2#` iʼ1) `plusDoubleX2#` initR1
+    sum11 = r'1 `plusDoubleX2#` i'1
+    r11 = (r'1 `minusDoubleX2#` i'1) `plusDoubleX2#` initR1
     i11 = (ri1 `plusDoubleX2#` ri1) `plusDoubleX2#` initI
 
-    rʼ2 = r20 `timesDoubleX2#` r20
-    iʼ2 = i20 `timesDoubleX2#` i20
+    r'2 = r20 `timesDoubleX2#` r20
+    i'2 = i20 `timesDoubleX2#` i20
     ri2 = r20 `timesDoubleX2#` i20
-    sum21 = rʼ2 `plusDoubleX2#` iʼ2
-    r21 = (rʼ2 `minusDoubleX2#` iʼ2) `plusDoubleX2#` initR2
+    sum21 = r'2 `plusDoubleX2#` i'2
+    r21 = (r'2 `minusDoubleX2#` i'2) `plusDoubleX2#` initR2
     i21 = (ri2 `plusDoubleX2#` ri2) `plusDoubleX2#` initI
 
-    rʼ3 = r30 `timesDoubleX2#` r30
-    iʼ3 = i30 `timesDoubleX2#` i30
+    r'3 = r30 `timesDoubleX2#` r30
+    i'3 = i30 `timesDoubleX2#` i30
     ri3 = r30 `timesDoubleX2#` i30
-    sum31 = rʼ3 `plusDoubleX2#` iʼ3
-    r31 = (rʼ3 `minusDoubleX2#` iʼ3) `plusDoubleX2#` initR3
+    sum31 = r'3 `plusDoubleX2#` i'3
+    r31 = (r'3 `minusDoubleX2#` i'3) `plusDoubleX2#` initR3
     i31 = (ri3 `plusDoubleX2#` ri3) `plusDoubleX2#` initI
 
 type DoubleX24# = (# DoubleX2#, DoubleX2#, DoubleX2#, DoubleX2# #)
@@ -109,8 +109,8 @@ mand8 initRs indexR initI = go1 6# (# initR, i, initSum #) where
     let !(# _, _, sum #) = calcSum initR initI (calcSum initR initI s)
     in pixelsGT sum 4.0## -- 0xff##
   go1 n s =
-    let sʼ@(!(# _, _, sum #)) = go2 8# s
-    in if isTrue# (vecNLE sum 4.0##) then 0x00## else go1 (n -# 1#) sʼ
+    let s'@(!(# _, _, sum #)) = go2 8# s
+    in if isTrue# (vecNLE sum 4.0##) then 0x00## else go1 (n -# 1#) s'
 
   go2 0# s = s
   go2 n s = go2 (n -# 1#) (calcSum initR initI s)

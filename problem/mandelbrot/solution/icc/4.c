@@ -69,7 +69,7 @@ static void calc_row(int y) {
             Tiv = Ziv * Ziv;
 
             /*
-             * All bits will be set to 1 if ʼTrv + Tivʼ is less than 4
+             * All bits will be set to 1 if 'Trv + Tiv' is less than 4
              * and all bits will be set to 0 otherwise. Two elements
              * are calculated in parallel here.
              */

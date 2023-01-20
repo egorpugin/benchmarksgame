@@ -8,9 +8,9 @@
 
 # error_reporting(E_STRICT);
 
-define (ʼIMʼ, 139968);
-define (ʼIAʼ, 3877);
-define (ʼICʼ, 29573);
+define ('IM', 139968);
+define ('IA', 3877);
+define ('IC', 29573);
 
 function gen_random($max) {
    static $last = 42;
@@ -39,14 +39,14 @@ function selectRandom(&$a) {
 
 /* Generate and write FASTA format */
 
-define (ʼLINE_LENGTHʼ, 60);
+define ('LINE_LENGTH', 60);
 
 
 function makeRandomFasta($id, $desc, &$genelist, $n) {
    print(">$id $desc\n");
 
    for ($todo = $n; $todo > 0; $todo -= LINE_LENGTH) {
-      $pick = ʼʼ;
+      $pick = '';
       $m = $todo < LINE_LENGTH ? $todo : LINE_LENGTH;
       for ($i=0; $i < $m; $i++) $pick .= selectRandom($genelist);
       $pick .= "\n";
@@ -76,49 +76,49 @@ function makeRepeatFasta($id, $desc, $s, $n) {
 /* Main -- define alphabets, make 3 fragments */
 
 $iub=array(
-   array(ʼaʼ, 0.27),
-   array(ʼcʼ, 0.12),
-   array(ʼgʼ, 0.12),
-   array(ʼtʼ, 0.27),
+   array('a', 0.27),
+   array('c', 0.12),
+   array('g', 0.12),
+   array('t', 0.27),
 
-   array(ʼBʼ, 0.02),
-   array(ʼDʼ, 0.02),
-   array(ʼHʼ, 0.02),
-   array(ʼKʼ, 0.02),
-   array(ʼMʼ, 0.02),
-   array(ʼNʼ, 0.02),
-   array(ʼRʼ, 0.02),
-   array(ʼSʼ, 0.02),
-   array(ʼVʼ, 0.02),
-   array(ʼWʼ, 0.02),
-   array(ʼYʼ, 0.02)
+   array('B', 0.02),
+   array('D', 0.02),
+   array('H', 0.02),
+   array('K', 0.02),
+   array('M', 0.02),
+   array('N', 0.02),
+   array('R', 0.02),
+   array('S', 0.02),
+   array('V', 0.02),
+   array('W', 0.02),
+   array('Y', 0.02)
 );
 
 $homosapiens = array(
-   array(ʼaʼ, 0.3029549426680),
-   array(ʼcʼ, 0.1979883004921),
-   array(ʼgʼ, 0.1975473066391),
-   array(ʼtʼ, 0.3015094502008)
+   array('a', 0.3029549426680),
+   array('c', 0.1979883004921),
+   array('g', 0.1975473066391),
+   array('t', 0.3015094502008)
 );
 
 $alu =
-   ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ .
-   ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ .
-   ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ .
-   ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ .
-   ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ .
-   ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ .
-   ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ;
+   'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG' .
+   'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA' .
+   'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT' .
+   'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA' .
+   'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG' .
+   'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC' .
+   'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA';
 
 $n = 1000;
 
-if ($_SERVER[ʼargcʼ] > 1) $n = $_SERVER[ʼargvʼ][1];
+if ($_SERVER['argc'] > 1) $n = $_SERVER['argv'][1];
 
    makeCumulative($iub);
    makeCumulative($homosapiens);
 
-   makeRepeatFasta(ʼONEʼ, ʼHomo sapiens aluʼ, $alu, $n*2);
-   makeRandomFasta(ʼTWOʼ, ʼIUB ambiguity codesʼ, $iub, $n*3);
-   makeRandomFasta(ʼTHREEʼ, ʼHomo sapiens frequencyʼ, $homosapiens, $n*5);
+   makeRepeatFasta('ONE', 'Homo sapiens alu', $alu, $n*2);
+   makeRandomFasta('TWO', 'IUB ambiguity codes', $iub, $n*3);
+   makeRandomFasta('THREE', 'Homo sapiens frequency', $homosapiens, $n*5);
 ?>
 

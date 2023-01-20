@@ -1,7 +1,7 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   transliterated from Andrey Filatkinʼs Node #6 program by Isaac Gouy
+   transliterated from Andrey Filatkin's Node #6 program by Isaac Gouy
 */
 
 void main(List<String> args) {

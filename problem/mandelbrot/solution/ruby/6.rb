@@ -3,12 +3,12 @@
 #
 # Contributed by Aaron Tavistock
 
-require ʼthreadʼ
+require 'thread'
 
 WORKER_COUNT = begin
-  cpu_count = if File.readable?(ʼ/proc/cpuinfoʼ) # Linux
+  cpu_count = if File.readable?('/proc/cpuinfo') # Linux
     %x(cat /proc/cpuinfo | grep -c processor).chomp.to_i
-  elsif File.executable?(ʼ/usr/sbin/sysctlʼ)  #OS/X
+  elsif File.executable?('/usr/sbin/sysctl')  #OS/X
     %x(/usr/sbin/sysctl -n hw.ncpu).chomp.to_i
   else
     1
@@ -94,7 +94,7 @@ class Mandel
       get_bit(cr, ci)
     end
 
-    row = ʼʼ
+    row = ''
     row_bits.each_slice(8) do |byte|
       if byte.size < 8
         byte = byte.fill(0b0, byte.size, 8 - byte.size)

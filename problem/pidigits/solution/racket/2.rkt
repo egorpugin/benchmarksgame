@@ -13,7 +13,7 @@
 ;; quick libgmp interface, limited to what we need below
 (define libgmp (ffi-lib "libgmp"))
 (define-syntax-rule (defgmp op type ...)
-  (define op (get-ffi-obj (format "__gmpz_~a" ʼop) libgmp (_fun type ...))))
+  (define op (get-ffi-obj (format "__gmpz_~a" 'op) libgmp (_fun type ...))))
 (define-cstruct _mpz ([alloc _int] [size _int] [limbs _pointer]))
 (defgmp init_set_ui _mpz-pointer _ulong -> _void)
 (defgmp set_ui _mpz-pointer _ulong -> _void)
@@ -35,24 +35,24 @@
     (and (identifier? stx)
          (regexp-match? #rx"^_" (symbol->string (syntax-e stx)))))
   (define (split xs)
-    (let loop ([xs xs] [cur ʼ()] [r ʼ()])
+    (let loop ([xs xs] [cur '()] [r '()])
       (define (add) (cons (reverse cur) r))
       (cond [(null? xs) (reverse (add))]
-            [(syntax-case (car xs) (unquote) [,x #ʼx] [else #f])
+            [(syntax-case (car xs) (unquote) [,x #'x] [else #f])
              => (lambda (x) (loop (cdr xs) (list x) (add)))]
             [else (loop (cdr xs) (cons (car xs) cur) r)])))
   (define (translate expr)
     (syntax-case* expr (= += -= + * / < >) sym=?
-      [(x = y + z)  #ʼ(add x y z)]
-      [(x = y * z)  #`(#,(if (_? #ʼz) #ʼmul #ʼmul_ui) x y z)]
-      [(x += y * z) #`(#,(if (_? #ʼz) #ʼaddmul #ʼaddmul_ui) x y z)]
-      [(x -= y * z) #`(#,(if (_? #ʼz) #ʼsubmul #ʼsubmul_ui) x y z)]
-      [(x = y / z)  #ʼ(tdiv_q x y z)]
-      [(x < y)      #ʼ(< (cmp x y) 0)]
-      [(x > y)      #ʼ(> (cmp x y) 0)]
-      [(get x)      #ʼ(get_ui x)]))
+      [(x = y + z)  #'(add x y z)]
+      [(x = y * z)  #`(#,(if (_? #'z) #'mul #'mul_ui) x y z)]
+      [(x += y * z) #`(#,(if (_? #'z) #'addmul #'addmul_ui) x y z)]
+      [(x -= y * z) #`(#,(if (_? #'z) #'submul #'submul_ui) x y z)]
+      [(x = y / z)  #'(tdiv_q x y z)]
+      [(x < y)      #'(< (cmp x y) 0)]
+      [(x > y)      #'(> (cmp x y) 0)]
+      [(get x)      #'(get_ui x)]))
   (syntax-case stx ()
-    [(_ x ...) #`(begin #,@(map translate (split (syntax->list #ʼ(x ...)))))]))
+    [(_ x ...) #`(begin #,@(map translate (split (syntax->list #'(x ...)))))]))
 
 ;; the actual code
 

@@ -12,8 +12,8 @@ char complement(char character)
 {
    static char const complement_map[] =
    {
-      ʼ\0ʼ, ʼTʼ, ʼVʼ, ʼGʼ, ʼHʼ, ʼ\0ʼ, ʼ\0ʼ, ʼCʼ, ʼDʼ, ʼ\0ʼ, ʼ\0ʼ, ʼMʼ, ʼ\0ʼ, ʼK
-ʼ, ʼNʼ, ʼ\0ʼ, ʼ\0ʼ, ʼ\0ʼ, ʼYʼ, ʼSʼ, ʼAʼ, ʼAʼ, ʼBʼ, ʼWʼ, ʼ\0ʼ, ʼRʼ
+      '\0', 'T', 'V', 'G', 'H', '\0', '\0', 'C', 'D', '\0', '\0', 'M', '\0', 'K
+', 'N', '\0', '\0', '\0', 'Y', 'S', 'A', 'A', 'B', 'W', '\0', 'R'
    };
    return complement_map[character & 0x1f];
 }
@@ -51,11 +51,11 @@ void write_reverse_complement(chunk * begin, chunk * end)
       char temp = complement(*begin_char);
       *begin_char++ = complement(*end_char);
       *end_char-- = temp;
-      if (*begin_char == ʼ\nʼ)
+      if (*begin_char == '\n')
       {
          ++begin_char;
       }
-      if (*end_char == ʼ\nʼ)
+      if (*end_char == '\n')
       {
          --end_char;
       }
@@ -63,7 +63,7 @@ void write_reverse_complement(chunk * begin, chunk * end)
       {
          begin = begin->next;
          begin_char = begin->data;
-         if (*begin_char == ʼ\nʼ)
+         if (*begin_char == '\n')
          {
             ++begin_char;
          }
@@ -72,7 +72,7 @@ void write_reverse_complement(chunk * begin, chunk * end)
       {
          end = end->previous;
          end_char = end->data + end->length - 1;
-         if (*end_char == ʼ\nʼ)
+         if (*end_char == '\n')
          {
             --end_char;
          }
@@ -85,7 +85,7 @@ void write_reverse_complement(chunk * begin, chunk * end)
       start = start->next;
       delete last;
    }
-   std::cout.put(ʼ\nʼ);
+   std::cout.put('\n');
 }
 
 int main()
@@ -96,19 +96,19 @@ int main()
    {
       std::string header;
       std::getline(std::cin, header);
-      std::cout << header << ʼ\nʼ;
+      std::cout << header << '\n';
       chunk * start = new chunk();
       chunk * end = start;
-      while (!std::cin.eof() && std::cin.peek() != ʼ>ʼ)
+      while (!std::cin.eof() && std::cin.peek() != '>')
       {
          for (int line = 0; line < 1074 && !std::cin.eof() && std::cin.peek() !=
- ʼ>ʼ; ++line)
+ '>'; ++line)
          {
             std::cin.getline(end->data + end->length, line_length + 1);
             end->length += std::cin.gcount();
-            *(end->data + end->length - 1) = ʼ\nʼ;
+            *(end->data + end->length - 1) = '\n';
          }
-         if (!std::cin.eof() && std::cin.peek() != ʼ>ʼ)
+         if (!std::cin.eof() && std::cin.peek() != '>')
          {
             end = new chunk(end);
          }

@@ -5,7 +5,7 @@
  * implementation of the fasta benchmark, using stdio, all
  * computation, no caching, and a single thread.  No knowledge of the
  * random number generator is assumed.  It just relies on the C
- * compiler and libraries for performance.  Itʼs a starting point to
+ * compiler and libraries for performance.  It's a starting point to
  * further optimize C implementations.
  *
  * by Drake Diedrich
@@ -70,9 +70,9 @@ static void repeat_fasta(const char *seq,
   int i;
   for (i=0; i<n; i++) {
     putchar(seq[i % len]);
-    if (i % LINELEN == LINELEN - 1) putchar(ʼ\nʼ);
+    if (i % LINELEN == LINELEN - 1) putchar('\n');
   }
-  if (i % LINELEN != 0) putchar(ʼ\nʼ);
+  if (i % LINELEN != 0) putchar('\n');
 }
 
 static void random_fasta(const char *symb,
@@ -88,9 +88,9 @@ static void random_fasta(const char *symb,
       if (v<0) break;
     }
     putchar(symb[j]);
-    if (i % LINELEN == LINELEN - 1) putchar(ʼ\nʼ);
+    if (i % LINELEN == LINELEN - 1) putchar('\n');
   }
-  if (i % LINELEN != 0) putchar(ʼ\nʼ);
+  if (i % LINELEN != 0) putchar('\n');
 }
 
 int main(int argc, char **argv) {

@@ -1,14 +1,14 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   transliterated from Alexander Fyodorovʼs program by Isaac Gouy
+   transliterated from Alexander Fyodorov's program by Isaac Gouy
 */
 
 function pad(i: number, last: boolean) {
   var res = i.toString(), count;
   count = 10 - res.length;
   while (count > 0) {
-    last ? res += ʼ ʼ : res = ʼ0ʼ + res;
+    last ? res += ' ' : res = '0' + res;
     count--;
   }
   return res;
@@ -47,7 +47,7 @@ function calculatePi(arg: number) {
         let last = i >= arg;
         if (i % 10 == 0 || last) {
 
-          console.log(pad(ns, last) + ʼ\t:ʼ + i);
+          console.log(pad(ns, last) + '\t:' + i);
           ns = 0;
         }
 

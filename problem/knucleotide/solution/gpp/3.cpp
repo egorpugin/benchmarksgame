@@ -21,14 +21,14 @@
 unsigned char tonum[256],tochar[4];
 static void init()
 {
-   tonum[ʼAʼ] = 0;
-   tonum[ʼCʼ] = 1;
-   tonum[ʼTʼ] = 2;
-   tonum[ʼGʼ] = 3;
-   tochar[0] = ʼAʼ;
-   tochar[1] = ʼCʼ;
-   tochar[2] = ʼTʼ;
-   tochar[3] = ʼGʼ;
+   tonum['A'] = 0;
+   tonum['C'] = 1;
+   tonum['T'] = 2;
+   tonum['G'] = 3;
+   tochar[0] = 'A';
+   tochar[1] = 'C';
+   tochar[2] = 'T';
+   tochar[3] = 'G';
 }
 
 struct T{
@@ -117,9 +117,9 @@ void write_frequencies(const std::string & input, unsigned size)
       freq.insert(std::make_pair(i.second,i.first));
    }
    for(auto& i : freq)
-      std::cout << i.second << ʼ ʼ << (sum ? double(100 * i.first) / sum : 0.0)
-<< ʼ\nʼ;
-   std::cout << ʼ\nʼ;
+      std::cout << i.second << ' ' << (sum ? double(100 * i.first) / sum : 0.0)
+<< '\n';
+   std::cout << '\n';
 }
 
 void write_count(const std::string & input, const std::string& string)
@@ -127,7 +127,7 @@ void write_count(const std::string & input, const std::string& string)
    unsigned size = string.size();
    auto frequencies = tcalculate(input,size);
 
-   std::cout << frequencies[string] << ʼ\tʼ << string << ʼ\nʼ;
+   std::cout << frequencies[string] << '\t' << string << '\n';
 }
 
 int main()
@@ -136,9 +136,9 @@ int main()
    std::string input;
    char buffer[256];
    while (fgets(buffer,100,stdin) && memcmp(">THREE",buffer,6)!=0);
-   while (fgets(buffer,100,stdin) && buffer[0] != ʼ>ʼ)
+   while (fgets(buffer,100,stdin) && buffer[0] != '>')
    {
-      if (buffer[0] != ʼ;ʼ)
+      if (buffer[0] != ';')
       {
          input.append(buffer,strlen(buffer)-1);
       }

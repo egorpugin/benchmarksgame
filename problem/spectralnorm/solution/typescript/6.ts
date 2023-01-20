@@ -8,8 +8,8 @@
     // converted by IshKebab
 
     import { Worker as NodeWorker, isMainThread, parentPort, workerData } from
-ʼworker_threadsʼ;
-    import * as os from ʼosʼ;
+'worker_threads';
+    import * as os from 'os';
 
     enum MessageVariant {
         Sab,
@@ -66,8 +66,8 @@
         startWorkers();
 
         for (let i = 0; i < 10; i++) {
-            await atAu(ʼuʼ, ʼvʼ, ʼwʼ);
-            await atAu(ʼvʼ, ʼuʼ, ʼwʼ);
+            await atAu('u', 'v', 'w');
+            await atAu('v', 'u', 'w');
         }
 
         stopWorkers();
@@ -111,7 +111,7 @@
                 let wait = 0;
                 workers.forEach(worker => {
                     worker.postMessage(message);
-                    worker.once(ʼmessageʼ, () => {
+                    worker.once('message', () => {
                         wait--;
                         if (wait === 0) {
                             resolve();
@@ -136,7 +136,7 @@ r}) {
             return;
         }
 
-        parentPort.on(ʼmessageʼ, (message: Message) => {
+        parentPort.on('message', (message: Message) => {
             switch (message.variant) {
                 case MessageVariant.Sab:
                     data = {
@@ -148,14 +148,14 @@ r}) {
                     break;
                 case MessageVariant.Au:
                     if (data === undefined) {
-                        throw Error(ʼAu received before Sabʼ);
+                        throw Error('Au received before Sab');
                     }
                     au(data[message.vec1], data[message.vec2]);
                     parentPort!.postMessage({});
                     break;
                 case MessageVariant.Atu:
                     if (data === undefined) {
-                        throw Error(ʼAtu received before Sabʼ);
+                        throw Error('Atu received before Sab');
                     }
                     atu(data[message.vec1], data[message.vec2]);
                     parentPort!.postMessage({});

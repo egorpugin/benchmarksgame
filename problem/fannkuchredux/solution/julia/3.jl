@@ -1,7 +1,7 @@
 # The Computer Language Benchmarks Game
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-# based on Oleg Mazurovʼs Java Implementation and Jeremy Zerfasʼ C implementatio
+# based on Oleg Mazurov's Java Implementation and Jeremy Zerfas' C implementatio
 n
 # transliterated and modified by Hamza Yusuf Çakır.
 # Updated for speed/succinctness by Adam Beckmeyer.
@@ -61,21 +61,21 @@ end
 
 @propagate_inbounds function count_flips(perm)
     p = perm.p; pp = perm.pp
-    # count_flips is only called if the first element isnʼt already a
+    # count_flips is only called if the first element isn't already a
     # 1, so we know at least one flip is required.
     flips = 1
 
     first_value = p[1]
     if p[first_value] != 1
-        # pp will be working copy. Donʼt have to copy first value as
-        # itʼs stored in first_value var
+        # pp will be working copy. Don't have to copy first value as
+        # it's stored in first_value var
         unsafe_copyto!(pp, 2, p, 2, length(p) - 1)
 
         # If the next flip would result in 0 being in first position,
         # iteration can stop without doing the flip
         while (new_first_value = pp[first_value]) != 1
             flips += 1
-            # If only 2 or 3 elements flipped, a swap is all thatʼs needed
+            # If only 2 or 3 elements flipped, a swap is all that's needed
             pp[first_value] = first_value
             # If first_value is greater than 3, more flips are needed
             if first_value > 3

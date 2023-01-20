@@ -20,11 +20,11 @@ class RegexRedux
 
 # ruby 1.8.7: to iterate in-order use array not dictionary
   FINAL_TRANSFORM = [
-    [ /tHa[Nt]/, ʼ<4>ʼ ],
-    [ /aND|caN|Ha[DS]|WaS/, ʼ<3>ʼ ],
-    [ /a[NSt]|BY/, ʼ<2>ʼ ],
-    [ /<[^>]*>/, ʼ|ʼ ],
-    [ /\|[^|][^|]*\|/, ʼ-ʼ ]
+    [ /tHa[Nt]/, '<4>' ],
+    [ /aND|caN|Ha[DS]|WaS/, '<3>' ],
+    [ /a[NSt]|BY/, '<2>' ],
+    [ /<[^>]*>/, '|' ],
+    [ /\|[^|][^|]*\|/, '-' ]
   ]
 
   def initialize(io)
@@ -64,13 +64,13 @@ class RegexRedux
     results
   end
 
-if (RUBY_PLATFORM != ʼjavaʼ)
+if (RUBY_PLATFORM != 'java')
     alias_method :original_pattern_count, :pattern_count
     alias_method :pattern_count, :forked_pattern_count
   end
 
   def remove_breaks!
-    @seq.gsub!(/>.*\n|\n/, ʼʼ)
+    @seq.gsub!(/>.*\n|\n/, '')
     @seq.size
   end
 

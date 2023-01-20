@@ -38,7 +38,7 @@ function Transformation_Next(&$tr)
 }
 function Pidigit_Next(&$pd, $times)
 {
-   $digits = ʼʼ;
+   $digits = '';
    $z = $pd[0];
    do
    {
@@ -65,7 +65,7 @@ while($n)
 {
    if($n < 10)
    {
-      printf("%s%s\t:%d\n", Pidigit_Next($pidigit, $n), str_repeat(ʼ ʼ, 10 - $n)
+      printf("%s%s\t:%d\n", Pidigit_Next($pidigit, $n), str_repeat(' ', 10 - $n)
 , $i + $n);
       break;
    }

@@ -11,7 +11,7 @@ with Sequence.Data, Sequence.Creation;
 
 procedure Fasta is
 
-   N : constant Positive := PositiveʼValue (Ada.Command_Line.Argument (1));
+   N : constant Positive := Positive'Value (Ada.Command_Line.Argument (1));
 
    use Sequence.Data, Sequence.Creation;
 
@@ -30,14 +30,14 @@ package Sequence.Data is
    pragma Pure (Data);
 
    Homosapiens : constant Nucleotide_Set(0..3) :=
-    ((ʼaʼ, 0.3029549426680), (ʼcʼ, 0.1979883004921),
-     (ʼgʼ, 0.1975473066391), (ʼtʼ, 0.3015094502008));
+    (('a', 0.3029549426680), ('c', 0.1979883004921),
+     ('g', 0.1975473066391), ('t', 0.3015094502008));
 
    IUB : constant Nucleotide_Set(0..14) :=
-    ((ʼaʼ, 0.27), (ʼcʼ, 0.12), (ʼgʼ, 0.12), (ʼtʼ, 0.27),
-     (ʼBʼ, 0.02), (ʼDʼ, 0.02), (ʼHʼ, 0.02), (ʼKʼ, 0.02),
-     (ʼMʼ, 0.02), (ʼNʼ, 0.02), (ʼRʼ, 0.02), (ʼSʼ, 0.02),
-     (ʼVʼ, 0.02), (ʼWʼ, 0.02), (ʼYʼ, 0.02));
+    (('a', 0.27), ('c', 0.12), ('g', 0.12), ('t', 0.27),
+     ('B', 0.02), ('D', 0.02), ('H', 0.02), ('K', 0.02),
+     ('M', 0.02), ('N', 0.02), ('R', 0.02), ('S', 0.02),
+     ('V', 0.02), ('W', 0.02), ('Y', 0.02));
 
    ALU : constant String :=
      "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG" &
@@ -122,9 +122,9 @@ package body Sequence.Creation is
    End_of_Line : String renames Line_IO.End_of_Line;
 
    subtype Line_End_Positions is Positive
-      range Line_Length + 1 .. Line_Length + End_of_LineʼLength;
+      range Line_Length + 1 .. Line_Length + End_of_Line'Length;
 
-   Line_Buffer : String (1 .. Line_Length + End_of_LineʼLength);
+   Line_Buffer : String (1 .. Line_Length + End_of_Line'Length);
 
    Nucleo_Cumulative : array (Nucleotide_Index) of Nucleotide;
 
@@ -135,10 +135,10 @@ package body Sequence.Creation is
    is
       function Random_Nucleotide return Character is
          r : constant Real := Gen_Random (1.0);
-         Result : Character := ʼJʼ;
+         Result : Character := 'J';
       begin
          Choose_Random:
-         for i in Nucleo_CumulativeʼRange loop
+         for i in Nucleo_Cumulative'Range loop
             if Nucleo_Cumulative(i).P > r then
                Result := Nucleo_Cumulative(i).C;
                exit Choose_Random;
@@ -153,13 +153,13 @@ package body Sequence.Creation is
    begin
       Line_IO.Print (Title & End_of_Line);
 
-      Nucleo_Cumulative := (others => (ʼjʼ, 2.0));
-      for k in NucleotidesʼRange loop
+      Nucleo_Cumulative := (others => ('j', 2.0));
+      for k in Nucleotides'Range loop
          Nucleo_Cumulative(k).C := Nucleotides(k).C;
       end loop;
 
       Sum := 0.0;
-      for k in NucleotidesʼRange loop
+      for k in Nucleotides'Range loop
          Sum := Sum + Nucleotides(k).P;
          Nucleo_Cumulative(k).P := Sum;
       end loop;
@@ -187,9 +187,9 @@ package body Sequence.Creation is
       S     : in String;
       N     : in Positive)
    is
-      S_App : constant String := S & S(SʼFirst .. SʼFirst + Line_Length);
+      S_App : constant String := S & S(S'First .. S'First + Line_Length);
 
-      Pos : Positive := S_AppʼFirst;
+      Pos : Positive := S_App'First;
       Remaining_Chars : Natural := N;
       No_of_Chars_Output : Natural := 0;
    begin
@@ -197,7 +197,7 @@ package body Sequence.Creation is
 
       while Remaining_Chars > 0 loop
 
-         No_of_Chars_Output := IntegerʼMin (Remaining_Chars, Line_Length);
+         No_of_Chars_Output := Integer'Min (Remaining_Chars, Line_Length);
 
          Line_IO.Print (S_App (Pos .. Pos + No_of_Chars_Output - 1));
          Line_IO.Print (End_of_Line);
@@ -205,8 +205,8 @@ package body Sequence.Creation is
          Remaining_Chars := Remaining_Chars - No_of_Chars_Output;
 
          Pos := Pos + No_of_Chars_Output;
-         if Pos > SʼLast then
-            Pos := Pos - SʼLength;
+         if Pos > S'Last then
+            Pos := Pos - S'Length;
          end if;
 
       end loop;
@@ -241,8 +241,8 @@ package body Line_IO is
 
    procedure Print (Item : String) is
       subtype Index is Stream_Element_Offset range
-         Stream_Element_Offset(ItemʼFirst) .. Stream_Element_Offset(ItemʼLast);
-      subtype XString is String (ItemʼRange);
+         Stream_Element_Offset(Item'First) .. Stream_Element_Offset(Item'Last);
+      subtype XString is String (Item'Range);
       subtype XBytes is Stream_Element_Array (Index);
       function To_Bytes is new Unchecked_Conversion
         (Source => XString,
@@ -281,14 +281,14 @@ end LCG_Random;
 
 package body LCG_Random is
 
-   pragma Assert (RealʼDigits > 5);
+   pragma Assert (Real'Digits > 5);
 
    type Random_State is mod 2**32;
 
    State : Random_State := 42;
 
    type Signed is range
-      -2**(Random_StateʼSize-1) .. 2**(Random_StateʼSize-1) - 1;
+      -2**(Random_State'Size-1) .. 2**(Random_State'Size-1) - 1;
 
    function Gen_Random (Max : in Real) return Real is
       IM : constant := 139_968;

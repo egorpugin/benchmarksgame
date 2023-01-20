@@ -66,11 +66,11 @@ tailCheck (Node l r) !a = tailCheck l $ tailCheck r $ a + 1
 
 -- build a tree
 make :: Int -> Tree
-make d = makeʼ d d
+make d = make' d d
 
 -- This function has an extra argument to suppress the
 -- Common Sub-expression Elimination optimization
-makeʼ :: Int -> Int -> Tree
-makeʼ _  0 = Node Nil Nil
-makeʼ !n d = Node (makeʼ (n - 1) (d - 1)) (makeʼ (n + 1) (d - 1))
+make' :: Int -> Int -> Tree
+make' _  0 = Node Nil Nil
+make' !n d = Node (make' (n - 1) (d - 1)) (make' (n + 1) (d - 1))
 

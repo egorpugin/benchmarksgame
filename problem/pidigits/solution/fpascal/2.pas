@@ -24,25 +24,25 @@ mpz_t = record
 end;
 
 procedure mpz_init (var Dest: mpz_t);
- cdecl; external name ʼ__gmpz_initʼ;
+ cdecl; external name '__gmpz_init';
 
 procedure mpz_init_set_ui (var Dest: mpz_t; Src: culong);
- cdecl; external name ʼ__gmpz_init_set_uiʼ;
+ cdecl; external name '__gmpz_init_set_ui';
 
 procedure mpz_mul_ui (var Dest: mpz_t; var Src1: mpz_t; Src2: culong);
- cdecl; external name ʼ__gmpz_mul_uiʼ;
+ cdecl; external name '__gmpz_mul_ui';
 
 procedure mpz_mul_si (var Dest: mpz_t; var Src1: mpz_t; Src2: cint);
- cdecl; external name ʼ__gmpz_mul_siʼ;
+ cdecl; external name '__gmpz_mul_si';
 
 procedure mpz_add (var Dest: mpz_t; var Src1, Src2: mpz_t);
- cdecl; external name ʼ__gmpz_addʼ;
+ cdecl; external name '__gmpz_add';
 
 procedure mpz_tdiv_q (var Dest: mpz_t; var Src1, Src2: mpz_t);
- cdecl; external name ʼ__gmpz_tdiv_qʼ;
+ cdecl; external name '__gmpz_tdiv_q';
 
 function  mpz_get_ui (var Src: mpz_t): culong;
- cdecl; external name ʼ__gmpz_get_uiʼ;
+ cdecl; external name '__gmpz_get_ui';
 
 
 procedure PrintPiDigits(NumDigits: integer);
@@ -108,10 +108,10 @@ begin
     end;
     Produce;
     inc(c);
-    line[c] := chr(ord(ʼ0ʼ)+digit);
+    line[c] := chr(ord('0')+digit);
     inc(i);
     if c=10 then begin
-      writeln(line, #9ʼ:ʼ, i);
+      writeln(line, #9':', i);
       c := 0;
     end;
   end;

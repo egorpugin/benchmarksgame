@@ -25,22 +25,22 @@ fn build_table() -> [u8; 256] {
     let mut table = [0; 256];
     for (i, x) in table.iter_mut().enumerate() {
         *x = match i as u8 as char {
-            ʼAʼ | ʼaʼ => ʼTʼ,
-            ʼCʼ | ʼcʼ => ʼGʼ,
-            ʼGʼ | ʼgʼ => ʼCʼ,
-            ʼTʼ | ʼtʼ => ʼAʼ,
-            ʼUʼ | ʼuʼ => ʼAʼ,
-            ʼMʼ | ʼmʼ => ʼKʼ,
-            ʼRʼ | ʼrʼ => ʼYʼ,
-            ʼWʼ | ʼwʼ => ʼWʼ,
-            ʼSʼ | ʼsʼ => ʼSʼ,
-            ʼYʼ | ʼyʼ => ʼRʼ,
-            ʼKʼ | ʼkʼ => ʼMʼ,
-            ʼVʼ | ʼvʼ => ʼBʼ,
-            ʼHʼ | ʼhʼ => ʼDʼ,
-            ʼDʼ | ʼdʼ => ʼHʼ,
-            ʼBʼ | ʼbʼ => ʼVʼ,
-            ʼNʼ | ʼnʼ => ʼNʼ,
+            'A' | 'a' => 'T',
+            'C' | 'c' => 'G',
+            'G' | 'g' => 'C',
+            'T' | 't' => 'A',
+            'U' | 'u' => 'A',
+            'M' | 'm' => 'K',
+            'R' | 'r' => 'Y',
+            'W' | 'w' => 'W',
+            'S' | 's' => 'S',
+            'Y' | 'y' => 'R',
+            'K' | 'k' => 'M',
+            'V' | 'v' => 'B',
+            'H' | 'h' => 'D',
+            'D' | 'd' => 'H',
+            'B' | 'b' => 'V',
+            'N' | 'n' => 'N',
             i => i,
         } as u8;
     }
@@ -54,15 +54,15 @@ fn get_sequences(table: &[u8; 256]) -> Result<Vec<Vec<u8>>> {
     let mut buf = Vec::with_capacity(16 * 1024);
 
     // Read the header line.
-    input.read_until(bʼ\nʼ, &mut buf)?;
+    input.read_until(b'\n', &mut buf)?;
     let start = buf.len();
 
     // Read sequence data.
-    input.read_until(bʼ>ʼ, &mut buf)?;
+    input.read_until(b'>', &mut buf)?;
     let end = buf.len();
     drop(input);
 
-    if buf[end - 1] == bʼ>ʼ {
+    if buf[end - 1] == b'>' {
         // Found the start of a new sequence. Process this one
         // and start reading the next one in parallel.
         let mut results = rayon::join(
@@ -110,7 +110,7 @@ fn reverse_complement_left_right(mut left: &mut [u8],
             let mut b = right.split_off_right(trailing_len);
             right.split_off_right(1); // Skip the newline in `right`.
 
-            // If weʼve reached the middle of the sequence here and there is an
+            // If we've reached the middle of the sequence here and there is an
             // odd number of bytes remaining, the odd one will be on the right.
             if b.len() > a.len() {
                 let mid = b.split_off_left(1);
@@ -125,7 +125,7 @@ fn reverse_complement_left_right(mut left: &mut [u8],
             b = right.split_off_right(n);
             left.split_off_left(1); // Skip the newline in `left`.
 
-            // If weʼve reached the middle of the sequence and there is an odd
+            // If we've reached the middle of the sequence and there is an odd
             // number of bytes remaining, the odd one will now be on the left.
             if a.len() > b.len() {
                 let mid = a.split_off_right(1);
@@ -162,7 +162,7 @@ trait SplitOff {
     fn split_off_left(&mut self, n: usize) -> Self;
     fn split_off_right(&mut self, n: usize) -> Self;
 }
-impl<ʼa, T> SplitOff for &ʼa mut [T] {
+impl<'a, T> SplitOff for &'a mut [T] {
     /// Split the left `n` items from self and return them as a separate slice.
     fn split_off_left(&mut self, n: usize) -> Self {
         let n = min(self.len(), n);

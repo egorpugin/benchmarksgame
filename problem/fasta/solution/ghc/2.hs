@@ -70,12 +70,12 @@ TGAGG\
     \CGTGGTGGCGCGCGCCTGTAATCCCAGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGAGGC\
     \GGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA"
 
-iub = [(0.27,ʼaʼ),(0.12,ʼcʼ),(0.12,ʼgʼ),(0.27,ʼtʼ),(0.02,ʼBʼ)
-      ,(0.02,ʼDʼ),(0.02,ʼHʼ),(0.02,ʼKʼ),(0.02,ʼMʼ),(0.02,ʼNʼ)
-      ,(0.02,ʼRʼ),(0.02,ʼSʼ),(0.02,ʼVʼ),(0.02,ʼWʼ),(0.02,ʼYʼ)]
+iub = [(0.27,'a'),(0.12,'c'),(0.12,'g'),(0.27,'t'),(0.02,'B')
+      ,(0.02,'D'),(0.02,'H'),(0.02,'K'),(0.02,'M'),(0.02,'N')
+      ,(0.02,'R'),(0.02,'S'),(0.02,'V'),(0.02,'W'),(0.02,'Y')]
 
-homosapiens = [(0.3029549426680,ʼaʼ),(0.1979883004921,ʼcʼ)
-              ,(0.1975473066391,ʼgʼ),(0.3015094502008,ʼtʼ)]
+homosapiens = [(0.3029549426680,'a'),(0.1979883004921,'c')
+              ,(0.1975473066391,'g'),(0.3015094502008,'t')]
 
 genRandom :: Float -> IORef Int -> IO Float
 genRandom max rnd = do
@@ -83,15 +83,15 @@ genRandom max rnd = do
         ia = 3877
         ic = 29573
         form x = ((x*ia+ic)`rem`im)
-    modifyIORefʼ rnd form
+    modifyIORef' rnd form
     last <- readIORef rnd
     return (max * (fromIntegral last) / fromIntegral im)
 
-breakString s = breakʼ $ B.splitAt (fromIntegral lineLen) s
-     where breakʼ (l,r)
+breakString s = break' $ B.splitAt (fromIntegral lineLen) s
+     where break' (l,r)
             | B.null l && B.null r  = return ()
             | B.null r = B.putStrLn l
             | otherwise = do
                            B.putStrLn l
-                           breakʼ $ B.splitAt (fromIntegral lineLen) r
+                           break' $ B.splitAt (fromIntegral lineLen) r
 

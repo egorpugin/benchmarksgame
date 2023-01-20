@@ -11,14 +11,14 @@ use DynamicIters, IO;
 config const n = 200,              // image size in pixels (n x n)
              maxIter = 50,         // max # of iterations per pixel
              limit = 4.0,          // per-pixel convergence limit
-             chunkSize = 1;        // dynamic iteratorʼs chunk size
+             chunkSize = 1;        // dynamic iterator's chunk size
 
 param bitsPerElt = 8;              // # of bits to store per array element
 type eltType = uint(bitsPerElt);   // element type used to store the image
 
 
 proc main() {
-  const ydim = 0..#n,                          // the imageʼs y dimension
+  const ydim = 0..#n,                          // the image's y dimension
         xdim = 0..#divceilpos(n, bitsPerElt);  // the compacted x dimension
 
   var image : [ydim, xdim] eltType;            // the compacted bitmap image
@@ -32,11 +32,11 @@ proc main() {
         const x = xelt*bitsPerElt + off;       // compute its logical column
 
         const Cr = 2.0*x/n - 1.5;              // the (x,y) pixel as a complex
-        const Ci = 2.0*y/n - 1.0;              //   (real, imag) value ʼCʼ
-        var Zr, Zi, Tr, Ti = 0.0;              // ʼcomplexʼ helper values
+        const Ci = 2.0*y/n - 1.0;              //   (real, imag) value 'C'
+        var Zr, Zi, Tr, Ti = 0.0;              // 'complex' helper values
 
         for 1..maxIter {                       // for the max # of iterations
-          if (Tr + Ti > limit) then            // if we havenʼt converged
+          if (Tr + Ti > limit) then            // if we haven't converged
             break;
 
           Zi = 2.0*Zr*Zi + Ci;                 // update Z and T
@@ -46,7 +46,7 @@ proc main() {
         }
 
         buff <<= 1;                            // shift the pixel buffer
-        if (Tr + Ti <= limit) then             // if ʼCʼ is within the limit,
+        if (Tr + Ti <= limit) then             // if 'C' is within the limit,
           buff |= 0x1;                         //   turn the low pixel on
       }
 
@@ -55,7 +55,7 @@ proc main() {
   }
 
   //
-  // Get a lock-free writer channel on ʼstdoutʼ, write the file header,
+  // Get a lock-free writer channel on 'stdout', write the file header,
   // and the image array.
   //
   var w = openfd(1).writer(iokind.native, locking=false);

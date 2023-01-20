@@ -3,7 +3,7 @@
 //
 // Contributed by Jeremy Zerfas.
 // Copied the idea to use a lookup table for reverse complementing two
-// characters at a time from roman blogʼs C++ program.
+// characters at a time from roman blog's C++ program.
 
 // This string/character array is used to convert characters into the
 // complementing character. There are also two smaller sixteen character
@@ -19,8 +19,8 @@
 // eleventh character is set to a newline. Since the lower five bits of the
 // newline character match those for the letters J and j, the lookup tables for
 // the SSE code have the complements for the letters J and j set to a newline
-// character and to be consistent, the same was done here. This currently isnʼt
-// a problem since the letters J and j arenʼt currently used but if that changes
+// character and to be consistent, the same was done here. This currently isn't
+// a problem since the letters J and j aren't currently used but if that changes
 // in the future, then these tables and the SSE code will need to be updated.
 #define COMPLEMENT_LOOKUP \
   "          \n                                                     "\
@@ -139,7 +139,7 @@ o z to
  128 bit
                         // (e.g. sixteen eight bit characters) SSE registers as
 lookup
-                        // tables which means weʼll need to use at least two SSE
+                        // tables which means we'll need to use at least two SSE
  registers,
                         // do two lookups, and then select the appropriate resul
 t to use.
@@ -156,7 +156,7 @@ th lookup
                         // tables, and then figure out which lookup table has th
 e correct
                         // complement for the character based on whether the cha
-racterʼs
+racter's
                         // lower five bits value was 0-15 or 16-31. Finally we w
 rite the
                         // reverse complemented subspan to dst_Front_Character.
@@ -173,15 +173,15 @@ er J.
                         __m128i complements_For_0_To_15_Values
                           =_mm_shuffle_epi8(_mm_setr_epi8(
                           //      A    B    C    D    E    F    G
-                             0 , ʼTʼ, ʼVʼ, ʼGʼ, ʼHʼ,  0 ,  0 , ʼCʼ
+                             0 , 'T', 'V', 'G', 'H',  0 ,  0 , 'C'
                           // H    I    J    K    L    M    N    O
-                          , ʼDʼ,  0 ,ʼ\nʼ, ʼMʼ,  0 , ʼKʼ, ʼNʼ,  0), subspan);
+                          , 'D',  0 ,'\n', 'M',  0 , 'K', 'N',  0), subspan);
                         __m128i complements_For_16_To_31_Values
                           =_mm_shuffle_epi8(_mm_setr_epi8(
                           // P    Q    R    S    T    U    V    W
-                             0 ,  0 , ʼYʼ, ʼSʼ, ʼAʼ, ʼAʼ, ʼBʼ, ʼWʼ
+                             0 ,  0 , 'Y', 'S', 'A', 'A', 'B', 'W'
                           // X    Y    Z
-                          ,  0 , ʼRʼ,  0 ,  0 ,  0 ,  0 ,  0 ,  0), subspan);
+                          ,  0 , 'R',  0 ,  0 ,  0 ,  0 ,  0 ,  0), subspan);
                         __m128i mask_To_Select_complements_For_16_To_31_Values
                           =_mm_cmpgt_epi8(subspan, _mm_set1_epi8(15));
                         _mm_storeu_si128((__m128i *)dst_Front_Character
@@ -199,11 +199,11 @@ ow
 n
         // just complementing and moving one character at a time and at least fo
 r
-        // some older architectures it isnʼt much slower than using the more com
+        // some older architectures it isn't much slower than using the more com
 plex
         // SSE code above, this can really help out when compiling for architect
 ures
-        // that donʼt support SSE 4.1.
+        // that don't support SSE 4.1.
         for(; span_Length>=2; span_Length-=2, dst_Front_Character+=2)
                 *(uint16_t *)dst_Front_Character=REVERSE_COMPLEMENT_LOOKUP[
                   *(uint16_t *)(character_After_Src_Rear_Character-=2)];
@@ -382,11 +382,11 @@ th;
                         // Finally insert a newline at chunk_Pos and increment i
 t because of
                         // the newline.
-                        *chunk_Pos++=ʼ\nʼ;
+                        *chunk_Pos++='\n';
                 }
 
 
-                // If chunk_Size isnʼt evenly divisible by LINE_LENGTH, then the
+                // If chunk_Size isn't evenly divisible by LINE_LENGTH, then the
 re will
                 // be one last partial line of chunk_Characters_Left_To_Process
 and the
@@ -416,7 +416,7 @@ riting.
                 // Finally we need to leave the semaphore_For_Signaling_Chunk_Wr
 itten
                 // alone so that it can potentially be seen by another thread, w
-eʼll
+e'll
                 // change our semaphore_For_Signaling_Chunk_Written (for the nex
 t
                 // potential chunk that this thread will process) to the now unu
@@ -433,12 +433,12 @@ sed
 
 void write_Sequence_Reverse_Complement(uint8_t * sequence
   , uintnative_t sequence_Size){
-        // sequence will point at the ʼ>ʼ in the header and sequence_Size is the
-        // amount of characters including the ʼ>ʼ in the header and the last new
+        // sequence will point at the '>' in the header and sequence_Size is the
+        // amount of characters including the '>' in the header and the last new
 line
         // of the sequence.
 
-        uint8_t * header_Newline=memchr(sequence, ʼ\nʼ, sequence_Size);
+        uint8_t * header_Newline=memchr(sequence, '\n', sequence_Size);
 
 
         // Write the header line including the header_Newline.
@@ -514,8 +514,8 @@ int main(void){
 in
         // elements for characters that will be in the range of ASCII characters
         // that we can expect to see in inputted data.
-        for(uintnative_t i=ʼ\nʼ; i<sizeof(COMPLEMENT_LOOKUP)-1; i++)
-                for(uintnative_t j=ʼ\nʼ; j<sizeof(COMPLEMENT_LOOKUP)-1; j++)
+        for(uintnative_t i='\n'; i<sizeof(COMPLEMENT_LOOKUP)-1; i++)
+                for(uintnative_t j='\n'; j<sizeof(COMPLEMENT_LOOKUP)-1; j++)
                         REVERSE_COMPLEMENT_LOOKUP[i<<8 | j]
                           =(uint16_t)COMPLEMENT_LOOKUP[j]<<8
                           | (uint16_t)COMPLEMENT_LOOKUP[i];
@@ -532,16 +532,16 @@ in
           ; (bytes_Read=read(STDIN_FILENO, &sequence[sequence_Size], READ_SIZE))
 ;){
 
-                // Search the read in chunk of data for a ʼ>ʼ to see if any sequ
+                // Search the read in chunk of data for a '>' to see if any sequ
 ences
                 // are being started.
                 for(uint8_t * sequence_Start
-                  ; (sequence_Start=memchr(&sequence[sequence_Size], ʼ>ʼ, bytes_
+                  ; (sequence_Start=memchr(&sequence[sequence_Size], '>', bytes_
 Read))
                   ;){
 
                         // Update the sequence_Size to reflect any data before t
-he ʼ>ʼ that
+he '>' that
                         // was read in.
                         uintnative_t number_Of_Preceding_Bytes
                           =sequence_Start-&sequence[sequence_Size];
@@ -557,7 +557,7 @@ rocess it
                                 write_Sequence_Reverse_Complement(sequence, sequ
 ence_Size);
 
-                                // Copy the read-in ʼ>ʼ and any data following i
+                                // Copy the read-in '>' and any data following i
 t to the front
                                 // of sequence.
                                 memmove(sequence, sequence_Start
@@ -571,7 +571,7 @@ ng the next
 
 
                         // Update sequence_Size and bytes_Read to reflect the re
-ad in ʼ>ʼ
+ad in '>'
                         // and any data that preceded it.
                         sequence_Size++;
                         bytes_Read-=number_Of_Preceding_Bytes+1;
@@ -581,7 +581,7 @@ ad in ʼ>ʼ
                 // Update sequence_Size to reflect the bytes that were read in.
                 sequence_Size+=bytes_Read;
 
-                // If there potentially isnʼt enough free space for all the data
+                // If there potentially isn't enough free space for all the data
  from
                 // the next read, then double the capacity of the sequence.
                 if(sequence_Size>sequence_Capacity-READ_SIZE)

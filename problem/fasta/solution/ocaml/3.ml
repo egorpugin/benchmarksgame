@@ -39,7 +39,7 @@ let width = 60
 let make_random_fasta id desc table n =
   Printf.printf ">%s %s\n" id desc;
   let table = Cumul_tbl.make table in
-  let line = Bytes.make (width+1) ʼ\nʼ in
+  let line = Bytes.make (width+1) '\n' in
   for i = 1 to n / width do
     for j = 0 to width - 1 do Bytes.set line j (Cumul_tbl.rand_char table) done;
     print_bytes line;
@@ -47,7 +47,7 @@ let make_random_fasta id desc table n =
   let w = n mod width in
   if w > 0 then (
     for j = 1 to w do print_char(Cumul_tbl.rand_char table); done;
-    print_char ʼ\nʼ
+    print_char '\n'
   )
 
 (* [write s i0 l w] outputs [w] chars of [s.[0 .. l]], followed by a
@@ -57,7 +57,7 @@ let make_random_fasta id desc table n =
    @return [i0] needed for subsequent writes.  *)
 let rec write s i0 l w =
   let len = l - i0 in
-  if w <= len then (output_substring stdout s i0 w; print_char ʼ\nʼ; i0 + w)
+  if w <= len then (output_substring stdout s i0 w; print_char '\n'; i0 + w)
   else (output_substring stdout s i0 len; write s 0 l (w - len))
 
 let make_repeat_fasta id desc src n =
@@ -79,13 +79,13 @@ GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG\
 AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC\
 AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA"
 
-let iub = [| (ʼaʼ, 0.27);  (ʼcʼ, 0.12);  (ʼgʼ, 0.12);  (ʼtʼ, 0.27);
-             (ʼBʼ, 0.02);  (ʼDʼ, 0.02);  (ʼHʼ, 0.02);  (ʼKʼ, 0.02);
-             (ʼMʼ, 0.02);  (ʼNʼ, 0.02);  (ʼRʼ, 0.02);  (ʼSʼ, 0.02);
-             (ʼVʼ, 0.02);  (ʼWʼ, 0.02);  (ʼYʼ, 0.02);  |]
+let iub = [| ('a', 0.27);  ('c', 0.12);  ('g', 0.12);  ('t', 0.27);
+             ('B', 0.02);  ('D', 0.02);  ('H', 0.02);  ('K', 0.02);
+             ('M', 0.02);  ('N', 0.02);  ('R', 0.02);  ('S', 0.02);
+             ('V', 0.02);  ('W', 0.02);  ('Y', 0.02);  |]
 
-let homosapiens = [| (ʼaʼ, 0.3029549426680);    (ʼcʼ, 0.1979883004921);
-                     (ʼgʼ, 0.1975473066391);    (ʼtʼ, 0.3015094502008);  |]
+let homosapiens = [| ('a', 0.3029549426680);    ('c', 0.1979883004921);
+                     ('g', 0.1975473066391);    ('t', 0.3015094502008);  |]
 
 let () =
   let n = try int_of_string(Array.get Sys.argv 1) with _ -> 1000 in

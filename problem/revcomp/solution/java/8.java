@@ -53,8 +53,8 @@ class Chunk {
 
 class Strand implements Closeable {
 
-    private static final byte NEW_LINE = ʼ\nʼ;
-    private static final byte ANGLE = ʼ>ʼ;
+    private static final byte NEW_LINE = '\n';
+    private static final byte ANGLE = '>';
     private static final int LINE_LENGTH = 61;
 
     private static final byte[] map = new byte[128];
@@ -63,19 +63,19 @@ class Strand implements Closeable {
             map[i] = (byte) i;
         }
 
-        map[ʼtʼ] = map[ʼTʼ] = ʼAʼ;
-        map[ʼaʼ] = map[ʼAʼ] = ʼTʼ;
-        map[ʼgʼ] = map[ʼGʼ] = ʼCʼ;
-        map[ʼcʼ] = map[ʼCʼ] = ʼGʼ;
-        map[ʼvʼ] = map[ʼVʼ] = ʼBʼ;
-        map[ʼhʼ] = map[ʼHʼ] = ʼDʼ;
-        map[ʼrʼ] = map[ʼRʼ] = ʼYʼ;
-        map[ʼmʼ] = map[ʼMʼ] = ʼKʼ;
-        map[ʼyʼ] = map[ʼYʼ] = ʼRʼ;
-        map[ʼkʼ] = map[ʼKʼ] = ʼMʼ;
-        map[ʼbʼ] = map[ʼBʼ] = ʼVʼ;
-        map[ʼdʼ] = map[ʼDʼ] = ʼHʼ;
-        map[ʼuʼ] = map[ʼUʼ] = ʼAʼ;
+        map['t'] = map['T'] = 'A';
+        map['a'] = map['A'] = 'T';
+        map['g'] = map['G'] = 'C';
+        map['c'] = map['C'] = 'G';
+        map['v'] = map['V'] = 'B';
+        map['h'] = map['H'] = 'D';
+        map['r'] = map['R'] = 'Y';
+        map['m'] = map['M'] = 'K';
+        map['y'] = map['Y'] = 'R';
+        map['k'] = map['K'] = 'M';
+        map['b'] = map['B'] = 'V';
+        map['d'] = map['D'] = 'H';
+        map['u'] = map['U'] = 'A';
     }
 
     private static int NCPU = Runtime.getRuntime().availableProcessors();

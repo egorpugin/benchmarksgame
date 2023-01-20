@@ -3,12 +3,12 @@
 
    Use Isolate.exit() added in Dart 2.15
    Contributed by Isaac Gouy. Make time on each Isolate similar.
-   renderRow from Andrey Filatkinʼs node #3 program.
+   renderRow from Andrey Filatkin's node #3 program.
 */
 
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:typed_data';
 
 const iter = 50, limit = 4.0;
 
@@ -17,7 +17,7 @@ void main(List<String> args) {
 
   final assignments = segments(h).map((each) => assign(each));
 
-  stdout.write(ʼP4\n$w $h\nʼ);
+  stdout.write('P4\n$w $h\n');
   Future.wait(assignments).then((segments) {
     for (var each in segments) {
       for (var row in each) {

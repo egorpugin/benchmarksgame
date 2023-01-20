@@ -72,7 +72,7 @@ Tree
         // Create a stretch_Tree of depth maximum_Tree_Depth+1, compute its
         // checksum, and print its statistics. This work could be done in parall
 el
-        // along with all the other tree processing but APR memory pools arenʼt
+        // along with all the other tree processing but APR memory pools aren't
         // quite as streamlined as other memory pool implementations so it uses
 less
         // resources to do this work by itself and then clear the memory_Pool so
@@ -89,7 +89,7 @@ g
 e
         // processing of other trees that will be done later but it appears subp
 ools
-        // only work with managed pools (even though APRʼs documentation for the
+        // only work with managed pools (even though APR's documentation for the
         // apr_pool_create_unmanaged_ex() function seems to suggest that it poss
 ibly
         // should work for unmanaged pools too) which are noticeably slower than
@@ -179,7 +179,7 @@ h
         // Print the statistics for the long_Lived_Tree that was processed earli
 er
         // and then delete the memory_Pool that still is storing it up to this
-        // point. Note that although the long_Lived_Tree variable isnʼt used her
+        // point. Note that although the long_Lived_Tree variable isn't used her
 e,
         // it still is in scope and valid to use until the call to
         // apr_pool_destroy(memory_Pool) is made.

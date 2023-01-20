@@ -34,21 +34,21 @@ end
 
 function random_fasta(genelist, n)
     line = Vector{UInt8}(undef, LINE_LENGTH+1)
-    line[end] = UInt8(ʼ\nʼ)
+    line[end] = UInt8('\n')
     while n > LINE_LENGTH
         fillrand!(line, genelist, LINE_LENGTH)
         write(OUT, line)
         n -= LINE_LENGTH
     end
     fillrand!(line, genelist, n)
-    line[n+1] = UInt8(ʼ\nʼ)
+    line[n+1] = UInt8('\n')
     write(OUT, @view line[1:n+1])
 end
 
 function repeat_fasta(str, n)
     len = length(str)
     # create a string with the beginning repeated at the end
-    # so we donʼt have to wrap around
+    # so we don't have to wrap around
     src = Vector{UInt8}(undef, len + LINE_LENGTH)
     for i in 1:len
         @inbounds src[i] = str[i]
@@ -61,12 +61,12 @@ function repeat_fasta(str, n)
     lines, rest = divrem(n, LINE_LENGTH)
     for _ in 1:lines
         write(OUT, @inbounds @view src[i:i+LINE_LENGTH-1])
-        write(OUT, ʼ\nʼ)
+        write(OUT, '\n')
         i += LINE_LENGTH
         i > len && (i -= len)
     end
     write(OUT, @inbounds @view src[i:i+rest-1])
-    write(OUT, ʼ\nʼ)
+    write(OUT, '\n')
 end
 
 function make_Aminoacids(cs, ps)

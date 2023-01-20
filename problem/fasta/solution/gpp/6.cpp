@@ -42,29 +42,29 @@ const std::string alu =
 
 std::array<IUB, 15> iub =
 { {
-    { 0.27f, ʼaʼ },
-    { 0.12f, ʼcʼ },
-    { 0.12f, ʼgʼ },
-    { 0.27f, ʼtʼ },
-    { 0.02f, ʼBʼ },
-    { 0.02f, ʼDʼ },
-    { 0.02f, ʼHʼ },
-    { 0.02f, ʼKʼ },
-    { 0.02f, ʼMʼ },
-    { 0.02f, ʼNʼ },
-    { 0.02f, ʼRʼ },
-    { 0.02f, ʼSʼ },
-    { 0.02f, ʼVʼ },
-    { 0.02f, ʼWʼ },
-    { 0.02f, ʼYʼ }
+    { 0.27f, 'a' },
+    { 0.12f, 'c' },
+    { 0.12f, 'g' },
+    { 0.27f, 't' },
+    { 0.02f, 'B' },
+    { 0.02f, 'D' },
+    { 0.02f, 'H' },
+    { 0.02f, 'K' },
+    { 0.02f, 'M' },
+    { 0.02f, 'N' },
+    { 0.02f, 'R' },
+    { 0.02f, 'S' },
+    { 0.02f, 'V' },
+    { 0.02f, 'W' },
+    { 0.02f, 'Y' }
     } };
 
 std::array<IUB, 4> homosapiens =
 { {
-    { 0.3029549426680f, ʼaʼ },
-    { 0.1979883004921f, ʼcʼ },
-    { 0.1975473066391f, ʼgʼ },
-    { 0.3015094502008f, ʼtʼ }
+    { 0.3029549426680f, 'a' },
+    { 0.1979883004921f, 'c' },
+    { 0.1975473066391f, 'g' },
+    { 0.3015094502008f, 't' }
     } };
 
 const int IM = 139968;
@@ -221,14 +221,14 @@ rter_type& converter)
         if (++col >= CHARS_PER_LINE)
         {
             col = 0;
-            *outCharacter++ = ʼ\nʼ;
+            *outCharacter++ = '\n';
         }
     }
     //Check if we need to end the line
     if (0 != col)
     {
-        //Last iteration didnʼt end the line, so finish the job.
-        *outCharacter++ = ʼ\nʼ;
+        //Last iteration didn't end the line, so finish the job.
+        *outCharacter++ = '\n';
     }
 
     return std::distance(beginCharacter, outCharacter);
@@ -287,7 +287,7 @@ rator);
 template <class generator_type, class converter_type >
 void make(const char* desc, int n, generator_type generator, converter_type conv
 erter) {
-    std::cout << ʼ>ʼ << desc << ʼ\nʼ;
+    std::cout << '>' << desc << '\n';
 
     g_totalValuesToGenerate = n;
     g_outThreadIndex = 0/*-1*/;

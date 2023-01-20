@@ -79,7 +79,7 @@ const stdout = openfd(1).writer(kind=iokind.native, locking=false);
 param newline = "\n".toByte();
 
 //
-// Repeat ʼaluʼ to generate a sequence of length ʼnʼ
+// Repeat 'alu' to generate a sequence of length 'n'
 //
 proc repeatMake(desc, alu, n) {
   stdout.writeln(desc);
@@ -95,8 +95,8 @@ proc repeatMake(desc, alu, n) {
 }
 
 //
-// Use ʼnuclInfoʼs probability distribution to generate a random
-// sequence of length ʼnʼ
+// Use 'nuclInfo's probability distribution to generate a random
+// sequence of length 'n'
 //
 proc randomMake(desc, nuclInfo: [?nuclInds], n) {
   stdout.writeln(desc);
@@ -124,12 +124,12 @@ proc randomMake(desc, nuclInfo: [?nuclInds], n) {
     for i in tid*chunkSize..n-1 by numTasks*chunkSize {
       const numBytes = min(chunkSize, n-i);
 
-      // Get ʼnumBytesʼ random numbers in a coordinated manner
+      // Get 'numBytes' random numbers in a coordinated manner
       randGo[tid].waitFor(i);
       getRands(numBytes, myRands);
       randGo[nextTid].write(i+chunkSize);
 
-      // Compute ʼnumBytesʼ nucleotides and store in ʼmyBuffʼ
+      // Compute 'numBytes' nucleotides and store in 'myBuff'
       var col = 0,
           off = 0;
 

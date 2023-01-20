@@ -9,7 +9,7 @@
 --
 --  -O2 -fglasgow-exts -funbox-strict-fields -fbang-patterns -optc-O
 --
--- Donʼt enable -optc-mfpmath=sse -optc-msse2, this triggers a gcc bug on x86
+-- Don't enable -optc-mfpmath=sse -optc-msse2, this triggers a gcc bug on x86
 --
 
 import Foreign

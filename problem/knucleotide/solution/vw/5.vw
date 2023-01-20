@@ -6,12 +6,12 @@ Smalltalk.Core defineClass: #BenchmarksGame
         superclass: #{Core.Object}
         indexedType: #none
         private: false
-        instanceVariableNames: ʼʼ
-        classInstanceVariableNames: ʼʼ
-        imports: ʼʼ
-        category: ʼʼ!
+        instanceVariableNames: ''
+        classInstanceVariableNames: ''
+        imports: ''
+        category: ''!
 
-!Core.SequenceableCollection methodsFor: ʼbenchmarks gameʼ!
+!Core.SequenceableCollection methodsFor: 'benchmarks game'!
 
 substringFrequencies: aLength using: aDictionary
    | buffer |
@@ -28,7 +28,7 @@ substringFrequencies: aLength using: aDictionary
       ].
    ^aDictionary! !
 
-!Core.Dictionary methodsFor: ʼbenchmarks gameʼ!
+!Core.Dictionary methodsFor: 'benchmarks game'!
 
 at: key putValueOf: putBlock ifAbsentPutValueOf: absentBlock
    "* Set the value at key to be the value of evaluating putBlock
@@ -50,11 +50,11 @@ at: key putValueOf: putBlock ifAbsentPutValueOf: absentBlock
       ifFalse: [element value: (anObject := putBlock value: element value)].
    ^anObject! !
 
-!Core.BenchmarksGame class methodsFor: ʼprivateʼ!
+!Core.BenchmarksGame class methodsFor: 'private'!
 
 readFasta: sequenceName from: input
    | prefix newline buffer description line char |
-   prefix := ʼ>ʼ,sequenceName.
+   prefix := '>',sequenceName.
    newline := Character cr.
 
    "* find start of particular fasta sequence *"
@@ -80,7 +80,7 @@ knucleotideFrom: input to: output
 
    | sequence writeFrequencies writeCount |
 
-   sequence := (self readFasta: ʼTHREEʼ from: input) value asUppercase.
+   sequence := (self readFasta: 'THREE' from: input) value asUppercase.
 
    writeFrequencies :=
       [:k | | frequencies count |
@@ -107,20 +107,20 @@ knucleotideFrom: input to: output
    writeFrequencies value: 1. output nl.
    writeFrequencies value: 2. output nl.
 
-   writeCount value: ʼGGTʼ.
-   writeCount value: ʼGGTAʼ.
-   writeCount value: ʼGGTATTʼ.
-   writeCount value: ʼGGTATTTTAATTʼ.
-   writeCount value: ʼGGTATTTTAATTTATAGTʼ.! !
+   writeCount value: 'GGT'.
+   writeCount value: 'GGTA'.
+   writeCount value: 'GGTATT'.
+   writeCount value: 'GGTATTTTAATT'.
+   writeCount value: 'GGTATTTTAATTTATAGT'.! !
 
 
-!Core.BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!Core.BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self knucleotideFrom: Stdin to: Stdout.
-   ^ʼʼ! !
+   ^''! !
 
-!Core.Stream methodsFor: ʼbenchmarks gameʼ!
+!Core.Stream methodsFor: 'benchmarks game'!
 
 print: number digits: decimalPlaces
    self nextPutAll:

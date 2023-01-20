@@ -2,7 +2,7 @@
  * https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
  *
  * contributed by Ledrug
- * algorithm is a straight copy from Steve Decker et alʼs Fortran code
+ * algorithm is a straight copy from Steve Decker et al's Fortran code
  * with GCC SSE2 intrinsics
  */
 

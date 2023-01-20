@@ -29,27 +29,27 @@ writeFasta t
     where (l,r) = S.splitAt 60 t
 
 clines :: ByteString -> ([ByteString],[ByteString])
-clines ps = clinesʼ ps ([],[])
+clines ps = clines' ps ([],[])
     where
-      {-# INLINE clinesʼ #-}
-      clinesʼ ps accum@(f,s)
-          | otherwise = case S.elemIndex ʼ\nʼ ps of
-                          Just n  -> clinesʼʼ (S.drop (n+1) ps) (f++[S.take n ps
+      {-# INLINE clines' #-}
+      clines' ps accum@(f,s)
+          | otherwise = case S.elemIndex '\n' ps of
+                          Just n  -> clines'' (S.drop (n+1) ps) (f++[S.take n ps
 ],s)
-      clinesʼʼ ps accum@(f,s)
-          | otherwise = case S.elemIndex ʼ>ʼ ps of
-                      Nothing -> (f,s++[S.filter (/=ʼ\nʼ) ps])
-                      Just n  -> clinesʼ (S.drop n ps) (f,s++[S.filter (/=ʼ\nʼ)
+      clines'' ps accum@(f,s)
+          | otherwise = case S.elemIndex '>' ps of
+                      Nothing -> (f,s++[S.filter (/='\n') ps])
+                      Just n  -> clines' (S.drop n ps) (f,s++[S.filter (/='\n')
 . S.take n $ ps])
 
 {-# INLINE comps #-}
 comps = map (ord *** c2w) [
-    (ʼAʼ , ʼTʼ), ( ʼaʼ , ʼTʼ), ( ʼCʼ , ʼGʼ), ( ʼcʼ , ʼGʼ), ( ʼGʼ , ʼCʼ),
-    (ʼgʼ , ʼCʼ), ( ʼTʼ , ʼAʼ), ( ʼtʼ , ʼAʼ), ( ʼUʼ , ʼAʼ), ( ʼuʼ , ʼAʼ),
-    (ʼMʼ , ʼKʼ), ( ʼmʼ , ʼKʼ), ( ʼRʼ , ʼYʼ), ( ʼrʼ , ʼYʼ), ( ʼYʼ , ʼRʼ),
-    (ʼyʼ , ʼRʼ), ( ʼKʼ , ʼMʼ), ( ʼkʼ , ʼMʼ), ( ʼVʼ , ʼBʼ), ( ʼvʼ , ʼBʼ),
-    (ʼHʼ , ʼDʼ), ( ʼhʼ , ʼDʼ), ( ʼDʼ , ʼHʼ), ( ʼdʼ , ʼHʼ), ( ʼBʼ , ʼVʼ), ( ʼbʼ ,
- ʼVʼ)]
+    ('A' , 'T'), ( 'a' , 'T'), ( 'C' , 'G'), ( 'c' , 'G'), ( 'G' , 'C'),
+    ('g' , 'C'), ( 'T' , 'A'), ( 't' , 'A'), ( 'U' , 'A'), ( 'u' , 'A'),
+    ('M' , 'K'), ( 'm' , 'K'), ( 'R' , 'Y'), ( 'r' , 'Y'), ( 'Y' , 'R'),
+    ('y' , 'R'), ( 'K' , 'M'), ( 'k' , 'M'), ( 'V' , 'B'), ( 'v' , 'B'),
+    ('H' , 'D'), ( 'h' , 'D'), ( 'D' , 'H'), ( 'd' , 'H'), ( 'B' , 'V'), ( 'b' ,
+ 'V')]
 
 ca :: Ptr Word8
 ca = unsafeDupablePerformIO $ do
@@ -65,14 +65,14 @@ revcomp (PS fp s (I# l)) = withForeignPtr fp $ \p -> rc (p `plusPtr` s) 0# (l -#
  1#)
   where
     rc :: Ptr Word8 -> Int# -> Int# -> IO ()
-    rc p i j  = rcʼ i j
+    rc p i j  = rc' i j
         where
-          rcʼ i j
+          rc' i j
               | isTrue# (i <# j) = do
                           let x = rw8 p i
                           ww8 p i (comp (rw8 p j))
                           ww8 p j (comp x)
-                          rcʼ (i +# 1#) (j -# 1#)
+                          rc' (i +# 1#) (j -# 1#)
               | isTrue# (i ==# j) = ww8 p i (comp (rw8 p i))
               | otherwise =  return ()
 

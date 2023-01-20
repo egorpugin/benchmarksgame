@@ -11,7 +11,7 @@ main = loop 10 0 . flip take (str (F 1 0 0 1) ns) . read . head =<< getArgs
 
 ns = [ F k (4*k+2) 0 (2*k+1) | k <- [1..] ]
 
-loop n s []     = putStrLn $ replicate n ʼ ʼ ++ "\t:" ++ show s
+loop n s []     = putStrLn $ replicate n ' ' ++ "\t:" ++ show s
 loop 0 s xs     = putStrLn ("\t:"++show s) >> loop 10 s xs
 loop n s (x:xs) = putStr (show x)          >> loop (n-1) (s+1) xs
 

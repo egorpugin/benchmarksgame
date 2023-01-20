@@ -19,30 +19,30 @@ type
 
 const
   ALU =
-    ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ + ʼGAGGCCGAGGCGGGCGGATCACCTGAGG
-TCAGGAGTTCGAGAʼ +
-    ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ + ʼACAAAAATTAGCCGGGCGTGGTGGCGCG
-CGCCTGTAATCCCAʼ +
-    ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ + ʼAGGCGGAGGTTGCAGTGAGCCGAGATCG
-CGCCACTGCACTCCʼ +
-    ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ;
+    'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG' + 'GAGGCCGAGGCGGGCGGATCACCTGAGG
+TCAGGAGTTCGAGA' +
+    'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT' + 'ACAAAAATTAGCCGGGCGTGGTGGCGCG
+CGCCTGTAATCCCA' +
+    'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG' + 'AGGCGGAGGTTGCAGTGAGCCGAGATCG
+CGCCACTGCACTCC' +
+    'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA';
 
-  SourceALU = ALU + ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGG
-Aʼ;
+  SourceALU = ALU + 'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGG
+A';
 
   IUB: array[0..14] of TGene = (
-    (Code: ʼaʼ; Prob: 0.27), (Code: ʼcʼ; Prob: 0.12), (Code: ʼgʼ; Prob: 0.12), (
-Code: ʼtʼ; Prob: 0.27),
-    (Code: ʼBʼ; Prob: 0.02), (Code: ʼDʼ; Prob: 0.02), (Code: ʼHʼ; Prob: 0.02), (
-Code: ʼKʼ; Prob: 0.02),
-    (Code: ʼMʼ; Prob: 0.02), (Code: ʼNʼ; Prob: 0.02), (Code: ʼRʼ; Prob: 0.02), (
-Code: ʼSʼ; Prob: 0.02),
-    (Code: ʼVʼ; Prob: 0.02), (Code: ʼWʼ; Prob: 0.02), (Code: ʼYʼ; Prob: 0.02)
+    (Code: 'a'; Prob: 0.27), (Code: 'c'; Prob: 0.12), (Code: 'g'; Prob: 0.12), (
+Code: 't'; Prob: 0.27),
+    (Code: 'B'; Prob: 0.02), (Code: 'D'; Prob: 0.02), (Code: 'H'; Prob: 0.02), (
+Code: 'K'; Prob: 0.02),
+    (Code: 'M'; Prob: 0.02), (Code: 'N'; Prob: 0.02), (Code: 'R'; Prob: 0.02), (
+Code: 'S'; Prob: 0.02),
+    (Code: 'V'; Prob: 0.02), (Code: 'W'; Prob: 0.02), (Code: 'Y'; Prob: 0.02)
   );
 
   HomoSapiens: array[0..3] of TGene = (
-    (Code: ʼaʼ; Prob: 0.3029549426680), (Code: ʼcʼ; Prob: 0.1979883004921),
-    (Code: ʼgʼ; Prob: 0.1975473066391), (Code: ʼtʼ; Prob: 0.3015094502008)
+    (Code: 'a'; Prob: 0.3029549426680), (Code: 'c'; Prob: 0.1979883004921),
+    (Code: 'g'; Prob: 0.1975473066391), (Code: 't'; Prob: 0.3015094502008)
   );
 
   ALULength = 287;
@@ -82,8 +82,8 @@ procedure FastaRandom(N: PtrInt; const Genes: PGene; const GenesLen: PtrInt);
 var
   SumProb: Double;
   Gene, GenesEnd: PGene;
-  Line: String[60] = ʼ0000000000000000000000000000000000000000000000000000000000
-00ʼ;
+  Line: String[60] = '0000000000000000000000000000000000000000000000000000000000
+00';
   LineEnd: PChar;
 
   function ChooseCode: Char; inline;
@@ -133,11 +133,11 @@ begin
   IO := @Output;
   SetTextBuf(IO^, TextBuf);
   if ParamCount = 1 then Val(ParamStr(1), N);
-  WriteLn(IO^, ʼ>ONE Homo sapiens aluʼ);
+  WriteLn(IO^, '>ONE Homo sapiens alu');
   FastaRepeat(N * 2);
-  WriteLn(IO^, ʼ>TWO IUB ambiguity codesʼ);
+  WriteLn(IO^, '>TWO IUB ambiguity codes');
   FastaRandom(N * 3, @IUB[0], 15);
-  WriteLn(IO^, ʼ>THREE Homo sapiens frequencyʼ);
+  WriteLn(IO^, '>THREE Homo sapiens frequency');
   FastaRandom(N * 5, @HomoSapiens[0], 4);
 end.
 

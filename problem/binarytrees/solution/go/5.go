@@ -126,7 +126,7 @@ func main() {
    longLivedTree := Go_bottomUpTree(maxDepth)
 
    outputs := make(map[int]chan string)
-   control := make(chan byte, N_CPU) // This ʼcontrolʼ also puts a cap on memory
+   control := make(chan byte, N_CPU) // This 'control' also puts a cap on memory
  usage
    for _depth := minDepth; _depth <= maxDepth; _depth += 2 {
       outputs[_depth] = make(chan string, 1)

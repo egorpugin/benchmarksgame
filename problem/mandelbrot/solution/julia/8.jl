@@ -19,7 +19,7 @@ function mand8(cr, ci, prune)
     zr = zi = tr = ti = @ntuple 8 _-> 0.0
 
     # In cases where the last call to mand8 resulted in 0x00, the next
-    # call is much more likely to result in 0x00, so itʼs worth it to
+    # call is much more likely to result in 0x00, so it's worth it to
     # check several times if the calculation can be aborted
     # early. Otherwise, the relatively costly check can be eliminated.
     if prune

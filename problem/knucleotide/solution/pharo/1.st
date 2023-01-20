@@ -3,13 +3,13 @@
     unoptimized program contributed long ago by Isaac Gouy *"!
 
 Object subclass: #BenchmarksGame
-   instanceVariableNames: ʼʼ
-   classVariableNames: ʼʼ
-   poolDictionaries: ʼʼ
-   category: ʼʼ!
+   instanceVariableNames: ''
+   classVariableNames: ''
+   poolDictionaries: ''
+   category: ''!
 
 
-!BenchmarksGame class methodsFor: ʼprivateʼ!
+!BenchmarksGame class methodsFor: 'private'!
 
 substringFrequencies: aString for: aLength using: aDictionary
    | m |
@@ -28,7 +28,7 @@ readFasta: sequenceName from: input
    sc := $; asciiValue.
    gt := $> asciiValue.
    lf := Character lf asciiValue.
-   prefix := ʼ>ʼ,sequenceName.
+   prefix := '>',sequenceName.
 
    "* find start of particular fasta sequence *"
    [(input atEnd) or: [
@@ -53,7 +53,7 @@ readFasta: sequenceName from: input
 knucleotideFrom: input to: output
    | sequence writeFrequencies writeCount |
 
-   sequence := (self readFasta: ʼTHREEʼ from: input) value asUppercase.
+   sequence := (self readFasta: 'THREE' from: input) value asUppercase.
 
    writeFrequencies :=
       [:k | | frequencies count |
@@ -69,7 +69,7 @@ knucleotideFrom: input to: output
       frequencies do: [:each | | percentage |
          percentage := (each value / count) * 100.0.
          output
-            nextPutAll: each key; nextPutAll: ʼ ʼ;
+            nextPutAll: each key; nextPutAll: ' ';
             print: percentage digits: 3; nl]].
 
    writeCount := [:nucleotideFragment | | frequencies count |
@@ -82,20 +82,20 @@ knucleotideFrom: input to: output
    writeFrequencies value: 1. output nl.
    writeFrequencies value: 2. output nl.
 
-   writeCount value: ʼGGTʼ.
-   writeCount value: ʼGGTAʼ.
-   writeCount value: ʼGGTATTʼ.
-   writeCount value: ʼGGTATTTTAATTʼ.
-   writeCount value: ʼGGTATTTTAATTTATAGTʼ! !
+   writeCount value: 'GGT'.
+   writeCount value: 'GGTA'.
+   writeCount value: 'GGTATT'.
+   writeCount value: 'GGTATTTTAATT'.
+   writeCount value: 'GGTATTTTAATTTATAGT'! !
 
 
-!BenchmarksGame class methodsFor: ʼinitialize-releaseʼ!
+!BenchmarksGame class methodsFor: 'initialize-release'!
 
 do: n
    self knucleotideFrom: Stdio stdin to: Stdio stdout! !
 
 
-!StdioStream methodsFor: ʼbenchmarks gameʼ!
+!StdioStream methodsFor: 'benchmarks game'!
 
 tab
    self nextPut: Character tab!
@@ -112,7 +112,7 @@ print: number digits: decimalPlaces
       ((rounded asScaledDecimal: decimalPlaces) printString copyUpTo: $s)! !
 
 
-!StdioStream instance methodsFor: ʼpositioningʼ!
+!StdioStream instance methodsFor: 'positioning'!
 
 skipTo: anObject
    "Set the access position of the receiver to be past the next occurrence of

@@ -52,14 +52,14 @@ if CommandLine.argc > 1 {
 }
 
 guard apr_pool_initialize() == APR_SUCCESS else {
-    print("Canʼt initialize apr_pool")
+    print("Can't initialize apr_pool")
     exit(1)
 }
 
 var pool: OpaquePointer? = nil
 guard apr_pool_create_unmanaged_ex(&pool, nil, nil) == APR_SUCCESS  else {
     apr_pool_terminate()
-    print("Canʼt create unmanaged pool")
+    print("Can't create unmanaged pool")
     exit(1)
 }
 
@@ -90,7 +90,7 @@ DispatchQueue.concurrentPerform(iterations: depths) {
     guard apr_pool_create_unmanaged_ex(&depthPool, nil, nil) == APR_SUCCESS  els
 e {
         apr_pool_terminate()
-        print("Canʼt create unmanaged depth pool")
+        print("Can't create unmanaged depth pool")
         exit(1)
     }
 

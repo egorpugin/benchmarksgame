@@ -3,7 +3,7 @@
 //
 // Contributed by Jeremy Zerfas.
 // Copied the idea to use a lookup table for reverse complementing two
-// characters at a time from roman blogʼs C++ program.
+// characters at a time from roman blog's C++ program.
 
 // This string/character array is used to convert characters into the
 // complementing character. Note that some of the reverse complementing code
@@ -274,11 +274,11 @@ th;
                         // Finally insert a newline at chunk_Pos and increment i
 t because of
                         // the newline.
-                        *chunk_Pos++=ʼ\nʼ;
+                        *chunk_Pos++='\n';
                 }
 
 
-                // If chunk_Size isnʼt evenly divisible by LINE_LENGTH, then the
+                // If chunk_Size isn't evenly divisible by LINE_LENGTH, then the
 re will
                 // be one last partial line of chunk_Characters_Left_To_Process
 and the
@@ -308,7 +308,7 @@ riting.
                 // Finally we need to leave the semaphore_For_Signaling_Chunk_Wr
 itten
                 // alone so that it can potentially be seen by another thread, w
-eʼll
+e'll
                 // change our semaphore_For_Signaling_Chunk_Written (for the nex
 t
                 // potential chunk that this thread will process) to the now unu
@@ -325,12 +325,12 @@ sed
 
 void write_Sequence_Reverse_Complement(uint8_t * sequence
   , uintnative_t sequence_Size){
-        // sequence will point at the ʼ>ʼ in the header and sequence_Size is the
-        // amount of characters including the ʼ>ʼ in the header and the last new
+        // sequence will point at the '>' in the header and sequence_Size is the
+        // amount of characters including the '>' in the header and the last new
 line
         // of the sequence.
 
-        uint8_t * header_Newline=memchr(sequence, ʼ\nʼ, sequence_Size);
+        uint8_t * header_Newline=memchr(sequence, '\n', sequence_Size);
 
 
         // Write the header line including the header_Newline.
@@ -406,8 +406,8 @@ int main(void){
 in
         // elements for characters that will be in the range of ASCII characters
         // that we can expect to see in inputted data.
-        for(uintnative_t i=ʼ\nʼ; i<sizeof(COMPLEMENT_LOOKUP)-1; i++)
-                for(uintnative_t j=ʼ\nʼ; j<sizeof(COMPLEMENT_LOOKUP)-1; j++)
+        for(uintnative_t i='\n'; i<sizeof(COMPLEMENT_LOOKUP)-1; i++)
+                for(uintnative_t j='\n'; j<sizeof(COMPLEMENT_LOOKUP)-1; j++)
                         REVERSE_COMPLEMENT_LOOKUP[i<<8 | j]
                           =(uint16_t)COMPLEMENT_LOOKUP[j]<<8
                           | (uint16_t)COMPLEMENT_LOOKUP[i];
@@ -424,16 +424,16 @@ in
           ; (bytes_Read=read(STDIN_FILENO, &sequence[sequence_Size], READ_SIZE))
 ;){
 
-                // Search the read in chunk of data for a ʼ>ʼ to see if any sequ
+                // Search the read in chunk of data for a '>' to see if any sequ
 ences
                 // are being started.
                 for(uint8_t * sequence_Start
-                  ; (sequence_Start=memchr(&sequence[sequence_Size], ʼ>ʼ, bytes_
+                  ; (sequence_Start=memchr(&sequence[sequence_Size], '>', bytes_
 Read))
                   ;){
 
                         // Update the sequence_Size to reflect any data before t
-he ʼ>ʼ that
+he '>' that
                         // was read in.
                         uintnative_t number_Of_Preceding_Bytes
                           =sequence_Start-&sequence[sequence_Size];
@@ -449,7 +449,7 @@ rocess it
                                 write_Sequence_Reverse_Complement(sequence, sequ
 ence_Size);
 
-                                // Copy the read-in ʼ>ʼ and any data following i
+                                // Copy the read-in '>' and any data following i
 t to the front
                                 // of sequence.
                                 memmove(sequence, sequence_Start
@@ -463,7 +463,7 @@ ng the next
 
 
                         // Update sequence_Size and bytes_Read to reflect the re
-ad in ʼ>ʼ
+ad in '>'
                         // and any data that preceded it.
                         sequence_Size++;
                         bytes_Read-=number_Of_Preceding_Bytes+1;
@@ -473,7 +473,7 @@ ad in ʼ>ʼ
                 // Update sequence_Size to reflect the bytes that were read in.
                 sequence_Size+=bytes_Read;
 
-                // If there potentially isnʼt enough free space for all the data
+                // If there potentially isn't enough free space for all the data
  from
                 // the next read, then double the capacity of the sequence.
                 if(sequence_Size>sequence_Capacity-READ_SIZE)

@@ -3,7 +3,7 @@
     https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
     contributed by Branimir Maksimovic
-    optimized/rewritten by Bryan OʼSullivan
+    optimized/rewritten by Bryan O'Sullivan
     modified by Dmitry Ivanov
 -}
 
@@ -11,7 +11,7 @@ import Control.Monad (replicateM_)
 import Control.Monad.ST
 import Control.Parallel.Strategies
 import Data.Bits ((.&.))
-import Data.List (foldlʼ)
+import Data.List (foldl')
 
 import qualified Data.Vector.Unboxed.Mutable as VM
 import qualified Data.Vector.Generic.Mutable as VG
@@ -28,7 +28,7 @@ main = do
     printf "%d\nPfannkuchen(%d) = %d\n" checksum n maxflips
 
 reduce :: [(Int, Int)] -> (Int, Int)
-reduce = foldlʼ (\(!c1, !f1) (!c2, !f2) -> (c1 + c2, max f1 f2)) (0, 0)
+reduce = foldl' (\(!c1, !f1) (!c2, !f2) -> (c1 + c2, max f1 f2)) (0, 0)
 
 rotate mv = do
     !h <- VM.unsafeRead mv 0
@@ -66,13 +66,13 @@ next_permutation !perm !n !cnt = loop 1
         | i >= n = done i
         | otherwise = do
             tmp <- VM.unsafeRead perm 0
-            let rotateʼ j
+            let rotate' j
                     | j >= i = VM.unsafeWrite perm i tmp
                     | otherwise = do
                         !v <- VM.unsafeRead perm (j+1)
                         VM.unsafeWrite perm j v
-                        rotateʼ (j+1)
-            rotateʼ 0
+                        rotate' (j+1)
+            rotate' 0
             v <- VM.unsafeRead cnt i
             if v >= i
             then VM.unsafeWrite cnt i 0 >> loop (i+1)

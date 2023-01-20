@@ -9,9 +9,9 @@
 // fixed by Josh Goldfoot
 // multi thread by Andrey Filatkin
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
-const fs = require(ʼfsʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
+const fs = require('fs');
 
 if (isMainThread) {
     mainThread();
@@ -32,10 +32,10 @@ async function mainThread() {
         /agggtaa[cgt]|[acg]ttaccct/ig
     ];
 
-    let data = fs.readFileSync(ʼ/dev/stdinʼ, ʼasciiʼ);
+    let data = fs.readFileSync('/dev/stdin', 'ascii');
     const initialLen = data.length;
 
-    data = data.replace(/^>.*\n|\n/mg, ʼʼ);
+    data = data.replace(/^>.*\n|\n/mg, '');
     const cleanedLen = data.length;
 
     const worker = replaceWork(data);
@@ -53,7 +53,7 @@ async function mainThread() {
     function replaceWork(data) {
         return new Promise(resolve => {
             const worker = new Worker(__filename, {workerData: data});
-            worker.on(ʼmessageʼ, message => {
+            worker.on('message', message => {
                 resolve(message.data);
             });
         });
@@ -62,11 +62,11 @@ async function mainThread() {
 
 function workerThread(str) {
     const len = str
-        .replace(/tHa[Nt]/g, ʼ<4>ʼ)
-        .replace(/aND|caN|Ha[DS]|WaS/g, ʼ<3>ʼ)
-        .replace(/a[NSt]|BY/g, ʼ<2>ʼ)
-        .replace(/<[^>]*>/g, ʼ|ʼ)
-        .replace(/\|[^|][^|]*\|/g, ʼ-ʼ)
+        .replace(/tHa[Nt]/g, '<4>')
+        .replace(/aND|caN|Ha[DS]|WaS/g, '<3>')
+        .replace(/a[NSt]|BY/g, '<2>')
+        .replace(/<[^>]*>/g, '|')
+        .replace(/\|[^|][^|]*\|/g, '-')
         .length;
     parentPort.postMessage({data: len});
 }

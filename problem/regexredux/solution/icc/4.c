@@ -96,7 +96,7 @@ int main(void){
       (bytes_Read=fread(input.data+input.size, 1, input.capacity-input.size
       , stdin))>0;)
         // Update the size of input to reflect the newly read input and if
-        // weʼve reached the full capacity of the input string then also double
+        // we've reached the full capacity of the input string then also double
         // its size.
         if((input.size+=bytes_Read)==input.capacity)
             input.data=realloc(input.data, input.capacity*=2);
@@ -121,7 +121,7 @@ int main(void){
         // serially.
         #pragma omp single nowait
         {
-            // Weʼll use two strings when doing all the replacements, searching
+            // We'll use two strings when doing all the replacements, searching
             // for patterns in prereplace_String and using postreplace_String to
             // store the string after the replacements have been made. After
             // each iteration these two then get swapped. Start out with both
@@ -151,7 +151,7 @@ int main(void){
                 postreplace_String.size=0;
             }
 
-            // If any replacements were made, theyʼll be in prereplace_String
+            // If any replacements were made, they'll be in prereplace_String
             // instead of postreplace_String because of the swap done after each
             // iteration. Copy its size to postreplace_Size.
             postreplace_Size=prereplace_String.size;

@@ -91,12 +91,12 @@ func readThird() (data []byte) {
     in, lineCount := findThree()
     data = make([]byte, 0, lineCount*61)
     for {
-        line, err := in.ReadSlice(ʼ\nʼ)
-        if err != nil && (line == nil || len(line) == 0) || line[0] == ʼ>ʼ {
+        line, err := in.ReadSlice('\n')
+        if err != nil && (line == nil || len(line) == 0) || line[0] == '>' {
             break
         }
         last := len(line) - 1
-        if line[last] == ʼ\nʼ {
+        if line[last] == '\n' {
             line = line[:last]
         }
         data = append(data, line...)
@@ -107,12 +107,12 @@ func readThird() (data []byte) {
 func findThree() (in *bufio.Reader, lineCount int) {
     in = bufio.NewReaderSize(os.Stdin, 1<<20)
     for {
-        line, err := in.ReadSlice(ʼ\nʼ)
+        line, err := in.ReadSlice('\n')
         if err != nil {
             panic("read error")
         }
         lineCount++
-        if line[0] == ʼ>ʼ && strings.HasPrefix(string(line), ">THREE") {
+        if line[0] == '>' && strings.HasPrefix(string(line), ">THREE") {
             break
         }
     }

@@ -61,7 +61,7 @@ def main():
     print("{0:.9f}".format(result))
 
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     with Pool(processes=4) as pool:
         main()
 

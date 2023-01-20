@@ -5,10 +5,10 @@
    + null safety
 */
 
-import ʼdart:asyncʼ;
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:async';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:typed_data';
 
 void main(args) {
   int n = args.length > 0 ? int.parse(args[0]) : 2000;
@@ -29,14 +29,14 @@ void main(args) {
         .then((sendPort) {
       ReceivePort response = new ReceivePort();
       sendPort.send(
-          {ʼnʼ: n, ʼfromʼ: localFrom, ʼlenʼ: len, ʼportʼ: response.sendPort});
+          {'n': n, 'from': localFrom, 'len': len, 'port': response.sendPort});
       return response.first;
     });
     segmentFutures.add(newFuture);
     from += len;
   }
 
-  stdout.write(ʼP4\n$n $n\nʼ);
+  stdout.write('P4\n$n $n\n');
 
   Future.wait(segmentFutures).then((segments) {
     for (var segment in segments) {
@@ -81,10 +81,10 @@ void calculateSegment(SendPort initialReplyTo) {
   var port = new ReceivePort();
   initialReplyTo.send(port.sendPort);
   port.listen((msg) {
-    int n = msg[ʼnʼ];
-    int from = msg[ʼfromʼ];
-    int len = msg[ʼlenʼ];
-    SendPort replyTo = msg[ʼportʼ];
+    int n = msg['n'];
+    int from = msg['from'];
+    int len = msg['len'];
+    SendPort replyTo = msg['port'];
 
     var lines =
         new List<Uint8List>.generate(len, (i) => calculateLine(n, from + i));

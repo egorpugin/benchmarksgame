@@ -6,9 +6,9 @@
    Ported, modified, and parallelized by Roman Pletnev
 */
 
-ʼuse strictʼ;
+'use strict';
 
-var rd = require(ʼreadlineʼ), cluster = require(ʼclusterʼ);
+var rd = require('readline'), cluster = require('cluster');
 
 function RefNum(num){ this.num = num; }
 RefNum.prototype.toString = function() { return this.num.toString(); }
@@ -25,70 +25,70 @@ function frequency(seq, length){
 
 function sort(seq, length){
     var f = frequency(seq, length), keys = Array.from(f.keys()),
-        n = seq.length-length+1, res = ʼʼ;
+        n = seq.length-length+1, res = '';
     keys.sort((a, b)=>f.get(b)-f.get(a));
-    for (var key of keys) res += key+ʼ ʼ+(f.get(key)*100/n).toFixed(3)+ʼ\nʼ;
-    res += ʼ\nʼ;
+    for (var key of keys) res += key+' '+(f.get(key)*100/n).toFixed(3)+'\n';
+    res += '\n';
     return res;
 }
 
 function find(seq, s){
     var f = frequency(seq, s.length);
-    return (f.get(s) || 0)+"\t"+s+ʼ\nʼ;
+    return (f.get(s) || 0)+"\t"+s+'\n';
 }
 
 function master() {
-    var workers = [], reading = false, seq = ʼʼ, maxBuf = 2048;
+    var workers = [], reading = false, seq = '', maxBuf = 2048;
 
     for (var i=0; i<4;++i) workers.push(cluster.fork({workerId: i}));
 
     var flush = function(close) {
         for (var w of workers) w.send(seq);
-        if (close) for (var w of workers) w.send(ʼeofʼ);
-        seq = ʼʼ;
+        if (close) for (var w of workers) w.send('eof');
+        seq = '';
     };
     var lineHandler = function(line){
         if (reading) {
-            if (line[0] !== ʼ>ʼ &&
+            if (line[0] !== '>' &&
                     (seq += line.toUpperCase()).length >= maxBuf) flush();
-        } else reading = line.substr(0, 6) === ʼ>THREEʼ;
+        } else reading = line.substr(0, 6) === '>THREE';
     };
     rd.createInterface(process.stdin, process.stdout)
-        .on(ʼlineʼ, lineHandler).on(ʼcloseʼ, function() { flush(true); });
+        .on('line', lineHandler).on('close', function() { flush(true); });
 
     var jobs = workers.length, results = [];
     var messageHandler = function(i){
         return function(message){
             results[i] = message;
             if (!(--jobs)) {
-                process.stdout.write(results.join(ʼʼ));
+                process.stdout.write(results.join(''));
                 process.exit(0);
             }
         };
     };
     for (var i=0; i<workers.length; ++i)
-        workers[i].on(ʼmessageʼ, messageHandler(i));
+        workers[i].on('message', messageHandler(i));
 }
 
 function worker(){
-    var seq = ʼʼ;
-    process.on(ʼmessageʼ, function(message){
-        if (message === ʼeofʼ) {
-            var res = ʼʼ;
+    var seq = '';
+    process.on('message', function(message){
+        if (message === 'eof') {
+            var res = '';
             switch (process.env.workerId) {
-                case ʼ0ʼ:
+                case '0':
                     res += sort(seq, 1);
                     res += sort(seq, 2);
                     res += find(seq, "GGT");
                     break;
-                case ʼ1ʼ:
+                case '1':
                     res += find(seq, "GGTA");
                     res += find(seq, "GGTATT");
                     break;
-                case ʼ2ʼ:
+                case '2':
                     res += find(seq, "GGTATTTTAATT");
                     break;
-                case ʼ3ʼ:
+                case '3':
                     res += find(seq, "GGTATTTTAATTTATAGT");
                     break;
             }

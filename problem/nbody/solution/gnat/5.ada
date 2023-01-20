@@ -21,12 +21,12 @@ procedure Nbody is
      (Item : Real; Fore : Field := 0; Aft : Field := 9;
       Exp  : Field := 0) renames RIO.Put;
 
-   N : constant Integer := IntegerʼValue (Argument (1));
+   N : constant Integer := Integer'Value (Argument (1));
 
    Px, Py, Pz : Real := 0.0;
 
 begin
-   for I in Body_NameʼRange loop
+   for I in Body_Name'Range loop
       Add_Momentum (I, Px, Py, Pz);
    end loop;
 
@@ -157,8 +157,8 @@ package body Nbody_Pck is
          + Velocity (i, Y) * Velocity (i, Y)
          + Velocity (i, Z) * Velocity (i, Z));
 
-        if i /= Body_NameʼLast then
-           for j in Body_NameʼSucc (i) .. Body_NameʼLast loop
+        if i /= Body_Name'Last then
+           for j in Body_Name'Succ (i) .. Body_Name'Last loop
               Dx := Position (i, X) - Position (j, X);
               Dy := Position (i, Y) - Position (j, Y);
               Dz := Position (i, Z) - Position (j, Z);
@@ -209,7 +209,7 @@ package Root is
 
    type S_Real is new Long_Float;
 
-   pragma Assert (S_RealʼSize = 64 and S_Realʼdigits > 13);
+   pragma Assert (S_Real'Size = 64 and S_Real'digits > 13);
 
    type SSE_Vector is array (0 .. 1) of S_Real;
 
@@ -229,7 +229,7 @@ package body root is
    -- "divpd" and "sqrtpd" are  double precision:
 
    type m128d is array (0 .. 1) of S_Real;
-   for m128dʼAlignment use 16;
+   for m128d'Alignment use 16;
    pragma Machine_Attribute (m128d, "vector_type");
 
    function ia32_Div (X, Y : m128d) return m128d;
@@ -252,9 +252,9 @@ package body root is
    -- "rsqrtps" (Reciprocal Sqrt) operates on Float (single precision):
 
    type m128s is array (0 .. 3) of Float;
-   for m128sʼAlignment use 16;
+   for m128s'Alignment use 16;
    pragma Machine_Attribute (m128s, "vector_type");
-   pragma Assert (FloatʼDigits < 7 and m128sʼsize = 128);
+   pragma Assert (Float'Digits < 7 and m128s'size = 128);
 
    function ia32_RSqrt (X : m128s) return m128s;
    pragma Import (Intrinsic, ia32_RSqrt, "__builtin_ia32_rsqrtps");
@@ -281,7 +281,7 @@ package body root is
 
    x : constant m128d := (4.0, 6.0);
    y : constant m128d := (2.0, 2.0);
-   pragma Assert (ia32_Div(x, y) = m128dʼ(2.0, 3.0));
+   pragma Assert (ia32_Div(x, y) = m128d'(2.0, 3.0));
    -- Minimal test, but a good idea when using pragma Import.
 
 end root;

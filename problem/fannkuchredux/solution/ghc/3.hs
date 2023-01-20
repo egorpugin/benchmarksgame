@@ -51,10 +51,10 @@ increment !p !ct = do
                 ci <- peekElemOff ct i
                 if fromIntegral ci < i then pokeElemOff ct i (ci+1) else do
                         pokeElemOff ct i 0
-                        let !iʼ = i + 1
-                        moveArray p (incPtr p) iʼ
-                        pokeElemOff p iʼ first
-                        go iʼ =<< peekElemOff p 0
+                        let !i' = i + 1
+                        moveArray p (incPtr p) i'
+                        pokeElemOff p i' first
+                        go i' =<< peekElemOff p 0
         go 1 first
 
 genPermutations :: Int -> Int -> Int -> Ptr Word8 -> Ptr Word8 -> IO F
@@ -82,12 +82,12 @@ unrank !idx !n f = allocaArray n $ \ p -> allocaArray n $ \ count ->
                 let (q, r) = idx `quotRem` fi
                 pokeElemOff count i (fromIntegral q)
                 copyArray pp p (i+1)
-                let goʼ j = when (j <= i) $ do
+                let go' j = when (j <= i) $ do
                         let jq = j + q
                         pokeElemOff p j =<< peekElemOff pp (if jq <= i then jq e
 lse jq - i - 1)
-                        goʼ (j+1)
-                goʼ 0
+                        go' (j+1)
+                go' 0
                 go (i-1) r
         go (n-1) idx
         f p count

@@ -7,22 +7,22 @@
    + null safety
 */
 
-import ʼdart:ioʼ;
-import ʼdart:collectionʼ;
+import 'dart:io';
+import 'dart:collection';
 
-String readLine() => stdin.readLineSync() ?? ʼ>>>>>>ʼ;
+String readLine() => stdin.readLineSync() ?? '>>>>>>';
 
 String readInput() {
-  while (readLine().substring(0, 6) != ʼ>THREEʼ);
+  while (readLine().substring(0, 6) != '>THREE');
 
   final lines = <String>[];
   String line = readLine();
-  while (line[0] != ʼ>ʼ) {
+  while (line[0] != '>') {
     lines.add(line);
     line = readLine();
   }
   ;
-  return lines.join(ʼʼ).toUpperCase();
+  return lines.join('').toUpperCase();
 }
 
 HashMap<String, int> frequency(String sequence, int length) {
@@ -52,14 +52,14 @@ void sort(String sequence, int length) {
 
   for (String key in keys) {
     String count = ((freq[key] ?? 0) * 100 / n).toStringAsFixed(3);
-    print(ʼ$key $countʼ);
+    print('$key $count');
   }
-  print(ʼʼ);
+  print('');
 }
 
 void find(String sequence, String string) {
   HashMap<String, int> freq = frequency(sequence, string.length);
-  print(ʼ${(freq[string])}\t$stringʼ);
+  print('${(freq[string])}\t$string');
 }
 
 void main(args) {
@@ -67,10 +67,10 @@ void main(args) {
 
   sort(sequence, 1);
   sort(sequence, 2);
-  find(sequence, ʼGGTʼ);
-  find(sequence, ʼGGTAʼ);
-  find(sequence, ʼGGTATTʼ);
-  find(sequence, ʼGGTATTTTAATTʼ);
-  find(sequence, ʼGGTATTTTAATTTATAGTʼ);
+  find(sequence, 'GGT');
+  find(sequence, 'GGTA');
+  find(sequence, 'GGTATT');
+  find(sequence, 'GGTATTTTAATT');
+  find(sequence, 'GGTATTTTAATTTATAGT');
 }
 

@@ -6,9 +6,9 @@
    Ported, modified, and parallelized by Roman Pletnev
 */
 
-ʼuse strictʼ;
+'use strict';
 
-var rd = require(ʼreadlineʼ), cp = require(ʼchild_processʼ);
+var rd = require('readline'), cp = require('child_process');
 
 function RefNum(num){ this.num = num; }
 RefNum.prototype.toString = function() { return this.num.toString(); }
@@ -25,17 +25,17 @@ function frequency(seq, length){
 
 function sort(seq, length){
     var f = frequency(seq, length), keys = Array.from(f.keys()),
-        n = seq.length-length+1, res = ʼʼ;
+        n = seq.length-length+1, res = '';
     keys.sort((a, b)=>f.get(b)-f.get(a));
     for (var key of keys) res +=
-        key.toUpperCase()+ʼ ʼ+(f.get(key)*100/n).toFixed(3)+ʼ\nʼ;
-    res += ʼ\nʼ;
+        key.toUpperCase()+' '+(f.get(key)*100/n).toFixed(3)+'\n';
+    res += '\n';
     return res;
 }
 
 function find(seq, s){
     var f = frequency(seq, s.length);
-    return (f.get(s) || 0)+"\t"+s.toUpperCase()+ʼ\nʼ;
+    return (f.get(s) || 0)+"\t"+s.toUpperCase()+'\n';
 }
 
 function master() {
@@ -48,39 +48,39 @@ function master() {
         return function(message){
             results[i] = message;
             if (!(--jobs)) {
-                process.stdout.write(results.join(ʼʼ));
+                process.stdout.write(results.join(''));
                 process.exit(0);
             }
         };
     };
     for (var i=0; i<workers.length; ++i)
-        workers[i].on(ʼmessageʼ, messageHandler(i));
+        workers[i].on('message', messageHandler(i));
 }
 
 function worker(){
-    var seq = ʼʼ, reading = false;
+    var seq = '', reading = false;
     var lineHandler = function(line){
         if (reading) {
-            if (line[0]!==ʼ>ʼ) seq += line;
-        } else reading = line.substr(0, 6)===ʼ>THREEʼ;
+            if (line[0]!=='>') seq += line;
+        } else reading = line.substr(0, 6)==='>THREE';
     };
     rd.createInterface(process.stdin, process.stdout)
-        .on(ʼlineʼ, lineHandler).on(ʼcloseʼ, function() {
-            var res = ʼʼ;
+        .on('line', lineHandler).on('close', function() {
+            var res = '';
             switch (process.env.workerId) {
-                case ʼ1ʼ:
+                case '1':
                     res += sort(seq, 1);
                     res += sort(seq, 2);
                     res += find(seq, "ggt");
                     break;
-                case ʼ2ʼ:
+                case '2':
                     res += find(seq, "ggta");
                     res += find(seq, "ggtatt");
                     break;
-                case ʼ3ʼ:
+                case '3':
                     res += find(seq, "ggtattttaatt");
                     break;
-                case ʼ4ʼ:
+                case '4':
                     res += find(seq, "ggtattttaatttatagt");
                     break;
             }

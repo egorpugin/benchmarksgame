@@ -64,12 +64,12 @@ SOLAR_MASS)
 
   call offsetMomentum(1,bodies)
   e = energy(bodies)
-  write(*,ʼ(f12.9)ʼ) e
+  write(*,'(f12.9)') e
   do i=1,num
      call advance(tstep, bodies)
   end do
   e = energy(bodies)
-  write(*,ʼ(f12.9)ʼ) e
+  write(*,'(f12.9)') e
 
 contains
 

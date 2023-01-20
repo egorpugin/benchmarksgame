@@ -18,7 +18,7 @@ procedure Mandelbrot is
    Byte_Acc               : Unsigned_8 := 0;
    Zr, Zi, Cr, Ci, Tr, Ti, Zr2, Zi2 : Real;
 begin
-   Width := PositiveʼValue (Argument (1));
+   Width := Positive'Value (Argument (1));
 
    Height := Width;
 
@@ -52,12 +52,12 @@ begin
          Bit_Num := Bit_Num + 1;
 
          if Bit_Num = 8 then
-            Put (CharacterʼVal (Byte_Acc));
+            Put (Character'Val (Byte_Acc));
             Byte_Acc := 0;
             Bit_Num  := 0;
          elsif X = Width - 1 then
             Byte_Acc := Shift_Left (Byte_Acc, 8 - (Width mod 8));
-            Put (CharacterʼVal (Byte_Acc));
+            Put (Character'Val (Byte_Acc));
             Byte_Acc := 0;
             Bit_Num  := 0;
          end if;

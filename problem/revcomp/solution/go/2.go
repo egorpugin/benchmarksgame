@@ -15,28 +15,28 @@ import (
 const lineSize = 60
 
 var complement = [256]uint8{
-   ʼAʼ: ʼTʼ, ʼaʼ: ʼTʼ,
-   ʼCʼ: ʼGʼ, ʼcʼ: ʼGʼ,
-   ʼGʼ: ʼCʼ, ʼgʼ: ʼCʼ,
-   ʼTʼ: ʼAʼ, ʼtʼ: ʼAʼ,
-   ʼUʼ: ʼAʼ, ʼuʼ: ʼAʼ,
-   ʼMʼ: ʼKʼ, ʼmʼ: ʼKʼ,
-   ʼRʼ: ʼYʼ, ʼrʼ: ʼYʼ,
-   ʼWʼ: ʼWʼ, ʼwʼ: ʼWʼ,
-   ʼSʼ: ʼSʼ, ʼsʼ: ʼSʼ,
-   ʼYʼ: ʼRʼ, ʼyʼ: ʼRʼ,
-   ʼKʼ: ʼMʼ, ʼkʼ: ʼMʼ,
-   ʼVʼ: ʼBʼ, ʼvʼ: ʼBʼ,
-   ʼHʼ: ʼDʼ, ʼhʼ: ʼDʼ,
-   ʼDʼ: ʼHʼ, ʼdʼ: ʼHʼ,
-   ʼBʼ: ʼVʼ, ʼbʼ: ʼVʼ,
-   ʼNʼ: ʼNʼ, ʼnʼ: ʼNʼ,
+   'A': 'T', 'a': 'T',
+   'C': 'G', 'c': 'G',
+   'G': 'C', 'g': 'C',
+   'T': 'A', 't': 'A',
+   'U': 'A', 'u': 'A',
+   'M': 'K', 'm': 'K',
+   'R': 'Y', 'r': 'Y',
+   'W': 'W', 'w': 'W',
+   'S': 'S', 's': 'S',
+   'Y': 'R', 'y': 'R',
+   'K': 'M', 'k': 'M',
+   'V': 'B', 'v': 'B',
+   'H': 'D', 'h': 'D',
+   'D': 'H', 'd': 'H',
+   'B': 'V', 'b': 'V',
+   'N': 'N', 'n': 'N',
 }
 
 func main() {
    in := bufio.NewReaderSize(os.Stdin, 1<<18)
    buf := make([]byte, 1<<20)
-   line, err := in.ReadSlice(ʼ\nʼ)
+   line, err := in.ReadSlice('\n')
    for err == nil {
       os.Stdout.Write(line)
 
@@ -44,8 +44,8 @@ func main() {
       nchar := 0
       w := len(buf)
       for {
-         line, err = in.ReadSlice(ʼ\nʼ)
-         if err != nil || line[0] == ʼ>ʼ {
+         line, err = in.ReadSlice('\n')
+         if err != nil || line[0] == '>' {
             break
          }
          line = line[0 : len(line)-1]
@@ -68,7 +68,7 @@ func main() {
       i := 0
       for j := w; j < len(buf); j += lineSize {
          i += copy(buf[i:i+lineSize], buf[j:])
-         buf[i] = ʼ\nʼ
+         buf[i] = '\n'
          i++
       }
       os.Stdout.Write(buf[0:i])

@@ -62,7 +62,7 @@ function pidigits(n::Int)
         end
         while i < 10
             i+=1
-            print(ʼ ʼ)
+            print(' ')
         end
         print("\t:$n_digits\n")
     end

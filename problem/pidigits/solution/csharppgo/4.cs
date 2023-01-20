@@ -19,7 +19,7 @@ t = new GmpInteger();
    int i;
    readonly StringBuilder strBuf = new StringBuilder ();
    int n;
-   private const int Zero = ʼ0ʼ;
+   private const int Zero = '0';
 
    private char FastDigitToString(int value)
    {
@@ -79,7 +79,7 @@ t = new GmpInteger();
       {
          if (i % 10 != 0)
          {
-            strBuf.Append(ʼ ʼ, 10 - this.i % 10);
+            strBuf.Append(' ', 10 - this.i % 10);
          }
 
          strBuf.Append("\t:");

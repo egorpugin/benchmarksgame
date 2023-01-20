@@ -1,16 +1,16 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Isaac Gouy based on Jeremy Zerfasʼs #5 C program
+   contributed by Isaac Gouy based on Jeremy Zerfas's #5 C program
    Write buffered, naive parallel.
 */
 
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:typed_data';
 
 const width = 60;
-final nl = ʼ\nʼ.codeUnitAt(0);
+final nl = '\n'.codeUnitAt(0);
 
 Uint8List repeatedSequence(String sequence, int size) {
   final codes = sequence.codeUnits;
@@ -90,38 +90,38 @@ void main(List<String> args) {
   Isolate.spawn(
       other,
       Request(
-          ʼ>ONE Homo sapiens aluʼ,
-          ʼGGCCGGGCGCGGTGGCTCACGCCTʼ
-              ʼGTAATCCCAGCACTTTGGGAGGCCʼ
-              ʼGAGGCGGGCGGATCACCTGAGGTCʼ
-              ʼAGGAGTTCGAGACCAGCCTGGCCAʼ
-              ʼACATGGTGAAACCCCGTCTCTACTʼ
-              ʼAAAAATACAAAAATTAGCCGGGCGʼ
-              ʼTGGTGGCGCGCGCCTGTAATCCCAʼ
-              ʼGCTACTCGGGAGGCTGAGGCAGGAʼ
-              ʼGAATCGCTTGAACCCGGGAGGCGGʼ
-              ʼAGGTTGCAGTGAGCCGAGATCGCGʼ
-              ʼCCACTGCACTCCAGCCTGGGCGACʼ
-              ʼAGAGCGAGACTCCGTCTCAAAAAʼ,
+          '>ONE Homo sapiens alu',
+          'GGCCGGGCGCGGTGGCTCACGCCT'
+              'GTAATCCCAGCACTTTGGGAGGCC'
+              'GAGGCGGGCGGATCACCTGAGGTC'
+              'AGGAGTTCGAGACCAGCCTGGCCA'
+              'ACATGGTGAAACCCCGTCTCTACT'
+              'AAAAATACAAAAATTAGCCGGGCG'
+              'TGGTGGCGCGCGCCTGTAATCCCA'
+              'GCTACTCGGGAGGCTGAGGCAGGA'
+              'GAATCGCTTGAACCCGGGAGGCGG'
+              'AGGTTGCAGTGAGCCGAGATCGCG'
+              'CCACTGCACTCCAGCCTGGGCGAC'
+              'AGAGCGAGACTCCGTCTCAAAAA',
           n * 2,
           mainIsolate.sendPort));
 
   final sequenceTwo = weightedLcgSequence(
-      ʼacgtBDHKMNRSVWYʼ,
+      'acgtBDHKMNRSVWY',
       [0.27, 0.12, 0.12, 0.27, 0.02] +
           [0.02, 0.02, 0.02, 0.02, 0.02] +
           [0.02, 0.02, 0.02, 0.02, 0.02],
       n * 3);
 
   final sequenceThree = weightedLcgSequence(
-      ʼacgtʼ,
+      'acgt',
       [0.3029549426680, 0.1979883004921, 0.1975473066391, 0.3015094502008],
       n * 5);
 
   mainIsolate.listen((dynamic _) {
-    stdout.writeln(ʼ>TWO IUB ambiguity codesʼ);
+    stdout.writeln('>TWO IUB ambiguity codes');
     stdout.add(sequenceTwo);
-    stdout.writeln(ʼ>THREE Homo sapiens frequencyʼ);
+    stdout.writeln('>THREE Homo sapiens frequency');
     stdout.add(sequenceThree);
     mainIsolate.close();
   });

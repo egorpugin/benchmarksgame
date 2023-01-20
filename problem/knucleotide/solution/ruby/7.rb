@@ -85,7 +85,7 @@ singles = %w(a t c g)
 doubles = %w(aa at ac ag ta tt tc tg ca ct cc cg ga gt gc gg)
 chains  = %w(ggt ggta ggtatt ggtattttaatt ggtattttaatttatagt)
 
-load_sequence(ʼ>THREE Homo sapiens frequencyʼ)
+load_sequence('>THREE Homo sapiens frequency')
 find_frequencies(singles + doubles + chains)
 
 print "#{percentage(singles).join("\n")}\n\n"

@@ -18,7 +18,7 @@ main = do   [arg] <- getArgs
             B.putStr . B.pack . makePBM 0 0 $ fractal pts
 
 limit  = 2
-iter   = 50+1 -- add one to compensate for the ʼiterateʼ function
+iter   = 50+1 -- add one to compensate for the 'iterate' function
 
 points width height = [(2*x/w - 1.5) :+ (2*y/h - 1) | y<-[0..h-1], x<-[0..w-1]]
                     where w = fromIntegral width

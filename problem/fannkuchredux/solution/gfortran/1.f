@@ -12,12 +12,12 @@ program fannkuch
   integer :: n,checksum,maxFlipsCount
   character(len=2) :: arg
   character(len=10) :: out
-  call get_command_argument(1,arg);read(arg,ʼ(I2)ʼ)n
+  call get_command_argument(1,arg);read(arg,'(I2)')n
   call fannkuchredux(n,checksum,maxFlipsCount)
-  write(out,ʼ(I10)ʼ) checksum;
-  write(*,ʼ(A)ʼ) trim(adjustl(out))
-  write(out,ʼ(I10)ʼ) maxFlipsCount;
-  write(*,ʼ(A)ʼ) ʼPfannkuchen(ʼ//trim(adjustl(arg))//ʼ) = ʼ//trim(adjustl(out))
+  write(out,'(I10)') checksum;
+  write(*,'(A)') trim(adjustl(out))
+  write(out,'(I10)') maxFlipsCount;
+  write(*,'(A)') 'Pfannkuchen('//trim(adjustl(arg))//') = '//trim(adjustl(out))
 
 contains
 

@@ -87,12 +87,12 @@ program nbody
 
   call offsetMomentum(1, v, mass)
   e = energy(x, v, mass)
-  write (*,ʼ(f12.9)ʼ) e
+  write (*,'(f12.9)') e
   do i = 1, num
      call advance(tstep, x, v, mass)
   end do
   e = energy(x, v, mass)
-  write (*,ʼ(f12.9)ʼ) e
+  write (*,'(f12.9)') e
 
 contains
 

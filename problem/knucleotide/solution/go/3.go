@@ -21,7 +21,7 @@ import (
 // seqString is a sequence of nucleotides as a string: "ACGT..."
 type seqString string
 
-// seqChars is a sequence of nucleotides as chars: ʼAʼ, ʼCʼ, ʼGʼ, ʼTʼ...
+// seqChars is a sequence of nucleotides as chars: 'A', 'C', 'G', 'T'...
 type seqChars []byte
 
 // seqBits is a sequence of nucleotides as 2 low bits per byte: 0, 1, 3, 2...
@@ -30,7 +30,7 @@ type seqBits []byte
 // toBits converts *in-place*
 func (seq seqChars) toBits() seqBits {
     for i := 0; i < len(seq); i++ {
-        // ʼAʼ => 0, ʼCʼ => 1, ʼTʼ => 2, ʼGʼ => 3
+        // 'A' => 0, 'C' => 1, 'T' => 2, 'G' => 3
         seq[i] = seq[i] >> 1 & 3
     }
     return seqBits(seq)
@@ -184,13 +184,13 @@ func readSequence(prefix string) (data seqChars) {
     in, lineCount := findSequence(prefix)
     data = make(seqChars, 0, lineCount*61)
     for {
-        line, err := in.ReadSlice(ʼ\nʼ)
-        if len(line) <= 1 || line[0] == ʼ>ʼ {
+        line, err := in.ReadSlice('\n')
+        if len(line) <= 1 || line[0] == '>' {
             break
         }
 
         last := len(line) - 1
-        if line[last] == ʼ\nʼ {
+        if line[last] == '\n' {
             line = line[0:last]
         }
         data = append(data, seqChars(line)...)
@@ -206,12 +206,12 @@ func findSequence(prefix string) (in *bufio.Reader, lineCount int) {
     pfx := []byte(prefix)
     in = bufio.NewReaderSize(os.Stdin, 1<<20)
     for {
-        line, err := in.ReadSlice(ʼ\nʼ)
+        line, err := in.ReadSlice('\n')
         if err != nil {
             panic("read error")
         }
         lineCount++
-        if line[0] == ʼ>ʼ && bytes.HasPrefix(line, pfx) {
+        if line[0] == '>' && bytes.HasPrefix(line, pfx) {
             break
         }
     }

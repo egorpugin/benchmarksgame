@@ -48,15 +48,15 @@ squared x y z = x * x + y * y + z * z
 
 energy pPlanets = do
     let
-        energyʼ e i = if i < length planets
+        energy' e i = if i < length planets
                     then do
                         p <- peekElemOff pPlanets i
-                        e1 <- energyʼʼ p (i+1) e
-                        e2 <- energyʼ e (i+1)
+                        e1 <- energy'' p (i+1) e
+                        e2 <- energy' e (i+1)
                         return $ e + 0.5 * mass p * squared (vx p) (vy p) (vz p)
 +e1+e2
                     else return e
-        energyʼʼ p j e = if j < length planets
+        energy'' p j e = if j < length planets
                         then do
                             pj <- peekElemOff pPlanets j
                             let
@@ -64,14 +64,14 @@ energy pPlanets = do
                                 dx = x pj - x p
                                 dy = y pj - y p
                                 dz = z pj - z p
-                            e1 <- energyʼʼ p (j+1) e
+                            e1 <- energy'' p (j+1) e
                             return $ e - (mass p * mass pj) / distance + e1
                         else return e
-    energyʼ 0.0 0
+    energy' 0.0 0
 
 advance pPlanets = do
     let
-        advanceʼ i =
+        advance' i =
             when (i < length planets) $ do
                     let
                         loop j = when (j < length planets) $ do
@@ -95,17 +95,17 @@ advance pPlanets = do
                                         }
                                     loop (j+1)
                     loop (i+1)
-                    advanceʼ (i+1)
-        advanceʼʼ i = when (i < length planets) $ do
+                    advance' (i+1)
+        advance'' i = when (i < length planets) $ do
                             p <- peekElemOff pPlanets i
                             pokeC pPlanets i p {
                                 x = x p + dt * vx p,
                                 y = y p + dt * vy p,
                                 z = z p + dt * vz p
                                 }
-                            advanceʼʼ (i+1)
-    advanceʼ 0
-    advanceʼʼ 0
+                            advance'' (i+1)
+    advance' 0
+    advance'' 0
 
 planets = [sun, jupiter, saturn, uranus, neptune]
 

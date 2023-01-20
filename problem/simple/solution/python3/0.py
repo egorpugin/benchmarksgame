@@ -1,7 +1,7 @@
 # The Computer Language Benchmarks Game
 # https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 #
-#     line-by-line from Greg Buchholzʼs C program
+#     line-by-line from Greg Buchholz's C program
 
 
 
@@ -18,7 +18,7 @@ Zr = Zi = Cr = Ci = Tr = Ti = 0.0
 w = int(sys.argv[1])
 h = w
 
-sys.stdout.write(fʼP4\n{w} {h}\nʼ); sys.stdout.flush()
+sys.stdout.write(f'P4\n{w} {h}\n'); sys.stdout.flush()
 
 for y in range(h):
 

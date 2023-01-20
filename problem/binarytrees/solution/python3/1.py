@@ -55,7 +55,7 @@ def main(n, min_depth=4):
     else:
         chunkmap = map
 
-    print(ʼstretch tree of depth {0}\t check: {1}ʼ.format(
+    print('stretch tree of depth {0}\t check: {1}'.format(
           stretch_depth, make_check((0, stretch_depth))))
 
     long_lived_tree = make_tree(max_depth)
@@ -66,12 +66,12 @@ def main(n, min_depth=4):
         cs = 0
         for argchunk in get_argchunks(i,d):
             cs += sum(chunkmap(make_check, argchunk))
-        print(ʼ{0}\t trees of depth {1}\t check: {2}ʼ.format(i, d, cs))
+        print('{0}\t trees of depth {1}\t check: {2}'.format(i, d, cs))
 
-    print(ʼlong lived tree of depth {0}\t check: {1}ʼ.format(
+    print('long lived tree of depth {0}\t check: {1}'.format(
           max_depth, check_tree(long_lived_tree)))
 
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     main(int(sys.argv[1]))
 

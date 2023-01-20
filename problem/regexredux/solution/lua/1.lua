@@ -7,15 +7,15 @@
 -- optimal Lua program. Please contribute a better program if you can make a
 -- better program.
 
--- Weʼll be using the PCRE2 flavor of Lrexlib for our regular expression needs
--- instead of using Luaʼs built in pattern matching engine. Luaʼs pattern
+-- We'll be using the PCRE2 flavor of Lrexlib for our regular expression needs
+-- instead of using Lua's built in pattern matching engine. Lua's pattern
 -- matching engine is a bit basic and lacks some functionality of other regular
--- expression engines, in particular it doesnʼt support alternation (e.g. you
--- canʼt use a pattern like "cat|dog" to search for "cat" or "dog"). It is
+-- expression engines, in particular it doesn't support alternation (e.g. you
+-- can't use a pattern like "cat|dog" to search for "cat" or "dog"). It is
 -- possible to work around this issue by splitting up the regular expressions
 -- into multiple smaller patterns but this could possibly be considered as using
 -- a different algorithm and it can result in a faster performing program.
--- Additionally PCRE2 is significantly faster than Luaʼs pattern matching engine
+-- Additionally PCRE2 is significantly faster than Lua's pattern matching engine
 -- anyway.
 Lrexlib_PCRE2=require("rex_pcre2")
 

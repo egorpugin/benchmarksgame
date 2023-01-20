@@ -1,15 +1,15 @@
 /* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   contributed by Isaac Gouy based on Jeremy Zerfasʼs #6 C program
+   contributed by Isaac Gouy based on Jeremy Zerfas's #6 C program
 */
 
-import ʼdart:ioʼ;
-import ʼdart:isolateʼ;
-import ʼdart:typed_dataʼ;
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:typed_data';
 
-final nl = ʼ\nʼ.codeUnitAt(0);
-final def = ʼ>ʼ.codeUnitAt(0); // Definition-line.
+final nl = '\n'.codeUnitAt(0);
+final def = '>'.codeUnitAt(0); // Definition-line.
 final lut = codeComplementLookupTable();
 
 // READ_SIZE probably 64x1024 ?
@@ -82,9 +82,9 @@ void other(Request ini) {
 }
 
 Uint8List codeComplementLookupTable() {
-  final code =       ʼABCDGHKMNRSTUVWYʼ.codeUnits;
-  final complement = ʼTVGHCDMKNYSAABWRʼ.codeUnits;
-  final lowercaseOffset = ʼaʼ.codeUnitAt(0) - ʼAʼ.codeUnitAt(0);
+  final code =       'ABCDGHKMNRSTUVWY'.codeUnits;
+  final complement = 'TVGHCDMKNYSAABWR'.codeUnits;
+  final lowercaseOffset = 'a'.codeUnitAt(0) - 'A'.codeUnitAt(0);
   final t = Uint8List.fromList(List.generate(128, (int i) => i));
   for (var i = 0; i < code.length; i++) {
     t[code[i]] = complement[i];

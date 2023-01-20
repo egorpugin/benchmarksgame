@@ -44,7 +44,7 @@ def prepare() :
         if line[0] == ">":
             break
         seq += line
-    return seq.upper().replace(ʼ\nʼ,ʼʼ)
+    return seq.upper().replace('\n','')
 
 def main():
     global sequence
@@ -59,6 +59,6 @@ ATT", "GGTA", "GGT", 2, 1])
     print("".join(reversed(list(r))), end = "")
 
 
-if __name__==ʼ__main__ʼ :
+if __name__=='__main__' :
     main()
 

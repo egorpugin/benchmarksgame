@@ -23,7 +23,7 @@ sub count_len {
 
    no integer;
    if(@_) {
-      $out = join ʼʼ, map sprintf("%d\t%s\n", $h{$_}, $_), @_;
+      $out = join '', map sprintf("%d\t%s\n", $h{$_}, $_), @_;
    } else {
       my $sum = $seq_len - $len + 1;
       for (sort { $h{$b} <=> $h{$a} || $a cmp $b } keys %h) {

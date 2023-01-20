@@ -24,8 +24,8 @@ fy t :toplevel (lambda () (main) (quit)))"
   (let ((csum 0)
         (fmax 0))
     (declare (type fixnum fmax))
-    (let ((perm (make-array n :element-type ʼfixnum))
-          (copy (make-array n :element-type ʼfixnum))
+    (let ((perm (make-array n :element-type 'fixnum))
+          (copy (make-array n :element-type 'fixnum))
           (num 0))
 
       (loop for i from 0 to (- n 1) do (setf (aref perm i) i))

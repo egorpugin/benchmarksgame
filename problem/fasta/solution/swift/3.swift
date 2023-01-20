@@ -80,7 +80,7 @@ defer {
     }
 }
 
-// Letʼs have some queues to produce data, consume it
+// Let's have some queues to produce data, consume it
 // and to syncronize data ownership
 let cQueue = DispatchQueue(label: "Consumer", attributes: .concurrent)
 let pQueue = DispatchQueue(label: "Producer", attributes: [])

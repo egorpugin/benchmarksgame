@@ -12,21 +12,21 @@ import bisect
 import io
 
 alu = (
-   ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGʼ
-   ʼGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGAʼ
-   ʼCCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAATʼ
-   ʼACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCAʼ
-   ʼGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGGʼ
-   ʼAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCCʼ
-   ʼAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ)
+   'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG'
+   'GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA'
+   'CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT'
+   'ACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATCCCA'
+   'GCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACCCGGG'
+   'AGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGCACTCC'
+   'AGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA')
 
-iub = list(zip(ʼacgtBDHKMNRSVWYʼ, [0.27, 0.12, 0.12, 0.27] + [0.02] * 11))
+iub = list(zip('acgtBDHKMNRSVWY', [0.27, 0.12, 0.12, 0.27] + [0.02] * 11))
 
 homosapiens = [
-    (ʼaʼ, 0.3029549426680),
-    (ʼcʼ, 0.1979883004921),
-    (ʼgʼ, 0.1975473066391),
-    (ʼtʼ, 0.3015094502008),
+    ('a', 0.3029549426680),
+    ('c', 0.1979883004921),
+    ('g', 0.1975473066391),
+    ('t', 0.3015094502008),
 ]
 
 
@@ -47,11 +47,11 @@ def repeat_fasta_into_buffer(src, n, nprint):
 
     len_of_src = len(src)
     ss = src + src + src[:n % len_of_src]
-    # CSF - Itʼs faster to work with a bytearray than a string
-    s = bytearray(ss, encoding=ʼutf8ʼ)
+    # CSF - It's faster to work with a bytearray than a string
+    s = bytearray(ss, encoding='utf8')
 
     if n % width:
-        # We donʼt end on a 60 char wide line
+        # We don't end on a 60 char wide line
         is_trailing_line = True
         count_modifier = 1.0
 
@@ -61,10 +61,10 @@ def repeat_fasta_into_buffer(src, n, nprint):
     end = (n / float(width)) - count_modifier
     while count < end:
         i = count*60 % len_of_src
-        nprint(s[i:i+60] + bʼ\nʼ)
+        nprint(s[i:i+60] + b'\n')
         count += 1
     if is_trailing_line:
-        nprint(s[-(n % width):] + bʼ\nʼ)
+        nprint(s[-(n % width):] + b'\n')
 
 def repeat_fasta(src, n):
     # JG - Every 287 lines (= length of ALU) repeat-fasta repeats.
@@ -78,7 +78,7 @@ def repeat_fasta(src, n):
     while outbytes >= sequencelen:
         nprint(sequence)
         outbytes -= sequencelen
-    nprint(sequence[:outbytes] + bʼ\nʼ)
+    nprint(sequence[:outbytes] + b'\n')
 
 
 def random_fasta(table, n, seed):
@@ -86,7 +86,7 @@ def random_fasta(table, n, seed):
     r = range(width)
     bb = bisect.bisect
 
-    # If we donʼt have a multiple of the width, then we will have a trailing
+    # If we don't have a multiple of the width, then we will have a trailing
     # line, which needs a slightly different approach
     is_trailing_line = False
     count_modifier = 0.0
@@ -103,7 +103,7 @@ def random_fasta(table, n, seed):
     #seed = 42.0
 
     if n % width:
-        # We donʼt end on a 60 char wide line
+        # We don't end on a 60 char wide line
         is_trailing_line = True
         count_modifier = 1.0
 
@@ -119,7 +119,7 @@ y
             seed = (seed * 3877.0 + 29573.0) % 139968.0
             # CSF - While real values, not variables are faster for most things,
  on my
-            # machine, itʼs faster to have ʼimʼ already in a var
+            # machine, it's faster to have 'im' already in a var
             line[i] = chars[bb(probs, seed / im)]
 
         line[60] = 10   # End of Line
@@ -138,15 +138,15 @@ y
 def main():
     n = int(sys.argv[1])
     nprint = sys.stdout.buffer.write
-    nprint(bʼ>ONE Homo sapiens alu\nʼ)
+    nprint(b'>ONE Homo sapiens alu\n')
     repeat_fasta(alu, n * 2)
 
-    # We need to keep track of the state of ʼseedʼ so we pass it in, and return
+    # We need to keep track of the state of 'seed' so we pass it in, and return
     # it back so our output can pass the diff test
-    nprint(bʼ>TWO IUB ambiguity codes\nʼ)
+    nprint(b'>TWO IUB ambiguity codes\n')
     seed=random_fasta(iub, n * 3, seed=42.0)
 
-    nprint(bʼ>THREE Homo sapiens frequency\nʼ)
+    nprint(b'>THREE Homo sapiens frequency\n')
     random_fasta(homosapiens, n * 5, seed)
 
 if __name__ == "__main__":

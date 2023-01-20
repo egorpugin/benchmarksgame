@@ -4,10 +4,10 @@
   *
   * Contributed by Derek Ziemba
   *
-  * This is nearly a direct port of Milesʼs "n-body C gcc #9 program"
+  * This is nearly a direct port of Miles's "n-body C gcc #9 program"
   * The actual direct port was about 10% slower.
   * I was able to speed it up primarily by just eliminating variables (C# doesn
-ʼt handle lots of variables too well)
+'t handle lots of variables too well)
   */
 
 using System;
@@ -84,7 +84,7 @@ _mul_pd(y, c0375), y), _mm256_sub_pd(_mm256_mul_pd(y, c1250), c1875))));
 
   static void advance(int n, double dt, V256d* m, V256d* p, V256d* v) {
     V256d* mem = stackalloc V256d[16];
-    // Align the memory (C# doesnʼt have a built in way AFAIK) to prevent fault
+    // Align the memory (C# doesn't have a built in way AFAIK) to prevent fault
 when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
     V256d* r = (V256d*)((((UInt64)mem)+31UL)&~31UL);
     double* w = (double*)(r + 12);
@@ -120,7 +120,7 @@ x, rt)));
   static double energy(V256d* m, V256d* p, V256d* v) {
     double e = 0.0;
     V256d* mem = stackalloc V256d[16];
-    // Align the memory (C# doesnʼt have a built in way AFAIK) to prevent fault
+    // Align the memory (C# doesn't have a built in way AFAIK) to prevent fault
 when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
     V256d* r = (V256d*)((((UInt64)mem)+31UL)&~31UL);
     double* w = (double*)(r + 12);
@@ -165,7 +165,7 @@ when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
     const double DAYS_PER_YEAR = 365.24;
 
     V256d* mem = stackalloc V256d[16];
-    // Align the memory (C# doesnʼt have a built in way AFAIK) to prevent fault
+    // Align the memory (C# doesn't have a built in way AFAIK) to prevent fault
 when calling Avx.LoadAlignedVector256 or Avx.StoreAligned
     V256d* p = (V256d*)((((UInt64)mem)+31UL)&~31UL);
 

@@ -1,7 +1,7 @@
 ﻿// The Computer Language Benchmarks Game
 // https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 //
-// Based on Java version by Jarkko Miettinenʼs
+// Based on Java version by Jarkko Miettinen's
 // Contributed by Vasily Kirichenko
 
 [<Sealed; AllowNullLiteral>]

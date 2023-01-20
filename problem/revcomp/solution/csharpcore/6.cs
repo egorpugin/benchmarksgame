@@ -17,7 +17,7 @@ clusive; public Thread ReverseThread; }
 public static class revcomp
 {
     const int READER_BUFFER_SIZE = 1024 * 1024;
-    const byte LF = 10, GT = (byte)ʼ>ʼ, SP = 32;
+    const byte LF = 10, GT = (byte)'>', SP = 32;
     static BlockingCollection<byte[]> readQue = new BlockingCollection<byte[]>()
 ;
     static BlockingCollection<RevCompSequence> writeQue = new BlockingCollection
@@ -58,30 +58,30 @@ public static class revcomp
         // Set up complements map
         map = new byte[256];
         for (byte b=0; b<255; b++) map[b]=b;
-        map[(byte)ʼAʼ] = (byte)ʼTʼ;
-        map[(byte)ʼBʼ] = (byte)ʼVʼ;
-        map[(byte)ʼCʼ] = (byte)ʼGʼ;
-        map[(byte)ʼDʼ] = (byte)ʼHʼ;
-        map[(byte)ʼGʼ] = (byte)ʼCʼ;
-        map[(byte)ʼHʼ] = (byte)ʼDʼ;
-        map[(byte)ʼKʼ] = (byte)ʼMʼ;
-        map[(byte)ʼMʼ] = (byte)ʼKʼ;
-        map[(byte)ʼRʼ] = (byte)ʼYʼ;
-        map[(byte)ʼTʼ] = (byte)ʼAʼ;
-        map[(byte)ʼVʼ] = (byte)ʼBʼ;
-        map[(byte)ʼYʼ] = (byte)ʼRʼ;
-        map[(byte)ʼaʼ] = (byte)ʼTʼ;
-        map[(byte)ʼbʼ] = (byte)ʼVʼ;
-        map[(byte)ʼcʼ] = (byte)ʼGʼ;
-        map[(byte)ʼdʼ] = (byte)ʼHʼ;
-        map[(byte)ʼgʼ] = (byte)ʼCʼ;
-        map[(byte)ʼhʼ] = (byte)ʼDʼ;
-        map[(byte)ʼkʼ] = (byte)ʼMʼ;
-        map[(byte)ʼmʼ] = (byte)ʼKʼ;
-        map[(byte)ʼrʼ] = (byte)ʼYʼ;
-        map[(byte)ʼtʼ] = (byte)ʼAʼ;
-        map[(byte)ʼvʼ] = (byte)ʼBʼ;
-        map[(byte)ʼyʼ] = (byte)ʼRʼ;
+        map[(byte)'A'] = (byte)'T';
+        map[(byte)'B'] = (byte)'V';
+        map[(byte)'C'] = (byte)'G';
+        map[(byte)'D'] = (byte)'H';
+        map[(byte)'G'] = (byte)'C';
+        map[(byte)'H'] = (byte)'D';
+        map[(byte)'K'] = (byte)'M';
+        map[(byte)'M'] = (byte)'K';
+        map[(byte)'R'] = (byte)'Y';
+        map[(byte)'T'] = (byte)'A';
+        map[(byte)'V'] = (byte)'B';
+        map[(byte)'Y'] = (byte)'R';
+        map[(byte)'a'] = (byte)'T';
+        map[(byte)'b'] = (byte)'V';
+        map[(byte)'c'] = (byte)'G';
+        map[(byte)'d'] = (byte)'H';
+        map[(byte)'g'] = (byte)'C';
+        map[(byte)'h'] = (byte)'D';
+        map[(byte)'k'] = (byte)'M';
+        map[(byte)'m'] = (byte)'K';
+        map[(byte)'r'] = (byte)'Y';
+        map[(byte)'t'] = (byte)'A';
+        map[(byte)'v'] = (byte)'B';
+        map[(byte)'y'] = (byte)'R';
 
         var startHeader = 0;
         var i = 0;

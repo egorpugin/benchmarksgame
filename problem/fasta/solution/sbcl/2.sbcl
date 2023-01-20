@@ -8,8 +8,8 @@ hmarksgame/ and modified.
 
 ;;; contributed by Ralph Richard Cook
 ;;; Optimizations by Nicolas Neuss
-;;; Includes code from the ʼrandomʼ benchmark
-;;; Credits from the ʼrandomʼ benchmark:
+;;; Includes code from the 'random' benchmark
+;;; Credits from the 'random' benchmark:
 ;;; Chih-Chung Chang contributed better declarations to improve performance
 ;;; Multi-lisp modifications by Brent Fulgham
 
@@ -38,7 +38,7 @@ hmarksgame/ and modified.
 
 (declaim (base-string *alu*))
 
-(defparameter *alu* (concatenate ʼbase-string
+(defparameter *alu* (concatenate 'base-string
   "GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGG"
   "GAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAGA"
   "CCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAAAT"
@@ -117,7 +117,7 @@ hmarksgame/ and modified.
 (defun make-random-fasta (id desc freqs freqs-length n line-length)
   (declare (fixnum freqs-length n line-length)
            (string id desc))
-  (let ((buf (make-string +buffer-size+ :element-type ʼbase-char :initial-elemen
+  (let ((buf (make-string +buffer-size+ :element-type 'base-char :initial-elemen
 t #\Space))
         (index 0))
     (declare (fixnum index)
@@ -144,8 +144,8 @@ t #\Space))
 (defun make-repeat-fasta (id desc s n line-length)
   (declare (fixnum n line-length)
            (string id desc s))
-  (let ((s-start 0)               ; this wonʼt change
-        (s-end (length s))        ; this wonʼt change
+  (let ((s-start 0)               ; this won't change
+        (s-end (length s))        ; this won't change
         (w-start 0)               ; this will cycle around
         (w-end 0)                 ; this will cycle around
         (current-line-length 0))  ; line-length or less for the last line

@@ -6,36 +6,36 @@
    multi thread by Andrey Filatkin
  */
 
-const { Worker, isMainThread, parentPort, workerData } = require(ʼworker_threads
-ʼ);
+const { Worker, isMainThread, parentPort, workerData } = require('worker_threads
+');
 
 const LINE_LEN = 60;
 const RANDOM_BUF_SIZE = LINE_LEN * 1000;
 const OUT_BUF_SIZE = (LINE_LEN + 1) * 1000;
 const OUT_SIZE = 128 * 1024;
 const NEW_LINE = 10;
-const ENCODING = ʼbinaryʼ;
+const ENCODING = 'binary';
 
 const alu =
-    ʼGGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGʼ +
-    ʼGGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGAʼ +
-    ʼGACCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAAʼ +
-    ʼAATACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAATʼ +
-    ʼCCCAGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAACʼ +
-    ʼCCGGGAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTGʼ +
-    ʼCACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAAʼ;
+    'GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTG' +
+    'GGAGGCCGAGGCGGGCGGATCACCTGAGGTCAGGAGTTCGA' +
+    'GACCAGCCTGGCCAACATGGTGAAACCCCGTCTCTACTAAA' +
+    'AATACAAAAATTAGCCGGGCGTGGTGGCGCGCGCCTGTAAT' +
+    'CCCAGCTACTCGGGAGGCTGAGGCAGGAGAATCGCTTGAAC' +
+    'CCGGGAGGCGGAGGTTGCAGTGAGCCGAGATCGCGCCACTG' +
+    'CACTCCAGCCTGGGCGACAGAGCGAGACTCCGTCTCAAAAA';
 
 const ac = [
-    {s: ʼaʼ, p: 0.27}, {s: ʼcʼ, p: 0.12}, {s: ʼgʼ, p: 0.12},
-    {s: ʼtʼ, p: 0.27}, {s: ʼBʼ, p: 0.02}, {s: ʼDʼ, p: 0.02},
-    {s: ʼHʼ, p: 0.02}, {s: ʼKʼ, p: 0.02}, {s: ʼMʼ, p: 0.02},
-    {s: ʼNʼ, p: 0.02}, {s: ʼRʼ, p: 0.02}, {s: ʼSʼ, p: 0.02},
-    {s: ʼVʼ, p: 0.02}, {s: ʼWʼ, p: 0.02}, {s: ʼYʼ, p: 0.02}
+    {s: 'a', p: 0.27}, {s: 'c', p: 0.12}, {s: 'g', p: 0.12},
+    {s: 't', p: 0.27}, {s: 'B', p: 0.02}, {s: 'D', p: 0.02},
+    {s: 'H', p: 0.02}, {s: 'K', p: 0.02}, {s: 'M', p: 0.02},
+    {s: 'N', p: 0.02}, {s: 'R', p: 0.02}, {s: 'S', p: 0.02},
+    {s: 'V', p: 0.02}, {s: 'W', p: 0.02}, {s: 'Y', p: 0.02}
 ];
 
 const hs = [
-    {s: ʼaʼ, p: 0.3029549426680}, {s: ʼcʼ, p: 0.1979883004921},
-    {s: ʼgʼ, p: 0.1975473066391}, {s: ʼtʼ, p: 0.3015094502008}
+    {s: 'a', p: 0.3029549426680}, {s: 'c', p: 0.1979883004921},
+    {s: 'g', p: 0.1975473066391}, {s: 't', p: 0.3015094502008}
 ];
 
 
@@ -74,14 +74,14 @@ async function mainThread() {
     const n = +process.argv[2];
     const out = new Out();
 
-    out.writeString(ʼ>ONE Homo sapiens alu\nʼ);
+    out.writeString('>ONE Homo sapiens alu\n');
     repeatFasta(alu, n * 2, out);
 
-    out.writeString(ʼ>TWO IUB ambiguity codes\nʼ);
-    await randomFasta(ʼacʼ, n * 3, out);
+    out.writeString('>TWO IUB ambiguity codes\n');
+    await randomFasta('ac', n * 3, out);
 
-    out.writeString(ʼ>THREE Homo sapiens frequency\nʼ);
-    await randomFasta(ʼhsʼ, n * 5, out);
+    out.writeString('>THREE Homo sapiens frequency\n');
+    await randomFasta('hs', n * 5, out);
 
     out.flush();
 }
@@ -104,21 +104,21 @@ YTES_PER_ELEMENT);
 _PER_ELEMENT);
 
             workers.set(worker, {input, output, len: 0});
-            worker.postMessage({name: ʼsabʼ, data: {input, output}});
+            worker.postMessage({name: 'sab', data: {input, output}});
 
-            worker.on(ʼmessageʼ, message => {
+            worker.on('message', message => {
                 const name = message.name;
 
-                if (name === ʼreadyʼ) {
+                if (name === 'ready') {
                     nextChunk(worker);
-                } else if (name === ʼresultʼ) {
+                } else if (name === 'result') {
                     const {len, chunkInd} = message.data;
                     workers.get(worker).len = len;
                     results.set(chunkInd, worker);
                     processResults();
                 }
             });
-            worker.on(ʼexitʼ, () => {
+            worker.on('exit', () => {
                 workers.delete(worker);
                 if (workers.size === 0) {
                     resolve();
@@ -132,12 +132,12 @@ _PER_ELEMENT);
                 const chunk = Math.min(count, RANDOM_BUF_SIZE);
 
                 generateRandom(input, chunk);
-                worker.postMessage({name: ʼworkʼ, data: {count: chunk, chunkInd:
+                worker.postMessage({name: 'work', data: {count: chunk, chunkInd:
  lastInd}});
                 count -= chunk;
                 lastInd++;
             } else {
-                worker.postMessage({name: ʼexitʼ});
+                worker.postMessage({name: 'exit'});
             }
         }
 
@@ -156,23 +156,23 @@ _PER_ELEMENT);
 }
 
 function workerThread({geneType}) {
-    const geneList = makeCumulative(geneType === ʼacʼ ? ac : hs);
+    const geneList = makeCumulative(geneType === 'ac' ? ac : hs);
     let input;
     let output;
 
-    parentPort.on(ʼmessageʼ, message => {
+    parentPort.on('message', message => {
         const name = message.name;
 
-        if (name === ʼsabʼ) {
+        if (name === 'sab') {
             input = new Float64Array(message.data.input);
             output = new Uint8Array(message.data.output);
-            parentPort.postMessage({name: ʼreadyʼ});
-        } else if (name === ʼworkʼ) {
+            parentPort.postMessage({name: 'ready'});
+        } else if (name === 'work') {
             const {count, chunkInd} = message.data;
 
             const len = generateDna(geneList, input, output, count);
-            parentPort.postMessage({name: ʼresultʼ, data: {len, chunkInd}});
-        } else if (name === ʼexitʼ) {
+            parentPort.postMessage({name: 'result', data: {len, chunkInd}});
+        } else if (name === 'exit') {
             process.exit();
         }
     });

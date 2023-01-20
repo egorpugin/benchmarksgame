@@ -77,7 +77,7 @@ def task(n, start, size):
 def fannkuch(n):
     if n < 0:
         for data in islice(permutations(-n, 0, factorial(-n)), factorial(-n)):
-            print(ʼʼ.join(map(lambda n: str(n + 1), data)))
+            print(''.join(map(lambda n: str(n + 1), data)))
     else:
         assert(n > 0)
 

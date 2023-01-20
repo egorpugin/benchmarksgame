@@ -1,6 +1,6 @@
 % The Computer Language Benchmarks Game
 % https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-%% Contributed by Johan Karlsson based on Fredrik Svahnʼs mandelbrot program
+%% Contributed by Johan Karlsson based on Fredrik Svahn's mandelbrot program
 
 -module(mandelbrot).
 -export([main/1]).
@@ -27,7 +27,7 @@ do_spawn_proc_chain(_,_,Max,Max) ->
     receive _ -> halt(0) end;
 do_spawn_proc_chain(Spawn,Row,first,Max) ->
     NextProc = Spawn(Spawn,Row,1,Max),
-    %% Iʼm the first process in the chain. Inform my self that I can finish.
+    %% I'm the first process in the chain. Inform my self that I can finish.
     self() ! done,
     %% Execute the row function
     Row(NextProc,0);

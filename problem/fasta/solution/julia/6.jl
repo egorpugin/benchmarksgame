@@ -43,7 +43,7 @@ for (op, symb, pr) in ((:iub, iub1, iub2),
     # successively compares x with all values in pr and returns value from symb
     @eval function $op(x)
         $((:(x <= $p && return $s) for (p, s) in zip(pr, symb))...)
-        ʼaʼ % UInt8
+        'a' % UInt8
     end
 end
 
@@ -65,7 +65,7 @@ function repeat_fasta(io, src, n)
         end
         pos += m
 
-        write(io, ʼ\nʼ)
+        write(io, '\n')
     end
 end
 
@@ -97,7 +97,7 @@ function print_chunks(io, firstline, c, t)
         for i=1:LINESIZE:n
             GC.@preserve v unsafe_write(io, pointer(v, i),
                                         min(LINESIZE, n - i + 1))
-            write(io, ʼ\nʼ)
+            write(io, '\n')
         end
     end
 end

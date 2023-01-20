@@ -1,7 +1,7 @@
 #lang racket/base
 ;; The Computer Language Benchmarks Game
 ;; https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
-;; Translated from Mike Pallʼs Lua version.
+;; Translated from Mike Pall's Lua version.
 ;; Parallelized by Sam Tobin-Hochstadt
 
 (require racket/cmdline racket/future

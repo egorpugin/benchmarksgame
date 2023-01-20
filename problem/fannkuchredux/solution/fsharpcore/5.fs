@@ -1,7 +1,7 @@
 ﻿(* The Computer Language Benchmarks Game
    https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
 
-   - contributed by Vassil Keremidchiev, Otto Bommerʼs Scala program
+   - contributed by Vassil Keremidchiev, Otto Bommer's Scala program
    - modified by Peter Kese
 *)
 

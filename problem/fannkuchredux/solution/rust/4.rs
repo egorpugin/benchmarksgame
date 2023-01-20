@@ -12,7 +12,7 @@ use rayon::prelude::*;
 
 // This value controls the preferred maximum number of  blocks the workload is
 // broken up into. The actual value may be one higher (if the number of
-// permutations doesnʼt divide exactly by this value) or might be set to 1 if
+// permutations doesn't divide exactly by this value) or might be set to 1 if
 // the number of permutations is lower than this value.
 const NUM_BLOCKS: u32 = 24;
 
@@ -26,7 +26,7 @@ fn fannkuch(n: i32) -> (i32, i32) {
 
     // Compute the number of blocks and their size. If n! is less than
     // NUM_BLOCKS then use a single block (perform the work serially for small
-    // values of n). If n! doesnʼt divide exactly by NUM_BLOCKS, then add one
+    // values of n). If n! doesn't divide exactly by NUM_BLOCKS, then add one
     // extra block to compute the remainder.
     let (num_blocks, block_size) = if perm_max < NUM_BLOCKS {
         (1, perm_max)
@@ -106,7 +106,7 @@ fn fannkuch(n: i32) -> (i32, i32) {
                 maxflips = cmp::max(maxflips, flip_count);
             }
 
-            // If this was the last permutation in the block, weʼre done: return
+            // If this was the last permutation in the block, we're done: return
             // the `checksum` and `maxflips` values which get reduced across
             // blocks in parallel by `rayon`.
             if permutation_index >= last_permutation_in_block {

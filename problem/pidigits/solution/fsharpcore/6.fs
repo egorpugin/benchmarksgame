@@ -74,14 +74,14 @@ let main (args:string[]) =
 
     let rec incTotal p =
         let v = bytes.[p]
-        if v<>ʼ9ʼB then bytes.[p] <- v + 1uy
+        if v<>'9'B then bytes.[p] <- v + 1uy
         elif p=12 then
-            bytes.[12] <- ʼ1ʼB
+            bytes.[12] <- '1'B
             j <- j + 1
             for k = 13 to j+1 do
-                bytes.[k] <- ʼ0ʼB
+                bytes.[k] <- '0'B
         else
-            bytes.[p] <- ʼ0ʼB
+            bytes.[p] <- '0'B
             incTotal (p-1)
 
     while n > 0 do
@@ -90,7 +90,7 @@ let main (args:string[]) =
         if mpzCmp(&num, &acc) <= 0 then
             let d = extractDigit 3
             if d = extractDigit 4 then
-                bytes.[i] <- byte d + ʼ0ʼB
+                bytes.[i] <- byte d + '0'B
                 i <- if i=9 then
                         incTotal j
                         out.Write(bytes, 0, j+3)

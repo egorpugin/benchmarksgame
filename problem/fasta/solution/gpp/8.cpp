@@ -178,7 +178,7 @@ inline std::vector<char> gen_repeat_buffer(std::string_view seq) {
   size_t offset = 0;
   while (n_chars > 0) {
     size_t line_Length = std::min<size_t>(n_chars, LINE_LENGTH);
-    line[line_Length] = ʼ\nʼ;
+    line[line_Length] = '\n';
 
     std::copy_n(begin(extended) + offset, line_Length, line);
 
@@ -201,7 +201,7 @@ inline void fasta_repeat(std::string_view seq, size_t n_chars) {
     outputBytes -= sequence.size();
   }
   std::fwrite(sequence.data(), outputBytes, 1, stdout);
-  std::fputc(ʼ\nʼ, stdout);
+  std::fputc('\n', stdout);
 }
 
 template <size_t N>
@@ -231,7 +231,7 @@ inline void fasta_random(int thread_id,
         out_buf[j + line_count] = wr.gen_from_u32(rng_sub[j]);
       }
 
-      out_buf[end + line_count] = ʼ\nʼ;
+      out_buf[end + line_count] = '\n';
       line_count++;
     }
     while (
@@ -273,11 +273,11 @@ int main(int argc, char* argv[]) {
   fasta_repeat(alu, n * 2);
 
   constexpr std::array<Nucleotide, 15> iub{{
-        {ʼaʼ, 0.27f}, {ʼcʼ, 0.12f}, {ʼgʼ, 0.12f},
-        {ʼtʼ, 0.27f}, {ʼBʼ, 0.02f}, {ʼDʼ, 0.02f},
-        {ʼHʼ, 0.02f}, {ʼKʼ, 0.02f}, {ʼMʼ, 0.02f},
-        {ʼNʼ, 0.02f}, {ʼRʼ, 0.02f}, {ʼSʼ, 0.02f},
-        {ʼVʼ, 0.02f}, {ʼWʼ, 0.02f}, {ʼYʼ, 0.02f}
+        {'a', 0.27f}, {'c', 0.12f}, {'g', 0.12f},
+        {'t', 0.27f}, {'B', 0.02f}, {'D', 0.02f},
+        {'H', 0.02f}, {'K', 0.02f}, {'M', 0.02f},
+        {'N', 0.02f}, {'R', 0.02f}, {'S', 0.02f},
+        {'V', 0.02f}, {'W', 0.02f}, {'Y', 0.02f}
   }};
 
   RandomLCG rng(n * 3, num_threads);
@@ -288,10 +288,10 @@ int main(int argc, char* argv[]) {
   rng.reset(n * 5);
 
   constexpr std::array<Nucleotide, 4> homosapiens{{
-      {ʼaʼ, 0.3029549426680f},
-      {ʼcʼ, 0.1979883004921f},
-      {ʼgʼ, 0.1975473066391f},
-      {ʼtʼ, 0.3015094502008f},
+      {'a', 0.3029549426680f},
+      {'c', 0.1979883004921f},
+      {'g', 0.1975473066391f},
+      {'t', 0.3015094502008f},
   }};
 
   std::fputs(">THREE Homo sapiens frequency\n", stdout);

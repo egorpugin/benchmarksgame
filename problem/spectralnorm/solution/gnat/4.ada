@@ -26,7 +26,7 @@ procedure SpectralNorm is
    Vbv, Vv : Real := 0.0;
 begin
    if Argument_Count = 1 then
-      N := PositiveʼValue (Argument(1));
+      N := Positive'Value (Argument(1));
    else
       raise Program_Error;
    end if;
@@ -37,7 +37,7 @@ begin
       package Calc is new Spectrum.Dist
         (Number_Of_Tasks => No_of_Cores_to_Use);
       use Spectrum, Calc;
-      Calculator : constant Matrix_ComputationʼClass := Make_Calculator;
+      Calculator : constant Matrix_Computation'Class := Make_Calculator;
       U : Matrix := (others => 1.0);
       V : Matrix := (others => 0.0);
    begin
@@ -45,7 +45,7 @@ begin
          Eval_Ata_Times_U (Calculator, U, V);
          Eval_Ata_Times_U (Calculator, V, U);
       end loop;
-      for I in VʼRange loop
+      for I in V'Range loop
          Vbv := Vbv + U(I) * V(I);
          Vv  := Vv  + V(I) * V(I);
       end loop;
@@ -72,7 +72,7 @@ package Spectral_Utils is
 
    type Matrix_Computation is abstract tagged limited null record;
 
-   function Make_Calculator return Matrix_ComputationʼClass;
+   function Make_Calculator return Matrix_Computation'Class;
    --  adaptive computations
 
    --  Get   AU = A * U.   Calculate only AU(Start .. Finish).
@@ -100,12 +100,12 @@ package body Spectral_Utils is
    package Plain is new Spectral_Utils.D;
    package Fancy is new Spectral_Utils.S;
 
-   function Make_Calculator return Matrix_ComputationʼClass is
+   function Make_Calculator return Matrix_Computation'Class is
    begin
       if System.Word_Size = 64 then
-         return Plain.Vanillaʼ(Matrix_Computation with null record);
+         return Plain.Vanilla'(Matrix_Computation with null record);
       else
-         return Fancy.Forcedʼ(Matrix_Computation with null record);
+         return Fancy.Forced'(Matrix_Computation with null record);
       end if;
    end Make_Calculator;
 
@@ -179,13 +179,13 @@ package body Spectral_Utils.D is
       for I in Start .. Finish loop
          Sum := 0.0;
          for J in Matrix_Index range 0 .. Half_Matrix_Size - 1 loop
-            J_Index    := UʼFirst + 2*J;
+            J_Index    := U'First + 2*J;
             A_Elements := Eval_A_Twice (I, J_Index);
             Sum := Sum + A_Elements(0) * U(J_Index) + A_Elements(1) * U(J_Index+
 1);
          end loop;
          if Matrix_Size mod 2 = 1 then
-            Sum := Sum + Eval_A (UʼLast, I) * U(UʼLast); -- J_Index := UʼLast;
+            Sum := Sum + Eval_A (U'Last, I) * U(U'Last); -- J_Index := U'Last;
          end if;
          Au(I) := Sum;
       end loop;
@@ -205,13 +205,13 @@ package body Spectral_Utils.D is
       for I in Start .. Finish loop
          Sum := 0.0;
          for J in Matrix_Index range 0 .. Half_Matrix_Size - 1 loop
-            J_Index    := UʼFirst + 2*J;
+            J_Index    := U'First + 2*J;
             A_Elements := Eval_A_tr_Twice (I, J_Index);
             Sum := Sum + A_Elements(0) * U(J_Index) + A_Elements(1) * U(J_Index+
 1);
          end loop;
          if Matrix_Size mod 2 = 1 then
-            Sum := Sum + Eval_A (UʼLast, I) * U(UʼLast); -- J_Index := UʼLast;
+            Sum := Sum + Eval_A (U'Last, I) * U(U'Last); -- J_Index := U'Last;
          end if;
          Au(I) := Sum;
       end loop;
@@ -288,16 +288,16 @@ package body Spectral_Utils.S is
       for I in Start .. Finish loop
          Sums := (0.0, 0.0);
          for J in Matrix_Index range 0 .. Half_Matrix_Size - 1 loop
-            J_Index      := UʼFirst + 2*J;
+            J_Index      := U'First + 2*J;
             Elements (J) := Eval_A_Twice (I, J_Index);
          end loop;
          for J in Matrix_Index range 0 .. Half_Matrix_Size - 1 loop
-            J_Index      := UʼFirst + 2*J;
+            J_Index      := U'First + 2*J;
             Sums := Sums + Elements(J) * (U(J_Index), U(J_Index+1));
          end loop;
          if Matrix_Size mod 2 = 1 then
-            Sums(0) := Sums(0) + Eval_A(I, UʼLast) * U(UʼLast); -- J_Index := U
-ʼLast;
+            Sums(0) := Sums(0) + Eval_A(I, U'Last) * U(U'Last); -- J_Index := U
+'Last;
          end if;
          Au(I) := Sums(0) + Sums(1);
       end loop;
@@ -317,16 +317,16 @@ package body Spectral_Utils.S is
       for I in Start .. Finish loop
          Sums := (0.0, 0.0);
          for J in Matrix_Index range 0 .. Half_Matrix_Size - 1 loop
-            J_Index     := UʼFirst + 2*J;
+            J_Index     := U'First + 2*J;
             Elements(J) := Eval_A_tr_Twice (I, J_Index);
          end loop;
          for J in Matrix_Index range 0 .. Half_Matrix_Size - 1 loop
-            J_Index     := UʼFirst + 2*J;
+            J_Index     := U'First + 2*J;
             Sums := Sums + Elements(J) * (U(J_Index), U(J_Index+1));
          end loop;
          if Matrix_Size mod 2 = 1 then
-            Sums(0) := Sums(0) + Eval_A (UʼLast, I) * U(UʼLast); -- J_Index := U
-ʼLast;
+            Sums(0) := Sums(0) + Eval_A (U'Last, I) * U(U'Last); -- J_Index := U
+'Last;
          end if;
          Au(I) := Sums(0) + Sums(1);
       end loop;
@@ -345,7 +345,7 @@ package Spectral_Utils.Dist is
    --  Get   A_transpose_A_times_U = A_transpose * A * U.
 
    procedure Eval_Ata_Times_U
-     (Iron                  : in     Matrix_ComputationʼClass;
+     (Iron                  : in     Matrix_Computation'Class;
       U                     : in     Matrix;
       A_transpose_A_times_U :    out Matrix);
 
@@ -381,7 +381,7 @@ package body Spectral_Utils.Dist is
    Partial_Matrix_A_tr_times_V : array (Task_Range) of Matrix_A_tr_times_V;
 
    procedure Eval_Ata_Times_U
-      (Iron                  : in     Matrix_ComputationʼClass;
+      (Iron                  : in     Matrix_Computation'Class;
        U                     : in     Matrix;
        A_transpose_A_times_U :    out Matrix)
    is
@@ -391,9 +391,9 @@ package body Spectral_Utils.Dist is
 
       I1, I2, J1, J2 : Matrix_Index;
    begin
-      I1 := VʼFirst;
-      I2 := VʼFirst + Segment_Length - 1;
-      I2 := Matrix_IndexʼMin (I2, VʼLast);
+      I1 := V'First;
+      I2 := V'First + Segment_Length - 1;
+      I2 := Matrix_Index'Min (I2, V'Last);
 
       -- Start running the tasks in Task_Range:
 
@@ -401,10 +401,10 @@ package body Spectral_Utils.Dist is
          Partial_Matrix_A_times_U(k).Multiply (U, I1, I2);
          I1 := I2 + 1;
          I2 := I2 + Segment_Length;
-         I2 := Matrix_IndexʼMin (I2, VʼLast);
+         I2 := Matrix_Index'Min (I2, V'Last);
       end loop;
 
-      Iron.Eval_A_Times (U, I1, VʼLast, V); -- Env task updates V(I1 .. VʼLast).
+      Iron.Eval_A_Times (U, I1, V'Last, V); -- Env task updates V(I1 .. V'Last).
 
       -- Rendezvous with tasks to get partial results. Write results to V:
 
@@ -415,19 +415,19 @@ package body Spectral_Utils.Dist is
 
       -- The result, stored in V, is A*U. Next get A_transpose * (A*U).
 
-      I1 := VʼFirst;
-      I2 := VʼFirst + Segment_Length - 1;
-      I2 := Matrix_IndexʼMin (I2, VʼLast);
+      I1 := V'First;
+      I2 := V'First + Segment_Length - 1;
+      I2 := Matrix_Index'Min (I2, V'Last);
 
       for k in Task_Range loop
          Partial_Matrix_A_tr_times_V(k).Multiply (V, I1, I2);
          I1 := I2 + 1;
          I2 := I2 + Segment_Length;
-         I2 := Matrix_IndexʼMin (I2, VʼLast);
+         I2 := Matrix_Index'Min (I2, V'Last);
       end loop;
 
-      Iron.Eval_At_Times (V, I1, VʼLast, A_transpose_A_times_U);
-      -- Env. task updates A_transpose_A_times_U (I1 .. VʼLast).
+      Iron.Eval_At_Times (V, I1, V'Last, A_transpose_A_times_U);
+      -- Env. task updates A_transpose_A_times_U (I1 .. V'Last).
 
       for k in Task_Range loop
          Partial_Matrix_A_tr_times_V(k).Result (J1, J2, Partial_Product);
@@ -439,7 +439,7 @@ package body Spectral_Utils.Dist is
    task body Matrix_A_times_U is
       I1, I2 : Matrix_Index;
       AU, U_local : Matrix;
-      Calculator : constant Matrix_ComputationʼClass := Make_Calculator;
+      Calculator : constant Matrix_Computation'Class := Make_Calculator;
    begin
      loop
      select
@@ -465,7 +465,7 @@ package body Spectral_Utils.Dist is
    task body Matrix_A_tr_times_V is
       I1, I2 : Matrix_Index;
       AV, V_local : Matrix;
-      Calculator : constant Matrix_ComputationʼClass := Make_Calculator;
+      Calculator : constant Matrix_Computation'Class := Make_Calculator;
    begin
      loop
      select
@@ -498,7 +498,7 @@ package Division is
    type SSE_Real is new Long_Float;
 
 private
-   pragma Assert (SSE_RealʼSize = 64 and SSE_Realʼdigits > 13);
+   pragma Assert (SSE_Real'Size = 64 and SSE_Real'digits > 13);
 end Division;
 
 
@@ -507,7 +507,7 @@ package Division.S is
    --  force SSE operations
 
    type SSE_Vector is array (0 .. 1) of SSE_Real;
-   for SSE_VectorʼAlignment use 16;
+   for SSE_Vector'Alignment use 16;
    pragma Machine_Attribute (SSE_Vector, "vector_type");
    pragma Machine_Attribute (SSE_Vector, "may_alias");
 
@@ -533,7 +533,7 @@ end Division.D;
 package body Division.D is
 
    type m128d is array (0 .. 1) of SSE_Real;
-   for m128dʼAlignment use 16;
+   for m128d'Alignment use 16;
    pragma Machine_Attribute (m128d, "vector_type");
    pragma Machine_Attribute (m128d, "may_alias");
 

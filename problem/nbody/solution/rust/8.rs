@@ -177,7 +177,7 @@ fn advance(bodies: &mut [Body; BODIES_COUNT], dt: f64, steps: usize) {
             *mag = d_pos.magnitude(dt);
         };
 
-        // Apply every other bodyʼs gravitation to each bodyʼs velocity.
+        // Apply every other body's gravitation to each body's velocity.
         let mut k = 0;
         for i in 0 .. BODIES_COUNT - 1 {
             let (body1, rest) = bodies[i..].split_first_mut().unwrap();
@@ -197,7 +197,7 @@ fn advance(bodies: &mut [Body; BODIES_COUNT], dt: f64, steps: usize) {
     }
 }
 
-/// Adjust the Sunʼs velocity to offset system momentum.
+/// Adjust the Sun's velocity to offset system momentum.
 fn offset_momentum(bodies: &mut [Body; BODIES_COUNT]) {
     let (sun, planets) = bodies.split_first_mut().unwrap();
     sun.velocity = Default::default();

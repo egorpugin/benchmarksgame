@@ -33,8 +33,8 @@ def main(requested_max_depth, min_depth=4):
     max_depth = max(min_depth + 2, requested_max_depth)
     stretch_depth = max_depth + 1
 
-    print(fʼstretch tree of depth {stretch_depth}ʼ
-          fʼ\t check: {run(stretch_depth)}ʼ)
+    print(f'stretch tree of depth {stretch_depth}'
+          f'\t check: {run(stretch_depth)}')
 
     long_lived_tree = make_tree(max_depth)
 
@@ -47,19 +47,19 @@ def main(requested_max_depth, min_depth=4):
                     run,
                     (test_depth,) * tree_count,
                     (tree_count // mp.cpu_count()) + 1))
-                print(fʼ{tree_count}\t trees of depth {test_depth}ʼ
-                      fʼ\t check: {check_sum}ʼ)
+                print(f'{tree_count}\t trees of depth {test_depth}'
+                      f'\t check: {check_sum}')
     else:
         for test_depth in range(min_depth, stretch_depth, 2):
             tree_count = 2 ** (mmd - test_depth)
             check_sum = sum(map(run, (test_depth,) * tree_count))
-            print(fʼ{tree_count}\t trees of depth {test_depth}ʼ
-                  fʼ\t check: {check_sum}ʼ)
+            print(f'{tree_count}\t trees of depth {test_depth}'
+                  f'\t check: {check_sum}')
 
-    print(fʼlong lived tree of depth {max_depth}ʼ
-          fʼ\t check: {check_node(*long_lived_tree)}ʼ)
+    print(f'long lived tree of depth {max_depth}'
+          f'\t check: {check_node(*long_lived_tree)}')
 
 
-if __name__ == ʼ__main__ʼ:
+if __name__ == '__main__':
     main(int(sys.argv[1]))
 

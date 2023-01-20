@@ -21,7 +21,7 @@ procedure Fannkuchredux is
      "Exactly one input argument is required.");
 
    N_image : constant String   := Ada.Command_Line.Argument (1);
-   N       : constant Fann_Int := Fann_IntʼValue (N_image);
+   N       : constant Fann_Int := Fann_Int'Value (N_image);
 
    pragma Assert (N > 1,  "Input argument N must be integer > 1.");
 
@@ -41,7 +41,7 @@ procedure Fannkuchredux is
    pragma Assert (N < 21, "Input argument N must be integer < 21.");
 
    subtype Enum_Index is Fann_Int range Fann_First .. Fann_Last+1;
-   type Enumeration is array(Enum_Index) of Perm_id_Range; -- holds N!ʼs
+   type Enumeration is array(Enum_Index) of Perm_id_Range; -- holds N!'s
 
    No_of_Tasks : constant := 12;
    -- Using stnd setting of 12, Chunk_Size = (N! / No_of_Tasks) is even for N>3.
@@ -69,9 +69,9 @@ procedure Fannkuchredux is
       P_1st : Fann_Int;
       Perm1 : Permutation;
    begin
-      P_1st := Perm(PermʼFirst);
+      P_1st := Perm(Perm'First);
 
-      for i in PermʼRange loop
+      for i in Perm'Range loop
          Perm1(i) := Perm(i);
       end loop;
 
@@ -110,10 +110,10 @@ procedure Fannkuchredux is
       p_id : Perm_id_Range := Perm_id;
       Perm1 : Permutation;
    begin
-      Perm  := (others => Fann_IntʼFirst);
-      Count := (others => Fann_IntʼFirst);
+      Perm  := (others => Fann_Int'First);
+      Count := (others => Fann_Int'First);
 
-      for i in PermʼRange loop
+      for i in Perm'Range loop
          Perm(i) := i;
       end loop;
 
@@ -139,8 +139,8 @@ procedure Fannkuchredux is
       Count : in out Permutation)
    is
       Rotation_Upper_Bound : constant Fann_Int := 17;
-      pragma Assert (Rotation_Upper_Bound >= PermʼLast);
-      pragma Assert (PermʼFirst = 0);
+      pragma Assert (Rotation_Upper_Bound >= Perm'Last);
+      pragma Assert (Perm'First = 0);
       First, Next_First : Fann_Int;
       i : Fann_Int := 1;
    begin
@@ -188,8 +188,8 @@ procedure Fannkuchredux is
       pragma Assert (Chunk_Size mod 2 = 0);
       --  so checksums work if No_of_Tasks>1.
 
-      Perm_id_Min := Perm_id_Range (Task_id - Task_id_RangeʼFirst) * Chunk_Size;
-      Perm_id_Max := Perm_id_RangeʼMin (Factorial(N), Perm_id_Min+Chunk_Size)-1;
+      Perm_id_Min := Perm_id_Range (Task_id - Task_id_Range'First) * Chunk_Size;
+      Perm_id_Max := Perm_id_Range'Min (Factorial(N), Perm_id_Min+Chunk_Size)-1;
       --  for the First task:   Perm_id_Min = 0;  Perm_id_Max := Chunk_Size-1
       --  Perm_id ultimately runs from 0 .. Factorial(N)-1
 
@@ -203,7 +203,7 @@ procedure Fannkuchredux is
 
          if  Perm(0) > 0  then
             Flip_Count := Count_of_Flips (Perm);
-            Max_Flips  := Fann_IntʼMax (Max_Flips, Flip_Count);
+            Max_Flips  := Fann_Int'Max (Max_Flips, Flip_Count);
             if Perm_id mod 2 = 0 then
                Checksum := Checksum + Checksum_Int (Flip_Count);
             else
@@ -272,7 +272,7 @@ begin
    end if;
 
    Factorial(0) := 1;
-   for i in Enum_Index range 1 .. Enum_IndexʼLast loop
+   for i in Enum_Index range 1 .. Enum_Index'Last loop
       Factorial(i) := Factorial(i-1) * Perm_id_Range (i);
    end loop;
 
@@ -319,11 +319,11 @@ begin
    end loop;
 
    declare
-      C_Image : constant String := Checksum_IntʼImage (Checksum);
+      C_Image : constant String := Checksum_Int'Image (Checksum);
    begin
-      Put_Line (C_image(2..C_imageʼLast));
+      Put_Line (C_image(2..C_image'Last));
       Put ("Pfannkuchen("); Put (N_image); Put (") =");
-      Put (Fann_IntʼImage (Max_Flips));
+      Put (Fann_Int'Image (Max_Flips));
    end;
 
 end Fannkuchredux;

@@ -47,7 +47,7 @@
 (newline)
 
 ;; Specific sequences:
-(for ([seq ʼ("GGT" "GGTA" "GGTATT" "GGTATTTTAATT" "GGTATTTTAATTTATAGT")])
+(for ([seq '("GGT" "GGTA" "GGTATT" "GGTATTTTAATT" "GGTATTTTAATTTATAGT")])
   (write-one-freq (all-counts (string-length seq) dna)
                   (string->symbol seq)))
 
