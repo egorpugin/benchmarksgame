@@ -1,0 +1,53 @@
+# The Computer Language Benchmarks Game
+# https://salsa.debian.org/benchmarksgame-team/benchmarksgame/
+#
+# regex-dna program contributed by jose fco. gonzalez
+# optimized & parallelized by Rick Branson
+# optimized for ruby2 by Aaron Tavistock
+# converted from regex-dna program
+# array not dictionary by Isaac Gouy
+
+seq = STDIN.readlines.join
+ilen = seq.size
+
+seq.gsub!(/>.*\n|\n/,"")
+clen = seq.length
+
+MATCHERS = [
+  /agggtaaa|tttaccct/,
+  /[cgt]gggtaaa|tttaccc[acg]/,
+  /a[act]ggtaaa|tttacc[agt]t/,
+  /ag[act]gtaaa|tttac[agt]ct/,
+  /agg[act]taaa|ttta[agt]cct/,
+  /aggg[acg]aaa|ttt[cgt]ccct/,
+  /agggt[cgt]aa|tt[acg]accct/,
+  /agggta[cgt]a|t[acg]taccct/,
+  /agggtaa[cgt]|[acg]ttaccct/
+]
+
+threads = MATCHERS.map do |f|
+  Thread.new do
+    Thread.current[:result] = "#{f.source} #{seq.scan(f).size}"
+  end
+end
+
+threads.each do |t|
+  t.join
+end
+
+match_results = threads.map do |t|
+  t[:result]
+end
+
+threads.each do |t|
+  t.join
+end
+
+# ruby 1.8.7: to iterate in-order use array not dictionary
+[
+[/tHa[Nt]/, ʼ<4>ʼ], [/aND|caN|Ha[DS]|WaS/, ʼ<3>ʼ], [/a[NSt]|BY/, ʼ<2>ʼ],
+[/<[^>]*>/, ʼ|ʼ], [/\|[^|][^|]*\|/, ʼ-ʼ]
+].each { |f,r| seq.gsub!(f,r) }
+
+puts "#{match_results.join("\n")}\n\n#{ilen}\n#{clen}\n#{seq.length}"
+
