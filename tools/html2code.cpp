@@ -125,7 +125,17 @@ int main() {
         EXPECT(pos != -1);
         s = s.substr(0, pos);
 
+        static map<string,string> unicode_repl{
+            {"ʼ", "'"},
+            {"ʼ", "'"},
+        };
+
         create_directories(outfn.parent_path());
         ofstream{outfn} << s;
+        for (auto &&[k,v] : unicode_repl) {
+            string cmd;
+            cmd = "sed -i -e \"s/" + k + "/" + v + "/g\" " + outfn.string();
+            system(cmd.c_str());
+        }
     }
 }
