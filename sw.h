@@ -17,7 +17,19 @@ void build(solution &s) {
         fasta_output = c.out;
     }
 
-    for (auto &&dir : {"fasta"s, "revcomp"s}) {
+    for (auto &&dir : {
+        "binarytrees"s,
+        "fannkuchredux"s,
+        "fasta"s,
+        "knucleotide"s,
+        "mandelbrot"s,
+        "nbody"s,
+        "pidigits"s,
+        "regexredux"s,
+        "revcomp"s,
+        "simple"s,
+        "spectralnorm"s,
+        }) {
         auto fulldir = s.source_dir / "problem" / dir / "solution";
         for (path fn : fs::recursive_directory_iterator{fulldir}) {
             if (!fs::is_regular_file(fn) || fn.filename().string().starts_with(".")) {
@@ -38,10 +50,26 @@ void build(solution &s) {
             c.set_resource_pool(pool);
 
             if (0) {
+            } else if (dir == "binarytrees"s) {
+                c += 21;
+            } else if (dir == "fannkuchredux"s) {
+                c += 12;
             } else if (dir == "fasta"s) {
                 c += fasta_size;
+            } else if (dir == "knucleotide"s) {
+            } else if (dir == "mandelbrot"s) {
+                c += 16000;
+            } else if (dir == "nbody"s) {
+                c += 50000000;
+            } else if (dir == "pidigits"s) {
+                c += 10000;
+            } else if (dir == "regexredux"s) {
             } else if (dir == "revcomp"s) {
                 c < fasta_output;
+            } else if (dir == "simple"s) { // these are simple mandelbrot
+                c += 16000;
+            } else if (dir == "spectralnorm"s) {
+                c += 5500;
             }
         }
     }
