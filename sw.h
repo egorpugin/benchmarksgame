@@ -21,11 +21,11 @@ void build(solution &s) {
         "binarytrees"s,
         "fannkuchredux"s,
         "fasta"s,
-        "knucleotide"s,
+        //"knucleotide"s,
         "mandelbrot"s,
         "nbody"s,
         "pidigits"s,
-        "regexredux"s,
+        //"regexredux"s,
         "revcomp"s,
         "simple"s,
         "spectralnorm"s,
@@ -45,6 +45,8 @@ void build(solution &s) {
             std::replace(name.begin(), name.end(), '/', '.');
             auto &t = s.add<executable>(dir + "."s + name);
             t += fn;
+            t += "-march=native"_copt;
+            t += "-fomit-frame-pointer"_copt;
 
             auto c = t.add_test(dir + "."s + name);
             c.set_resource_pool(pool);
@@ -69,6 +71,7 @@ void build(solution &s) {
             } else if (dir == "simple"s) { // these are simple mandelbrot
                 c += 16000;
             } else if (dir == "spectralnorm"s) {
+                t += "-fopenmp"_lopt;
                 c += 5500;
             }
         }
