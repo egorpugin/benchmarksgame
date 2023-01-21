@@ -68,6 +68,7 @@ void build(solution &s) {
                 c += 10000;
             } else if (dir == "regexredux"s) {
                 if (!t.is<os::windows>()) {
+                    t += "-lpcre"_lopt;
                     t += "-lpcre2-8"_lopt;
                 }
             } else if (dir == "revcomp"s) {
